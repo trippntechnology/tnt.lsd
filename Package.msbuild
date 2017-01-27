@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="package" ToolsVersion="4.0">
+	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+
+	<PropertyGroup>
+
+		<InnoSetup>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</InnoSetup>
+		<InnoSetupScriptFolder>INNOInstaller</InnoSetupScriptFolder>
+		<InnoSetupScript>$(InnoSetupScriptFolder)\LSDInstaller.iss</InnoSetupScript>
+		<ApplicationPath>LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe</ApplicationPath>
+		<ApplicationID>5FD3560A-0EFD-4E48-9DF9-C4FA3F44BA15</ApplicationID>
+		<SetupPath>$(InnoSetupScriptFolder)\Output\</SetupPath>
+
+	</PropertyGroup>
+
+	<Target Name="update">
+		<!--<SvnUpdate LocalPath="$(MSBuildProjectDirectory)" Username="Steve" Password="Kylie1994" />-->
+		<SvnUpdate LocalPath="$(MSBuildProjectDirectory)"/>
+	</Target>
+
+	<Target Name="clean">
+		<MSBuild Projects="LandscapeSprinklerDesigner.sln" Targets="Clean" />
+	</Target>
+
+	<Target Name="build">
+
+		<MSBuild Projects="LandscapeSprinklerDesigner.sln" Targets="Rebuild"/>
+
+	</Target>
+
+	<Target Name="CreateInstaller">
+
+		<!--<Exec Command="cd $(InnoSetupScriptFolder)"/>-->
+		<Exec Command='"$(InnoSetup)" $(InnoSetupScript)'/>
+
+	</Target>
+
+	<Target Name="Deploy" DependsOnTargets="package">
+		<GetAssemblyIdentity AssemblyFiles="$(ApplicationPath)">
+			<Output TaskParameter="Assemblies" ItemName="AssemblyInfo"/>
+		</GetAssemblyIdentity>
+		<Exec Command="ApplicationDeployer.exe /ap $(SetupPath)\lsdsetup_%(AssemblyInfo.Version).exe /id $(ApplicationID) /p Ds!g313qVfy9fB /s"/>
+	</Target>
+
+	<Target Name="package" DependsOnTargets="update;clean;build;CreateInstaller">
+
+	</Target>
+
+</Project>
