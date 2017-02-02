@@ -14,6 +14,8 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -67,6 +69,10 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net45\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,6 +91,13 @@
     <Reference Include="TNT.Utilities, Version=16.6.25.1738, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.16.6.25.1738\lib\net45\TNT.Utilities.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="TNT.Web, Version=17.2.1.2058, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Web.17.2.1.2058\lib\net45\TNT.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TNT.Web.LSD.Models">
+      <HintPath>..\..\..\Web\LSD\trunk\TNT.Web.LSD.Models\bin\Debug\TNT.Web.LSD.Models.dll</HintPath>
     </Reference>
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -248,14 +261,6 @@
       <Project>{268D5252-8BCD-450F-A365-626C39DC07F8}</Project>
       <Name>Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Externals\TNT.Web.LSD.Models\TNT.Web.LSD.Models.csproj">
-      <Project>{67669a84-074a-45dc-b41c-bd637b4c77fe}</Project>
-      <Name>TNT.Web.LSD.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Externals\TNT.Web\TNT.Web.csproj">
-      <Project>{b676a47d-e976-4ea7-87a8-100715c05555}</Project>
-      <Name>TNT.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
       <Project>{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}</Project>
       <Name>TNT.LSD.Inventory</Name>
@@ -281,10 +286,16 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\Externals\TNT.MSBuild.Targets\AssemblyInfo.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(SolutionDir)Database\Inventory.sqlite $(TargetDir)
 mkdir $(TargetDir)\Transforms
 copy $(SolutionDir)LandscapeSprinklerDesigner\Transforms\*.* $(TargetDir)\Transforms\</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.104.0\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
 </Project>

@@ -116,5 +116,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\Externals\TNT.MSBuild.Targets\AssemblyInfo.targets" />
 </Project>

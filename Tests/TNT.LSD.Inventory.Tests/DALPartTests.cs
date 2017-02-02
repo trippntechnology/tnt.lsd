@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,10 +6,10 @@ using System.Data.SQLite;
 
 namespace TNT.LSD.Inventory.Tests
 {
-	[TestFixture]
+	[TestClass]
 	public class DALPartTests
 	{
-		[Test]
+		[TestMethod]
 		public void GetPartsFromCodesTests()
 		{
 			List<string> codes = new List<string>();
@@ -37,7 +37,7 @@ namespace TNT.LSD.Inventory.Tests
 			Assert.AreEqual("QUAD. MANIFOLD", part.ExternalPart.Description);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GetPartsTests()
 		{
 			int currentRecordCount = GetPartsCount();
@@ -51,7 +51,7 @@ namespace TNT.LSD.Inventory.Tests
 			}
 		}
 
-		[Test]
+		[TestMethod]
 		public void GetDescriptionsTest()
 		{
 			string[] codes = { "NI050X12;HUPROS00", "NI050X24;HUPROS00", "RA1804" };

@@ -149,5 +149,4 @@
     <None Include="Properties\DataSources\TNT.LSD.Plugins.Support.StringList.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\Externals\TNT.MSBuild.Targets\AssemblyInfo.targets" />
 </Project>
