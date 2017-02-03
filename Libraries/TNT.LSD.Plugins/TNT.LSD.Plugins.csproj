@@ -140,9 +140,6 @@
     <EmbeddedResource Include="Images\pdf.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TNT.Utilities.XML" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\TNT.LSD.Inventory.CodedParts.datasource" />
     <None Include="Properties\DataSources\TNT.LSD.Inventory.Parts.datasource" />
