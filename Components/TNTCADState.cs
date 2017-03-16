@@ -77,8 +77,6 @@ namespace LSDComponents
 
 		#region Layout
 
-		public bool DrawGrid { get { return Settings.DrawGrid; } }
-
 		[XmlIgnore()]
 		public int GridColorAlphaValue { get { return Settings.GridColorAlphaValue; } set { Settings.GridColorAlphaValue = value; } }
 

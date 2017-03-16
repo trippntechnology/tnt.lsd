@@ -371,6 +371,14 @@ namespace LandscapeSprinklerDesigner
 			cmd.Add(LayoutButton);
 			cmd.Add(LayoutMenu);
 			cmd.CheckOnClick = true;
+
+			cmd = m_CommandManager.Create("ShowGrid", (c) =>
+			{
+				CAD.DrawGrid = c.Checked;
+			});
+			cmd.Add(ShowGridButton);
+			cmd.Add(ShowGridMenu);
+			cmd.CheckOnClick = true;
 		}
 
 		private void LoadPlugins()

@@ -64,6 +64,8 @@ namespace LSDComponents
 
 		protected bool _DrawBackground = false;
 
+		protected bool _DrawGrid = false;
+
 		#endregion
 
 		#region Properties
@@ -303,9 +305,19 @@ namespace LSDComponents
 			}
 		}
 
+		public bool DrawGrid
+		{
+			get { return _DrawGrid; }
+			set
+			{
+				_DrawGrid = value;
+				DrawLayers(0);
+			}
+		}
+
 		#endregion
 
-			#region Events
+		#region Events
 
 		public event ObjectsSelectedDelegate OnObjectsSelected;
 		public event PartsUpdatedDelegate OnPartsUpdated;
@@ -493,7 +505,7 @@ namespace LSDComponents
 
 			#region Draw the grid
 
-			if (State.DrawGrid)
+			if (DrawGrid)
 			{
 				int adjWidth = (int)(Width * 1.0 / scale);
 				int adjHeight = (int)(Height * 1.0 / scale);
