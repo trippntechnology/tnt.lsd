@@ -363,6 +363,14 @@ namespace LandscapeSprinklerDesigner
 					c.Enabled = lateralParts.Count > 0;
 				});
 			cmd.Add(ButtonSumGPM);
+
+			cmd = m_CommandManager.Create("Background", (c) =>
+			{
+				CAD.DrawBackground = c.Checked;
+			});
+			cmd.Add(LayoutButton);
+			cmd.Add(LayoutMenu);
+			cmd.CheckOnClick = true;
 		}
 
 		private void LoadPlugins()

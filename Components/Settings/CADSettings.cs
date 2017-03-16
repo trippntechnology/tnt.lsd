@@ -22,7 +22,6 @@ namespace LSDComponents.Settings
 		protected Color m_GridColor;
 		protected int m_GridColorAlphaValue;
 		protected bool m_ShowLegend;
-		protected bool m_ShowBackgroundImage;
 
 		[Browsable(false)]
 		[XmlIgnore()]
@@ -31,23 +30,6 @@ namespace LSDComponents.Settings
 		virtual protected List<List<TNTObject>> Layers { get { return CAD.State.ObjectLayers; } }
 
 		#region Layout
-
-		[Category("Layout")]
-		[DisplayName("Show Background Image")]
-		[Description("Show/Hide the background image")]
-		virtual public bool ShowBackgroundImage
-		{
-
-			get
-			{
-				return m_ShowBackgroundImage;
-			}
-			set
-			{
-				m_ShowBackgroundImage = value;
-				DrawLayers(0);
-			}
-		}
 
 		[Category("Layout")]
 		[DisplayName("Draw Units")]

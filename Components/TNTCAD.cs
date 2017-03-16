@@ -62,6 +62,8 @@ namespace LSDComponents
 
 		protected SaveFileDialog m_SaveFileDialog = new SaveFileDialog() { DefaultExt = "lsdx", Filter = "Landscape Sprinkler Design files|*.lsdx|Landscape Sprinkler Design files|*.lsd", Title = "Save Layout" };
 
+		protected bool _DrawBackground = false;
+
 		#endregion
 
 		#region Properties
@@ -291,9 +293,19 @@ namespace LSDComponents
 			}
 		}
 
+		public bool DrawBackground
+		{
+			get { return _DrawBackground; }
+			set
+			{
+				_DrawBackground = value;
+				DrawLayers(0);
+			}
+		}
+
 		#endregion
 
-		#region Events
+			#region Events
 
 		public event ObjectsSelectedDelegate OnObjectsSelected;
 		public event PartsUpdatedDelegate OnPartsUpdated;
@@ -471,7 +483,7 @@ namespace LSDComponents
 			// Clear the canvas
 			graphicsGrid.FillRectangle(new SolidBrush(Color.White), rect);
 
-			if (State.BackgroundImage != null && State.ShowBackgroundImage)
+			if (State.BackgroundImage != null && this.DrawBackground)
 			{
 				graphicsGrid.DrawImage(State.BackgroundImage, rect);
 			}

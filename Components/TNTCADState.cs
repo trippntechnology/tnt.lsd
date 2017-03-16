@@ -77,8 +77,6 @@ namespace LSDComponents
 
 		#region Layout
 
-		public bool ShowBackgroundImage { get { return Settings.ShowBackgroundImage; } set { Settings.ShowBackgroundImage = value; } }
-
 		public bool DrawGrid { get { return Settings.DrawGrid; } }
 
 		[XmlIgnore()]
