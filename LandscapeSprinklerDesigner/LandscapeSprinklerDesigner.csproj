@@ -85,8 +85,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TNT.Plugin.1.2.50.1019\lib\net35\TNT.Plugin.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Utilities, Version=17.3.11.2015, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Utilities.17.3.11.2015\lib\net45\TNT.Utilities.dll</HintPath>
+    <Reference Include="TNT.Plugin.Manager, Version=17.4.11.1838, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Plugin.Manager.17.4.11.1838\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Web, Version=17.2.1.2058, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Web.17.2.1.2058\lib\net45\TNT.Web.dll</HintPath>

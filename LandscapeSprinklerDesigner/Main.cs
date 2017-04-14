@@ -130,7 +130,21 @@ namespace LandscapeSprinklerDesigner
 
 			CAD.OnFileNameChanged += FileNameChanged;
 
+			var manager = new TNT.Plugin.Manager.Manager(Controls, pluginOnClickHandler, StatusBarHintChanged);
+			manager.Register(@"C:\Users\stripp\repos\csharp\LSD\trunk\Plugins\TNT.LSD.Colorizer\bin\Debug");
+
 			LoadPlugins();
+		}
+
+		private void pluginOnClickHandler(object sender, EventArgs e)
+		{
+			ToolStripItem tsi = sender as ToolStripItem;
+			TNT.Plugin.Manager.Plugin p = tsi.Tag as TNT.Plugin.Manager.Plugin;
+
+			//ApplicationData data = new ApplicationData("This is the name field in the app data");
+			p.Execute(this, new ApplicationData(CAD), true);
+
+			CAD.Repaint(0);
 		}
 
 		private void InitializeCommandManager()

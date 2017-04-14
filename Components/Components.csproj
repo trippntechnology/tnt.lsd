@@ -101,12 +101,15 @@
     <Reference Include="TNT.Math">
       <HintPath>..\packages\TNT.Math.1.0.2248.2248\lib\net35\TNT.Math.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Utilities, Version=16.6.25.1738, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Utilities.16.6.25.1738\lib\net45\TNT.Utilities.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="TNT.Plugin.Manager, Version=17.4.11.1838, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Plugin.Manager.17.4.11.1838\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationData.cs" />
     <Compile Include="DrawingModes\LateralPipeMode.cs" />
     <Compile Include="DrawingModes\MainlinePipeMode.cs" />
     <Compile Include="DrawingModes\PipeMode.cs" />
