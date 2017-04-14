@@ -61,7 +61,6 @@
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
 			this.tableLayoutPanel.Size = new System.Drawing.Size(717, 320);
 			this.tableLayoutPanel.TabIndex = 0;
-			this.tableLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel_Paint);
 			// 
 			// logoPictureBox
 			// 

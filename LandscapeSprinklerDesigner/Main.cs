@@ -131,7 +131,8 @@ namespace LandscapeSprinklerDesigner
 			CAD.OnFileNameChanged += FileNameChanged;
 
 			var manager = new TNT.Plugin.Manager.Manager(Controls, pluginOnClickHandler, StatusBarHintChanged);
-			manager.Register(@"C:\Users\stripp\repos\csharp\LSD\trunk\Plugins\TNT.LSD.Colorizer\bin\Debug");
+
+			manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
 
 			LoadPlugins();
 		}

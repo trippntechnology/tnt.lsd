@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using TNT.Utilities;
-using System.IO;
 
 namespace LandscapeSprinklerDesigner
 {
@@ -16,11 +12,8 @@ namespace LandscapeSprinklerDesigner
 		{
 			InitializeComponent();
 			this.Text = String.Format("About {0}", AssemblyTitle);
-			//this.labelProductName.Text = AssemblyProduct;
 			this.VersionLabel.Text = String.Format("Version {0}", AssemblyVersion);
 			this.CopyrightLabel.Text = AssemblyCopyright;
-			//this.labelCompanyName.Text = AssemblyCompany;
-			//this.textBoxDescription.Text = AssemblyDescription;
 		}
 
 		#region Assembly Attribute Accessors
@@ -34,41 +27,35 @@ namespace LandscapeSprinklerDesigner
 
 		#endregion
 
-		private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
 		private void AboutBox_Load(object sender, EventArgs e)
 		{
-			string[] files = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath), "*.dll");
+			string[] files = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath), "*.dll", SearchOption.AllDirectories);
 			Assembly asm = null;
 
 			foreach (string file in files)
 			{
-				asm = Assembly.LoadFile(file);
+				try
+				{
+					asm = Assembly.LoadFile(file);
 
-				ListViewItem item = listView1.Items.Add(Path.GetFileName(file));
+					ListViewItem item = listView1.Items.Add(Path.GetFileName(file));
 
-				AssemblyFileVersionAttribute fileVersionAttr = Utilities.GetAssemblyAttribute<AssemblyFileVersionAttribute>(asm);
-				if (fileVersionAttr != null)
-				{
-					item.SubItems.Add(fileVersionAttr != null ? fileVersionAttr.Version : asm.GetName().Version.ToString());
-				}
-				else
-				{
-					item.SubItems.Add(string.Empty);
-				}
+					if (asm != null)
+					{
+						item.SubItems.Add(asm.GetName().Version.ToString());
 
-				AssemblyCopyrightAttribute assCopyAttr = Utilities.GetAssemblyAttribute<AssemblyCopyrightAttribute>(asm);
-				if (assCopyAttr != null)
-				{
-					item.SubItems.Add(assCopyAttr.Copyright);
+						AssemblyCopyrightAttribute assCopyAttr = Utilities.GetAssemblyAttribute<AssemblyCopyrightAttribute>(asm);
+						if (assCopyAttr != null)
+						{
+							item.SubItems.Add(assCopyAttr.Copyright);
+						}
+						else
+						{
+							item.SubItems.Add(string.Empty);
+						}
+					}
 				}
-				else
-				{
-					item.SubItems.Add(string.Empty);
-				}
+				catch { }
 			}
 		}
 	}
