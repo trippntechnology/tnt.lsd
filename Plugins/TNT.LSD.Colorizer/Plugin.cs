@@ -24,7 +24,7 @@ namespace TNT.LSD.Colorizer
 
 		public override string EmbeddedResource => "TNT.LSD.Colorizer.Images.paintbrush.png";
 
-		public override void Execute(System.Windows.Forms.IWin32Window owner, IApplicationData content)
+		public override void Execute(System.Windows.Forms.IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{
 			ApplicationData appData = content as ApplicationData;
 

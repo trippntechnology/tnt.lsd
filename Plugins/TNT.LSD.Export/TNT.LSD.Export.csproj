@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{46919031-1E21-434A-9C44-CF5735E01976}</ProjectGuid>
+    <ProjectGuid>{4CD3A053-3028-446F-A94F-9877FB11ADA2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TNT.LSD.Colorizer</RootNamespace>
-    <AssemblyName>TNT.LSD.Colorizer</AssemblyName>
+    <RootNamespace>TNT.LSD.Export</RootNamespace>
+    <AssemblyName>TNT.LSD.Export</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -51,39 +51,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugin.cs" />
-    <Compile Include="ValveColorizer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ValveColorizer.Designer.cs">
-      <DependentUpon>ValveColorizer.cs</DependentUpon>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\jpg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\png.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\paintbrush.png" />
-    <EmbeddedResource Include="ValveColorizer.resx">
-      <DependentUpon>ValveColorizer.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Components\Components.csproj">
       <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
       <Name>Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
-      <Project>{d4b61895-b09b-4419-8e7e-baffe837bcf3}</Project>
-      <Name>TNT.LSD.Objects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -93,4 +80,7 @@
     <Error Condition="!Exists('..\..\packages\TNT.AssemblyInfo.1.1.0\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\TNT.AssemblyInfo.1.1.0\build\TNT.AssemblyInfo.targets'))" />
   </Target>
   <Import Project="..\..\packages\TNT.AssemblyInfo.1.1.0\build\TNT.AssemblyInfo.targets" Condition="Exists('..\..\packages\TNT.AssemblyInfo.1.1.0\build\TNT.AssemblyInfo.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins</PostBuildEvent>
+  </PropertyGroup>
 </Project>
