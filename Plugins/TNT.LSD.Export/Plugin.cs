@@ -7,9 +7,16 @@ namespace TNT.LSD.Export
 {
 	public class Plugin : TNT.Plugin.Manager.Plugin
 	{
+		private string JPGMenuText = "Export as JPG";
+		private string JPGToolTipText = "Export design as JPG image";
+		private string JPGImageResource = "TNT.LSD.Export.Images.jpg.png";
+		private string PNGMenuText = "Export as PNG";
+		private string PNGToolTipText = "Export design as PNG image";
+		private string PNGImageResource = "TNT.LSD.Export.Images.png.png";
+
 		public override string MenuStripName => "MenuStrip1";
 
-		public override string ToolStripName => string.Empty;
+		public override string ToolStripName => "ToolStrip1";
 
 		public override string Text => "Export";
 
@@ -23,13 +30,14 @@ namespace TNT.LSD.Export
 
 			if (appData!= null && appData.TNTCAD != null)
 			{
-				if (sender.Text == "Export as JPG")
+				if (sender.Text == JPGMenuText)
 				{
 					using (SaveFileDialog sfd = new SaveFileDialog())
 					{
-						sfd.Title = "Export as JPG";
+						sfd.Title = JPGMenuText;
 						sfd.Filter = "JPEG|*.jpg";
 						sfd.DefaultExt = "jpg";
+						sfd.FileName = $"{appData.TNTCAD.Settings.ToString()}.jpg";
 
 						if (sfd.ShowDialog(owner) == DialogResult.OK)
 						{
@@ -37,13 +45,14 @@ namespace TNT.LSD.Export
 						}
 					}
 				}
-				else if (sender.Text == "Export as PNG")
+				else if (sender.Text == PNGMenuText)
 				{
 					using (SaveFileDialog sfd = new SaveFileDialog())
 					{
-						sfd.Title = "Export as PNG";
+						sfd.Title = PNGMenuText;
 						sfd.Filter = "PNG|*.png";
 						sfd.DefaultExt = "png";
+						sfd.FileName = $"{appData.TNTCAD.Settings.ToString()}.png";
 
 						if (sfd.ShowDialog(owner) == DialogResult.OK)
 						{
@@ -65,8 +74,8 @@ namespace TNT.LSD.Export
 			ToolStripMenuItem exportMenu = (ToolStripMenuItem)CreateToolStripItem<ToolStripMenuItem>();
 			fileMenu.DropDownItems.Add(exportMenu);
 
-			ToolStripItem item = new ToolStripMenuItem("Export as JPG", GetImage("TNT.LSD.Export.Images.jpg.png"));
-			item.ToolTipText = "Export design as JPG image";
+			ToolStripItem item = new ToolStripMenuItem(JPGMenuText, GetImage(JPGImageResource));
+			item.ToolTipText = JPGToolTipText;
 			item.Tag = this;
 			item.MouseEnter += Item_MouseEnter;
 			item.MouseLeave += Item_MouseLeave;
@@ -74,8 +83,8 @@ namespace TNT.LSD.Export
 			_ToolStripItems.Add(item);
 			exportMenu.DropDownItems.Add(item);
 
-			item = new ToolStripMenuItem("Export as PNG", GetImage("TNT.LSD.Export.Images.png.png"));
-			item.ToolTipText = "Export design as PNG image";
+			item = new ToolStripMenuItem(PNGMenuText, GetImage(PNGImageResource));
+			item.ToolTipText = PNGToolTipText;
 			item.Tag = this;
 			item.MouseEnter += Item_MouseEnter;
 			item.MouseLeave += Item_MouseLeave;
@@ -93,7 +102,13 @@ namespace TNT.LSD.Export
 
 		public override ToolStrip GetToolStrip()
 		{
-			return null;
+			ToolStrip toolStrip = new ToolStrip();
+
+			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, JPGImageResource, JPGToolTipText);
+			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			toolStrip.Items.Add(toolStripButton);
+
+			return toolStrip;
 		}
 	}
 }

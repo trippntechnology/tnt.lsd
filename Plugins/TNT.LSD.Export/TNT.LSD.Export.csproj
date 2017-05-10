@@ -42,8 +42,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNT.Plugin.Manager, Version=17.4.21.1529, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Plugin.Manager.17.4.21.1529\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    <Reference Include="TNT.Plugin.Manager, Version=17.5.9.1816, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Plugin.Manager.17.5.9.1816\lib\net45\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
