@@ -28,22 +28,22 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin3 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
-			WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin3 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
-			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient7 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient15 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin dockPaneStripSkin3 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin();
-			WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient dockPaneStripGradient3 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient16 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient8 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient17 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient dockPaneStripToolWindowGradient3 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient18 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient19 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient9 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient20 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient21 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+			WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin2 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
+			WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin2 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
+			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient4 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient8 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+			WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin dockPaneStripSkin2 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin();
+			WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient dockPaneStripGradient2 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient9 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient5 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient10 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+			WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient dockPaneStripToolWindowGradient2 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient11 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient12 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient6 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient13 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient14 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
 			this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.NewMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +77,7 @@
 			this.ShowDistancesMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.ViewPluginPlaceHolder = new System.Windows.Forms.ToolStripSeparator();
 			this.LayoutMenu = new System.Windows.Forms.ToolStripMenuItem();
+			this.ShowGridMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.SnapToGridMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.AutoSizeMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,17 +128,6 @@
 			this.tbScale = new System.Windows.Forms.TrackBar();
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
 			this.DockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-			this.ToolStrip3 = new System.Windows.Forms.ToolStrip();
-			this.PropertiesButton = new System.Windows.Forms.ToolStripButton();
-			this.PartsListButton = new System.Windows.Forms.ToolStripButton();
-			this.PaletteTreeButton = new System.Windows.Forms.ToolStripButton();
-			this.LayoutSettingsButton = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-			this.ShowDistancesButton = new System.Windows.Forms.ToolStripButton();
-			this.LabelHeadsButton = new System.Windows.Forms.ToolStripButton();
-			this.CoverageButton = new System.Windows.Forms.ToolStripButton();
-			this.PartsToolTipButton = new System.Windows.Forms.ToolStripButton();
-			this.LayoutButton = new System.Windows.Forms.ToolStripButton();
 			this.ToolStrip2 = new System.Windows.Forms.ToolStrip();
 			this.AutoSizeButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -151,8 +141,18 @@
 			this.AreaButton = new System.Windows.Forms.ToolStripButton();
 			this.LengthButton = new System.Windows.Forms.ToolStripButton();
 			this.ButtonSumGPM = new System.Windows.Forms.ToolStripButton();
+			this.ToolStrip3 = new System.Windows.Forms.ToolStrip();
+			this.PropertiesButton = new System.Windows.Forms.ToolStripButton();
+			this.PartsListButton = new System.Windows.Forms.ToolStripButton();
+			this.PaletteTreeButton = new System.Windows.Forms.ToolStripButton();
+			this.LayoutSettingsButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+			this.ShowDistancesButton = new System.Windows.Forms.ToolStripButton();
+			this.LabelHeadsButton = new System.Windows.Forms.ToolStripButton();
+			this.CoverageButton = new System.Windows.Forms.ToolStripButton();
+			this.PartsToolTipButton = new System.Windows.Forms.ToolStripButton();
+			this.LayoutButton = new System.Windows.Forms.ToolStripButton();
 			this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
-			this.ShowGridMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuStrip1.SuspendLayout();
 			this.ToolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -160,8 +160,8 @@
 			this.toolStripContainer1.ContentPanel.SuspendLayout();
 			this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
 			this.toolStripContainer1.SuspendLayout();
-			this.ToolStrip3.SuspendLayout();
 			this.ToolStrip2.SuspendLayout();
+			this.ToolStrip3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MenuStrip1
@@ -442,6 +442,14 @@
 			this.LayoutMenu.Size = new System.Drawing.Size(199, 22);
 			this.LayoutMenu.Text = "Layout";
 			this.LayoutMenu.ToolTipText = "Show/Hide Layout Image";
+			// 
+			// ShowGridMenu
+			// 
+			this.ShowGridMenu.Image = ((System.Drawing.Image)(resources.GetObject("ShowGridMenu.Image")));
+			this.ShowGridMenu.Name = "ShowGridMenu";
+			this.ShowGridMenu.Size = new System.Drawing.Size(199, 22);
+			this.ShowGridMenu.Text = "Grid";
+			this.ShowGridMenu.ToolTipText = "Show/Hide Grid";
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -738,6 +746,7 @@
 			// 
 			this.openFileDialog.DefaultExt = "lsd";
 			this.openFileDialog.Filter = "Landscape Sprinkler Design files|*.lsd;*.lsdx";
+			this.openFileDialog.RestoreDirectory = true;
 			this.openFileDialog.Title = "Open Layout";
 			// 
 			// statusStrip1
@@ -886,171 +895,53 @@
 			this.DockPanel.Name = "DockPanel";
 			this.DockPanel.RightToLeftLayout = true;
 			this.DockPanel.Size = new System.Drawing.Size(985, 548);
-			dockPanelGradient7.EndColor = System.Drawing.SystemColors.ControlLight;
-			dockPanelGradient7.StartColor = System.Drawing.SystemColors.ControlLight;
-			autoHideStripSkin3.DockStripGradient = dockPanelGradient7;
-			tabGradient15.EndColor = System.Drawing.SystemColors.Control;
-			tabGradient15.StartColor = System.Drawing.SystemColors.Control;
-			tabGradient15.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-			autoHideStripSkin3.TabGradient = tabGradient15;
-			autoHideStripSkin3.TextFont = new System.Drawing.Font("Segoe UI", 9F);
-			dockPanelSkin3.AutoHideStripSkin = autoHideStripSkin3;
-			tabGradient16.EndColor = System.Drawing.SystemColors.ControlLightLight;
-			tabGradient16.StartColor = System.Drawing.SystemColors.ControlLightLight;
-			tabGradient16.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripGradient3.ActiveTabGradient = tabGradient16;
-			dockPanelGradient8.EndColor = System.Drawing.SystemColors.Control;
-			dockPanelGradient8.StartColor = System.Drawing.SystemColors.Control;
-			dockPaneStripGradient3.DockStripGradient = dockPanelGradient8;
-			tabGradient17.EndColor = System.Drawing.SystemColors.ControlLight;
-			tabGradient17.StartColor = System.Drawing.SystemColors.ControlLight;
-			tabGradient17.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripGradient3.InactiveTabGradient = tabGradient17;
-			dockPaneStripSkin3.DocumentGradient = dockPaneStripGradient3;
-			dockPaneStripSkin3.TextFont = new System.Drawing.Font("Segoe UI", 9F);
-			tabGradient18.EndColor = System.Drawing.SystemColors.ActiveCaption;
-			tabGradient18.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-			tabGradient18.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
-			tabGradient18.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
-			dockPaneStripToolWindowGradient3.ActiveCaptionGradient = tabGradient18;
-			tabGradient19.EndColor = System.Drawing.SystemColors.Control;
-			tabGradient19.StartColor = System.Drawing.SystemColors.Control;
-			tabGradient19.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripToolWindowGradient3.ActiveTabGradient = tabGradient19;
-			dockPanelGradient9.EndColor = System.Drawing.SystemColors.ControlLight;
-			dockPanelGradient9.StartColor = System.Drawing.SystemColors.ControlLight;
-			dockPaneStripToolWindowGradient3.DockStripGradient = dockPanelGradient9;
-			tabGradient20.EndColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			tabGradient20.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-			tabGradient20.StartColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			tabGradient20.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripToolWindowGradient3.InactiveCaptionGradient = tabGradient20;
-			tabGradient21.EndColor = System.Drawing.Color.Transparent;
-			tabGradient21.StartColor = System.Drawing.Color.Transparent;
-			tabGradient21.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-			dockPaneStripToolWindowGradient3.InactiveTabGradient = tabGradient21;
-			dockPaneStripSkin3.ToolWindowGradient = dockPaneStripToolWindowGradient3;
-			dockPanelSkin3.DockPaneStripSkin = dockPaneStripSkin3;
-			this.DockPanel.Skin = dockPanelSkin3;
+			dockPanelGradient4.EndColor = System.Drawing.SystemColors.ControlLight;
+			dockPanelGradient4.StartColor = System.Drawing.SystemColors.ControlLight;
+			autoHideStripSkin2.DockStripGradient = dockPanelGradient4;
+			tabGradient8.EndColor = System.Drawing.SystemColors.Control;
+			tabGradient8.StartColor = System.Drawing.SystemColors.Control;
+			tabGradient8.TextColor = System.Drawing.SystemColors.ControlDarkDark;
+			autoHideStripSkin2.TabGradient = tabGradient8;
+			autoHideStripSkin2.TextFont = new System.Drawing.Font("Segoe UI", 9F);
+			dockPanelSkin2.AutoHideStripSkin = autoHideStripSkin2;
+			tabGradient9.EndColor = System.Drawing.SystemColors.ControlLightLight;
+			tabGradient9.StartColor = System.Drawing.SystemColors.ControlLightLight;
+			tabGradient9.TextColor = System.Drawing.SystemColors.ControlText;
+			dockPaneStripGradient2.ActiveTabGradient = tabGradient9;
+			dockPanelGradient5.EndColor = System.Drawing.SystemColors.Control;
+			dockPanelGradient5.StartColor = System.Drawing.SystemColors.Control;
+			dockPaneStripGradient2.DockStripGradient = dockPanelGradient5;
+			tabGradient10.EndColor = System.Drawing.SystemColors.ControlLight;
+			tabGradient10.StartColor = System.Drawing.SystemColors.ControlLight;
+			tabGradient10.TextColor = System.Drawing.SystemColors.ControlText;
+			dockPaneStripGradient2.InactiveTabGradient = tabGradient10;
+			dockPaneStripSkin2.DocumentGradient = dockPaneStripGradient2;
+			dockPaneStripSkin2.TextFont = new System.Drawing.Font("Segoe UI", 9F);
+			tabGradient11.EndColor = System.Drawing.SystemColors.ActiveCaption;
+			tabGradient11.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+			tabGradient11.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
+			tabGradient11.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+			dockPaneStripToolWindowGradient2.ActiveCaptionGradient = tabGradient11;
+			tabGradient12.EndColor = System.Drawing.SystemColors.Control;
+			tabGradient12.StartColor = System.Drawing.SystemColors.Control;
+			tabGradient12.TextColor = System.Drawing.SystemColors.ControlText;
+			dockPaneStripToolWindowGradient2.ActiveTabGradient = tabGradient12;
+			dockPanelGradient6.EndColor = System.Drawing.SystemColors.ControlLight;
+			dockPanelGradient6.StartColor = System.Drawing.SystemColors.ControlLight;
+			dockPaneStripToolWindowGradient2.DockStripGradient = dockPanelGradient6;
+			tabGradient13.EndColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			tabGradient13.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+			tabGradient13.StartColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			tabGradient13.TextColor = System.Drawing.SystemColors.ControlText;
+			dockPaneStripToolWindowGradient2.InactiveCaptionGradient = tabGradient13;
+			tabGradient14.EndColor = System.Drawing.Color.Transparent;
+			tabGradient14.StartColor = System.Drawing.Color.Transparent;
+			tabGradient14.TextColor = System.Drawing.SystemColors.ControlDarkDark;
+			dockPaneStripToolWindowGradient2.InactiveTabGradient = tabGradient14;
+			dockPaneStripSkin2.ToolWindowGradient = dockPaneStripToolWindowGradient2;
+			dockPanelSkin2.DockPaneStripSkin = dockPaneStripSkin2;
+			this.DockPanel.Skin = dockPanelSkin2;
 			this.DockPanel.TabIndex = 1;
-			// 
-			// ToolStrip3
-			// 
-			this.ToolStrip3.Dock = System.Windows.Forms.DockStyle.None;
-			this.ToolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PropertiesButton,
-            this.PartsListButton,
-            this.PaletteTreeButton,
-            this.LayoutSettingsButton,
-            this.toolStripSeparator13,
-            this.ShowDistancesButton,
-            this.LabelHeadsButton,
-            this.CoverageButton,
-            this.PartsToolTipButton,
-            this.LayoutButton,
-            this.ShowGridButton});
-			this.ToolStrip3.Location = new System.Drawing.Point(486, 0);
-			this.ToolStrip3.Name = "ToolStrip3";
-			this.ToolStrip3.Size = new System.Drawing.Size(248, 25);
-			this.ToolStrip3.TabIndex = 7;
-			// 
-			// PropertiesButton
-			// 
-			this.PropertiesButton.CheckOnClick = true;
-			this.PropertiesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PropertiesButton.Image = ((System.Drawing.Image)(resources.GetObject("PropertiesButton.Image")));
-			this.PropertiesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PropertiesButton.Name = "PropertiesButton";
-			this.PropertiesButton.Size = new System.Drawing.Size(23, 22);
-			this.PropertiesButton.Text = "toolStripButton1";
-			// 
-			// PartsListButton
-			// 
-			this.PartsListButton.CheckOnClick = true;
-			this.PartsListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PartsListButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsListButton.Image")));
-			this.PartsListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PartsListButton.Name = "PartsListButton";
-			this.PartsListButton.Size = new System.Drawing.Size(23, 22);
-			this.PartsListButton.Text = "toolStripButton1";
-			// 
-			// PaletteTreeButton
-			// 
-			this.PaletteTreeButton.CheckOnClick = true;
-			this.PaletteTreeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PaletteTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("PaletteTreeButton.Image")));
-			this.PaletteTreeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PaletteTreeButton.Name = "PaletteTreeButton";
-			this.PaletteTreeButton.Size = new System.Drawing.Size(23, 22);
-			this.PaletteTreeButton.Text = "toolStripButton1";
-			// 
-			// LayoutSettingsButton
-			// 
-			this.LayoutSettingsButton.CheckOnClick = true;
-			this.LayoutSettingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LayoutSettingsButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutSettingsButton.Image")));
-			this.LayoutSettingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LayoutSettingsButton.Name = "LayoutSettingsButton";
-			this.LayoutSettingsButton.Size = new System.Drawing.Size(23, 22);
-			this.LayoutSettingsButton.Text = "toolStripButton1";
-			// 
-			// toolStripSeparator13
-			// 
-			this.toolStripSeparator13.Name = "toolStripSeparator13";
-			this.toolStripSeparator13.Size = new System.Drawing.Size(6, 25);
-			// 
-			// ShowDistancesButton
-			// 
-			this.ShowDistancesButton.CheckOnClick = true;
-			this.ShowDistancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.ShowDistancesButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowDistancesButton.Image")));
-			this.ShowDistancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.ShowDistancesButton.Name = "ShowDistancesButton";
-			this.ShowDistancesButton.Size = new System.Drawing.Size(23, 22);
-			this.ShowDistancesButton.Text = "Always Show &Distances";
-			this.ShowDistancesButton.ToolTipText = "Shows measurements even when the object isn\'t selected";
-			// 
-			// LabelHeadsButton
-			// 
-			this.LabelHeadsButton.CheckOnClick = true;
-			this.LabelHeadsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LabelHeadsButton.Image = ((System.Drawing.Image)(resources.GetObject("LabelHeadsButton.Image")));
-			this.LabelHeadsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LabelHeadsButton.Name = "LabelHeadsButton";
-			this.LabelHeadsButton.Size = new System.Drawing.Size(23, 22);
-			this.LabelHeadsButton.Text = "&Label Heads";
-			this.LabelHeadsButton.ToolTipText = "Labels the heads with their coverage";
-			// 
-			// CoverageButton
-			// 
-			this.CoverageButton.CheckOnClick = true;
-			this.CoverageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.CoverageButton.Image = ((System.Drawing.Image)(resources.GetObject("CoverageButton.Image")));
-			this.CoverageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.CoverageButton.Name = "CoverageButton";
-			this.CoverageButton.Size = new System.Drawing.Size(23, 22);
-			this.CoverageButton.Text = "&Coverage";
-			this.CoverageButton.ToolTipText = "Shows the sprinkler coverage";
-			// 
-			// PartsToolTipButton
-			// 
-			this.PartsToolTipButton.CheckOnClick = true;
-			this.PartsToolTipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PartsToolTipButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsToolTipButton.Image")));
-			this.PartsToolTipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PartsToolTipButton.Name = "PartsToolTipButton";
-			this.PartsToolTipButton.Size = new System.Drawing.Size(23, 22);
-			this.PartsToolTipButton.Text = "Part &Tooltip";
-			this.PartsToolTipButton.ToolTipText = "Show the parts that represent the image";
-			// 
-			// LayoutButton
-			// 
-			this.LayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LayoutButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutButton.Image")));
-			this.LayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LayoutButton.Name = "LayoutButton";
-			this.LayoutButton.Size = new System.Drawing.Size(23, 22);
-			this.LayoutButton.Text = "toolStripButton1";
 			// 
 			// ToolStrip2
 			// 
@@ -1184,6 +1075,124 @@
 			this.ButtonSumGPM.Size = new System.Drawing.Size(23, 22);
 			this.ButtonSumGPM.Text = "Sum the GPM of selected lateral parts";
 			// 
+			// ToolStrip3
+			// 
+			this.ToolStrip3.Dock = System.Windows.Forms.DockStyle.None;
+			this.ToolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PropertiesButton,
+            this.PartsListButton,
+            this.PaletteTreeButton,
+            this.LayoutSettingsButton,
+            this.toolStripSeparator13,
+            this.ShowDistancesButton,
+            this.LabelHeadsButton,
+            this.CoverageButton,
+            this.PartsToolTipButton,
+            this.LayoutButton,
+            this.ShowGridButton});
+			this.ToolStrip3.Location = new System.Drawing.Point(486, 0);
+			this.ToolStrip3.Name = "ToolStrip3";
+			this.ToolStrip3.Size = new System.Drawing.Size(248, 25);
+			this.ToolStrip3.TabIndex = 7;
+			// 
+			// PropertiesButton
+			// 
+			this.PropertiesButton.CheckOnClick = true;
+			this.PropertiesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PropertiesButton.Image = ((System.Drawing.Image)(resources.GetObject("PropertiesButton.Image")));
+			this.PropertiesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PropertiesButton.Name = "PropertiesButton";
+			this.PropertiesButton.Size = new System.Drawing.Size(23, 22);
+			this.PropertiesButton.Text = "toolStripButton1";
+			// 
+			// PartsListButton
+			// 
+			this.PartsListButton.CheckOnClick = true;
+			this.PartsListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PartsListButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsListButton.Image")));
+			this.PartsListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PartsListButton.Name = "PartsListButton";
+			this.PartsListButton.Size = new System.Drawing.Size(23, 22);
+			this.PartsListButton.Text = "toolStripButton1";
+			// 
+			// PaletteTreeButton
+			// 
+			this.PaletteTreeButton.CheckOnClick = true;
+			this.PaletteTreeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PaletteTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("PaletteTreeButton.Image")));
+			this.PaletteTreeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PaletteTreeButton.Name = "PaletteTreeButton";
+			this.PaletteTreeButton.Size = new System.Drawing.Size(23, 22);
+			this.PaletteTreeButton.Text = "toolStripButton1";
+			// 
+			// LayoutSettingsButton
+			// 
+			this.LayoutSettingsButton.CheckOnClick = true;
+			this.LayoutSettingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LayoutSettingsButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutSettingsButton.Image")));
+			this.LayoutSettingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LayoutSettingsButton.Name = "LayoutSettingsButton";
+			this.LayoutSettingsButton.Size = new System.Drawing.Size(23, 22);
+			this.LayoutSettingsButton.Text = "toolStripButton1";
+			// 
+			// toolStripSeparator13
+			// 
+			this.toolStripSeparator13.Name = "toolStripSeparator13";
+			this.toolStripSeparator13.Size = new System.Drawing.Size(6, 25);
+			// 
+			// ShowDistancesButton
+			// 
+			this.ShowDistancesButton.CheckOnClick = true;
+			this.ShowDistancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ShowDistancesButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowDistancesButton.Image")));
+			this.ShowDistancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ShowDistancesButton.Name = "ShowDistancesButton";
+			this.ShowDistancesButton.Size = new System.Drawing.Size(23, 22);
+			this.ShowDistancesButton.Text = "Always Show &Distances";
+			this.ShowDistancesButton.ToolTipText = "Shows measurements even when the object isn\'t selected";
+			// 
+			// LabelHeadsButton
+			// 
+			this.LabelHeadsButton.CheckOnClick = true;
+			this.LabelHeadsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LabelHeadsButton.Image = ((System.Drawing.Image)(resources.GetObject("LabelHeadsButton.Image")));
+			this.LabelHeadsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LabelHeadsButton.Name = "LabelHeadsButton";
+			this.LabelHeadsButton.Size = new System.Drawing.Size(23, 22);
+			this.LabelHeadsButton.Text = "&Label Heads";
+			this.LabelHeadsButton.ToolTipText = "Labels the heads with their coverage";
+			// 
+			// CoverageButton
+			// 
+			this.CoverageButton.CheckOnClick = true;
+			this.CoverageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.CoverageButton.Image = ((System.Drawing.Image)(resources.GetObject("CoverageButton.Image")));
+			this.CoverageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.CoverageButton.Name = "CoverageButton";
+			this.CoverageButton.Size = new System.Drawing.Size(23, 22);
+			this.CoverageButton.Text = "&Coverage";
+			this.CoverageButton.ToolTipText = "Shows the sprinkler coverage";
+			// 
+			// PartsToolTipButton
+			// 
+			this.PartsToolTipButton.CheckOnClick = true;
+			this.PartsToolTipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PartsToolTipButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsToolTipButton.Image")));
+			this.PartsToolTipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PartsToolTipButton.Name = "PartsToolTipButton";
+			this.PartsToolTipButton.Size = new System.Drawing.Size(23, 22);
+			this.PartsToolTipButton.Text = "Part &Tooltip";
+			this.PartsToolTipButton.ToolTipText = "Show the parts that represent the image";
+			// 
+			// LayoutButton
+			// 
+			this.LayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LayoutButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutButton.Image")));
+			this.LayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LayoutButton.Name = "LayoutButton";
+			this.LayoutButton.Size = new System.Drawing.Size(23, 22);
+			this.LayoutButton.Text = "toolStripButton1";
+			// 
 			// ShowGridButton
 			// 
 			this.ShowGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1192,14 +1201,6 @@
 			this.ShowGridButton.Name = "ShowGridButton";
 			this.ShowGridButton.Size = new System.Drawing.Size(23, 22);
 			this.ShowGridButton.Text = "toolStripButton1";
-			// 
-			// ShowGridMenu
-			// 
-			this.ShowGridMenu.Image = ((System.Drawing.Image)(resources.GetObject("ShowGridMenu.Image")));
-			this.ShowGridMenu.Name = "ShowGridMenu";
-			this.ShowGridMenu.Size = new System.Drawing.Size(199, 22);
-			this.ShowGridMenu.Text = "Grid";
-			this.ShowGridMenu.ToolTipText = "Show/Hide Grid";
 			// 
 			// Main
 			// 
@@ -1228,10 +1229,10 @@
 			this.toolStripContainer1.TopToolStripPanel.PerformLayout();
 			this.toolStripContainer1.ResumeLayout(false);
 			this.toolStripContainer1.PerformLayout();
-			this.ToolStrip3.ResumeLayout(false);
-			this.ToolStrip3.PerformLayout();
 			this.ToolStrip2.ResumeLayout(false);
 			this.ToolStrip2.PerformLayout();
+			this.ToolStrip3.ResumeLayout(false);
+			this.ToolStrip3.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

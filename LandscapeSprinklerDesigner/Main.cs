@@ -672,9 +672,12 @@ namespace LandscapeSprinklerDesigner
 
 		private void Open_Click(Command cmd)
 		{
+			openFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
+
 			if (HandleUnsavedChanges() && openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				LoadLayout(openFileDialog.FileName);
+				m_ApplicationRegistry.WriteString("InitialDirectory", Path.GetDirectoryName(openFileDialog.FileName));
 			}
 		}
 

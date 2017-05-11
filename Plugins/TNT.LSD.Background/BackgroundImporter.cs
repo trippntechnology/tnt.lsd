@@ -3,11 +3,16 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using LSDComponents;
+using TNT.Utilities;
+using Microsoft.Win32;
+using System.IO;
 
 namespace TNT.LSD.Background
 {
 	public partial class BackgroundImporter : Form
 	{
+		protected ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "BackgroundPlugin");
+
 		public BackgroundImporter()
 		{
 			InitializeComponent();
@@ -32,6 +37,8 @@ namespace TNT.LSD.Background
 
 		private void FindFileButton_Click(object sender, EventArgs e)
 		{
+			FindFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
+
 			if (FindFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				Regex regex = new Regex("_(?<pixels_per_foot>[0-9]*.[0-9]*)");
@@ -43,6 +50,8 @@ namespace TNT.LSD.Background
 				{
 					PixelPerFootTextBox.Text = match.Groups["pixels_per_foot"].ToString();
 				}
+
+				m_ApplicationRegistry.WriteString("InitialDirectory", Path.GetDirectoryName(FindFileDialog.FileName));
 			}
 		}
 
