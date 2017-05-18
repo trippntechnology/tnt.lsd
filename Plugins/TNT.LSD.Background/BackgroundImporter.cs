@@ -22,6 +22,7 @@ namespace TNT.LSD.Background
 
 		public DialogResult ShowDialog(IWin32Window owner, TNTCADState state)
 		{
+			FindFileButton_Click(null, null);
 			DialogResult result = base.ShowDialog(owner);
 
 			if (result == System.Windows.Forms.DialogResult.OK)
