@@ -147,6 +147,7 @@ namespace TNT.LSD.Objects
 		[Category("Layout")]
 		[DisplayName("Draw Grid")]
 		[Description("Indicates whether the grid lines should be drawn.")]
+		[ReadOnly(true)]
 		virtual public bool DrawGrid { get; set; }
 
 		[Category("Layout")]
