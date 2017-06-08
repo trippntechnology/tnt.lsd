@@ -18,6 +18,7 @@ namespace LSDComponents.Settings
 		protected int m_HeightInFeet;
 		protected int m_WidthInFeet;
 		protected bool m_DrawUnits;
+		protected bool m_DrawGrid;
 		protected Color m_GridColor;
 		protected int m_GridColorAlphaValue;
 		protected bool m_ShowLegend;
@@ -39,6 +40,20 @@ namespace LSDComponents.Settings
 			set
 			{
 				m_DrawUnits = value;
+				DrawLayers(0);
+			}
+		}
+
+		[Category("Layout")]
+		[DisplayName("Draw Grid")]
+		[Description("Indicates whether the grid lines should be drawn.")]
+		[ReadOnly(true)]
+		virtual public bool DrawGrid
+		{
+			get { return m_DrawGrid; }
+			set
+			{
+				m_DrawGrid = value;
 				DrawLayers(0);
 			}
 		}

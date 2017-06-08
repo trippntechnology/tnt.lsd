@@ -389,7 +389,7 @@ namespace LandscapeSprinklerDesigner
 
 			cmd = m_CommandManager.Create("ShowGrid", (c) =>
 			{
-				CAD.DrawGrid = c.Checked;
+				CAD.Settings.DrawGrid = c.Checked;
 			});
 			cmd.Add(ShowGridButton);
 			cmd.Add(ShowGridMenu);
@@ -614,6 +614,7 @@ namespace LandscapeSprinklerDesigner
 
 			CAD.Open(fileName);
 			m_LayoutSettingsForm.Settings = CAD.Settings;
+			m_CommandManager["ShowGrid"].Checked = CAD.Settings.DrawGrid;
 		}
 
 		private void About_Click(object sender, EventArgs e)
@@ -700,6 +701,7 @@ namespace LandscapeSprinklerDesigner
 				}
 
 				m_LayoutSettingsForm.Settings = CAD.Settings;
+				CAD.Settings.DrawGrid = m_CommandManager["ShowGrid"].Checked;
 				CAD.Refresh();
 			}
 		}
