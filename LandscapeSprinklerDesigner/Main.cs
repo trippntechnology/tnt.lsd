@@ -143,7 +143,7 @@ namespace LandscapeSprinklerDesigner
 			TNT.Plugin.Manager.Plugin p = tsi.Tag as TNT.Plugin.Manager.Plugin;
 
 			//ApplicationData data = new ApplicationData("This is the name field in the app data");
-			p.Execute(this, sender as ToolStripItem, new ApplicationData(CAD), true);
+			p.Execute(this, sender as ToolStripItem, new ApplicationData(CAD, this.DockPanel), true);
 
 			CAD.Repaint(0);
 		}
