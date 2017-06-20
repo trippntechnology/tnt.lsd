@@ -35,6 +35,7 @@
 			// PropertyEditor
 			// 
 			this.PropertyEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PropertyEditor.LineColor = System.Drawing.SystemColors.InactiveBorder;
 			this.PropertyEditor.Location = new System.Drawing.Point(0, 0);
 			this.PropertyEditor.Name = "PropertyEditor";
 			this.PropertyEditor.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
@@ -49,8 +50,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
 			this.Controls.Add(this.PropertyEditor);
-			this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft)
-									| WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight)));
+			this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "PropertyForm";
 			this.Text = "Properties Editor";

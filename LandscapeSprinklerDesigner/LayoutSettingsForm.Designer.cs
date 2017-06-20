@@ -35,6 +35,7 @@
 			// SettingsEditor
 			// 
 			this.SettingsEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.SettingsEditor.LineColor = System.Drawing.SystemColors.InactiveBorder;
 			this.SettingsEditor.Location = new System.Drawing.Point(0, 0);
 			this.SettingsEditor.Name = "SettingsEditor";
 			this.SettingsEditor.PropertySort = System.Windows.Forms.PropertySort.Categorized;
