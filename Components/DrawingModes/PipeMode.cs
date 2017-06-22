@@ -129,6 +129,15 @@ namespace LSDComponents.DrawingModes
 						// Get Part2 (the fitting)
 						Fitting fitting = m_PipeSegment.Part2 as Fitting;
 
+						// Find all parts that are along the pipe path
+						List<TNTObject> partsAlongPath = cad.ActiveObjects.FindAll(o =>
+						{
+							return o is LateralPart && o != objUnderMouse && o != part1 && m_PipeSegment.MouseOver(o.ControlPoints.First().Position, new Keys()) == m_PipeSegment;
+						});
+
+						// Order closest to farthest from part1
+						partsAlongPath = (from cp in partsAlongPath orderby (cp as TNTPart).Position.Distance(part1.Position) select cp).ToList();
+
 						// This is done to restore the parts to the previous state so that an uaModify event can be created
 						m_PipeSegment.RemovePartsPipeRelationship();
 
@@ -140,14 +149,14 @@ namespace LSDComponents.DrawingModes
 						{
 							#region Connect to part
 
-							TNTPart part2 = objUnderMouse as TNTPart;
+							part1 = AddPartsToPath(cad, part1, partsAlongPath);
 
-							m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, part2, cad.ActiveObjects));
+							m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, objUnderMouse, cad.ActiveObjects));
 							m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaDelete, m_PipeSegment, cad.ActiveObjects));
 
 							m_PipeSegment.Selected = false;
 
-							m_PipeSegment.CreatePartsPipeRelationship(part1, part2);
+							m_PipeSegment.CreatePartsPipeRelationship(part1, objUnderMouse as TNTPart);
 
 							if (objUnderMouse.TerminatePipe())
 							{
@@ -160,7 +169,7 @@ namespace LSDComponents.DrawingModes
 
 								m_PipeSegment.Selected = true;
 
-								m_PipeSegment.CreatePartsPipeRelationship(part2, fitting);
+								m_PipeSegment.CreatePartsPipeRelationship(objUnderMouse as TNTPart, fitting);
 
 								cad.ActiveObjects.Add(m_PipeSegment);
 							}
@@ -174,6 +183,8 @@ namespace LSDComponents.DrawingModes
 							Pipe pipe = objUnderMouse as Pipe;
 							TNTPart pipePart1 = pipe.Part1;
 							TNTPart pipePart2 = pipe.Part2;
+
+							part1 = AddPartsToPath(cad, part1, partsAlongPath);
 
 							m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, pipe, cad.ActiveObjects));
 							m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, pipePart1, cad.ActiveObjects));
@@ -215,10 +226,22 @@ namespace LSDComponents.DrawingModes
 					// Get Part2 (the fitting)
 					Fitting fitting = m_PipeSegment.Part2 as Fitting;
 
+					// Find all parts that are along the pipe path
+					List<TNTObject> partsAlongPath = cad.ActiveObjects.FindAll(o =>
+					{
+						return o is LateralPart && o != objUnderMouse && o != part1 && m_PipeSegment.MouseOver(o.ControlPoints.First().Position, new Keys()) == m_PipeSegment;
+					});
+
+					// Order closest to farthest from part1
+					partsAlongPath = (from cp in partsAlongPath orderby (cp as TNTPart).Position.Distance(part1.Position) select cp).ToList();
+
 					// This is done to restore the parts to the previous state so that an uaModify event can be created
 					m_PipeSegment.RemovePartsPipeRelationship();
 
 					m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, part1, cad.ActiveObjects));
+
+					part1 = AddPartsToPath(cad, part1, partsAlongPath);
+
 					m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaDelete, m_PipeSegment, cad.ActiveObjects));
 
 					m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaDelete, fitting, cad.ActiveObjects));
@@ -250,6 +273,27 @@ namespace LSDComponents.DrawingModes
 			UndoEnabled = m_PipeSegment == null;
 
 			cad.DrawLayers(2);
+		}
+
+		private TNTPart AddPartsToPath(TNTCAD cad, TNTPart part1, List<TNTObject> partsAlongPath)
+		{
+			// Add all the parts along the path
+			foreach (LateralPart part2 in partsAlongPath)
+			{
+				m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, part2, cad.ActiveObjects));
+				m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaDelete, m_PipeSegment, cad.ActiveObjects));
+
+				m_PipeSegment.Selected = false;
+				m_PipeSegment.CreatePartsPipeRelationship(part1, part2);
+
+				m_PipeSegment = new T();
+				m_PipeSegment.Assign(DefaultObject);
+				cad.ActiveObjects.Add(m_PipeSegment);
+
+				part1 = part2;
+			}
+
+			return part1;
 		}
 
 		public override void OnMouseDoubleClick(TNTCAD cad, System.Windows.Forms.MouseEventArgs e)
