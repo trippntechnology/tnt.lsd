@@ -51,7 +51,12 @@ namespace LSDComponents.DrawingModes
 				canAddPipe = objUnderMouse.CanAddPipe(typeof(T), out reason);
 			}
 
-			if (m_PipeSegment != null && objUnderMouse != null && canAddPipe)
+			if (m_PipeSegment !=null && objUnderMouse != null && m_PipeSegment.Part1 == objUnderMouse)
+			{
+				cad.Cursor = NoPipeCursor;
+				cad.Text = "Cannot connect head to itself";
+			}
+			else if (m_PipeSegment != null && objUnderMouse != null && canAddPipe)
 			{
 				cad.Cursor = PipeCursor;
 				cad.Text = "Left click to connect pipe segment. Right click to remove current pipe segment.";
