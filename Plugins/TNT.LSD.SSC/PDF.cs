@@ -1,14 +1,11 @@
 ﻿using LSDComponents;
-using LSDComponents.Settings;
 using System.IO;
 using System.Windows.Forms;
-using TNT.LSD.PDFGenerator;
 using TNT.Plugin.Manager;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace TNT.LSD.SSC
 {
-	public class PDF : TNT.Plugin.Manager.Plugin
+	public class PDF : Plugin
 	{
 		public override string MenuStripName => "MenuStrip1";
 
@@ -44,35 +41,7 @@ namespace TNT.LSD.SSC
 
 				if (sfd.ShowDialog() == DialogResult.OK)
 				{
-					// Unselect all objects so that they are included in the drawn image for the PDF
-					cad.UnselectAll();
-					cad.Repaint();
-
-					int previousScale = cad.DisplayScale;
-					cad.DisplayScale = 100;
-
-					Content pdfContent = new Content()
-					{
-						Design = cad.Design,
-						DynamicProperties = cad.Settings,
-						Parts = cad.GetPartsList()
-					};
-
-					SSCSettings sscSettings = cad.Settings as SSCSettings;
-
-					if (sscSettings != null)
-					{
-						pdfContent.Comments = sscSettings.Comment;
-						pdfContent.DesignNumber = sscSettings.Number;
-						pdfContent.OwnerName = sscSettings.Name;
-					}
-
-					(new PDFGenerator.SSCPDFGenerator()).Generate(sfd.FileName, pdfContent);
-
-					cad.DisplayScale = previousScale;
-
-					PDFForm pdfForm = new PDFForm();
-					pdfForm.Show(sfd.FileName, appData.DockPanel, DockState.Document);
+					GeneratePDF(appData, cad, sfd.FileName);
 				}
 			}
 		}
