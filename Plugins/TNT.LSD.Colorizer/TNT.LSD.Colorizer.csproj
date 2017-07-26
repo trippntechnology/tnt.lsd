@@ -31,7 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
+	<PropertyGroup>
+		<AssemblyInfo_Title>Valve Colorizer</AssemblyInfo_Title>
+	</PropertyGroup>
+	<ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
