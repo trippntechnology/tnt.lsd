@@ -36,7 +36,7 @@ namespace TNT.LSD.Objects
 		#endregion
 
 		#endregion
-		
+
 		#region Constructors
 
 		public LateralPart(Point position, String fileName)
@@ -69,15 +69,15 @@ namespace TNT.LSD.Objects
 		/// <returns>True if pipe type can be added, false otherwise</returns>
 		public override bool CanAddPipe(Type pipeType, out string reason)
 		{
-			base.CanAddPipe(pipeType, out reason);
+			bool result = base.CanAddPipe(pipeType, out reason);
 
-			if (pipeType != typeof(LateralPipe))
+			if (result && pipeType != typeof(LateralPipe))
 			{
 				reason = "Part can only be connected using lateral line pipe";
-				return false;
+				result = false;
 			}
 
-			return true;
+			return result;
 		}
 
 		public override double SizePipe(Pipe upstreamPipe)
