@@ -32,7 +32,7 @@ namespace TNT.LSD.Inventory.Tests
 
 			Assert.IsNotNull(part);
 			Assert.AreEqual("AF18004", part.Code);
-			Assert.AreEqual("4\" QUAD. MANIFOLD", part.Description);
+			Assert.AreEqual("1\" QUAD. MANIFOLD", part.Description);
 			Assert.AreEqual("AF-18004", part.ExternalPart.Code);
 			Assert.AreEqual("QUAD. MANIFOLD", part.ExternalPart.Description);
 		}
