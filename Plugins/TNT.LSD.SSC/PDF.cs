@@ -81,26 +81,17 @@ namespace TNT.LSD.SSC
 		{
 			MenuStrip menuStrip = new MenuStrip();
 			ToolStripMenuItem fileMenu = new ToolStripMenuItem("&File");
-
-			// Causes the Menu item in this menu strip to match the merging menu strip
 			fileMenu.MergeAction = MergeAction.MatchOnly;
 
 			ToolStripMenuItem exportMenu = new ToolStripMenuItem("Export");
 			exportMenu.MergeAction = MergeAction.MatchOnly;
 
 			fileMenu.DropDownItems.Add(exportMenu);
-			//menu.DropDownItems.Add(new ToolStripSeparator());
 
 			ToolStripMenuItem tsmi = (ToolStripMenuItem)CreateToolStripItem<ToolStripMenuItem>();
-			tsmi.MergeAction = MergeAction.Insert;
-			tsmi.MergeIndex = 6;
 
 			exportMenu.DropDownItems.Add(tsmi);
-			//var appMS = (ToolStrip)_Controls.Find(plugin.MenuStripName, true).FirstOrDefault();
 
-
-
-			//fileMenu.DropDownItems.Add(tsmi);
 			menuStrip.Items.Add(fileMenu);
 
 			return menuStrip;
