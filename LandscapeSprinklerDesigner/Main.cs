@@ -12,7 +12,6 @@ using System.Threading;
 using System.Windows.Forms;
 using TNT.Configuration;
 using TNT.LSD.Objects;
-using TNT.LSD.Plugins;
 using TNT.Plugin;
 using TNT.Utilities;
 using TNT.Utilities.CommandManagement;
@@ -133,8 +132,6 @@ namespace LandscapeSprinklerDesigner
 			var manager = new TNT.Plugin.Manager.Manager(Controls, pluginOnClickHandler, StatusBarHintChanged);
 
 			manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
-
-			LoadPlugins();
 		}
 
 		private void pluginOnClickHandler(object sender, EventArgs e)
@@ -394,31 +391,6 @@ namespace LandscapeSprinklerDesigner
 			cmd.Add(ShowGridButton);
 			cmd.Add(ShowGridMenu);
 			cmd.CheckOnClick = true;
-		}
-
-		private void LoadPlugins()
-		{
-			try
-			{
-				List<Plugin> plugins = XmlSection<List<Plugin>>.Deserialize("PluginSection");
-
-				foreach (Plugin plugin in plugins)
-				{
-					if (plugin != null)
-					{
-						plugin.Merge(Controls);
-
-						Command cmd = m_CommandManager.Create(plugin.Text, Plugin_Click);
-						cmd.Tag = plugin;
-						cmd.Add(plugin.Button);
-						cmd.Add(plugin.MenuItem);
-					}
-				}
-			}
-			catch (ConfigurationErrorsException cee)
-			{
-				MessageBox.Show(cee.Message, "Error loading plugins", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
 		}
 
 		private void Main_Load(object sender, EventArgs e)
@@ -703,34 +675,6 @@ namespace LandscapeSprinklerDesigner
 				m_LayoutSettingsForm.Settings = CAD.Settings;
 				CAD.Settings.DrawGrid = m_CommandManager["ShowGrid"].Checked;
 				CAD.Refresh();
-			}
-		}
-
-		private void Plugin_Click(Command cmd)
-		{
-			Plugin plugin = cmd.Tag as Plugin;
-
-			if (plugin != null)
-			{
-				if (plugin.Text == "Export PDF" && m_PDFForm != null)
-				{
-					// Close the previous hold on a PDF file just in case the same filename will be used
-					m_PDFForm.Dispose();
-					m_PDFForm = null;
-					Thread.Sleep(1000);
-				}
-
-				PluginResult result = plugin.Execute(this, CAD, IsAuthorized) as PluginResult;
-
-				if (result is PDFPluginResult)
-				{
-					PDFPluginResult pdfResult = result as PDFPluginResult;
-
-					m_PDFForm = new PDFForm();
-					m_PDFForm.Show(pdfResult.FileName, DockPanel, DockState.Document);
-				}
-
-				CAD.Repaint(0);
 			}
 		}
 
