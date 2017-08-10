@@ -2,6 +2,8 @@
 using System.IO;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
+using System;
+using System.Drawing;
 
 namespace TNT.LSD.SSC
 {
@@ -15,7 +17,7 @@ namespace TNT.LSD.SSC
 
 		public override string ToolTipText => "Generate PDF for SSC";
 
-		public override string EmbeddedResource => "TNT.LSD.SSC.Images.pdf-ssc-icon.png";
+		public override Image Image => base.GetImage("TNT.LSD.SSC.Images.pdf-ssc-icon.png");
 
 		public override void Execute(System.Windows.Forms.IWin32Window owner, System.Windows.Forms.ToolStripItem sender, IApplicationData content)
 		{

@@ -103,8 +103,8 @@
     <Reference Include="TNT.Math">
       <HintPath>..\packages\TNT.Math.1.0.2248.2248\lib\net35\TNT.Math.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Plugin.Manager, Version=17.5.9.1816, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Plugin.Manager.17.5.9.1816\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using TNT.LSD.Objects;
 using TNT.Plugin.Manager;
 using TNT.Utilities;
+using System;
 
 namespace TNT.LSD.Colorizer
 {
@@ -22,7 +23,10 @@ namespace TNT.LSD.Colorizer
 
 		public override string ToolTipText => "Apply color to each valve in the design";
 
-		public override string EmbeddedResource => "TNT.LSD.Colorizer.Images.paintbrush.png";
+		public override Image Image
+		{
+			get { return base.GetImage("TNT.LSD.Colorizer.Images.paintbrush.png"); }
+		}
 
 		public override void Execute(System.Windows.Forms.IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{

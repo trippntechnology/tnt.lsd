@@ -2,6 +2,8 @@
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
+using System;
+using System.Drawing;
 
 namespace TNT.LSD.Export
 {
@@ -22,13 +24,13 @@ namespace TNT.LSD.Export
 
 		public override string ToolTipText => string.Empty;
 
-		public override string EmbeddedResource => string.Empty;
+		public override Image Image => null;
 
 		public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{
 			ApplicationData appData = content as ApplicationData;
 
-			if (appData!= null && appData.TNTCAD != null)
+			if (appData != null && appData.TNTCAD != null)
 			{
 				if (sender.Text == JPGMenuText)
 				{
@@ -104,7 +106,7 @@ namespace TNT.LSD.Export
 		{
 			ToolStrip toolStrip = new ToolStrip();
 
-			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, JPGImageResource, JPGToolTipText);
+			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, GetImage(JPGImageResource), JPGToolTipText);
 			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 			toolStrip.Items.Add(toolStripButton);
 

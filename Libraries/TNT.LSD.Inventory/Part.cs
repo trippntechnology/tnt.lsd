@@ -8,7 +8,7 @@ namespace TNT.LSD.Inventory
 	public class Part
 	{
 		#region Properties
-		
+
 		/// <summary>
 		/// Part's Code
 		/// </summary>
@@ -49,6 +49,7 @@ namespace TNT.LSD.Inventory
 		{
 			Code = obj.Code;
 			Description = obj.Description;
+			Quantity = obj.Quantity;
 
 			if (obj.ExternalPart != null)
 			{
@@ -61,5 +62,14 @@ namespace TNT.LSD.Inventory
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Returns the code and description
+		/// </summary>
+		/// <returns>Code and description</returns>
+		public override string ToString()
+		{
+			return string.Concat(this.Code, ": ", this.Description);
+		}
 	}
 }

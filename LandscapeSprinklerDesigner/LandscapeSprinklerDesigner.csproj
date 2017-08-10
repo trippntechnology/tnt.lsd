@@ -85,8 +85,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TNT.Plugin.1.2.50.1019\lib\net35\TNT.Plugin.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Plugin.Manager, Version=17.5.9.1816, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Plugin.Manager.17.5.9.1816\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
@@ -271,10 +271,6 @@
     <ProjectReference Include="..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj">
       <Project>{961D2654-5B63-4867-92A3-934A16324F66}</Project>
       <Name>TNT.LSD.PDFGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Plugins\TNT.LSD.Plugins.csproj">
-      <Project>{356C8868-4F21-48C7-957D-834977C1D58E}</Project>
-      <Name>TNT.LSD.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,8 @@ using System.IO;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
 using WeifenLuo.WinFormsUI.Docking;
+using System;
+using System.Drawing;
 
 namespace TNT.LSD.SSC
 {
@@ -17,7 +19,7 @@ namespace TNT.LSD.SSC
 
 		public override string ToolTipText => "Create a package for SSC";
 
-		public override string EmbeddedResource => "TNT.LSD.SSC.Images.package.png";
+		public override Image Image => base.GetImage("TNT.LSD.SSC.Images.package.png");
 
 		public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{

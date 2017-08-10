@@ -1,6 +1,8 @@
 ﻿using LSDComponents;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
+using System;
+using System.Drawing;
 
 namespace TNT.LSD.Background
 {
@@ -21,7 +23,10 @@ namespace TNT.LSD.Background
 
 		public override string ToolTipText => string.Empty;
 
-		public override string EmbeddedResource => string.Empty;
+		public override Image Image
+		{
+			get { return base.GetImage(ImportResourceImage); }
+		}
 
 		public override void Execute(System.Windows.Forms.IWin32Window owner, System.Windows.Forms.ToolStripItem sender, IApplicationData content)
 		{
@@ -90,7 +95,7 @@ namespace TNT.LSD.Background
 		{
 			ToolStrip toolStrip = new ToolStrip();
 
-			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(ImportMenuText, ImportResourceImage, ImportMenuToolTip);
+			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(ImportMenuText, base.GetImage(ImportResourceImage), ImportMenuToolTip);
 			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 			toolStrip.Items.Add(toolStripButton);
 
