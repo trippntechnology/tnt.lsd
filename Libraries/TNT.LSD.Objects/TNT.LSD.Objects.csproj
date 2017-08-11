@@ -99,9 +99,8 @@
     <Reference Include="TNT.Math">
       <HintPath>..\..\packages\TNT.Math.1.0.2248.2248\lib\net35\TNT.Math.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Utilities, Version=1.3.379.644, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\TNT.Utilities.1.3.379.644\lib\net45\TNT.Utilities.dll</HintPath>
+    <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
