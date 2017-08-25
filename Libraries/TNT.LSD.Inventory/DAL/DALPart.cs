@@ -107,6 +107,7 @@ namespace TNT.LSD.Inventory.DAL
 					sql.AppendLine("SELECT ii.InternalID Code, ii.Description, ei.ExternalID ExternalCode, ei.Description ExternalDescription");
 					sql.AppendLine("  FROM InternalInventory ii");
 					sql.AppendLine("    LEFT JOIN ExternalInventory ei ON ii.InternalID = ei.InternalID");
+					sql.AppendLine("    Order by ii.InternalID");
 
 					cmd.CommandText = sql.ToString();
 
