@@ -98,9 +98,8 @@
     <Reference Include="TNT.Web.LSD.Models">
       <HintPath>..\..\..\Web\LSD\trunk\TNT.Web.LSD.Models\bin\Debug\TNT.Web.LSD.Models.dll</HintPath>
     </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DockPanelSuite.2.9.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.3.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +116,7 @@
       <DependentUpon>DockableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Comparer\ListViewColumnSorter.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="LayoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +243,7 @@
     </None>
     <None Include="lsd.palette">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -265,7 +266,7 @@
       <Name>TNT.LSD.Inventory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
-      <Project>{D4B61895-B09B-4419-8E7E-BAFFE837BCF3}</Project>
+      <Project>{d4b61895-b09b-4419-8e7e-baffe837bcf3}</Project>
       <Name>TNT.LSD.Objects</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj">
@@ -275,7 +276,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LandscapeSprinklerDesigner.ico" />
-    <Content Include="license.txt" />
     <Content Include="TNT.Configuration.XML" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>
