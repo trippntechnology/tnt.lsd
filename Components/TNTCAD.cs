@@ -1,6 +1,5 @@
 ﻿using Ionic.Zip;
 using LSDComponents.Settings;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,7 +60,7 @@ namespace LSDComponents
 
 		protected TNT.LSD.Objects.TypeConverters.PipeSizeList m_PipeSizeList = new TNT.LSD.Objects.TypeConverters.PipeSizeList();
 
-		protected SaveFileDialog m_SaveFileDialog = new SaveFileDialog() { DefaultExt = "lsdx", Filter = "Landscape Sprinkler Design files|*.lsdx|Landscape Sprinkler Design files|*.lsd", Title = "Save Layout", RestoreDirectory = true };
+		protected SaveFileDialog m_SaveFileDialog = new SaveFileDialog() { DefaultExt = "lsdx", Filter = "Landscape Sprinkler Design files|*.lsdx|Landscape Sprinkler Design files|*.lsd", Title = "Save Layout" };
 
 		protected bool _DrawBackground = false;
 
@@ -1196,7 +1195,7 @@ namespace LSDComponents
 			// Add static parts
 			foreach (Part part in State.StaticParts)
 			{
-				if (part != null && inventoryParts.ContainsKey(part.Code))
+				if (inventoryParts.ContainsKey(part.Code))
 				{
 					inventoryParts[part.Code].Quantity += part.Quantity;
 				}
@@ -1251,9 +1250,6 @@ namespace LSDComponents
 		public bool Save(bool showSaveFileDialog)
 		{
 			bool wasSaved = false;
-			ApplicationRegistry appRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "TNTCAD");
-
-			m_SaveFileDialog.InitialDirectory = appRegistry.ReadString("InitialDirectory", string.Empty);
 
 			if (!string.IsNullOrEmpty(CurrentFileName))
 			{
@@ -1274,7 +1270,6 @@ namespace LSDComponents
 				if ((showSaveFileDialog || string.IsNullOrEmpty(CurrentFileName)) && m_SaveFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					CurrentFileName = m_SaveFileDialog.FileName;
-					appRegistry.WriteString("InitialDirectory", Path.GetDirectoryName(m_SaveFileDialog.FileName));
 				}
 
 				if (!string.IsNullOrEmpty(CurrentFileName))
