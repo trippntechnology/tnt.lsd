@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
-using LSDComponents.DrawingModes;
-using WeifenLuo.WinFormsUI.Docking;
+﻿using LSDComponents.DrawingModes;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using TNT.LSD.Objects;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner
 {
@@ -17,14 +19,14 @@ namespace LandscapeSprinklerDesigner
 
 		#region Properties
 
-		public PropertyForm PropertyForm 
+		public PropertyForm PropertyForm
 		{
 			get { return m_PropertyForm; }
-			set 
+			set
 			{
 				m_PropertyForm = value;
-				m_PropertyForm.OnPropertyEditorChanged += new PropertyEditorChangedDelegate(OnPropertyEditorChanged); 
-			} 
+				m_PropertyForm.OnPropertyEditorChanged += new PropertyEditorChangedDelegate(OnPropertyEditorChanged);
+			}
 		}
 
 		public LayoutSettingsForm LayoutSettingsForm
@@ -95,6 +97,12 @@ namespace LandscapeSprinklerDesigner
 		{
 			// Only allow context menu to show when SelectMode is being used.
 			e.Cancel = !(CAD.DrawingMode is SelectMode || CAD.DrawingMode is ImageMode);
+
+			if (!e.Cancel)
+			{
+				var objects = (from o in CAD.SelectedObjects where o is PalettePart select o as object).ToList();
+				CADContextMenu.AddProperties(objects, CAD);
+			}
 		}
 
 		private void tntPanel1_Scroll(object sender, ScrollEventArgs e)
