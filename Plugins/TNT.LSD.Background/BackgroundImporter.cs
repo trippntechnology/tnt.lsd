@@ -22,15 +22,22 @@ namespace TNT.LSD.Background
 
 		public DialogResult ShowDialog(IWin32Window owner, TNTCADState state)
 		{
-			FindFileButton_Click(null, null);
-			DialogResult result = base.ShowDialog(owner);
+			MyEventArgs mea = new MyEventArgs();
 
-			if (result == System.Windows.Forms.DialogResult.OK)
+			DialogResult result = DialogResult.OK;
+			FindFileButton_Click(null, mea);
+
+			if (mea.DialogResult == DialogResult.OK)
 			{
-				double pixelsPerFoot = Convert.ToDouble(PixelPerFootTextBox.Text);
-				state.BackgroundImage = new Bitmap(FileNameTextBox.Text);
-				state.WidthInFeet = (int)(state.BackgroundImage.Width / pixelsPerFoot);
-				state.HeightInFeet = (int)(state.BackgroundImage.Height / pixelsPerFoot);
+				result = base.ShowDialog(owner);
+
+				if (result == System.Windows.Forms.DialogResult.OK)
+				{
+					double pixelsPerFoot = Convert.ToDouble(PixelPerFootTextBox.Text);
+					state.BackgroundImage = new Bitmap(FileNameTextBox.Text);
+					state.WidthInFeet = (int)(state.BackgroundImage.Width / pixelsPerFoot);
+					state.HeightInFeet = (int)(state.BackgroundImage.Height / pixelsPerFoot);
+				}
 			}
 
 			return result;
@@ -38,9 +45,11 @@ namespace TNT.LSD.Background
 
 		private void FindFileButton_Click(object sender, EventArgs e)
 		{
+			MyEventArgs myEventArgs = (e as MyEventArgs) == null ? new MyEventArgs() : (e as MyEventArgs);
 			FindFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
+			myEventArgs.DialogResult = FindFileDialog.ShowDialog();
 
-			if (FindFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (myEventArgs.DialogResult == System.Windows.Forms.DialogResult.OK)
 			{
 				Regex regex = new Regex("_(?<pixels_per_foot>[0-9]*.[0-9]*)");
 				FileNameTextBox.Text = FindFileDialog.FileName;

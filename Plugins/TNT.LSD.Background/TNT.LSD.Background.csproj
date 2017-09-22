@@ -59,6 +59,7 @@
     <Compile Include="BackgroundImporter.Designer.cs">
       <DependentUpon>BackgroundImporter.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyEventArgs.cs" />
     <Compile Include="Plugin.cs" />
   </ItemGroup>
   <ItemGroup>

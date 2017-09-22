@@ -42,6 +42,7 @@
 			// 
 			// FindFileDialog
 			// 
+			this.FindFileDialog.AutoUpgradeEnabled = false;
 			this.FindFileDialog.Filter = "JPG Files;PNG Files;BMP Files|*.jpg;*.png;*.bmp";
 			this.FindFileDialog.RestoreDirectory = true;
 			this.FindFileDialog.Title = "Find Background Image";
@@ -51,7 +52,7 @@
 			this.tableLayoutPanel1.ColumnCount = 3;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.0479F));
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.9521F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
 			this.tableLayoutPanel1.Controls.Add(this.ImportButton, 1, 2);
 			this.tableLayoutPanel1.Controls.Add(this.PixelPerFootTextBox, 1, 1);
 			this.tableLayoutPanel1.Controls.Add(this.FindFileButton, 2, 0);
@@ -92,7 +93,7 @@
 			// 
 			// FindFileButton
 			// 
-			this.FindFileButton.Location = new System.Drawing.Point(334, 3);
+			this.FindFileButton.Location = new System.Drawing.Point(333, 3);
 			this.FindFileButton.Name = "FindFileButton";
 			this.FindFileButton.Size = new System.Drawing.Size(25, 19);
 			this.FindFileButton.TabIndex = 6;
@@ -106,7 +107,7 @@
 			this.FileNameTextBox.Location = new System.Drawing.Point(89, 3);
 			this.FileNameTextBox.Name = "FileNameTextBox";
 			this.FileNameTextBox.ReadOnly = true;
-			this.FileNameTextBox.Size = new System.Drawing.Size(239, 20);
+			this.FileNameTextBox.Size = new System.Drawing.Size(238, 20);
 			this.FileNameTextBox.TabIndex = 5;
 			// 
 			// label2
