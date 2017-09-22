@@ -437,7 +437,7 @@
 			// 
 			// LayoutMenu
 			// 
-			this.LayoutMenu.Image = global::LandscapeSprinklerDesigner.Properties.Resources.show_layout;
+			this.LayoutMenu.Image = ((System.Drawing.Image)(resources.GetObject("LayoutButton.Image")));
 			this.LayoutMenu.Name = "LayoutMenu";
 			this.LayoutMenu.Size = new System.Drawing.Size(199, 22);
 			this.LayoutMenu.Text = "Layout";

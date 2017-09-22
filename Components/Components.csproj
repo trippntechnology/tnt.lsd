@@ -96,9 +96,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNT.Configuration, Version=1.2.63.666, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TNT.Configuration.1.2.63.666\lib\net35\TNT.Configuration.dll</HintPath>
+    <Reference Include="TNT.Configuration, Version=17.7.25.1923, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Configuration.17.7.25.1923\lib\net35\TNT.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Math">
       <HintPath>..\packages\TNT.Math.1.0.2248.2248\lib\net35\TNT.Math.dll</HintPath>
