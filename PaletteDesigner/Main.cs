@@ -57,19 +57,19 @@ namespace PalletDesigner
 			toolStripItemGroupManager.Create<Copy>(new ToolStripItem[] { CopyMenu, CopyButton, CopyContextMenu }, CopyContextMenu.Image, Pallet);
 			toolStripItemGroupManager.Create<Paste>(new ToolStripItem[] { PasteButton, PasteContextMenu, PasteMenu }, PasteContextMenu.Image, Pallet);
 			toolStripItemGroupManager.Create<AddSiblingNode>(new ToolStripItem[] { AddSiblingNodeButton, AddSiblingNodeContextMenu }, AddSiblingNodeContextMenu.Image,
-				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+				new Tuple<object, object>(Pallet, PropertyEditor));
 			toolStripItemGroupManager.Create<AddChildNode>(new ToolStripItem[] { AddChildNodeButton, AddChildNodeContextMenu }, AddChildNodeContextMenu.Image,
-				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+				new Tuple<object, object>(Pallet, PropertyEditor));
 			toolStripItemGroupManager.Create<DeleteNode>(new ToolStripItem[] { DeleteNodeButton, DeleteNodeContextMenu }, DeleteNodeContextMenu.Image,
-				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+				new Tuple<object, object>(Pallet, PropertyEditor));
 			toolStripItemGroupManager.Create<ShiftNodeUp>(new ToolStripItem[] { ShiftNodeUpButton, ShiftNodeUpContextMenu }, ShiftNodeUpContextMenu.Image,
-				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
-			toolStripItemGroupManager.Create<ShiftNodeDown>(new ToolStripItem[] { ShiftNodeDownButton, ShiftNodeDownContextMenu}, ShiftNodeDownContextMenu.Image,
-				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
-			toolStripItemGroupManager.Create<DemoteNode>(new ToolStripItem[] { DemoteNodeButton, DemoteNodeContextMenu}, DemoteNodeContextMenu.Image,
-				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
-			//toolStripItemGroupManager.Create<AddImage>(new ToolStripItem[] { AssignImageButton, AssignImageContextMenu }, AssignImageContextMenu.Image,
-			//	new Tuple<PalletNodeTreeView, PropertyGrid, OpenFileDialog>(Pallet, PropertyEditor, AddImageDialog));
+				new Tuple<object, object>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<ShiftNodeDown>(new ToolStripItem[] { ShiftNodeDownButton, ShiftNodeDownContextMenu }, ShiftNodeDownContextMenu.Image,
+				new Tuple<object, object>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<DemoteNode>(new ToolStripItem[] { DemoteNodeButton, DemoteNodeContextMenu }, DemoteNodeContextMenu.Image,
+				new Tuple<object, object>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<AddImage>(new ToolStripItem[] { AssignImageButton, AssignImageContextMenu }, AssignImageContextMenu.Image,
+				new Tuple<object, object>(Pallet, AddImageDialog));
 
 			#endregion
 		}

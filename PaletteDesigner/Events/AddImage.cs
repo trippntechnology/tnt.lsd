@@ -6,9 +6,7 @@ namespace PalletDesigner.Events
 {
 	class AddImage : NodeEvents
 	{
-		//protected new Tuple<PalletNodeTreeView, PropertyGrid, OpenFileDialog> Tuple => ExternalObject as Tuple<PalletNodeTreeView, PropertyGrid, OpenFileDialog>;
-
-		public OpenFileDialog OpenFileDialog { get { return (ExternalObject as Tuple<PalletNodeTreeView, PropertyGrid, OpenFileDialog>).Item3; } }
+		public OpenFileDialog OpenFileDialog { get { return (ExternalObject as Tuple<object, object>).Item2 as OpenFileDialog; } }
 
 		public override string Text => "Add Image";
 
