@@ -305,6 +305,7 @@
 			// PropertyEditor
 			// 
 			this.PropertyEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PropertyEditor.LineColor = System.Drawing.SystemColors.ControlDark;
 			this.PropertyEditor.Location = new System.Drawing.Point(203, 49);
 			this.PropertyEditor.Name = "PropertyEditor";
 			this.PropertyEditor.PropertySort = System.Windows.Forms.PropertySort.NoSort;
@@ -566,11 +567,9 @@
 		private System.Windows.Forms.PropertyGrid PropertyEditor;
 		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.SaveFileDialog SaveDialog;
-		private System.Windows.Forms.OpenFileDialog OpenDialog;
 		private System.Windows.Forms.ImageList NodeImages;
 		private System.Windows.Forms.OpenFileDialog AddImageDialog;
 		private System.Windows.Forms.ToolStripMenuItem menuNode;
-		private LSDComponents.PalletNodeTreeView Pallet;
 		private System.Windows.Forms.ImageList NodeStateImages;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripSplitButton OpenButton;
@@ -608,6 +607,8 @@
 		private System.Windows.Forms.ToolStripMenuItem PasteMenu;
 		private System.Windows.Forms.ToolStripButton CopyButton;
 		private System.Windows.Forms.ToolStripButton PasteButton;
+		public System.Windows.Forms.OpenFileDialog OpenDialog;
+		public LSDComponents.PalletNodeTreeView Pallet;
 	}
 }
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PalletDesigner</RootNamespace>
     <AssemblyName>LSDPaletteDesigner</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -71,11 +71,28 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TNT.ToolStripItemManager, Version=1.2.1.1084, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.ToolStripItemManager.1.2.1\lib\net452\TNT.ToolStripItemManager.dll</HintPath>
+    </Reference>
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\AddChildNode.cs" />
+    <Compile Include="Events\AddImage.cs" />
+    <Compile Include="Events\AddSiblingNode.cs" />
+    <Compile Include="Events\Copy.cs" />
+    <Compile Include="Events\DeleteNode.cs" />
+    <Compile Include="Events\DemoteNode.cs" />
+    <Compile Include="Events\Exit.cs" />
+    <Compile Include="Events\NodeEvents.cs" />
+    <Compile Include="Events\Open.cs" />
+    <Compile Include="Events\Paste.cs" />
+    <Compile Include="Events\Save.cs" />
+    <Compile Include="Events\SaveAs.cs" />
+    <Compile Include="Events\ShiftNodeDown.cs" />
+    <Compile Include="Events\ShiftNodeUp.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +136,12 @@
       <Project>{D4B61895-B09B-4419-8E7E-BAFFE837BCF3}</Project>
       <Name>TNT.LSD.Objects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\page_copy.png" />
+    <EmbeddedResource Include="Images\page_paste.png" />
+    <EmbeddedResource Include="Images\disk.png" />
+    <EmbeddedResource Include="Images\folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

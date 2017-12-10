@@ -5,6 +5,8 @@ using LSDComponents;
 using Microsoft.Win32;
 using TNT.Utilities;
 using TNT.Utilities.CommandManagement;
+using PalletDesigner.Events;
+using TNT.ToolStripItemManager;
 
 namespace PalletDesigner
 {
@@ -12,9 +14,9 @@ namespace PalletDesigner
 	{
 		#region Private members
 
+		private ToolStripItemGroupManager toolStripItemGroupManager;
 		private ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LSDPalletDesigner");
 		private string m_CurrentFileName = string.Empty;
-		private CommandManager m_CommandManager = null;
 
 		#endregion
 
@@ -44,61 +46,30 @@ namespace PalletDesigner
 		{
 			InitializeComponent();
 
-			#region Command Manager Initialization
+			#region Events
 
-			m_CommandManager = new CommandManager(HintChanged);
+			toolStripItemGroupManager = new ToolStripItemGroupManager(StatusToolTip);
 
-			Command cmd = m_CommandManager.Create("Open", Open_Click);
-			cmd.Add(OpenMenu);
-			cmd.Add(OpenButton);
-
-			cmd = m_CommandManager.Create("Save", Save_Click);
-			cmd.Add(SaveMenu);
-			cmd.Add(SaveButton);
-
-			cmd = m_CommandManager.Create("SaveAs", SaveAs_Click);
-			cmd.Add(SaveAsMenu);
-
-			cmd = m_CommandManager.Create("AddSibling", AddSiblingNode_Click);
-			cmd.Add(AddSiblingNodeButton);
-			cmd.Add(AddSiblingNodeContextMenu);
-
-			cmd = m_CommandManager.Create("AddChild", AddChildNode_Click, c => c.Enabled = Pallet.SelectedNode != null);
-			cmd.Add(AddChildNodeButton);
-			cmd.Add(AddChildNodeContextMenu);
-
-			cmd = m_CommandManager.Create("DeleteNode", DeleteNode_Click, c => c.Enabled = Pallet.SelectedNode != null);
-			cmd.Add(DeleteNodeButton);
-			cmd.Add(DeleteNodeContextMenu);
-
-			cmd = m_CommandManager.Create("ShiftNodeUp", ShiftNodeUp_Click, c => c.Enabled = Pallet.SelectedNode != null && Pallet.SelectedNode.PrevNode != null);
-			cmd.Add(ShiftNodeUpButton);
-			cmd.Add(ShiftNodeUpContextMenu);
-
-			cmd = m_CommandManager.Create("ShiftNodeDown", ShiftNodeDown_Click, c => c.Enabled = Pallet.SelectedNode != null && Pallet.SelectedNode.NextNode != null);
-			cmd.Add(ShiftNodeDownButton);
-			cmd.Add(ShiftNodeDownContextMenu);
-
-			cmd = m_CommandManager.Create("DemoteNode", DemoteNode_Click, c => c.Enabled = Pallet.SelectedNode != null && Pallet.SelectedNode.Parent != null);
-			cmd.Add(DemoteNodeButton);
-			cmd.Add(DemoteNodeContextMenu);
-
-			cmd = m_CommandManager.Create("AddImage", AddImage_Click, c => c.Enabled = Pallet.SelectedNode != null);
-			cmd.Add(AssignImageButton);
-			cmd.Add(AssignImageContextMenu);
-
-			cmd = m_CommandManager.Create("Copy", c => Pallet.Copy(), c => c.Enabled = Pallet.SelectedNode != null);
-			cmd.Add(CopyMenu);
-			cmd.Add(CopyButton);
-			cmd.Add(CopyContextMenu);
-
-			cmd = m_CommandManager.Create("Paste", c => Pallet.Paste(), c => c.Enabled = Pallet.SelectedNode != null && Pallet.CanPaste);
-			cmd.Add(PasteMenu);
-			cmd.Add(PasteButton);
-			cmd.Add(PasteContextMenu);
-
-			cmd = m_CommandManager.Create("Exit", c => Close());
-			cmd.Add(ExitMenu);
+			toolStripItemGroupManager.Create<Open>(new ToolStripItem[] { OpenButton, OpenMenu }, OpenButton.Image, this);
+			toolStripItemGroupManager.Create<Save>(new ToolStripItem[] { SaveButton, SaveMenu }, externalObject: this);
+			toolStripItemGroupManager.Create<SaveAs>(new ToolStripItem[] { SaveAsMenu }, externalObject: this);
+			toolStripItemGroupManager.Create<Exit>(new ToolStripItem[] { ExitMenu });
+			toolStripItemGroupManager.Create<Copy>(new ToolStripItem[] { CopyMenu, CopyButton, CopyContextMenu }, CopyContextMenu.Image, Pallet);
+			toolStripItemGroupManager.Create<Paste>(new ToolStripItem[] { PasteButton, PasteContextMenu, PasteMenu }, PasteContextMenu.Image, Pallet);
+			toolStripItemGroupManager.Create<AddSiblingNode>(new ToolStripItem[] { AddSiblingNodeButton, AddSiblingNodeContextMenu }, AddSiblingNodeContextMenu.Image,
+				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<AddChildNode>(new ToolStripItem[] { AddChildNodeButton, AddChildNodeContextMenu }, AddChildNodeContextMenu.Image,
+				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<DeleteNode>(new ToolStripItem[] { DeleteNodeButton, DeleteNodeContextMenu }, DeleteNodeContextMenu.Image,
+				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<ShiftNodeUp>(new ToolStripItem[] { ShiftNodeUpButton, ShiftNodeUpContextMenu }, ShiftNodeUpContextMenu.Image,
+				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<ShiftNodeDown>(new ToolStripItem[] { ShiftNodeDownButton, ShiftNodeDownContextMenu}, ShiftNodeDownContextMenu.Image,
+				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+			toolStripItemGroupManager.Create<DemoteNode>(new ToolStripItem[] { DemoteNodeButton, DemoteNodeContextMenu}, DemoteNodeContextMenu.Image,
+				new Tuple<PalletNodeTreeView, PropertyGrid>(Pallet, PropertyEditor));
+			//toolStripItemGroupManager.Create<AddImage>(new ToolStripItem[] { AssignImageButton, AssignImageContextMenu }, AssignImageContextMenu.Image,
+			//	new Tuple<PalletNodeTreeView, PropertyGrid, OpenFileDialog>(Pallet, PropertyEditor, AddImageDialog));
 
 			#endregion
 		}
@@ -200,89 +171,6 @@ namespace PalletDesigner
 		{
 			Pallet.ExpandAll();
 		}
-
-		#region Command Events
-
-		private void HintChanged(string hint)
-		{
-			StatusToolTip.Text = hint;
-		}
-
-		private void Open_Click(Command cmd)
-		{
-			if (OpenDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-			{
-				Pallet.Load(OpenDialog.FileName);
-				CurrentFileName = OpenDialog.FileName;
-			}
-		}
-
-		private void Save_Click(Command cmd)
-		{
-			if (!string.IsNullOrEmpty(m_CurrentFileName))
-			{
-				Pallet.Save(m_CurrentFileName);
-			}
-			else
-			{
-				SaveAs_Click(cmd);
-			}
-		}
-
-		private void SaveAs_Click(Command cmd)
-		{
-			if (SaveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-			{
-				Pallet.Save(SaveDialog.FileName);
-				CurrentFileName = SaveDialog.FileName;
-			}
-		}
-
-		#region Context Menu
-
-		private void AddSiblingNode_Click(Command cmd)
-		{
-			PaletteNode newNode = Pallet.AddSiblingNode();
-			PropertyEditor.SelectedObject = newNode.Properties;
-		}
-
-		private void AddChildNode_Click(Command cmd)
-		{
-			PaletteNode newNode = Pallet.AddChildNode();
-			PropertyEditor.SelectedObject = newNode.Properties;
-		}
-
-		private void DeleteNode_Click(Command cmd)
-		{
-			Pallet.DeleteSelectedNode();
-		}
-
-		private void ShiftNodeUp_Click(Command cmd)
-		{
-			Pallet.ShiftSelectedNodeUp();
-		}
-
-		private void ShiftNodeDown_Click(Command cmd)
-		{
-			Pallet.ShiftSelectedNodeDown();
-		}
-
-		private void DemoteNode_Click(Command cmd)
-		{
-			Pallet.DemoteSelectedNode();
-		}
-
-		private void AddImage_Click(Command cmd)
-		{
-			if (AddImageDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-			{
-				Pallet.AddImage(AddImageDialog.FileName);
-			}
-		}
-
-		#endregion
-
-		#endregion
 	}
 }
 
