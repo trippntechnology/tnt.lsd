@@ -182,7 +182,7 @@ namespace TNT.LSD.Objects
 					// Add 90
 					parts[nintyCode].Quantity += 1;
 				}
-				else if (degree < 158)
+				else if (degree < 158 && teeCount == 0)
 				{
 					// Add 45
 					parts[fortyFiveCode].Quantity += 1;

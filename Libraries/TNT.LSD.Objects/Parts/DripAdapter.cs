@@ -121,6 +121,7 @@ namespace TNT.LSD.Objects
 
 				parts["PI075"].Quantity += 1;
 				parts["FI075X050ST90"].Quantity += 1;
+				parts["FI075SCAP"].Quantity += 1;
 			}
 			else if (this.Stub == StubType.FunnyPipe)
 			{
