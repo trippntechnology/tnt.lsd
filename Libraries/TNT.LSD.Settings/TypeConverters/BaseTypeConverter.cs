@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace TNT.LSD.Objects.TypeConverters
+namespace TNT.LSD.Settings.TypeConverters
 {
 	/// <summary>
 	/// Base type converter
@@ -72,7 +72,7 @@ namespace TNT.LSD.Objects.TypeConverters
 
 			if (context.Instance.GetType().IsArray)
 			{
-				TNTObject[] objs = context.Instance as TNTObject[];
+				var objs = context.Instance as object[];
 				List<string> intersection = null;
 
 				foreach (object obj in objs)

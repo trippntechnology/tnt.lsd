@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace TNT.LSD.Objects.TypeConverters
+namespace TNT.LSD.Settings.TypeConverters
 {
 	/// <summary>
 	/// Type converter that generates a listing of available pipe types.

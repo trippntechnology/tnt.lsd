@@ -139,7 +139,6 @@
     <Compile Include="Pipe\MainlinePipe.cs" />
     <Compile Include="Pipe\LateralPipe.cs" />
     <Compile Include="Pipe\Pipe.cs" />
-    <Compile Include="State.cs" />
     <Compile Include="TNTPolyLine.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="StateInfo.cs" />
@@ -151,16 +150,11 @@
     <Compile Include="TNTRectangle.cs" />
     <Compile Include="TNTShape.cs" />
     <Compile Include="TNTText.cs" />
-    <Compile Include="TypeConverters\BaseTypeConverter.cs" />
     <Compile Include="TypeConverters\GenericList.cs" />
-    <Compile Include="TypeConverters\PSIList.cs" />
     <Compile Include="TypeConverters\SizeList.cs" />
     <Compile Include="TypeConverters\ThreadGenderList.cs" />
     <Compile Include="TypeConverters\PartDescriptionList.cs" />
-    <Compile Include="TypeConverters\PipeSizeList.cs" />
-    <Compile Include="TypeConverters\PipeTypeList.cs" />
     <Compile Include="TypeConverters\RadiiList.cs" />
-    <Compile Include="TypeConverters\YesNoNAList.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -214,6 +208,10 @@
     <ProjectReference Include="..\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
       <Project>{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}</Project>
       <Name>TNT.LSD.Inventory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
+      <Project>{71f545a4-cfba-4307-8371-3d3de3b71750}</Project>
+      <Name>TNT.LSD.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

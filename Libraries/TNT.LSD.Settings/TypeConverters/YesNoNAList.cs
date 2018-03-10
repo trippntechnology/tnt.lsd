@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TNT.LSD.Objects.TypeConverters
+namespace TNT.LSD.Settings.TypeConverters
 {
 	/// <summary>
 	/// List containing "Yes", "No", and "NA"

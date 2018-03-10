@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text.RegularExpressions;
-using TNT.LSD.Objects.TypeConverters;
+using TNT.LSD.Settings.TypeConverters;
 using TNT.Utilities.CustomAttributes;
 
-namespace LSDComponents.Settings
+namespace TNT.LSD.Settings
 {
-	public class SSCSettings: CADSettings
+	public class SSCSettings: LSDSettings
 	{
 		#region Owner
 

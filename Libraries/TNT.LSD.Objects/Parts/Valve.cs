@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
 {
@@ -117,7 +117,7 @@ namespace TNT.LSD.Objects
 				return;
 			}
 
-			TypeConverters.PipeSizeList pipeSizeList = new TypeConverters.PipeSizeList();
+			PipeSizeList pipeSizeList = new PipeSizeList();
 			string valveSize = match.Groups["size"].ToString();
 			int valveSizeIndex = pipeSizeList.IndexOf(valveSize);
 

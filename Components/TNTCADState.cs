@@ -1,5 +1,4 @@
-﻿using LSDComponents.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -11,7 +10,7 @@ using TNT.Configuration;
 using TNT.LSD.Inventory;
 using TNT.LSD.Inventory.DAL;
 using TNT.LSD.Objects;
-
+using TNT.LSD.Settings;
 
 namespace LSDComponents
 {
@@ -20,6 +19,8 @@ namespace LSDComponents
 
 	public class TNTCADState
 	{
+		protected Legend m_HiddenLegend = null;
+
 		#region Properties
 
 		[ReadOnly(true)]
@@ -66,14 +67,29 @@ namespace LSDComponents
 			}
 		}
 
+		private LSDSettings _Settings;
 		[TypeConverter(typeof(ExpandableObjectConverter))]
-		virtual public CADSettings Settings { get; set; }
+		virtual public LSDSettings Settings //{ get; set; }
+		{
+			get
+			{
+				return _Settings;
+			}
+			set
+			{
+				_Settings = value;
+				_Settings.OnDrawLayers = DrawLayers;
+				_Settings.OnSetHeightInFeet = SetHeightInFeet;
+				_Settings.OnSetWidthInFeet = SetWidthInFeet;
+				_Settings.OnSetLegendVisibility = SetLegendVisibilty;
+			}
+		}
 
 		[Browsable(false)]
 		virtual public ObjectListList ObjectLayers { get; set; }
 
 		[XmlIgnore()]
-		public TNTCAD Parent { protected get { return Settings != null ? Settings.CAD : null; } set { if (Settings != null) { Settings.CAD = value; } } }
+		public TNTCAD CAD { get; set; }
 
 		#region Layout
 
@@ -88,10 +104,18 @@ namespace LSDComponents
 		public bool DrawUnits { get { return Settings.DrawUnits; } }
 
 		[XmlIgnore()]
-		public int HeightInFeet { get { return Settings.HeightInFeet; } set { Settings.HeightInFeet = value; } }
+		public int HeightInFeet
+		{
+			get { return Settings.HeightInFeet; }
+			set { Settings.HeightInFeet = value; }
+		}
 
 		[XmlIgnore()]
-		public int WidthInFeet { get { return Settings.WidthInFeet; } set { Settings.WidthInFeet = value; } }
+		public int WidthInFeet
+		{
+			get { return Settings.WidthInFeet; }
+			set { Settings.WidthInFeet = value; }
+		}
 
 		public bool ShowLegend { get { return Settings.ShowLegend; } }
 
@@ -120,15 +144,13 @@ namespace LSDComponents
 		public TNTCADState(TNTCAD parent)
 			: base()
 		{
-			Parent = parent;
+			CAD = parent;
 			ObjectLayers = new ObjectListList();
 
-			Settings = XmlSection<CADSettings>.Deserialize("CAD");
+			Settings = XmlSection<LSDSettings>.Deserialize("CAD");
 
 			if (Settings != null)
 			{
-				Settings.CAD = parent;
-
 				if (Settings.StaticParts != null)
 				{
 					Settings.StaticParts.ForEach(p =>
@@ -137,6 +159,67 @@ namespace LSDComponents
 						});
 				}
 			}
+		}
+
+		private void SetLegendVisibilty(bool showLegend)
+		{
+			var layers = CAD.State.ObjectLayers;
+
+			if (CAD != null && layers.Count > 1)
+			{
+				// Get the legend object
+				Legend legend = layers[1].Find(o => o is Legend) as Legend;
+
+				if (legend == null)
+				{
+					if (m_HiddenLegend != null)
+					{
+						legend = m_HiddenLegend;
+					}
+					else
+					{
+						// Doesn't exist yet so create it
+						legend = new Legend(new Point(TNTConstants.PIXELS_PER_FOOT, TNTConstants.PIXELS_PER_FOOT));
+					}
+				}
+
+				legend.Visible = showLegend;
+				legend.Selected = false;
+				layers[1].Remove(legend);
+
+				if (showLegend)
+				{
+					// Add it to layer
+					layers[1].Add(legend);
+				}
+				else
+				{
+					m_HiddenLegend = legend;
+				}
+
+				DrawLayers(1);
+			}
+		}
+
+		private void SetWidthInFeet(int widthInFeet)
+		{
+			if (CAD != null)
+			{
+				CAD.Width = (int)(widthInFeet * TNTConstants.PIXELS_PER_FOOT * CAD.DisplayScale / 100.0);
+			}
+		}
+
+		private void SetHeightInFeet(int heightInFeet)
+		{
+			if (CAD != null)
+			{
+				CAD.Height = (int)(heightInFeet * TNTConstants.PIXELS_PER_FOOT * CAD.DisplayScale / 100.0);
+			}
+		}
+
+		private void DrawLayers(int layer)
+		{
+			CAD?.DrawLayers(layer);
 		}
 
 		#endregion

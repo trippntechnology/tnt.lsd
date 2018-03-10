@@ -1,6 +1,6 @@
 ﻿using LSDComponents;
-using LSDComponents.Settings;
 using TNT.LSD.PDFGenerator;
+using TNT.LSD.Settings;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace TNT.LSD.SSC

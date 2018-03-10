@@ -1,17 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
-using TNT.LSD.Objects;
 
-namespace LSDComponents.Settings
+namespace TNT.LSD.Settings
 {
-	public class CADSettings
+	public delegate void OnDrawLayersDelegate(int layer);
+	public delegate void OnSetLegendVisibilityDelegate(bool showLegend);
+	public delegate void OnSetHeightInFeetDelegate(int heightInFeet);
+	public delegate void OnSetWidthInFeetDelegate(int heightInFeet);
+
+	public class LSDSettings
 	{
 		protected const int MAX_WIDTH_HEIGHT = 800;
-
-		protected Legend m_HiddenLegend = null;
 
 		protected string m_Version;
 		protected string m_TelephoneNumber;
@@ -23,11 +29,14 @@ namespace LSDComponents.Settings
 		protected int m_GridColorAlphaValue;
 		protected bool m_ShowLegend;
 
-		[Browsable(false)]
 		[XmlIgnore()]
-		virtual public TNTCAD CAD { get; set; }
-
-		virtual protected List<List<TNTObject>> Layers { get { return CAD.State.ObjectLayers; } }
+		virtual public OnDrawLayersDelegate OnDrawLayers { private get; set; }
+		[XmlIgnore()]
+		virtual public OnSetLegendVisibilityDelegate OnSetLegendVisibility { private get; set; }
+		[XmlIgnore()]
+		virtual public OnSetHeightInFeetDelegate OnSetHeightInFeet { private get; set; }
+		[XmlIgnore()]
+		virtual public OnSetWidthInFeetDelegate OnSetWidthInFeet { private get; set; }
 
 		#region Layout
 
@@ -97,41 +106,7 @@ namespace LSDComponents.Settings
 			set
 			{
 				m_ShowLegend = value;
-
-				if (CAD != null && Layers.Count > 1)
-				{
-					// Get the legend object
-					Legend legend = Layers[1].Find(o => o is Legend) as Legend;
-
-					if (legend == null)
-					{
-						if (m_HiddenLegend != null)
-						{
-							legend = m_HiddenLegend;
-						}
-						else
-						{
-							// Doesn't exist yet so create it
-							legend = new Legend(new Point(TNTConstants.PIXELS_PER_FOOT, TNTConstants.PIXELS_PER_FOOT));
-						}
-					}
-
-					legend.Visible = m_ShowLegend;
-					legend.Selected = false;
-					Layers[1].Remove(legend);
-
-					if (m_ShowLegend)
-					{
-						// Add it to layer
-						Layers[1].Add(legend);
-					}
-					else
-					{
-						m_HiddenLegend = legend;
-					}
-
-					DrawLayers(1);
-				}
+				OnSetLegendVisibility?.Invoke(m_ShowLegend);
 			}
 		}
 
@@ -144,11 +119,7 @@ namespace LSDComponents.Settings
 			set
 			{
 				m_HeightInFeet = value > MAX_WIDTH_HEIGHT ? MAX_WIDTH_HEIGHT : value;
-
-				if (CAD != null)
-				{
-					CAD.Height = (int)(m_HeightInFeet * TNTConstants.PIXELS_PER_FOOT * CAD.DisplayScale / 100.0);
-				}
+				OnSetHeightInFeet?.Invoke(m_HeightInFeet);
 			}
 		}
 
@@ -161,11 +132,7 @@ namespace LSDComponents.Settings
 			set
 			{
 				m_WidthInFeet = value > MAX_WIDTH_HEIGHT ? MAX_WIDTH_HEIGHT : value;
-
-				if (CAD != null)
-				{
-					CAD.Width = (int)(m_WidthInFeet * TNTConstants.PIXELS_PER_FOOT * CAD.DisplayScale / 100.0);
-				}
+				OnSetWidthInFeet?.Invoke(m_WidthInFeet);
 			}
 		}
 
@@ -195,15 +162,7 @@ namespace LSDComponents.Settings
 
 		virtual protected void DrawLayers(int startLayer)
 		{
-			if (CAD != null)
-			{
-				CAD.DrawLayers(startLayer);
-			}
-		}
-
-		public override string ToString()
-		{
-			return string.Empty;
+			OnDrawLayers?.Invoke(startLayer);
 		}
 	}
 }

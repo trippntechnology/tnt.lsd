@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using Inventory = TNT.LSD.Inventory;
+using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects.TypeConverters
 {
 	/// <summary>
 	/// Type converter that generates a listing of part descriptions given a list of part codes
 	/// </summary>
-	public class PartDescriptionList : TypeConverters.BaseTypeConverter
+	public class PartDescriptionList : BaseTypeConverter
 	{
 		/// <summary>
 		/// Creates a list of descriptions associated with part codes

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects.TypeConverters
 {
 	/// <summary>
 	/// Type converter that generates a listing of available radii
 	/// </summary>
-	public class RadiiList : TypeConverters.BaseTypeConverter
+	public class RadiiList : BaseTypeConverter
 	{
 		/// <summary>
 		/// Returns the list of radii that are valid for this sprinkler object

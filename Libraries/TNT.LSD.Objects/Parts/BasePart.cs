@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using TNT.LSD.Inventory;
+using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
 {
@@ -14,7 +15,7 @@ namespace TNT.LSD.Objects
 	{
 		#region Static Members
 
-		protected static TypeConverters.PipeSizeList m_PipeSizeList = new TypeConverters.PipeSizeList();
+		protected static PipeSizeList m_PipeSizeList = new PipeSizeList();
 
 		#endregion
 

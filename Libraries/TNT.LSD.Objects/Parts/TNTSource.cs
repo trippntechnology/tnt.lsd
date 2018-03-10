@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
 {
@@ -19,12 +20,12 @@ namespace TNT.LSD.Objects
 		[DisplayName("Include Stop && Waste")]
 		public bool IncludeSW { get; set; }
 
-		[TypeConverter(typeof(TypeConverters.PipeSizeList))]
+		[TypeConverter(typeof(PipeSizeList))]
 		[Description("Indicates the pipe size of the source being connected to.")]
 		[DisplayName("Source Size")]
 		public string SourceSize { get; set; }
 
-		[TypeConverter(typeof(TypeConverters.PipeTypeList))]
+		[TypeConverter(typeof(PipeTypeList))]
 		[Description("Indicates the pipe type of the source being connected to.")]
 		[DisplayName("Source Type")]
 		public string SourceType { get; set; }

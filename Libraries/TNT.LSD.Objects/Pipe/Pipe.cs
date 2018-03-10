@@ -6,8 +6,9 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
-using TNT.Math;
 using TNT.LSD.Objects.Extensions;
+using TNT.LSD.Settings.TypeConverters;
+using TNT.Math;
 
 namespace TNT.LSD.Objects
 {
@@ -81,7 +82,7 @@ namespace TNT.LSD.Objects
 			set { PipeColor = Color.FromArgb(value); }
 		}
 
-		[TypeConverter(typeof(TypeConverters.PipeSizeList))]
+		[TypeConverter(typeof(PipeSizeList))]
 		[Description("Indicates the pipe size.")]
 		[DisplayName("Pipe Size")]
 		[DefaultValue("3/4\"")]

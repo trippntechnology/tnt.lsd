@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace TNT.LSD.Objects.TypeConverters
+namespace TNT.LSD.Settings.TypeConverters
 {
 	/// <summary>
 	/// Type converter that generates a listing of available pipe sizes.
@@ -39,7 +39,7 @@ namespace TNT.LSD.Objects.TypeConverters
 		public string SizeToCode(string size)
 		{
 			int sizeIndex = IndexOf(size);
-			return TNTConstants.SIZE_CODE[sizeIndex];
+			return Constants.SIZE_CODE[sizeIndex];
 		}
 	}
 }

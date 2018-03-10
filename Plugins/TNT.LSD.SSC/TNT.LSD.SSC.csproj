@@ -85,6 +85,10 @@
       <Project>{961d2654-5b63-4867-92a3-934a16324f66}</Project>
       <Name>TNT.LSD.PDFGenerator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
+      <Project>{71f545a4-cfba-4307-8371-3d3de3b71750}</Project>
+      <Name>TNT.LSD.Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\pdf-ssc-icon.png" />

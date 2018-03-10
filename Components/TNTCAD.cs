@@ -1,5 +1,4 @@
 ﻿using Ionic.Zip;
-using LSDComponents.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +19,7 @@ using TNT.LSD.Objects;
 using TNT.LSD.Objects.ControlPoints;
 using TNT.LSD.Objects.Extensions;
 using TNT.LSD.Objects.Interfaces;
+using TNT.LSD.Settings;
 using TNT.Math;
 using TNT.Utilities;
 using TNT.Utilities.CommandManagement;
@@ -58,7 +58,7 @@ namespace LSDComponents
 
 		protected DrawingOptions m_DrawingOptions = null;
 
-		protected TNT.LSD.Objects.TypeConverters.PipeSizeList m_PipeSizeList = new TNT.LSD.Objects.TypeConverters.PipeSizeList();
+		protected TNT.LSD.Settings.TypeConverters.PipeSizeList m_PipeSizeList = new TNT.LSD.Settings.TypeConverters.PipeSizeList();
 
 		protected SaveFileDialog m_SaveFileDialog = new SaveFileDialog() { DefaultExt = "lsdx", Filter = "Landscape Sprinkler Design files|*.lsdx|Landscape Sprinkler Design files|*.lsd", Title = "Save Layout" };
 
@@ -232,7 +232,7 @@ namespace LSDComponents
 			}
 		}
 
-		public CADSettings Settings { get { return m_State.Settings as CADSettings; } }
+		public LSDSettings Settings { get { return m_State.Settings as LSDSettings; } }
 
 		public bool HasUnsavedChanges { get { return m_UndoActions.Count > 0; } }
 
@@ -245,7 +245,7 @@ namespace LSDComponents
 					List<Type> types = new List<Type>();
 					types.AddRange(Utilities.GetNameSpaceTypes("TNT.LSD.Objects", string.Concat(Application.StartupPath, "\\", "TNT.LSD.Objects.dll"), typeof(TNTObject)));
 					types.AddRange(Utilities.GetNameSpaceTypes("TNT.LSD.Objects.ControlPoints", string.Concat(Application.StartupPath, "\\", "TNT.LSD.Objects.dll"), typeof(TNTControlPoint)));
-					types.AddRange(Utilities.GetNameSpaceTypes("LSDComponents.Settings", string.Concat(Application.StartupPath, "\\", "LSDComponents.dll"), typeof(CADSettings)));
+					types.AddRange(Utilities.GetNameSpaceTypes("TNT.LSD.Settings", string.Concat(Application.StartupPath, "\\", "TNT.LSD.Settings.dll"), typeof(LSDSettings)));
 					m_ExpectedTypes = types.ToArray();
 				}
 
@@ -988,8 +988,7 @@ namespace LSDComponents
 		public void Deserialize(string content)
 		{
 			TNTCADState cadState = Utilities.Deserialize<TNTCADState>(content, ExpectedTypes);
-
-			cadState.Parent = this;
+			cadState.CAD = this;
 
 			// Reconcile object/events that weren't serialized.
 			cadState.ResolveReferences();
@@ -1195,7 +1194,7 @@ namespace LSDComponents
 			// Add static parts
 			foreach (Part part in State.StaticParts)
 			{
-				if (inventoryParts.ContainsKey(part.Code))
+				if (part != null && inventoryParts.ContainsKey(part.Code))
 				{
 					inventoryParts[part.Code].Quantity += part.Quantity;
 				}

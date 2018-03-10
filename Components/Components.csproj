@@ -124,8 +124,6 @@
     <Compile Include="DrawingModes\PolyLineMode.cs" />
     <Compile Include="PaletteNode.cs" />
     <Compile Include="PaletteProperties.cs" />
-    <Compile Include="Settings\CADSettings.cs" />
-    <Compile Include="Settings\SSCSettings.cs" />
     <Compile Include="TNTPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -183,6 +181,10 @@
     <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
       <Project>{D4B61895-B09B-4419-8E7E-BAFFE837BCF3}</Project>
       <Name>TNT.LSD.Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
+      <Project>{71f545a4-cfba-4307-8371-3d3de3b71750}</Project>
+      <Name>TNT.LSD.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
