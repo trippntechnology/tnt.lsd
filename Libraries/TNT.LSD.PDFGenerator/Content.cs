@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using TNT.Configuration;
 using TNT.LSD.Inventory;
 
 namespace TNT.LSD.PDFGenerator

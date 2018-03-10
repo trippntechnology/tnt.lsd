@@ -1,10 +1,9 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using TNT.Configuration;
 using TNT.LSD.PDFGenerator.Properties;
 using TNT.Utilities;
 using iText = iTextSharp.text;
