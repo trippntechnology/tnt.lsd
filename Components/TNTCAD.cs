@@ -1182,7 +1182,7 @@ namespace LSDComponents
 			// Mainline drains
 			if (source != null && source.Pipes.Count > 0)
 			{
-				inventoryParts["AUTOML"].Quantity += State.MainlineDrains;
+				inventoryParts["AUTOLD"].Quantity += State.MainlineDrains;
 				string pipeCode = m_PipeSizeList.SizeToCode(source.Pipes[0].PipeSize);
 				inventoryParts[string.Format("FI{0}X050SSTTEE", pipeCode)].Quantity += State.MainlineDrains;
 			}

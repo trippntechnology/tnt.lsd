@@ -14,8 +14,8 @@ namespace TNT.LSD.Objects
 	{
 		#region Static Constants
 
-		static Point[] HEXAGON = {new Point(-4,-8), new Point(3,-8), 
-															new Point(7, -4), new Point(7,3), 
+		static Point[] HEXAGON = {new Point(-4,-8), new Point(3,-8),
+															new Point(7, -4), new Point(7,3),
 															new Point(3, 7), new Point(-4, 7),
 															new Point(-8, 3), new Point(-8, -4)};
 
@@ -163,7 +163,7 @@ namespace TNT.LSD.Objects
 		public double YOffset { get; set; }
 
 		#endregion
-		
+
 		#endregion
 
 		#region Constructors
@@ -413,6 +413,7 @@ namespace TNT.LSD.Objects
 			if (!isRiser)
 			{
 				string inletFPECode = string.Format("FPSBE{0}", inletCode);
+				string inletMarlexCode = string.Format("FIM{0}STR90", inletCode);
 
 				parts["FPSBE050"].Quantity += 1;
 
@@ -422,6 +423,7 @@ namespace TNT.LSD.Objects
 				}
 
 				parts[inletFPECode].Quantity += 1;
+				parts[inletMarlexCode].Quantity += 1;
 				parts["FUNNYPIPE"].Quantity += 2;
 			}
 
