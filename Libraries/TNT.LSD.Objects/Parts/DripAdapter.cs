@@ -113,15 +113,8 @@ namespace TNT.LSD.Objects
 
 			if (this.Stub == StubType.PVC)
 			{
-				if (pipeCode != "075")
-				{
-					// Need to add RB
-					parts[string.Format("FI{0}X075SSRB", pipeCode)].Quantity += 1;
-				}
-
-				parts["PI075"].Quantity += 1;
-				parts["FI075X050ST90"].Quantity += 1;
-				parts["FI075SCAP"].Quantity += 1;
+				parts[$"PI{pipeCode}"].Quantity += 1;
+				parts[$"FI{pipeCode}SCAP"].Quantity += 1;
 			}
 			else if (this.Stub == StubType.FunnyPipe)
 			{
