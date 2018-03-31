@@ -25,6 +25,13 @@ namespace TNT.LSD.Objects
 #endif
 		public int MaximumValveQuantity { get; set; }
 
+		[Description("Indicates the number of bags of gravel that should be included with valve box")]
+		[DisplayName("Bags of Gravel")]
+#if !PALETTE_PROPERTIES
+		[ReadOnly(true)]
+#endif
+		public float BagsOfGravel { get; set; }
+
 		#endregion
 
 		#region Constructors
@@ -35,12 +42,14 @@ namespace TNT.LSD.Objects
 		{
 			UseManifold = obj.UseManifold;
 			MaximumValveQuantity = obj.MaximumValveQuantity;
+			BagsOfGravel = obj.BagsOfGravel;
 		}
 
 		public ValveBox()
 			: base()
 		{
 			UseManifold = true;
+			BagsOfGravel = 1F;
 		}
 
 		#endregion
@@ -62,6 +71,7 @@ namespace TNT.LSD.Objects
 
 			newObj.UseManifold = UseManifold;
 			newObj.MaximumValveQuantity = MaximumValveQuantity;
+			newObj.BagsOfGravel = BagsOfGravel;
 
 			return newObj;
 		}
@@ -80,6 +90,7 @@ namespace TNT.LSD.Objects
 			{
 				UseManifold = vb.UseManifold;
 				MaximumValveQuantity = vb.MaximumValveQuantity;
+				BagsOfGravel = vb.BagsOfGravel;
 			}
 		}
 
@@ -132,6 +143,8 @@ namespace TNT.LSD.Objects
 						break;
 				}
 			}
+
+			parts["GRAVEL"].Quantity += BagsOfGravel;
 		}
 
 		#endregion

@@ -22,7 +22,7 @@ namespace TNT.LSD.Inventory
 		/// <summary>
 		/// Part's Quantity
 		/// </summary>
-		public int Quantity { get; set; }
+		public double Quantity { get; set; }
 
 		/// <summary>
 		/// External part that is equivolent to this part

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
+using TNT.LSD.Inventory;
 
 namespace TNT.LSD.Objects
 {
@@ -86,6 +87,11 @@ namespace TNT.LSD.Objects
 			return base.SizePipe(upstreamPipe);
 		}
 
+		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		{
+			base.SetPartQuantity(parts);
+			parts["FLAG"].Quantity += 1;
+		}
 		#endregion
 	}
 }

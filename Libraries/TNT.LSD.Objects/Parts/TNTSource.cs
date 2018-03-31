@@ -210,10 +210,10 @@ namespace TNT.LSD.Objects
 				else if (SourceType == "PVC")
 				{
 					GetPart(parts, string.Format("FI{0}SSTTEE", sourceSizeCode)).Quantity += 1;
-					GetPart(parts, tee).Quantity += 1;
 				}
 
-				GetPart(parts, nipples).Quantity += 2;
+				GetPart(parts, nipples).Quantity += 1;
+				GetPart(parts, string.Format("NI{0}X4TOE", sourceSizeCode)).Quantity += 1;
 				GetPart(parts, sw).Quantity += 1;
 
 				#endregion
@@ -221,6 +221,8 @@ namespace TNT.LSD.Objects
 			else if (SourceType == "Copper")
 			{
 				GetPart(parts, string.Format("PJ{0}CTSX{0}MIP", sourceSizeCode)).Quantity += 1;
+				GetPart(parts, string.Format("BN{0}90", sourceSizeCode)).Quantity += 1;
+				GetPart(parts, string.Format("NI{0}X4TOE", sourceSizeCode)).Quantity += 1;
 			}
 			else if (SourceType == "PVC")
 			{
@@ -230,30 +232,51 @@ namespace TNT.LSD.Objects
 			else if (SourceType == "Galvanized" || SourceType == "Poly")
 			{
 				GetPart(parts, string.Format("PJ{0}IPSX{0}MIP", sourceSizeCode)).Quantity += 1;
+				GetPart(parts, string.Format("BN{0}90", sourceSizeCode)).Quantity += 1;
+				GetPart(parts, string.Format("NI{0}X4TOE", sourceSizeCode)).Quantity += 1;
 			}
 			else if (SourceType == "Poly CTS")
 			{
 				GetPart(parts, string.Format("PJ{0}CTSX{0}MIP", sourceSizeCode)).Quantity += 1;
 				GetPart(parts, string.Format("PJ{0}CTSSTIFFENER", sourceSizeCode)).Quantity += 1;
+				GetPart(parts, string.Format("BN{0}90", sourceSizeCode)).Quantity += 1;
+				GetPart(parts, string.Format("NI{0}X4TOE", sourceSizeCode)).Quantity += 1;
 			}
 
 			if (mainSizeIndex > -1 && (IncludeSW || SourceType != "PVC"))
 			{
-				// Added elbow
-				if (sourceSizeIndex == mainSizeIndex)
+				if (sourceSizeIndex <= mainSizeIndex)
 				{
-					GetPart(parts, string.Format("FI{0}ST90", sourceSizeCode)).Quantity += 1;
+					GetPart(parts, string.Format("FI{0}SSCOUPSCH80", mainSizeCode)).Quantity += 1;
 				}
-				else if (sourceSizeIndex < mainSizeIndex)
+
+				if (sourceSizeIndex < mainSizeIndex)
 				{
-					GetPart(parts, string.Format("FI{0}SS90", mainSizeCode)).Quantity += 1;
-					GetPart(parts, string.Format("FI{0}X{1}STRB", mainSizeCode, sourceSizeCode)).Quantity += 1;
+					GetPart(parts, string.Format("FI{0}X{1}SSRBSCH80", mainSizeCode, sourceSizeCode)).Quantity += 1;
 				}
-				else
+				else if (sourceSizeIndex > mainSizeIndex)
 				{
-					GetPart(parts, string.Format("FI{0}ST90", sourceSizeCode)).Quantity += 1;
+					GetPart(parts, string.Format("FI{0}SSCOUPSCH80", sourceSizeCode)).Quantity += 1;
 					GetPart(parts, string.Format("FI{0}X{1}SSRB", sourceSizeCode, mainSizeCode)).Quantity += 1;
 				}
+
+				GetPart(parts, string.Format("FI{0}SS90", mainSizeCode)).Quantity += 1;
+
+				//// Added elbow
+				//if (sourceSizeIndex == mainSizeIndex)
+				//{
+				//	GetPart(parts, string.Format("FI{0}ST90", sourceSizeCode)).Quantity += 1;
+				//}
+				//else if (sourceSizeIndex < mainSizeIndex)
+				//{
+				//	GetPart(parts, string.Format("FI{0}SS90", mainSizeCode)).Quantity += 1;
+				//	GetPart(parts, string.Format("FI{0}X{1}STRB", mainSizeCode, sourceSizeCode)).Quantity += 1;
+				//}
+				//else
+				//{
+				//	GetPart(parts, string.Format("FI{0}ST90", sourceSizeCode)).Quantity += 1;
+				//	GetPart(parts, string.Format("FI{0}X{1}SSRBSCH80", sourceSizeCode, mainSizeCode)).Quantity += 1;
+				//}
 			}
 		}
 	}
