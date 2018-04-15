@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LSDComponents;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace TNT.LSD.Checker
 {
@@ -20,10 +17,14 @@ namespace TNT.LSD.Checker
 
 		public override string ToolTipText => "Check design for issues";
 
-		public override System.Drawing.Image Image =>	base.GetImage(imageName);
+		public override System.Drawing.Image Image => base.GetImage(imageName);
 
-	public override void Execute(System.Windows.Forms.IWin32Window owner, System.Windows.Forms.ToolStripItem sender, IApplicationData content)
+		public override void Execute(System.Windows.Forms.IWin32Window owner, System.Windows.Forms.ToolStripItem sender, IApplicationData content)
 		{
+			var applicationData = content as ApplicationData;
+
+			var outputForm = new OutputForm();
+			outputForm.Show(applicationData, DockState.Document);
 		}
 
 		public override System.Windows.Forms.MenuStrip GetMenuStrip()
