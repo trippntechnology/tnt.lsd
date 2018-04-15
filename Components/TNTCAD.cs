@@ -1218,10 +1218,10 @@ namespace LSDComponents
 			}
 
 			var flagPart = neededParts.Find(p => p.Code == "FLAG");
-			if(flagPart!= null)
+			if (flagPart != null)
 			{
 				var quantity = flagPart.Quantity;
-				flagPart.Quantity = quantity / 10 * 10;
+				flagPart.Quantity = ((int)quantity / 10 + (quantity % 10 > 0 ? 1 : 0)) * 10;
 			}
 
 			if (State.ShowExternalCodes)
