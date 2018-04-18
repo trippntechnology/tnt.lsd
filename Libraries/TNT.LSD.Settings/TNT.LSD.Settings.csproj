@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,13 +58,13 @@
     <Compile Include="TypeConverters\YesNoNAList.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
       <Project>{b263ec43-e5c1-45a3-80f0-ad5d07074ca2}</Project>
       <Name>TNT.LSD.Inventory</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

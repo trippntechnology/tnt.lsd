@@ -81,7 +81,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins</PostBuildEvent>
+    <PostBuildEvent>mkdir $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins
+copy $(TargetPath) $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
