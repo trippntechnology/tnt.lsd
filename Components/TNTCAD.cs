@@ -1206,7 +1206,13 @@ namespace LSDComponents
 			if (State.RoundPipe)
 			{
 				// Round pipe to nearest 20' length
-				neededParts.ForEach(p => { if ((Regex.IsMatch(p.Code, "^PI") && !Regex.IsMatch(p.Code, "200C")) || Regex.IsMatch(p.Code, "FUNNYPIPE")) { p.Quantity = (p.Quantity / 20 + (p.Quantity % 20 > 0 ? 1 : 0)) * 20; } });
+				neededParts.ForEach(p =>
+				{
+					if ((Regex.IsMatch(p.Code, "^PI") && !Regex.IsMatch(p.Code, "200C")) || Regex.IsMatch(p.Code, "FUNNYPIPE"))
+					{
+						p.Quantity = TNT.Math.Extensions.RoundUpToNearest(p.Quantity, 20);
+					}
+				});
 			}
 
 			// Round gravel to neares bag

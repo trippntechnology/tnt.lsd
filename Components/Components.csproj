@@ -99,8 +99,8 @@
     <Reference Include="TNT.Configuration, Version=17.7.25.1923, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Configuration.17.7.25.1923\lib\net35\TNT.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Math">
-      <HintPath>..\packages\TNT.Math.1.0.2248.2248\lib\net35\TNT.Math.dll</HintPath>
+    <Reference Include="TNT.Math, Version=1.1.2.1948, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Math.1.1.2\lib\net45\TNT.Math.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
