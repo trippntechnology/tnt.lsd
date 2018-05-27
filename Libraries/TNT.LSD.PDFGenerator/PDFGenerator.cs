@@ -230,7 +230,7 @@ namespace TNT.LSD.PDFGenerator
 			document.Add(new Paragraph("Parts List", SectionFont));
 			document.Add(new Paragraph(" "));
 
-			PdfPTable table = new PdfPTable(new float[] { .2f, 1, .2f });
+			PdfPTable table = new PdfPTable(new float[] { .4f, 1, .2f });
 			table.WidthPercentage = 100;
 			table.HeaderRows = 1;
 			AddTableRow(table, new string[] { "Code", "Description", "Quantity" }, HeaderRowFont, new BaseColor(Color.Gray));
