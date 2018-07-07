@@ -29,9 +29,9 @@ namespace TNT.LSD.Objects
 
 		[Browsable(false)]
 		[DefaultValue("")]
-		public string _Part1 
-		{ 
-			get 
+		public string _Part1
+		{
+			get
 			{
 				if (Part1 != null)
 				{
@@ -41,15 +41,15 @@ namespace TNT.LSD.Objects
 				{
 					return string.Empty;
 				}
-			} 
-			set { Part1 = new TNTPart() { ID = new Guid(value) }; } 
+			}
+			set { Part1 = new TNTPart() { ID = new Guid(value) }; }
 		}
 
 		[Browsable(false)]
 		[DefaultValue("")]
-		public string _Part2 
-		{ 
-			get 
+		public string _Part2
+		{
+			get
 			{
 				if (Part2 != null)
 				{
@@ -59,8 +59,8 @@ namespace TNT.LSD.Objects
 				{
 					return string.Empty;
 				}
-			} 
-			set { Part2 = new TNTPart() { ID = new Guid(value) }; } 
+			}
+			set { Part2 = new TNTPart() { ID = new Guid(value) }; }
 		}
 
 		[Description("Indicates whether the pipe should be automatically sized based on the flow")]
@@ -156,6 +156,8 @@ namespace TNT.LSD.Objects
 			Part2 = obj.Part2;
 			AutoSize = obj.AutoSize;
 			PipeSize = obj.PipeSize;
+			this.LineStyle = obj.LineStyle;
+			this.PipeColor = obj.PipeColor;
 		}
 
 		#endregion
@@ -174,6 +176,8 @@ namespace TNT.LSD.Objects
 			newObj.Part2 = Part2;
 			newObj.AutoSize = AutoSize;
 			newObj.PipeSize = PipeSize;
+			newObj.LineStyle = LineStyle;
+			newObj.PipeColor = PipeColor;
 
 			return newObj;
 		}
