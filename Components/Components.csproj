@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LSDComponents</RootNamespace>
     <AssemblyName>LSDComponents</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -76,9 +76,8 @@
     <AssemblyInfo_GUID>34a0198b-a28b-4161-9af7-b9ba2256e0a8</AssemblyInfo_GUID>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="DotNetZip, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.11.0\lib\net20\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -96,8 +95,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNT.Configuration, Version=17.7.25.1923, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Configuration.17.7.25.1923\lib\net35\TNT.Configuration.dll</HintPath>
+    <Reference Include="TNT.Configuration, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Configuration.1.3.2\lib\net461\TNT.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Math, Version=1.1.2.1948, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Math.1.1.2\lib\net45\TNT.Math.dll</HintPath>
@@ -108,8 +107,8 @@
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
-      <HintPath>..\packages\DockPanelSuite.3.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.4.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.3.0.4\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +116,7 @@
     <Compile Include="DrawingModes\LateralPipeMode.cs" />
     <Compile Include="DrawingModes\MainlinePipeMode.cs" />
     <Compile Include="DrawingModes\PipeMode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializableNode.cs" />
     <Compile Include="DrawingModes\BezierMode.cs" />
     <Compile Include="DrawingModes\CircleMode.cs" />
@@ -187,9 +187,7 @@
       <Name>TNT.LSD.Settings</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="DrawingModes\DrawingModes.cd" />
     <None Include="packages.config" />
@@ -204,7 +202,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\packages\TNT.AssemblyInfo.1.3.0\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TNT.AssemblyInfo.1.3.0\build\TNT.AssemblyInfo.targets'))" />
+    <Error Condition="!Exists('..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets'))" />
   </Target>
-  <Import Project="..\packages\TNT.AssemblyInfo.1.3.0\build\TNT.AssemblyInfo.targets" Condition="Exists('..\packages\TNT.AssemblyInfo.1.3.0\build\TNT.AssemblyInfo.targets')" />
+  <Import Project="..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets" Condition="Exists('..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets')" />
 </Project>
