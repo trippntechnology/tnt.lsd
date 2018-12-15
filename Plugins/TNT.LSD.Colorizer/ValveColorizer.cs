@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 using TNT.Utilities;
 
@@ -10,25 +9,6 @@ namespace TNT.LSD.Colorizer
 {
 	public partial class ValveColorizer : Form
 	{
-		#region Static members
-
-		protected static Color[] DEFAULT_COLORS =
-		{
-			Color.FromArgb(Int32.Parse("ff0000dc", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ff00817d", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ff238e24", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ffafd510", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ffffeb2c", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ffffca2c", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("fffc7300", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("fff32a00", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ffda0000", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ffb00067", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ff4d136a", NumberStyles.AllowHexSpecifier)),
-			Color.FromArgb(Int32.Parse("ff60398a", NumberStyles.AllowHexSpecifier))
-		};
-
-		#endregion
 
 		protected ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "ValveColorizerPlugin");
 
@@ -70,7 +50,7 @@ namespace TNT.LSD.Colorizer
 
 		private void InitializeColors(bool reset)
 		{
-			List<Color> colors = new List<Color>(DEFAULT_COLORS);
+			List<Color> colors = new List<Color>(Constants.DEFAULT_COLORS);
 
 			// Get colors from registry
 			List<int> rgbValues = m_ApplicationRegistry.ReadList<int>("Colors");

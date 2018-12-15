@@ -37,6 +37,15 @@ namespace TNT.LSD.Colorizer
 
 			int colorIndex = 0;
 
+			if (rgbValues.Count == 0)
+			{
+				// Initialize with defaults
+				foreach (var color in Constants.DEFAULT_COLORS)
+				{
+					rgbValues.Add(color.ToArgb());
+				}
+			}
+
 			foreach (Valve v in valves)
 			{
 				if (colorIndex >= rgbValues.Count)
