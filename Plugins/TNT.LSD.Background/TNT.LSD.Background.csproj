@@ -74,12 +74,11 @@
     <EmbeddedResource Include="Images\import_background_image.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Components\Components.csproj">
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
       <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
-      <Name>Components</Name>
+      <Name>TNT.LSD.Components</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins
