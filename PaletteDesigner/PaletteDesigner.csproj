@@ -103,9 +103,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Components\Components.csproj">
-      <Project>{268D5252-8BCD-450F-A365-626C39DC07F8}</Project>
-      <Name>Components</Name>
+    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
+      <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
+      <Name>TNT.LSD.Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
       <Project>{D4B61895-B09B-4419-8E7E-BAFFE837BCF3}</Project>

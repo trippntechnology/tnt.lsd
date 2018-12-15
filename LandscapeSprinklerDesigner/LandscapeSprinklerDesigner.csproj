@@ -229,9 +229,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Components\Components.csproj">
-      <Project>{268D5252-8BCD-450F-A365-626C39DC07F8}</Project>
-      <Name>Components</Name>
+    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
+      <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
+      <Name>TNT.LSD.Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
       <Project>{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}</Project>

@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValveColorizer.cs">
@@ -73,9 +74,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Components\Components.csproj">
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
       <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
-      <Name>Components</Name>
+      <Name>TNT.LSD.Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
       <Project>{d4b61895-b09b-4419-8e7e-baffe837bcf3}</Project>
