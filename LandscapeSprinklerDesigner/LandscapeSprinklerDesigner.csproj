@@ -60,6 +60,9 @@
     <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
+    <Reference Include="TNT.ToolStripItemManager, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.ToolStripItemManager.1.3.0\lib\net461\TNT.ToolStripItemManager.dll</HintPath>
+    </Reference>
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
     </Reference>
@@ -88,6 +91,14 @@
       <DependentUpon>DockableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Comparer\ListViewColumnSorter.cs" />
+    <Compile Include="Events\DrawCircleEvent.cs" />
+    <Compile Include="Events\DrawCurveEvent.cs" />
+    <Compile Include="Events\DrawEvent.cs" />
+    <Compile Include="Events\DrawPolyEvent.cs" />
+    <Compile Include="Events\DrawRectangleEvent.cs" />
+    <Compile Include="Events\DrawLineEvent.cs" />
+    <Compile Include="Events\DrawSelectEvent.cs" />
+    <Compile Include="Events\DrawTextEvent.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="LayoutForm.cs">
       <SubType>Form</SubType>
@@ -251,6 +262,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Images\circle.png" />
+    <EmbeddedResource Include="Images\curve.png" />
+    <EmbeddedResource Include="Images\hand.png" />
+    <EmbeddedResource Include="Images\line.png" />
+    <EmbeddedResource Include="Images\polyline.png" />
+    <EmbeddedResource Include="Images\rectangle.png" />
+    <EmbeddedResource Include="Images\text.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

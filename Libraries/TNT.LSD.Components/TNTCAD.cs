@@ -1,4 +1,5 @@
 ﻿using Ionic.Zip;
+using LSDComponents.DrawingModes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -807,7 +808,12 @@ namespace LSDComponents
 		/// <param name="paletteProperties">Object containing the information</param>
 		public void SetPalletNodeTag(PaletteProperties paletteProperties)
 		{
-			int layer = paletteProperties.DrawingMode.Layer;
+			SetDrawingMode(paletteProperties.DrawingMode);
+		}
+
+		public void SetDrawingMode(DrawingMode drawingMode)
+		{
+			int layer = drawingMode.Layer;
 
 			if (layer > 0 && layer < m_DrawingLayers.Count)
 			{
@@ -820,7 +826,7 @@ namespace LSDComponents
 				m_ActiveLayer = layer;
 			}
 
-			DrawingMode = paletteProperties.DrawingMode;
+			DrawingMode = drawingMode;
 		}
 
 		public void AddObject(TNTObject obj)

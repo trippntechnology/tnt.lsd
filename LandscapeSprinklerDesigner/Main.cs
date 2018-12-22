@@ -1,8 +1,8 @@
-﻿using LSDComponents;
+﻿using LandscapeSprinklerDesigner.Events;
+using LSDComponents;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Threading;
 using System.Windows.Forms;
 using TNT.Configuration;
 using TNT.LSD.Objects;
-using TNT.Plugin;
+using TNT.ToolStripItemManager;
 using TNT.Utilities;
 using TNT.Utilities.CommandManagement;
 using TNT.Web;
@@ -24,6 +24,7 @@ namespace LandscapeSprinklerDesigner
 	{
 		#region Members
 
+		private ToolStripItemCheckboxGroupManager toolStripItemDrawingGroupManager;
 		private CommandManager m_CommandManager = null;
 
 		private PropertyForm m_PropertyForm = new PropertyForm();
@@ -115,6 +116,7 @@ namespace LandscapeSprinklerDesigner
 			InitializeComponent();
 
 			InitializeCommandManager();
+			SetupDrawingGroupManager();
 
 			m_DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 			m_LayoutForm.PropertyForm = m_PropertyForm;
@@ -132,6 +134,18 @@ namespace LandscapeSprinklerDesigner
 			var manager = new TNT.Plugin.Manager.Manager(Controls, pluginOnClickHandler, StatusBarHintChanged);
 
 			manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
+		}
+
+		private void SetupDrawingGroupManager()
+		{
+			toolStripItemDrawingGroupManager = new ToolStripItemCheckboxGroupManager(toolStripStatusLabel1);
+			toolStripItemDrawingGroupManager.Create<DrawSelectEvent>(new ToolStripItem[] { selectButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			toolStripItemDrawingGroupManager.Create<DrawRectangleEvent>(new ToolStripItem[] { rectangleButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			toolStripItemDrawingGroupManager.Create<DrawLineEvent>(new ToolStripItem[] { lineButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			toolStripItemDrawingGroupManager.Create<DrawCircleEvent>(new ToolStripItem[] { circleButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			toolStripItemDrawingGroupManager.Create<DrawCurveEvent>(new ToolStripItem[] { curveButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			toolStripItemDrawingGroupManager.Create<DrawPolyEvent>(new ToolStripItem[] { polyButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			toolStripItemDrawingGroupManager.Create<DrawTextEvent>(new ToolStripItem[] { textButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
 		}
 
 		private void pluginOnClickHandler(object sender, EventArgs e)
@@ -610,6 +624,9 @@ namespace LandscapeSprinklerDesigner
 
 		private void PalletNodeTagSelected(PaletteProperties paletteProperties)
 		{
+			// Uncheck the landscape drawing tool if there's one selected.
+			var checkedItem = toolStripItemDrawingGroupManager.FirstOrDefault(i => i.Value.Checked).Value;
+			if (checkedItem != null) { checkedItem.Checked = false; }
 			CAD.SetPalletNodeTag(paletteProperties);
 			m_PropertyForm.SelectedObject = paletteProperties.DrawingMode.DefaultObject;
 		}
