@@ -198,6 +198,7 @@
     <EmbeddedResource Include="Cursors\No_LatPipe.cur" />
     <EmbeddedResource Include="Cursors\No_MainPipe.cur" />
     <EmbeddedResource Include="Cursors\Rotate.cur" />
+    <EmbeddedResource Include="Cursors\PolyLine.cur" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Cursors\Circle.cur" />
@@ -215,7 +216,6 @@
       <Name>TNT.LSD.Settings</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Cursors\MovePoint.cur" />
   </ItemGroup>

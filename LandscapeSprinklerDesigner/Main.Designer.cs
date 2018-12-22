@@ -29,21 +29,6 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-			WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin2 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
-			WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin2 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
-			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient4 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient8 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin dockPaneStripSkin2 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin();
-			WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient dockPaneStripGradient2 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient9 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient5 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient10 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient dockPaneStripToolWindowGradient2 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient11 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient12 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient6 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient13 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient14 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
 			this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.NewMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,6 +113,18 @@
 			this.tbScale = new System.Windows.Forms.TrackBar();
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
 			this.DockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			this.ToolStrip3 = new System.Windows.Forms.ToolStrip();
+			this.PropertiesButton = new System.Windows.Forms.ToolStripButton();
+			this.PartsListButton = new System.Windows.Forms.ToolStripButton();
+			this.PaletteTreeButton = new System.Windows.Forms.ToolStripButton();
+			this.LayoutSettingsButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+			this.ShowDistancesButton = new System.Windows.Forms.ToolStripButton();
+			this.LabelHeadsButton = new System.Windows.Forms.ToolStripButton();
+			this.CoverageButton = new System.Windows.Forms.ToolStripButton();
+			this.PartsToolTipButton = new System.Windows.Forms.ToolStripButton();
+			this.LayoutButton = new System.Windows.Forms.ToolStripButton();
+			this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
 			this.ToolStrip2 = new System.Windows.Forms.ToolStrip();
 			this.AutoSizeButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -141,18 +138,14 @@
 			this.AreaButton = new System.Windows.Forms.ToolStripButton();
 			this.LengthButton = new System.Windows.Forms.ToolStripButton();
 			this.ButtonSumGPM = new System.Windows.Forms.ToolStripButton();
-			this.ToolStrip3 = new System.Windows.Forms.ToolStrip();
-			this.PropertiesButton = new System.Windows.Forms.ToolStripButton();
-			this.PartsListButton = new System.Windows.Forms.ToolStripButton();
-			this.PaletteTreeButton = new System.Windows.Forms.ToolStripButton();
-			this.LayoutSettingsButton = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-			this.ShowDistancesButton = new System.Windows.Forms.ToolStripButton();
-			this.LabelHeadsButton = new System.Windows.Forms.ToolStripButton();
-			this.CoverageButton = new System.Windows.Forms.ToolStripButton();
-			this.PartsToolTipButton = new System.Windows.Forms.ToolStripButton();
-			this.LayoutButton = new System.Windows.Forms.ToolStripButton();
-			this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+			this.selectButton = new System.Windows.Forms.ToolStripButton();
+			this.rectangleButton = new System.Windows.Forms.ToolStripButton();
+			this.lineButton = new System.Windows.Forms.ToolStripButton();
+			this.circleButton = new System.Windows.Forms.ToolStripButton();
+			this.curveButton = new System.Windows.Forms.ToolStripButton();
+			this.polyButton = new System.Windows.Forms.ToolStripButton();
+			this.textButton = new System.Windows.Forms.ToolStripButton();
 			this.MenuStrip1.SuspendLayout();
 			this.ToolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -160,8 +153,9 @@
 			this.toolStripContainer1.ContentPanel.SuspendLayout();
 			this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
 			this.toolStripContainer1.SuspendLayout();
-			this.ToolStrip2.SuspendLayout();
 			this.ToolStrip3.SuspendLayout();
+			this.ToolStrip2.SuspendLayout();
+			this.toolStrip4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MenuStrip1
@@ -437,7 +431,7 @@
 			// 
 			// LayoutMenu
 			// 
-			this.LayoutMenu.Image = ((System.Drawing.Image)(resources.GetObject("LayoutButton.Image")));
+			this.LayoutMenu.Image = ((System.Drawing.Image)(resources.GetObject("LayoutMenu.Image")));
 			this.LayoutMenu.Name = "LayoutMenu";
 			this.LayoutMenu.Size = new System.Drawing.Size(199, 22);
 			this.LayoutMenu.Text = "Layout";
@@ -467,7 +461,7 @@
             this.AreaMenu,
             this.LengthMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
 			// 
 			// SnapToGridMenu
@@ -475,7 +469,7 @@
 			this.SnapToGridMenu.CheckOnClick = true;
 			this.SnapToGridMenu.Name = "SnapToGridMenu";
 			this.SnapToGridMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-			this.SnapToGridMenu.Size = new System.Drawing.Size(190, 22);
+			this.SnapToGridMenu.Size = new System.Drawing.Size(189, 22);
 			this.SnapToGridMenu.Text = "&Snap To Grid";
 			this.SnapToGridMenu.ToolTipText = "Enable/Disable snap-to-grid";
 			// 
@@ -483,25 +477,25 @@
 			// 
 			this.AutoSizeMenu.CheckOnClick = true;
 			this.AutoSizeMenu.Name = "AutoSizeMenu";
-			this.AutoSizeMenu.Size = new System.Drawing.Size(190, 22);
+			this.AutoSizeMenu.Size = new System.Drawing.Size(189, 22);
 			this.AutoSizeMenu.Text = "autosize";
 			// 
 			// ToolsPluginPlaceHolder
 			// 
 			this.ToolsPluginPlaceHolder.Name = "ToolsPluginPlaceHolder";
-			this.ToolsPluginPlaceHolder.Size = new System.Drawing.Size(187, 6);
+			this.ToolsPluginPlaceHolder.Size = new System.Drawing.Size(186, 6);
 			this.ToolsPluginPlaceHolder.Visible = false;
 			// 
 			// toolStripSeparator10
 			// 
 			this.toolStripSeparator10.Name = "toolStripSeparator10";
-			this.toolStripSeparator10.Size = new System.Drawing.Size(187, 6);
+			this.toolStripSeparator10.Size = new System.Drawing.Size(186, 6);
 			// 
 			// BringToFrontMenu
 			// 
 			this.BringToFrontMenu.Name = "BringToFrontMenu";
 			this.BringToFrontMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-			this.BringToFrontMenu.Size = new System.Drawing.Size(190, 22);
+			this.BringToFrontMenu.Size = new System.Drawing.Size(189, 22);
 			this.BringToFrontMenu.Text = "Bring To &Front";
 			this.BringToFrontMenu.ToolTipText = "Bring selected object(s) to the front";
 			// 
@@ -509,42 +503,42 @@
 			// 
 			this.SendToBackMenu.Name = "SendToBackMenu";
 			this.SendToBackMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-			this.SendToBackMenu.Size = new System.Drawing.Size(190, 22);
+			this.SendToBackMenu.Size = new System.Drawing.Size(189, 22);
 			this.SendToBackMenu.Text = "Send To &Back";
 			this.SendToBackMenu.ToolTipText = "Bring selected object(s) to the back";
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(187, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(186, 6);
 			// 
 			// AlignToGridMenu
 			// 
 			this.AlignToGridMenu.Name = "AlignToGridMenu";
-			this.AlignToGridMenu.Size = new System.Drawing.Size(190, 22);
+			this.AlignToGridMenu.Size = new System.Drawing.Size(189, 22);
 			this.AlignToGridMenu.Text = "Align to Grid";
 			// 
 			// SpaceEquallyMenu
 			// 
 			this.SpaceEquallyMenu.Name = "SpaceEquallyMenu";
-			this.SpaceEquallyMenu.Size = new System.Drawing.Size(190, 22);
+			this.SpaceEquallyMenu.Size = new System.Drawing.Size(189, 22);
 			this.SpaceEquallyMenu.Text = "Space Equally";
 			// 
 			// toolStripMenuItem8
 			// 
 			this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-			this.toolStripMenuItem8.Size = new System.Drawing.Size(187, 6);
+			this.toolStripMenuItem8.Size = new System.Drawing.Size(186, 6);
 			// 
 			// AreaMenu
 			// 
 			this.AreaMenu.Name = "AreaMenu";
-			this.AreaMenu.Size = new System.Drawing.Size(190, 22);
+			this.AreaMenu.Size = new System.Drawing.Size(189, 22);
 			this.AreaMenu.Text = "Area";
 			// 
 			// LengthMenuItem
 			// 
 			this.LengthMenuItem.Name = "LengthMenuItem";
-			this.LengthMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.LengthMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.LengthMenuItem.Text = "Length";
 			// 
 			// helpToolStripMenuItem
@@ -878,9 +872,10 @@
 			// 
 			// toolStripContainer1.TopToolStripPanel
 			// 
+			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip3);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip1);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip2);
-			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip3);
+			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip4);
 			// 
 			// DockPanel
 			// 
@@ -895,184 +890,7 @@
 			this.DockPanel.Name = "DockPanel";
 			this.DockPanel.RightToLeftLayout = true;
 			this.DockPanel.Size = new System.Drawing.Size(985, 548);
-			dockPanelGradient4.EndColor = System.Drawing.SystemColors.ControlLight;
-			dockPanelGradient4.StartColor = System.Drawing.SystemColors.ControlLight;
-			autoHideStripSkin2.DockStripGradient = dockPanelGradient4;
-			tabGradient8.EndColor = System.Drawing.SystemColors.Control;
-			tabGradient8.StartColor = System.Drawing.SystemColors.Control;
-			tabGradient8.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-			autoHideStripSkin2.TabGradient = tabGradient8;
-			autoHideStripSkin2.TextFont = new System.Drawing.Font("Segoe UI", 9F);
-			dockPanelSkin2.AutoHideStripSkin = autoHideStripSkin2;
-			tabGradient9.EndColor = System.Drawing.SystemColors.ControlLightLight;
-			tabGradient9.StartColor = System.Drawing.SystemColors.ControlLightLight;
-			tabGradient9.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripGradient2.ActiveTabGradient = tabGradient9;
-			dockPanelGradient5.EndColor = System.Drawing.SystemColors.Control;
-			dockPanelGradient5.StartColor = System.Drawing.SystemColors.Control;
-			dockPaneStripGradient2.DockStripGradient = dockPanelGradient5;
-			tabGradient10.EndColor = System.Drawing.SystemColors.ControlLight;
-			tabGradient10.StartColor = System.Drawing.SystemColors.ControlLight;
-			tabGradient10.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripGradient2.InactiveTabGradient = tabGradient10;
-			dockPaneStripSkin2.DocumentGradient = dockPaneStripGradient2;
-			dockPaneStripSkin2.TextFont = new System.Drawing.Font("Segoe UI", 9F);
-			tabGradient11.EndColor = System.Drawing.SystemColors.ActiveCaption;
-			tabGradient11.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-			tabGradient11.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
-			tabGradient11.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
-			dockPaneStripToolWindowGradient2.ActiveCaptionGradient = tabGradient11;
-			tabGradient12.EndColor = System.Drawing.SystemColors.Control;
-			tabGradient12.StartColor = System.Drawing.SystemColors.Control;
-			tabGradient12.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripToolWindowGradient2.ActiveTabGradient = tabGradient12;
-			dockPanelGradient6.EndColor = System.Drawing.SystemColors.ControlLight;
-			dockPanelGradient6.StartColor = System.Drawing.SystemColors.ControlLight;
-			dockPaneStripToolWindowGradient2.DockStripGradient = dockPanelGradient6;
-			tabGradient13.EndColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			tabGradient13.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-			tabGradient13.StartColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			tabGradient13.TextColor = System.Drawing.SystemColors.ControlText;
-			dockPaneStripToolWindowGradient2.InactiveCaptionGradient = tabGradient13;
-			tabGradient14.EndColor = System.Drawing.Color.Transparent;
-			tabGradient14.StartColor = System.Drawing.Color.Transparent;
-			tabGradient14.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-			dockPaneStripToolWindowGradient2.InactiveTabGradient = tabGradient14;
-			dockPaneStripSkin2.ToolWindowGradient = dockPaneStripToolWindowGradient2;
-			dockPanelSkin2.DockPaneStripSkin = dockPaneStripSkin2;
 			this.DockPanel.TabIndex = 1;
-			// 
-			// ToolStrip2
-			// 
-			this.ToolStrip2.Dock = System.Windows.Forms.DockStyle.None;
-			this.ToolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SnapToGridButton,
-            this.AutoSizeButton,
-            this.toolStripSeparator12,
-            this.CloneButton,
-            this.DeleteButton,
-            this.BringToFrontButton,
-            this.SendToBackButton,
-            this.toolStripSeparator9,
-            this.AlignToGridButton,
-            this.SpaceEquallyButton,
-            this.toolStripSeparator14,
-            this.Rotate90ClockwiseButton,
-            this.Rotate90CounterclockwiseButton,
-            this.Rotate180Button,
-            this.toolStripSeparator5,
-            this.AreaButton,
-            this.LengthButton,
-            this.ButtonSumGPM});
-			this.ToolStrip2.Location = new System.Drawing.Point(128, 0);
-			this.ToolStrip2.Name = "ToolStrip2";
-			this.ToolStrip2.Size = new System.Drawing.Size(358, 25);
-			this.ToolStrip2.TabIndex = 6;
-			// 
-			// AutoSizeButton
-			// 
-			this.AutoSizeButton.CheckOnClick = true;
-			this.AutoSizeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.AutoSizeButton.Image = ((System.Drawing.Image)(resources.GetObject("AutoSizeButton.Image")));
-			this.AutoSizeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.AutoSizeButton.Name = "AutoSizeButton";
-			this.AutoSizeButton.Size = new System.Drawing.Size(23, 22);
-			this.AutoSizeButton.Text = "Auto Size Pipe";
-			this.AutoSizeButton.ToolTipText = "Size the pipe allow for required flow rates";
-			// 
-			// toolStripSeparator12
-			// 
-			this.toolStripSeparator12.Name = "toolStripSeparator12";
-			this.toolStripSeparator12.Size = new System.Drawing.Size(6, 25);
-			// 
-			// AlignToGridButton
-			// 
-			this.AlignToGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.AlignToGridButton.Image = ((System.Drawing.Image)(resources.GetObject("AlignToGridButton.Image")));
-			this.AlignToGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.AlignToGridButton.Name = "AlignToGridButton";
-			this.AlignToGridButton.Size = new System.Drawing.Size(23, 22);
-			this.AlignToGridButton.Text = "Align To Grid";
-			this.AlignToGridButton.ToolTipText = "Aligns selected objects to nearest grid intersection ";
-			// 
-			// SpaceEquallyButton
-			// 
-			this.SpaceEquallyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.SpaceEquallyButton.Image = ((System.Drawing.Image)(resources.GetObject("SpaceEquallyButton.Image")));
-			this.SpaceEquallyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.SpaceEquallyButton.Name = "SpaceEquallyButton";
-			this.SpaceEquallyButton.Size = new System.Drawing.Size(23, 22);
-			this.SpaceEquallyButton.Text = "Space Equally";
-			this.SpaceEquallyButton.ToolTipText = "Spaces selected object equally";
-			// 
-			// toolStripSeparator14
-			// 
-			this.toolStripSeparator14.Name = "toolStripSeparator14";
-			this.toolStripSeparator14.Size = new System.Drawing.Size(6, 25);
-			// 
-			// Rotate90ClockwiseButton
-			// 
-			this.Rotate90ClockwiseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.Rotate90ClockwiseButton.Image = ((System.Drawing.Image)(resources.GetObject("Rotate90ClockwiseButton.Image")));
-			this.Rotate90ClockwiseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.Rotate90ClockwiseButton.Name = "Rotate90ClockwiseButton";
-			this.Rotate90ClockwiseButton.Size = new System.Drawing.Size(23, 22);
-			this.Rotate90ClockwiseButton.Text = "Rotate 90 Clockwise";
-			this.Rotate90ClockwiseButton.ToolTipText = "Rotates the selected image(s) 90 degrees clockwise";
-			// 
-			// Rotate90CounterclockwiseButton
-			// 
-			this.Rotate90CounterclockwiseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.Rotate90CounterclockwiseButton.Image = ((System.Drawing.Image)(resources.GetObject("Rotate90CounterclockwiseButton.Image")));
-			this.Rotate90CounterclockwiseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.Rotate90CounterclockwiseButton.Name = "Rotate90CounterclockwiseButton";
-			this.Rotate90CounterclockwiseButton.Size = new System.Drawing.Size(23, 22);
-			this.Rotate90CounterclockwiseButton.Text = "Rotate 90 Counterclockwise";
-			this.Rotate90CounterclockwiseButton.ToolTipText = "Rotates the selected image(s) 90 degrees counterclockwise";
-			// 
-			// Rotate180Button
-			// 
-			this.Rotate180Button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.Rotate180Button.Image = ((System.Drawing.Image)(resources.GetObject("Rotate180Button.Image")));
-			this.Rotate180Button.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.Rotate180Button.Name = "Rotate180Button";
-			this.Rotate180Button.Size = new System.Drawing.Size(23, 22);
-			this.Rotate180Button.Text = "Rotate 180";
-			this.Rotate180Button.ToolTipText = "Rotates the selected image(s) 180 degrees";
-			// 
-			// toolStripSeparator5
-			// 
-			this.toolStripSeparator5.Name = "toolStripSeparator5";
-			this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-			// 
-			// AreaButton
-			// 
-			this.AreaButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.AreaButton.Image = ((System.Drawing.Image)(resources.GetObject("AreaButton.Image")));
-			this.AreaButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.AreaButton.Name = "AreaButton";
-			this.AreaButton.Size = new System.Drawing.Size(23, 22);
-			this.AreaButton.Text = "Area";
-			this.AreaButton.ToolTipText = "Gets the area of the selected enclosed object(s)";
-			// 
-			// LengthButton
-			// 
-			this.LengthButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LengthButton.Image = ((System.Drawing.Image)(resources.GetObject("LengthButton.Image")));
-			this.LengthButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LengthButton.Name = "LengthButton";
-			this.LengthButton.Size = new System.Drawing.Size(23, 22);
-			this.LengthButton.Text = "Length";
-			this.LengthButton.ToolTipText = "Gets the length of the selected object(s)";
-			// 
-			// ButtonSumGPM
-			// 
-			this.ButtonSumGPM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.ButtonSumGPM.Image = ((System.Drawing.Image)(resources.GetObject("ButtonSumGPM.Image")));
-			this.ButtonSumGPM.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.ButtonSumGPM.Name = "ButtonSumGPM";
-			this.ButtonSumGPM.Size = new System.Drawing.Size(23, 22);
-			this.ButtonSumGPM.Text = "Sum the GPM of selected lateral parts";
 			// 
 			// ToolStrip3
 			// 
@@ -1089,7 +907,7 @@
             this.PartsToolTipButton,
             this.LayoutButton,
             this.ShowGridButton});
-			this.ToolStrip3.Location = new System.Drawing.Point(486, 0);
+			this.ToolStrip3.Location = new System.Drawing.Point(128, 0);
 			this.ToolStrip3.Name = "ToolStrip3";
 			this.ToolStrip3.Size = new System.Drawing.Size(248, 25);
 			this.ToolStrip3.TabIndex = 7;
@@ -1201,6 +1019,217 @@
 			this.ShowGridButton.Size = new System.Drawing.Size(23, 22);
 			this.ShowGridButton.Text = "toolStripButton1";
 			// 
+			// ToolStrip2
+			// 
+			this.ToolStrip2.Dock = System.Windows.Forms.DockStyle.None;
+			this.ToolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SnapToGridButton,
+            this.AutoSizeButton,
+            this.toolStripSeparator12,
+            this.CloneButton,
+            this.DeleteButton,
+            this.BringToFrontButton,
+            this.SendToBackButton,
+            this.toolStripSeparator9,
+            this.AlignToGridButton,
+            this.SpaceEquallyButton,
+            this.toolStripSeparator14,
+            this.Rotate90ClockwiseButton,
+            this.Rotate90CounterclockwiseButton,
+            this.Rotate180Button,
+            this.toolStripSeparator5,
+            this.AreaButton,
+            this.LengthButton,
+            this.ButtonSumGPM});
+			this.ToolStrip2.Location = new System.Drawing.Point(376, 0);
+			this.ToolStrip2.Name = "ToolStrip2";
+			this.ToolStrip2.Size = new System.Drawing.Size(358, 25);
+			this.ToolStrip2.TabIndex = 6;
+			// 
+			// AutoSizeButton
+			// 
+			this.AutoSizeButton.CheckOnClick = true;
+			this.AutoSizeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.AutoSizeButton.Image = ((System.Drawing.Image)(resources.GetObject("AutoSizeButton.Image")));
+			this.AutoSizeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.AutoSizeButton.Name = "AutoSizeButton";
+			this.AutoSizeButton.Size = new System.Drawing.Size(23, 22);
+			this.AutoSizeButton.Text = "Auto Size Pipe";
+			this.AutoSizeButton.ToolTipText = "Size the pipe allow for required flow rates";
+			// 
+			// toolStripSeparator12
+			// 
+			this.toolStripSeparator12.Name = "toolStripSeparator12";
+			this.toolStripSeparator12.Size = new System.Drawing.Size(6, 25);
+			// 
+			// AlignToGridButton
+			// 
+			this.AlignToGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.AlignToGridButton.Image = ((System.Drawing.Image)(resources.GetObject("AlignToGridButton.Image")));
+			this.AlignToGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.AlignToGridButton.Name = "AlignToGridButton";
+			this.AlignToGridButton.Size = new System.Drawing.Size(23, 22);
+			this.AlignToGridButton.Text = "Align To Grid";
+			this.AlignToGridButton.ToolTipText = "Aligns selected objects to nearest grid intersection ";
+			// 
+			// SpaceEquallyButton
+			// 
+			this.SpaceEquallyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.SpaceEquallyButton.Image = ((System.Drawing.Image)(resources.GetObject("SpaceEquallyButton.Image")));
+			this.SpaceEquallyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.SpaceEquallyButton.Name = "SpaceEquallyButton";
+			this.SpaceEquallyButton.Size = new System.Drawing.Size(23, 22);
+			this.SpaceEquallyButton.Text = "Space Equally";
+			this.SpaceEquallyButton.ToolTipText = "Spaces selected object equally";
+			// 
+			// toolStripSeparator14
+			// 
+			this.toolStripSeparator14.Name = "toolStripSeparator14";
+			this.toolStripSeparator14.Size = new System.Drawing.Size(6, 25);
+			// 
+			// Rotate90ClockwiseButton
+			// 
+			this.Rotate90ClockwiseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.Rotate90ClockwiseButton.Image = ((System.Drawing.Image)(resources.GetObject("Rotate90ClockwiseButton.Image")));
+			this.Rotate90ClockwiseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.Rotate90ClockwiseButton.Name = "Rotate90ClockwiseButton";
+			this.Rotate90ClockwiseButton.Size = new System.Drawing.Size(23, 22);
+			this.Rotate90ClockwiseButton.Text = "Rotate 90 Clockwise";
+			this.Rotate90ClockwiseButton.ToolTipText = "Rotates the selected image(s) 90 degrees clockwise";
+			// 
+			// Rotate90CounterclockwiseButton
+			// 
+			this.Rotate90CounterclockwiseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.Rotate90CounterclockwiseButton.Image = ((System.Drawing.Image)(resources.GetObject("Rotate90CounterclockwiseButton.Image")));
+			this.Rotate90CounterclockwiseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.Rotate90CounterclockwiseButton.Name = "Rotate90CounterclockwiseButton";
+			this.Rotate90CounterclockwiseButton.Size = new System.Drawing.Size(23, 22);
+			this.Rotate90CounterclockwiseButton.Text = "Rotate 90 Counterclockwise";
+			this.Rotate90CounterclockwiseButton.ToolTipText = "Rotates the selected image(s) 90 degrees counterclockwise";
+			// 
+			// Rotate180Button
+			// 
+			this.Rotate180Button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.Rotate180Button.Image = ((System.Drawing.Image)(resources.GetObject("Rotate180Button.Image")));
+			this.Rotate180Button.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.Rotate180Button.Name = "Rotate180Button";
+			this.Rotate180Button.Size = new System.Drawing.Size(23, 22);
+			this.Rotate180Button.Text = "Rotate 180";
+			this.Rotate180Button.ToolTipText = "Rotates the selected image(s) 180 degrees";
+			// 
+			// toolStripSeparator5
+			// 
+			this.toolStripSeparator5.Name = "toolStripSeparator5";
+			this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+			// 
+			// AreaButton
+			// 
+			this.AreaButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.AreaButton.Image = ((System.Drawing.Image)(resources.GetObject("AreaButton.Image")));
+			this.AreaButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.AreaButton.Name = "AreaButton";
+			this.AreaButton.Size = new System.Drawing.Size(23, 22);
+			this.AreaButton.Text = "Area";
+			this.AreaButton.ToolTipText = "Gets the area of the selected enclosed object(s)";
+			// 
+			// LengthButton
+			// 
+			this.LengthButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LengthButton.Image = ((System.Drawing.Image)(resources.GetObject("LengthButton.Image")));
+			this.LengthButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LengthButton.Name = "LengthButton";
+			this.LengthButton.Size = new System.Drawing.Size(23, 22);
+			this.LengthButton.Text = "Length";
+			this.LengthButton.ToolTipText = "Gets the length of the selected object(s)";
+			// 
+			// ButtonSumGPM
+			// 
+			this.ButtonSumGPM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ButtonSumGPM.Image = ((System.Drawing.Image)(resources.GetObject("ButtonSumGPM.Image")));
+			this.ButtonSumGPM.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ButtonSumGPM.Name = "ButtonSumGPM";
+			this.ButtonSumGPM.Size = new System.Drawing.Size(23, 22);
+			this.ButtonSumGPM.Text = "Sum the GPM of selected lateral parts";
+			// 
+			// toolStrip4
+			// 
+			this.toolStrip4.Dock = System.Windows.Forms.DockStyle.None;
+			this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectButton,
+            this.rectangleButton,
+            this.lineButton,
+            this.circleButton,
+            this.curveButton,
+            this.polyButton,
+            this.textButton});
+			this.toolStrip4.Location = new System.Drawing.Point(734, 0);
+			this.toolStrip4.Name = "toolStrip4";
+			this.toolStrip4.Size = new System.Drawing.Size(204, 25);
+			this.toolStrip4.TabIndex = 8;
+			// 
+			// selectButton
+			// 
+			this.selectButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.selectButton.Image = ((System.Drawing.Image)(resources.GetObject("selectButton.Image")));
+			this.selectButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.selectButton.Name = "selectButton";
+			this.selectButton.Size = new System.Drawing.Size(23, 22);
+			this.selectButton.Text = "toolStripButton3";
+			// 
+			// rectangleButton
+			// 
+			this.rectangleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.rectangleButton.Image = ((System.Drawing.Image)(resources.GetObject("rectangleButton.Image")));
+			this.rectangleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.rectangleButton.Name = "rectangleButton";
+			this.rectangleButton.Size = new System.Drawing.Size(23, 22);
+			this.rectangleButton.Text = "toolStripButton1";
+			// 
+			// lineButton
+			// 
+			this.lineButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.lineButton.Image = ((System.Drawing.Image)(resources.GetObject("lineButton.Image")));
+			this.lineButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.lineButton.Name = "lineButton";
+			this.lineButton.Size = new System.Drawing.Size(23, 22);
+			this.lineButton.Text = "toolStripButton2";
+			// 
+			// circleButton
+			// 
+			this.circleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.circleButton.Image = ((System.Drawing.Image)(resources.GetObject("circleButton.Image")));
+			this.circleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.circleButton.Name = "circleButton";
+			this.circleButton.Size = new System.Drawing.Size(23, 22);
+			this.circleButton.Text = "toolStripButton4";
+			// 
+			// curveButton
+			// 
+			this.curveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.curveButton.Image = ((System.Drawing.Image)(resources.GetObject("curveButton.Image")));
+			this.curveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.curveButton.Name = "curveButton";
+			this.curveButton.Size = new System.Drawing.Size(23, 22);
+			this.curveButton.Text = "toolStripButton5";
+			// 
+			// polyButton
+			// 
+			this.polyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.polyButton.Image = ((System.Drawing.Image)(resources.GetObject("polyButton.Image")));
+			this.polyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.polyButton.Name = "polyButton";
+			this.polyButton.Size = new System.Drawing.Size(23, 22);
+			this.polyButton.Text = "toolStripButton6";
+			// 
+			// textButton
+			// 
+			this.textButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.textButton.Image = ((System.Drawing.Image)(resources.GetObject("textButton.Image")));
+			this.textButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.textButton.Name = "textButton";
+			this.textButton.Size = new System.Drawing.Size(23, 22);
+			this.textButton.Text = "toolStripButton7";
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1228,10 +1257,12 @@
 			this.toolStripContainer1.TopToolStripPanel.PerformLayout();
 			this.toolStripContainer1.ResumeLayout(false);
 			this.toolStripContainer1.PerformLayout();
-			this.ToolStrip2.ResumeLayout(false);
-			this.ToolStrip2.PerformLayout();
 			this.ToolStrip3.ResumeLayout(false);
 			this.ToolStrip3.PerformLayout();
+			this.ToolStrip2.ResumeLayout(false);
+			this.ToolStrip2.PerformLayout();
+			this.toolStrip4.ResumeLayout(false);
+			this.toolStrip4.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1348,6 +1379,14 @@
 		private System.Windows.Forms.ToolStripButton LayoutButton;
 		private System.Windows.Forms.ToolStripMenuItem ShowGridMenu;
 		private System.Windows.Forms.ToolStripButton ShowGridButton;
+		private System.Windows.Forms.ToolStrip toolStrip4;
+		private System.Windows.Forms.ToolStripButton rectangleButton;
+		private System.Windows.Forms.ToolStripButton lineButton;
+		private System.Windows.Forms.ToolStripButton selectButton;
+		private System.Windows.Forms.ToolStripButton circleButton;
+		private System.Windows.Forms.ToolStripButton curveButton;
+		private System.Windows.Forms.ToolStripButton polyButton;
+		private System.Windows.Forms.ToolStripButton textButton;
 	}
 }
 

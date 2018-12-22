@@ -26,6 +26,11 @@ namespace LandscapeSprinklerDesigner
 			PaletteTreeView.OnKeyUp(e);
 		}
 
+		public void UnselectAll()
+		{
+			PaletteTreeView.SelectedNode = null;
+		}
+
 		private void PalletTreeForm_Load(object sender, EventArgs e)
 		{
 			#region Load state from registry

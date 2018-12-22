@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 using System.Xml;
 using TNT.Configuration;
@@ -236,6 +237,13 @@ namespace LSDComponents
 					}
 				}
 			}
+		}
+
+		public void ExportImage(string fileName)
+		{
+			var pn = SelectedNode as PaletteNode;
+			var image = ImageList.Images[pn.ImageIndex];
+			image.Save(fileName, ImageFormat.Png);
 		}
 
 		public PaletteNode AddSiblingNode()

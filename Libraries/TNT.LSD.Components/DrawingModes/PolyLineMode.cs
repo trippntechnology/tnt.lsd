@@ -29,7 +29,7 @@ namespace LSDComponents.DrawingModes
 				cad.Text = ADD_POINT_TEXT;
 			}
 
-			cad.Cursor = TNTCursors.LineTool;
+			cad.Cursor = TNTCursors.PolyLineTool;
 			Point adjPos = new Point(e.X, e.Y).ToWorldCoordinateSpace(cad.CreateGraphics(), cad.SnapToGrid);
 
 			if (m_ConstructedObject != null && m_ConstructedObject.ControlPoints.Count > 6 && modifierKeys == Keys.Control)

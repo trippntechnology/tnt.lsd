@@ -9,6 +9,9 @@ namespace LSDComponents
 {
 	public class PaletteProperties
 	{
+		/// <summary>
+		/// This is used by DrawingModeListConverter
+		/// </summary>
 		internal List<string> m_ModeList = null;
 		private string m_DrawingModeType = string.Empty;
 		private string m_ImageObjectType = string.Empty;

@@ -9,6 +9,7 @@ namespace TNT.LSD.Objects
 		private static Cursor m_CurvePoint;
 		private static Cursor m_CurveTool;
 		private static Cursor m_LineTool;
+		private static Cursor m_PolyLineTool;
 		private static Cursor m_RectangleTool;
 		private static Cursor m_TextTool;
 		private static Cursor m_CircleTool;
@@ -101,6 +102,19 @@ namespace TNT.LSD.Objects
 				}
 
 				return m_LineTool;
+			}
+		}
+
+		public static Cursor PolyLineTool
+		{
+			get
+			{
+				if (m_PolyLineTool == null)
+				{
+					m_PolyLineTool = Utilities.Utilities.LoadColorCursor("TNT.LSD.Objects.Cursors.PolyLine.cur");
+				}
+
+				return m_PolyLineTool;
 			}
 		}
 
