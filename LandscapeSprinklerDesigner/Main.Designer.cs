@@ -872,8 +872,8 @@
 			// 
 			// toolStripContainer1.TopToolStripPanel
 			// 
-			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip3);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip1);
+			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip3);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip2);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip4);
 			// 
@@ -907,7 +907,7 @@
             this.PartsToolTipButton,
             this.LayoutButton,
             this.ShowGridButton});
-			this.ToolStrip3.Location = new System.Drawing.Point(128, 0);
+			this.ToolStrip3.Location = new System.Drawing.Point(486, 0);
 			this.ToolStrip3.Name = "ToolStrip3";
 			this.ToolStrip3.Size = new System.Drawing.Size(248, 25);
 			this.ToolStrip3.TabIndex = 7;
@@ -1041,7 +1041,7 @@
             this.AreaButton,
             this.LengthButton,
             this.ButtonSumGPM});
-			this.ToolStrip2.Location = new System.Drawing.Point(376, 0);
+			this.ToolStrip2.Location = new System.Drawing.Point(128, 0);
 			this.ToolStrip2.Name = "ToolStrip2";
 			this.ToolStrip2.Size = new System.Drawing.Size(358, 25);
 			this.ToolStrip2.TabIndex = 6;
@@ -1164,7 +1164,7 @@
             this.textButton});
 			this.toolStrip4.Location = new System.Drawing.Point(734, 0);
 			this.toolStrip4.Name = "toolStrip4";
-			this.toolStrip4.Size = new System.Drawing.Size(204, 25);
+			this.toolStrip4.Size = new System.Drawing.Size(173, 25);
 			this.toolStrip4.TabIndex = 8;
 			// 
 			// selectButton
