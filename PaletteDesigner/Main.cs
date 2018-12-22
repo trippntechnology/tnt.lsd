@@ -70,6 +70,8 @@ namespace PalletDesigner
 				new Tuple<object, object>(Pallet, PropertyEditor));
 			toolStripItemGroupManager.Create<AddImage>(new ToolStripItem[] { AssignImageButton, AssignImageContextMenu }, AssignImageContextMenu.Image,
 				new Tuple<object, object>(Pallet, AddImageDialog));
+			toolStripItemGroupManager.Create<ExportImage>(new ToolStripItem[] { exportImageToolStripMenuItem }, 
+				externalObject: new Tuple<object, object>(Pallet, PropertyEditor));
 
 			#endregion
 		}

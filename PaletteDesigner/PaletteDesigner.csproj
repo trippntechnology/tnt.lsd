@@ -65,6 +65,7 @@
     <Compile Include="Events\Paste.cs" />
     <Compile Include="Events\Save.cs" />
     <Compile Include="Events\SaveAs.cs" />
+    <Compile Include="Events\ExportImage.cs" />
     <Compile Include="Events\ShiftNodeDown.cs" />
     <Compile Include="Events\ShiftNodeUp.cs" />
     <Compile Include="Main.cs">

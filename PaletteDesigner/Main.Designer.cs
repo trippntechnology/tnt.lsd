@@ -82,6 +82,7 @@
 			this.Pallet = new LSDComponents.PalletNodeTreeView(this.components);
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.StatusToolTip = new System.Windows.Forms.ToolStripStatusLabel();
+			this.exportImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.PalletContextMenu.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -177,14 +178,14 @@
             this.DemoteNodeContextMenu,
             this.toolStripSeparator2,
             this.AssignImageContextMenu,
+            this.exportImageToolStripMenuItem,
             this.toolStripMenuItem2,
             this.CopyContextMenu,
             this.PasteContextMenu,
             this.toolStripSeparator3,
             this.toolStripMenuItem3});
 			this.PalletContextMenu.Name = "PalletContextMenu";
-			this.PalletContextMenu.OwnerItem = this.menuNode;
-			this.PalletContextMenu.Size = new System.Drawing.Size(168, 248);
+			this.PalletContextMenu.Size = new System.Drawing.Size(168, 270);
 			// 
 			// AddSiblingNodeContextMenu
 			// 
@@ -527,6 +528,12 @@
 			this.StatusToolTip.Size = new System.Drawing.Size(118, 17);
 			this.StatusToolTip.Text = "toolStripStatusLabel1";
 			// 
+			// exportImageToolStripMenuItem
+			// 
+			this.exportImageToolStripMenuItem.Name = "exportImageToolStripMenuItem";
+			this.exportImageToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.exportImageToolStripMenuItem.Text = "Export Image";
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -609,6 +616,7 @@
 		private System.Windows.Forms.ToolStripButton PasteButton;
 		public System.Windows.Forms.OpenFileDialog OpenDialog;
 		public LSDComponents.PalletNodeTreeView Pallet;
+		private System.Windows.Forms.ToolStripMenuItem exportImageToolStripMenuItem;
 	}
 }
 
