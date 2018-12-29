@@ -4,7 +4,9 @@ namespace LandscapeSprinklerDesigner.Events
 {
 	class DrawRectangleEvent : DrawEvent
 	{
-		public override DrawingMode DrawingMode => new RectangleMode() { Layer = 1 };
+		private RectangleMode rectangleMode = new RectangleMode() { Layer = 1 };
+
+		public override DrawingMode DrawingMode => rectangleMode;
 
 		public override string Text => "Rectangle";
 

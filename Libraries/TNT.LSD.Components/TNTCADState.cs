@@ -163,6 +163,8 @@ namespace LSDComponents
 
 		private void SetLegendVisibilty(bool showLegend)
 		{
+			// TODO remove this method
+
 			var layers = CAD.State.ObjectLayers;
 
 			if (CAD != null && layers.Count > 1)
@@ -183,7 +185,6 @@ namespace LSDComponents
 					}
 				}
 
-				legend.Visible = showLegend;
 				legend.Selected = false;
 				layers[1].Remove(legend);
 

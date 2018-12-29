@@ -905,7 +905,7 @@ namespace LSDComponents
 		{
 			UndoActionList uaList = new UndoActionList();
 
-			List<TNTObject> selectedObjs = (from o in SelectedObjects where !(o is Legend) orderby !(o is Pipe) select o).ToList();
+			List<TNTObject> selectedObjs = (from o in SelectedObjects orderby !(o is Pipe) select o).ToList();
 
 			foreach (TNTObject o in selectedObjs)
 			{

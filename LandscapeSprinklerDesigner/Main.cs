@@ -139,13 +139,15 @@ namespace LandscapeSprinklerDesigner
 		private void SetupDrawingGroupManager()
 		{
 			toolStripItemDrawingGroupManager = new ToolStripItemCheckboxGroupManager(toolStripStatusLabel1);
-			toolStripItemDrawingGroupManager.Create<DrawSelectEvent>(new ToolStripItem[] { selectButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
-			toolStripItemDrawingGroupManager.Create<DrawRectangleEvent>(new ToolStripItem[] { rectangleButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
-			toolStripItemDrawingGroupManager.Create<DrawLineEvent>(new ToolStripItem[] { lineButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
-			toolStripItemDrawingGroupManager.Create<DrawCircleEvent>(new ToolStripItem[] { circleButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
-			toolStripItemDrawingGroupManager.Create<DrawCurveEvent>(new ToolStripItem[] { curveButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
-			toolStripItemDrawingGroupManager.Create<DrawPolyEvent>(new ToolStripItem[] { polyButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
-			toolStripItemDrawingGroupManager.Create<DrawTextEvent>(new ToolStripItem[] { textButton }, null, Tuple.Create(CAD, m_PropertyForm, m_PalletForm));
+			var externalObj = Tuple.Create(CAD, m_PropertyForm, m_PalletForm);
+			toolStripItemDrawingGroupManager.Create<DrawSelectEvent>(new ToolStripItem[] { selectButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawRectangleEvent>(new ToolStripItem[] { rectangleButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawLineEvent>(new ToolStripItem[] { lineButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawCircleEvent>(new ToolStripItem[] { circleButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawCurveEvent>(new ToolStripItem[] { curveButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawPolyEvent>(new ToolStripItem[] { polyButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawTextEvent>(new ToolStripItem[] { textButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.Create<DrawLegendEvent>(new ToolStripItem[] { legendButton }, null, externalObj);
 		}
 
 		private void pluginOnClickHandler(object sender, EventArgs e)

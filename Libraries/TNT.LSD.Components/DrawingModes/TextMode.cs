@@ -22,7 +22,7 @@ namespace LSDComponents.DrawingModes
 
 		public override DrawingMode Clone()
 		{
-			return new TextMode(this);	
+			return new TextMode(this);
 		}
 
 		public override void OnMouseMove(TNTCAD cad, System.Windows.Forms.MouseEventArgs e, System.Windows.Forms.Keys modifierKeys)

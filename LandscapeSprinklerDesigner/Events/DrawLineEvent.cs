@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LSDComponents.DrawingModes;
+﻿using LSDComponents.DrawingModes;
 
 namespace LandscapeSprinklerDesigner.Events
 {
 	class DrawLineEvent : DrawEvent
 	{
-		public override DrawingMode DrawingMode => new LineMode() { Layer = 1 };
+		private LineMode lineMode = new LineMode() { Layer = 1 };
+
+		public override DrawingMode DrawingMode => lineMode;
 
 		public override string Text => "Line";
 

@@ -4,7 +4,9 @@ namespace LandscapeSprinklerDesigner.Events
 {
 	class DrawCircleEvent : DrawEvent
 	{
-		public override DrawingMode DrawingMode => new CircleMode() { Layer = 1 };
+		private CircleMode circleMode = new CircleMode() { Layer = 1 };
+
+		public override DrawingMode DrawingMode => circleMode;
 
 		public override string Text => "Circle";
 

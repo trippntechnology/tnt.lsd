@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="ApplicationData.cs" />
     <Compile Include="DrawingModes\LateralPipeMode.cs" />
+    <Compile Include="DrawingModes\LegendMode.cs" />
     <Compile Include="DrawingModes\MainlinePipeMode.cs" />
     <Compile Include="DrawingModes\PipeMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

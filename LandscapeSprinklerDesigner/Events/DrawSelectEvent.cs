@@ -4,7 +4,9 @@ namespace LandscapeSprinklerDesigner.Events
 {
 	class DrawSelectEvent : DrawEvent
 	{
-		public override DrawingMode DrawingMode => new SelectMode() { Layer = 1 };
+		private SelectMode selectMode = new SelectMode() { Layer = 1 };
+
+		public override DrawingMode DrawingMode => selectMode;
 
 		public override string Text => "Select";
 

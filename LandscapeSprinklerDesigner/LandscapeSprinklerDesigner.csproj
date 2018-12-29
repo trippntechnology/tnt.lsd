@@ -94,6 +94,7 @@
     <Compile Include="Events\DrawCircleEvent.cs" />
     <Compile Include="Events\DrawCurveEvent.cs" />
     <Compile Include="Events\DrawEvent.cs" />
+    <Compile Include="Events\DrawLegendEvent.cs" />
     <Compile Include="Events\DrawPolyEvent.cs" />
     <Compile Include="Events\DrawRectangleEvent.cs" />
     <Compile Include="Events\DrawLineEvent.cs" />
