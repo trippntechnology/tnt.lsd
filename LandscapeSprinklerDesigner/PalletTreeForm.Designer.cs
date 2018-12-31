@@ -156,7 +156,7 @@
             | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "PalletTreeForm";
-			this.Text = "Designer Palette";
+			this.Text = "Parts Palette";
 			this.Load += new System.EventHandler(this.PalletTreeForm_Load);
 			this.TreeViewContextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);

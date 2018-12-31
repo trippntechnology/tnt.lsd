@@ -379,7 +379,7 @@
 			this.PaletteTreeMenu.Name = "PaletteTreeMenu";
 			this.PaletteTreeMenu.Size = new System.Drawing.Size(199, 22);
 			this.PaletteTreeMenu.Text = "Pallet &Tree";
-			this.PaletteTreeMenu.ToolTipText = "Hide/Show designer palette";
+			this.PaletteTreeMenu.ToolTipText = "Hide/Show parts palette";
 			// 
 			// LayoutSettingsMenu
 			// 

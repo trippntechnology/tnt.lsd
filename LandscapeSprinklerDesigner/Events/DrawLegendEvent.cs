@@ -11,5 +11,11 @@ namespace LandscapeSprinklerDesigner.Events
 		public override string Text => "Draw legend";
 
 		public override string ToolTipText => "Draw a legend";
+
+		public DrawLegendEvent()
+			: base(ResourceToImage("LandscapeSprinklerDesigner.Images.legend.png"))
+		{
+
+		}
 	}
 }
