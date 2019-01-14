@@ -27,12 +27,9 @@ namespace TNT.LSD.Settings
 		protected bool m_DrawGrid;
 		protected Color m_GridColor;
 		protected int m_GridColorAlphaValue;
-		protected bool m_ShowLegend;
 
 		[XmlIgnore()]
 		virtual public OnDrawLayersDelegate OnDrawLayers { private get; set; }
-		[XmlIgnore()]
-		virtual public OnSetLegendVisibilityDelegate OnSetLegendVisibility { private get; set; }
 		[XmlIgnore()]
 		virtual public OnSetHeightInFeetDelegate OnSetHeightInFeet { private get; set; }
 		[XmlIgnore()]
@@ -94,19 +91,6 @@ namespace TNT.LSD.Settings
 			{
 				m_GridColorAlphaValue = value;
 				DrawLayers(0);
-			}
-		}
-
-		[Category("Layout")]
-		[DisplayName("Show Legend")]
-		[Description("Indicates whether the ledend is visible.")]
-		virtual public bool ShowLegend
-		{
-			get { return m_ShowLegend; }
-			set
-			{
-				m_ShowLegend = value;
-				OnSetLegendVisibility?.Invoke(m_ShowLegend);
 			}
 		}
 

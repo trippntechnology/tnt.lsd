@@ -4,7 +4,9 @@ namespace LandscapeSprinklerDesigner.Events
 {
 	class DrawCurveEvent : DrawEvent
 	{
-		public override DrawingMode DrawingMode => new BezierMode() { Layer = 1 };
+		private BezierMode bezierMode = new BezierMode() { Layer = 1 };
+
+		public override DrawingMode DrawingMode => bezierMode;
 
 		public override string Text => "Curve";
 

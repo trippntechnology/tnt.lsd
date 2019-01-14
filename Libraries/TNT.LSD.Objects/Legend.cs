@@ -2,20 +2,11 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace TNT.LSD.Objects
 {
 	public class Legend : TNTShape
 	{
-		#region Members
-
-		protected bool m_Visible = false;
-
-		#endregion
-
-		public bool Visible { get { return m_Visible; } set { m_Visible = value; Selected = m_Visible && Selected; } }
-
 		#region Constructors
 
 		public Legend(Legend obj)
@@ -37,19 +28,6 @@ namespace TNT.LSD.Objects
 
 		#endregion
 
-		[XmlIgnore()]
-		public override bool Selected
-		{
-			get { return base.Selected; }
-			set
-			{
-				if (Visible)
-				{
-					base.Selected = value;
-				}
-			}
-		}
-
 		public override TNTObject Clone()
 		{
 			return new Legend(this);
@@ -70,83 +48,84 @@ namespace TNT.LSD.Objects
 			base.AlignToGrid();
 		}
 
+		public override void MoveTo(int x, int y, bool alignPoints)
+		{
+			ControlPoints[0].MoveTo(x, y, alignPoints);
+		}
+
 		public override void Draw(Graphics graphics, DrawingOptions drawingOptions)
 		{
-			if (Visible)
+			Font textFont = new Font("Arial", 10);
+			int legendHeight = 20;
+
+			List<LegendEntry> legendEntries = new List<LegendEntry>();
+			int maxTextWidth = 0;
+			int maxTextHeight = 0;
+			int minWidth = 100;
+			int minHeight = 100;
+
+			var distinctLegendText = (from o in drawingOptions.PartsLayer where o is PalettePart && !(o as PalettePart).ExcludeFromLegend orderby (o as PalettePart).LegendText select (o as PalettePart).LegendText).Distinct();
+
+			foreach (string legendText in distinctLegendText)
 			{
-				Font textFont = new Font("Arial", 10);
-				int legendHeight = 20;
+				PalettePart palettePart = drawingOptions.PartsLayer.Find(o => { return (o is PalettePart) && (o as PalettePart).LegendText == legendText; }) as PalettePart;
+				legendEntries.Add(new LegendEntry(palettePart.LegendImage, palettePart.LegendText));
+			}
 
-				List<LegendEntry> legendEntries = new List<LegendEntry>();
-				int maxTextWidth = 0;
-				int maxTextHeight = 0;
-				int minWidth = 100;
-				int minHeight = 100;
+			#region Add pipe sizes to legend
 
-				var distinctLegendText = (from o in drawingOptions.PartsLayer where o is PalettePart && !(o as PalettePart).ExcludeFromLegend orderby (o as PalettePart).LegendText select (o as PalettePart).LegendText).Distinct();
+			var distinctPipe = (from p in drawingOptions.PartsLayer where p is Pipe select p as Pipe).ToList().Distinct(new PipeComparer());
+			LateralPipe legendPipe = new LateralPipe(new TNTPart(new Point(0, 8)), new TNTPart(new Point(16, 8)));
 
-				foreach (string legendText in distinctLegendText)
-				{
-					PalettePart palettePart = drawingOptions.PartsLayer.Find(o => { return (o is PalettePart) && (o as PalettePart).LegendText == legendText; }) as PalettePart;
-					legendEntries.Add(new LegendEntry(palettePart.LegendImage, palettePart.LegendText));
-				}
+			//foreach (string size in distinctPipesSizes)
+			foreach (Pipe pipe in distinctPipe)
+			{
+				legendPipe.PipeSize = pipe.PipeSize;
+				legendPipe.LineStyle = pipe.LineStyle;
+				Bitmap bm = new Bitmap(16, 16);
+				Graphics gp = Graphics.FromImage(bm);
+				legendPipe.Draw(gp, drawingOptions);
+				legendEntries.Add(new LegendEntry(bm, string.Format("{0} {1}", legendPipe.PipeSize, pipe is LateralPipe ? "Lateral" : "Main")));
+			}
 
-				#region Add pipe sizes to legend
+			#endregion
 
-				var distinctPipe = (from p in drawingOptions.PartsLayer where p is Pipe select p as Pipe).ToList().Distinct(new PipeComparer());
-				LateralPipe legendPipe = new LateralPipe(new TNTPart(new Point(0, 8)), new TNTPart(new Point(16, 8)));
+			foreach (LegendEntry le in legendEntries)
+			{
+				maxTextHeight = System.Math.Max(maxTextHeight, le.Height(graphics, textFont));
+				maxTextWidth = System.Math.Max(maxTextWidth, le.Width(graphics, textFont));
+			}
 
-				//foreach (string size in distinctPipesSizes)
-				foreach (Pipe pipe in distinctPipe)
-				{
-					legendPipe.PipeSize = pipe.PipeSize;
-					legendPipe.LineStyle = pipe.LineStyle;
-					Bitmap bm = new Bitmap(16, 16);
-					Graphics gp = Graphics.FromImage(bm);
-					legendPipe.Draw(gp, drawingOptions);
-					legendEntries.Add(new LegendEntry(bm, string.Format("{0} {1}", legendPipe.PipeSize, pipe is LateralPipe ? "Lateral" : "Main")));
-				}
+			int width = System.Math.Max(minWidth, maxTextWidth);
+			int height = System.Math.Max(minHeight, maxTextHeight * (legendEntries.Count + 1) + legendHeight);
 
-				#endregion
+			ControlPoints[4].MoveTo(ControlPoints[0].XPos + width, ControlPoints[0].YPos + height, true);
+
+			GraphicsPath path = CreateRoundedRectangle(ControlPoints[0].Position, ControlPoints[4].Position, 20);
+
+			using (Pen pen = new Pen(LineColor))
+			using (Brush brush = new SolidBrush(Color.FromArgb(FillOpacity, FillColor)))
+			using (Brush textBrush = new SolidBrush(Color.Black))
+			using (StringFormat stringFormat = new StringFormat())
+			using (Font font = new Font("Arial", 10, FontStyle.Bold))
+			{
+				stringFormat.Alignment = StringAlignment.Center;
+				stringFormat.LineAlignment = StringAlignment.Center;
+
+				pen.Width = LineWidth;
+				pen.DashStyle = LineStyle;
+
+				graphics.DrawPath(pen, path);
+				graphics.FillPath(brush, path);
+
+				graphics.DrawString("Legend", font, textBrush, new Rectangle(ControlPoints[0].Position, new Size(width, legendHeight)), stringFormat);
+
+				int currentYPos = legendHeight;
 
 				foreach (LegendEntry le in legendEntries)
 				{
-					maxTextHeight = System.Math.Max(maxTextHeight, le.Height(graphics, textFont));
-					maxTextWidth = System.Math.Max(maxTextWidth, le.Width(graphics, textFont));
-				}
-
-				int width = System.Math.Max(minWidth, maxTextWidth);
-				int height = System.Math.Max(minHeight, maxTextHeight * (legendEntries.Count + 1) + legendHeight);
-
-				ControlPoints[4].MoveTo(ControlPoints[0].XPos + width, ControlPoints[0].YPos + height, true);
-
-				GraphicsPath path = CreateRoundedRectangle(ControlPoints[0].Position, ControlPoints[4].Position, 20);
-
-				using (Pen pen = new Pen(LineColor))
-				using (Brush brush = new SolidBrush(Color.FromArgb(FillOpacity, FillColor)))
-				using (Brush textBrush = new SolidBrush(Color.Black))
-				using (StringFormat stringFormat = new StringFormat())
-				using (Font font = new Font("Arial", 10, FontStyle.Bold))
-				{
-					stringFormat.Alignment = StringAlignment.Center;
-					stringFormat.LineAlignment = StringAlignment.Center;
-
-					pen.Width = LineWidth;
-					pen.DashStyle = LineStyle;
-
-					graphics.DrawPath(pen, path);
-					graphics.FillPath(brush, path);
-
-					graphics.DrawString("Legend", font, textBrush, new Rectangle(ControlPoints[0].Position, new Size(width, legendHeight)), stringFormat);
-
-					int currentYPos = legendHeight;
-
-					foreach (LegendEntry le in legendEntries)
-					{
-						le.Draw(graphics, ControlPoints[0].XPos, ControlPoints[0].YPos + currentYPos, textFont, textBrush);
-						currentYPos += maxTextHeight;
-					}
-
+					le.Draw(graphics, ControlPoints[0].XPos, ControlPoints[0].YPos + currentYPos, textFont, textBrush);
+					currentYPos += maxTextHeight;
 				}
 			}
 

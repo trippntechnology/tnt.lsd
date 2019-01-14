@@ -857,14 +857,8 @@ namespace LSDComponents
 
 			CreateUndoActions<TNTObject>(objs, UndoAction.UndoActionType.uaDelete);
 
-			if (m_State.ShowLegend)
-			{
-				DrawLayers(1);
-			}
-			else
-			{
-				DrawLayers(m_ActiveLayer);
-			}
+			// TODO only draw layer that needs be drawn
+			DrawLayers(1);
 		}
 
 		public void Copy()
@@ -905,7 +899,7 @@ namespace LSDComponents
 		{
 			UndoActionList uaList = new UndoActionList();
 
-			List<TNTObject> selectedObjs = (from o in SelectedObjects where !(o is Legend) orderby !(o is Pipe) select o).ToList();
+			List<TNTObject> selectedObjs = (from o in SelectedObjects orderby !(o is Pipe) select o).ToList();
 
 			foreach (TNTObject o in selectedObjs)
 			{
@@ -942,14 +936,8 @@ namespace LSDComponents
 
 			m_UndoActions.Push(uaList);
 
-			if (m_State.ShowLegend)
-			{
-				DrawLayers(1);
-			}
-			else
-			{
-				DrawLayers(m_ActiveLayer);
-			}
+			// TODO only draw layer that needs be drawn
+			DrawLayers(1);
 		}
 
 		public void Undo()

@@ -146,6 +146,7 @@
 			this.curveButton = new System.Windows.Forms.ToolStripButton();
 			this.polyButton = new System.Windows.Forms.ToolStripButton();
 			this.textButton = new System.Windows.Forms.ToolStripButton();
+			this.legendButton = new System.Windows.Forms.ToolStripButton();
 			this.MenuStrip1.SuspendLayout();
 			this.ToolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -378,7 +379,7 @@
 			this.PaletteTreeMenu.Name = "PaletteTreeMenu";
 			this.PaletteTreeMenu.Size = new System.Drawing.Size(199, 22);
 			this.PaletteTreeMenu.Text = "Pallet &Tree";
-			this.PaletteTreeMenu.ToolTipText = "Hide/Show designer palette";
+			this.PaletteTreeMenu.ToolTipText = "Hide/Show parts palette";
 			// 
 			// LayoutSettingsMenu
 			// 
@@ -873,8 +874,8 @@
 			// toolStripContainer1.TopToolStripPanel
 			// 
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip1);
-			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip3);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip2);
+			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.ToolStrip3);
 			this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip4);
 			// 
 			// DockPanel
@@ -1161,10 +1162,11 @@
             this.circleButton,
             this.curveButton,
             this.polyButton,
-            this.textButton});
+            this.textButton,
+            this.legendButton});
 			this.toolStrip4.Location = new System.Drawing.Point(734, 0);
 			this.toolStrip4.Name = "toolStrip4";
-			this.toolStrip4.Size = new System.Drawing.Size(173, 25);
+			this.toolStrip4.Size = new System.Drawing.Size(196, 25);
 			this.toolStrip4.TabIndex = 8;
 			// 
 			// selectButton
@@ -1229,6 +1231,15 @@
 			this.textButton.Name = "textButton";
 			this.textButton.Size = new System.Drawing.Size(23, 22);
 			this.textButton.Text = "toolStripButton7";
+			// 
+			// legendButton
+			// 
+			this.legendButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.legendButton.Image = ((System.Drawing.Image)(resources.GetObject("legendButton.Image")));
+			this.legendButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.legendButton.Name = "legendButton";
+			this.legendButton.Size = new System.Drawing.Size(23, 22);
+			this.legendButton.Text = "toolStripButton1";
 			// 
 			// Main
 			// 
@@ -1387,6 +1398,7 @@
 		private System.Windows.Forms.ToolStripButton curveButton;
 		private System.Windows.Forms.ToolStripButton polyButton;
 		private System.Windows.Forms.ToolStripButton textButton;
+		private System.Windows.Forms.ToolStripButton legendButton;
 	}
 }
 

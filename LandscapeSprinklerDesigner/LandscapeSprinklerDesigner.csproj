@@ -94,6 +94,7 @@
     <Compile Include="Events\DrawCircleEvent.cs" />
     <Compile Include="Events\DrawCurveEvent.cs" />
     <Compile Include="Events\DrawEvent.cs" />
+    <Compile Include="Events\DrawLegendEvent.cs" />
     <Compile Include="Events\DrawPolyEvent.cs" />
     <Compile Include="Events\DrawRectangleEvent.cs" />
     <Compile Include="Events\DrawLineEvent.cs" />
@@ -181,6 +182,7 @@
     <EmbeddedResource Include="DockableForm.resx">
       <DependentUpon>DockableForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\legend.png" />
     <EmbeddedResource Include="LayoutForm.resx">
       <DependentUpon>LayoutForm.cs</DependentUpon>
     </EmbeddedResource>

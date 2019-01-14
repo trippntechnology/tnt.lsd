@@ -4,7 +4,9 @@ namespace LandscapeSprinklerDesigner.Events
 {
 	class DrawTextEvent : DrawEvent
 	{
-		public override DrawingMode DrawingMode => new TextMode() { Layer = 1 };
+		private TextMode textMode = new TextMode() { Layer = 1 };
+
+		public override DrawingMode DrawingMode => textMode;
 
 		public override string Text => "Text";
 

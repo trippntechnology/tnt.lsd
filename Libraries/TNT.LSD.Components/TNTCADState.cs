@@ -81,7 +81,6 @@ namespace LSDComponents
 				_Settings.OnDrawLayers = DrawLayers;
 				_Settings.OnSetHeightInFeet = SetHeightInFeet;
 				_Settings.OnSetWidthInFeet = SetWidthInFeet;
-				_Settings.OnSetLegendVisibility = SetLegendVisibilty;
 			}
 		}
 
@@ -116,8 +115,6 @@ namespace LSDComponents
 			get { return Settings.WidthInFeet; }
 			set { Settings.WidthInFeet = value; }
 		}
-
-		public bool ShowLegend { get { return Settings.ShowLegend; } }
 
 		public int MainlineDrains { get { return Settings.MainlineDrains; } }
 
@@ -158,46 +155,6 @@ namespace LSDComponents
 							p.Description = DALPart.GetDescription(p.Code);
 						});
 				}
-			}
-		}
-
-		private void SetLegendVisibilty(bool showLegend)
-		{
-			var layers = CAD.State.ObjectLayers;
-
-			if (CAD != null && layers.Count > 1)
-			{
-				// Get the legend object
-				Legend legend = layers[1].Find(o => o is Legend) as Legend;
-
-				if (legend == null)
-				{
-					if (m_HiddenLegend != null)
-					{
-						legend = m_HiddenLegend;
-					}
-					else
-					{
-						// Doesn't exist yet so create it
-						legend = new Legend(new Point(TNTConstants.PIXELS_PER_FOOT, TNTConstants.PIXELS_PER_FOOT));
-					}
-				}
-
-				legend.Visible = showLegend;
-				legend.Selected = false;
-				layers[1].Remove(legend);
-
-				if (showLegend)
-				{
-					// Add it to layer
-					layers[1].Add(legend);
-				}
-				else
-				{
-					m_HiddenLegend = legend;
-				}
-
-				DrawLayers(1);
 			}
 		}
 
