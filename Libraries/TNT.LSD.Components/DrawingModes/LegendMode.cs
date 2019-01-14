@@ -36,7 +36,10 @@ namespace LSDComponents.DrawingModes
 
 		public override void OnMouseClick(TNTCAD cad, MouseEventArgs e, Keys modifierKeys)
 		{
-			cad.AddObject(DefaultObject.Clone());
+			if (e.Button == MouseButtons.Left)
+			{
+				cad.AddObject(DefaultObject.Clone());
+			}
 		}
 	}
 }
