@@ -400,28 +400,22 @@ namespace LSDComponents
 			}
 		}
 
+		/// <summary>
+		/// Gets the <see cref="PaletteNode"/> that represents the <see cref="DrawingModes.SelectMode"/>
+		/// </summary>
+		/// <returns><see cref="PaletteNode"/> that represents the <see cref="DrawingModes.SelectMode"/> if found, null otherwise</returns>
 		private TreeNode GetSelectModeNode()
 		{
 			TreeNode selectModeNode = null;
 
-			if (SelectedNode != null)
+			foreach (var node in Nodes)
 			{
-				TreeNode firstParent = SelectedNode.GetFirstParent();
+				var paletteNode = node as PaletteNode;
 
-				if (firstParent != null)
+				if (paletteNode != null && paletteNode.Properties?.DrawingMode?.GetType() == typeof(DrawingModes.SelectMode))
 				{
-					PaletteProperties paletteProperties = null;
-
-					// Find node with SelectMode
-					for (int index = 0; index < firstParent.Nodes.Count && selectModeNode == null; index++)
-					{
-						paletteProperties = ((PaletteNode)firstParent.Nodes[index]).Properties;
-
-						if (paletteProperties != null && paletteProperties.DrawingMode.GetType() == typeof(DrawingModes.SelectMode))
-						{
-							selectModeNode = firstParent.Nodes[index];
-						}
-					}
+					selectModeNode = paletteNode;
+					break;
 				}
 			}
 

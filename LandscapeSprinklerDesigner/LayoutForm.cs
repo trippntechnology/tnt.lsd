@@ -1,4 +1,5 @@
 ﻿using LSDComponents.DrawingModes;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,6 +19,8 @@ namespace LandscapeSprinklerDesigner
 		#endregion
 
 		#region Properties
+
+		public EventHandler OnKeyUp { get; set; }
 
 		public PropertyForm PropertyForm
 		{
@@ -82,9 +85,14 @@ namespace LandscapeSprinklerDesigner
 		{
 			CAD.OnKeyUp(e);
 
-			if (PalletTreeForm != null)
+			// Redirect KeyUp event to the components of the active layer
+			if (PalletTreeForm != null && CAD.ActiveLayer > 1)
 			{
 				PalletTreeForm.OnKeyUp(e);
+			}
+			else if (OnKeyUp != null)
+			{
+				OnKeyUp(sender, e);
 			}
 		}
 
