@@ -8,6 +8,8 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner
 {
+	public delegate void LayoutOnKeyUpEventHandler(object sender, KeyEventArgs e, int activeLayer);
+
 	public partial class LayoutForm : DockContent
 	{
 		#region Members
@@ -20,7 +22,7 @@ namespace LandscapeSprinklerDesigner
 
 		#region Properties
 
-		public EventHandler OnKeyUp { get; set; }
+		public new LayoutOnKeyUpEventHandler OnKeyUp { get; set; }
 
 		public PropertyForm PropertyForm
 		{
@@ -50,8 +52,6 @@ namespace LandscapeSprinklerDesigner
 				m_StatusLabel = value;
 			}
 		}
-
-		public PalletTreeForm PalletTreeForm { get; set; }
 
 		#endregion
 
@@ -84,16 +84,7 @@ namespace LandscapeSprinklerDesigner
 		private void LayoutForm_KeyUp(object sender, KeyEventArgs e)
 		{
 			CAD.OnKeyUp(e);
-
-			// Redirect KeyUp event to the components of the active layer
-			if (PalletTreeForm != null && CAD.ActiveLayer > 1)
-			{
-				PalletTreeForm.OnKeyUp(e);
-			}
-			else if (OnKeyUp != null)
-			{
-				OnKeyUp(sender, e);
-			}
+			OnKeyUp(sender, e, CAD.ActiveLayer);
 		}
 
 		private void LayoutForm_KeyDown(object sender, KeyEventArgs e)

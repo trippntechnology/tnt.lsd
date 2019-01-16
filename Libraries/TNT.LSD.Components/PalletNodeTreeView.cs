@@ -163,29 +163,24 @@ namespace LSDComponents
 			}
 		}
 
-		public new void OnKeyUp(KeyEventArgs e)
+		public void Toggle()
 		{
-			base.OnKeyUp(e);
+			DrawingModes.DrawingMode drawingMode = (SelectedNode != null && (SelectedNode is PaletteNode)) ? (SelectedNode as PaletteNode).Properties.DrawingMode : null;
 
-			if (e.KeyCode == Keys.S && e.Modifiers == Keys.None)
+			if (drawingMode != null && drawingMode.GetType() != typeof(DrawingModes.SelectMode))
 			{
-				DrawingModes.DrawingMode drawingMode = (SelectedNode != null && (SelectedNode is PaletteNode)) ? (SelectedNode as PaletteNode).Properties.DrawingMode : null;
+				// Get SelectMode node
+				TreeNode selectModeNode = GetSelectModeNode();
 
-				if (drawingMode != null && drawingMode.GetType() != typeof(DrawingModes.SelectMode))
+				if (selectModeNode != null)
 				{
-					// Get SelectMode node
-					TreeNode selectModeNode = GetSelectModeNode();
-
-					if (selectModeNode != null)
-					{
-						m_LastDrawingModeNode = SelectedNode;
-						SelectedNode = selectModeNode;
-					}
+					m_LastDrawingModeNode = SelectedNode;
+					SelectedNode = selectModeNode;
 				}
-				else if (m_LastDrawingModeNode != null)
-				{
-					SelectedNode = m_LastDrawingModeNode;
-				}
+			}
+			else if (m_LastDrawingModeNode != null)
+			{
+				SelectedNode = m_LastDrawingModeNode;
 			}
 		}
 
