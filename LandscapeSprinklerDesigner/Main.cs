@@ -120,9 +120,22 @@ namespace LandscapeSprinklerDesigner
 
 			m_DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 			m_LayoutForm.PropertyForm = m_PropertyForm;
-			m_LayoutForm.PalletTreeForm = m_PalletForm;
 			m_LayoutForm.LayoutSettingsForm = m_LayoutSettingsForm;
 			m_LayoutForm.StatusLabel = toolStripStatusLabel1;
+			m_LayoutForm.OnKeyUp += (sender, e, activeLayer) =>
+			{
+				if (e.KeyCode == Keys.S && e.Modifiers == Keys.None)
+				{
+					if (activeLayer > 1)
+					{
+						m_PalletForm?.Toggle();
+					}
+					else
+					{
+						toolStripItemDrawingGroupManager.Toggle();
+					}
+				}
+			};
 
 			// Initialize to select mode.
 			CAD.DrawingMode = new LSDComponents.DrawingModes.NullMode();
@@ -140,7 +153,7 @@ namespace LandscapeSprinklerDesigner
 		{
 			toolStripItemDrawingGroupManager = new ToolStripItemCheckboxGroupManager(toolStripStatusLabel1);
 			var externalObj = Tuple.Create(CAD, m_PropertyForm, m_PalletForm);
-			toolStripItemDrawingGroupManager.Create<DrawSelectEvent>(new ToolStripItem[] { selectButton }, null, externalObj);
+			toolStripItemDrawingGroupManager.CreateHome<DrawSelectEvent>(new ToolStripItem[] { selectButton }, null, externalObj);
 			toolStripItemDrawingGroupManager.Create<DrawRectangleEvent>(new ToolStripItem[] { rectangleButton }, null, externalObj);
 			toolStripItemDrawingGroupManager.Create<DrawLineEvent>(new ToolStripItem[] { lineButton }, null, externalObj);
 			toolStripItemDrawingGroupManager.Create<DrawCircleEvent>(new ToolStripItem[] { circleButton }, null, externalObj);

@@ -1,4 +1,5 @@
 ﻿using LSDComponents.DrawingModes;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,6 +8,8 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner
 {
+	public delegate void LayoutOnKeyUpEventHandler(object sender, KeyEventArgs e, int activeLayer);
+
 	public partial class LayoutForm : DockContent
 	{
 		#region Members
@@ -18,6 +21,8 @@ namespace LandscapeSprinklerDesigner
 		#endregion
 
 		#region Properties
+
+		public new LayoutOnKeyUpEventHandler OnKeyUp { get; set; }
 
 		public PropertyForm PropertyForm
 		{
@@ -47,8 +52,6 @@ namespace LandscapeSprinklerDesigner
 				m_StatusLabel = value;
 			}
 		}
-
-		public PalletTreeForm PalletTreeForm { get; set; }
 
 		#endregion
 
@@ -81,11 +84,7 @@ namespace LandscapeSprinklerDesigner
 		private void LayoutForm_KeyUp(object sender, KeyEventArgs e)
 		{
 			CAD.OnKeyUp(e);
-
-			if (PalletTreeForm != null)
-			{
-				PalletTreeForm.OnKeyUp(e);
-			}
+			OnKeyUp(sender, e, CAD.ActiveLayer);
 		}
 
 		private void LayoutForm_KeyDown(object sender, KeyEventArgs e)

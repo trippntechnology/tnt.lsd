@@ -21,10 +21,7 @@ namespace LandscapeSprinklerDesigner
 			InitializeComponent();
 		}
 
-		public new void OnKeyUp(KeyEventArgs e)
-		{
-			PaletteTreeView.OnKeyUp(e);
-		}
+		public void Toggle() => PaletteTreeView.Toggle();
 
 		public void UnselectAll()
 		{

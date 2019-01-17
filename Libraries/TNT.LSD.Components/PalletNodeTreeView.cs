@@ -163,29 +163,24 @@ namespace LSDComponents
 			}
 		}
 
-		public new void OnKeyUp(KeyEventArgs e)
+		public void Toggle()
 		{
-			base.OnKeyUp(e);
+			DrawingModes.DrawingMode drawingMode = (SelectedNode != null && (SelectedNode is PaletteNode)) ? (SelectedNode as PaletteNode).Properties.DrawingMode : null;
 
-			if (e.KeyCode == Keys.S && e.Modifiers == Keys.None)
+			if (drawingMode != null && drawingMode.GetType() != typeof(DrawingModes.SelectMode))
 			{
-				DrawingModes.DrawingMode drawingMode = (SelectedNode != null && (SelectedNode is PaletteNode)) ? (SelectedNode as PaletteNode).Properties.DrawingMode : null;
+				// Get SelectMode node
+				TreeNode selectModeNode = GetSelectModeNode();
 
-				if (drawingMode != null && drawingMode.GetType() != typeof(DrawingModes.SelectMode))
+				if (selectModeNode != null)
 				{
-					// Get SelectMode node
-					TreeNode selectModeNode = GetSelectModeNode();
-
-					if (selectModeNode != null)
-					{
-						m_LastDrawingModeNode = SelectedNode;
-						SelectedNode = selectModeNode;
-					}
+					m_LastDrawingModeNode = SelectedNode;
+					SelectedNode = selectModeNode;
 				}
-				else if (m_LastDrawingModeNode != null)
-				{
-					SelectedNode = m_LastDrawingModeNode;
-				}
+			}
+			else if (m_LastDrawingModeNode != null)
+			{
+				SelectedNode = m_LastDrawingModeNode;
 			}
 		}
 
@@ -400,28 +395,22 @@ namespace LSDComponents
 			}
 		}
 
+		/// <summary>
+		/// Gets the <see cref="PaletteNode"/> that represents the <see cref="DrawingModes.SelectMode"/>
+		/// </summary>
+		/// <returns><see cref="PaletteNode"/> that represents the <see cref="DrawingModes.SelectMode"/> if found, null otherwise</returns>
 		private TreeNode GetSelectModeNode()
 		{
 			TreeNode selectModeNode = null;
 
-			if (SelectedNode != null)
+			foreach (var node in Nodes)
 			{
-				TreeNode firstParent = SelectedNode.GetFirstParent();
+				var paletteNode = node as PaletteNode;
 
-				if (firstParent != null)
+				if (paletteNode != null && paletteNode.Properties?.DrawingMode?.GetType() == typeof(DrawingModes.SelectMode))
 				{
-					PaletteProperties paletteProperties = null;
-
-					// Find node with SelectMode
-					for (int index = 0; index < firstParent.Nodes.Count && selectModeNode == null; index++)
-					{
-						paletteProperties = ((PaletteNode)firstParent.Nodes[index]).Properties;
-
-						if (paletteProperties != null && paletteProperties.DrawingMode.GetType() == typeof(DrawingModes.SelectMode))
-						{
-							selectModeNode = firstParent.Nodes[index];
-						}
-					}
+					selectModeNode = paletteNode;
+					break;
 				}
 			}
 
