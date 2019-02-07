@@ -209,36 +209,58 @@ namespace TNT.LSD.Objects
 			{
 				int pipeSizeIndex = m_PipeSizeList.IndexOf(PipeSize);
 				p.DashStyle = LineStyle;
-				p.Width = pipeSizeIndex;
 				graphics.DrawLine(p, Part1.Position, Part2.Position);
 
 				if (pipeSizeIndex > 1)
 				{
-					// Pipe is larger than 3/4" so draw ticks
-					Vector pipeVector = new Vector(Part1.Position, Part2.Position);
-					PointF midPoint = Part1.Position + (pipeVector / 2.0);
-					Vector tickVector = pipeVector.Unit.Rotate(new Angle(90, true));
+					var solidBrush = new SolidBrush(Color.FromArgb(255, this.PipeColor));
+					var pipeVector = new Vector(Part1.Position, Part2.Position);
+					var midPoint = Part1.Position + (pipeVector / 2.0);
+					var angle = Convert.ToSingle(pipeVector.Unit.Angle().InDegrees);
+					var unitVector = new Vector(new PointF(-1, -1)).Unit;
+					var adjVector = unitVector * 5;
 					p.Width = 1;
 
-					if (pipeSizeIndex == 3)
+					var point = (PointF)adjVector;
+					var rect = new RectangleF(point.X, point.Y, point.X * -2, point.Y * -2);
+
+					graphics.TranslateTransform(midPoint.X, midPoint.Y);
+					graphics.RotateTransform(angle);
+
+					if (pipeSizeIndex == 2)
 					{
-						midPoint = midPoint - (pipeVector.Unit);
+						// Diamond
+						var p0 = new Vector(0, 1).Unit * 5;
+						var p1 = new Vector(-1, 0).Unit * 5;
+						var p2 = new Vector(0, -1).Unit * 5;
+						var p3 = new Vector(1, 0).Unit * 5;
+						var points = new PointF[] { (PointF)p0, (PointF)p1, (PointF)p2, (PointF)p3 };
+						graphics.FillPolygon(solidBrush, points);
+					}
+					else if (pipeSizeIndex == 3)
+					{
+						// Rectangle
+						graphics.FillRectangle(solidBrush, rect);
 					}
 					else if (pipeSizeIndex == 4)
 					{
-						midPoint = midPoint - (pipeVector.Unit * 2);
+						// Circle
+						graphics.FillEllipse(solidBrush, rect);
 					}
 					else if (pipeSizeIndex == 5)
 					{
-						midPoint = midPoint - (pipeVector.Unit * 3);
+						// Triangle
+						var p0 = new Vector(0, 0);
+						var p1 = new Vector(1, 1).Unit * 5;
+						var p2 = new Vector(1, -1).Unit * 5;
+						var p3 = new Vector(-1, -1).Unit * 5;
+						var p4 = new Vector(-1, 1).Unit * 5;
+						var points = new PointF[] { (PointF)p1, (PointF)p2, (PointF)p0, (PointF)p3, (PointF)p4, (PointF)p0 };
+						graphics.FillPolygon(solidBrush, points);
 					}
 
-					for (int index = 1; index < pipeSizeIndex; index++)
-					{
-						graphics.DrawLine(p, midPoint - (tickVector * 5), midPoint + (tickVector * 5));
-
-						midPoint = midPoint + pipeVector.Unit * 2;
-					}
+					graphics.RotateTransform(-angle);
+					graphics.TranslateTransform(-midPoint.X, -midPoint.Y);
 				}
 			}
 
