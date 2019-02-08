@@ -13,7 +13,7 @@ namespace TNT.LSD.Objects
 {
 	public abstract class PalettePart : TNTPart
 	{
-		protected const int PART_COLOR_CIRCLE_SIZE = 6;
+		protected const int PART_COLOR_CIRCLE_SIZE = 14;
 		protected const double ROTATION_POINT_RATIO = 1.0;
 		protected Image m_Image;
 		private float m_RotationAngle = 0;
@@ -174,10 +174,14 @@ namespace TNT.LSD.Objects
 
 		public override void Draw(Graphics graphics, DrawingOptions drawingOptions)
 		{
+			// Draw a colored circle on the part if connected to a pipe with a color other than black
+			DrawBackground(graphics);
 			Draw(graphics, drawingOptions, new ImageAttributes());
 			base.Draw(graphics, drawingOptions);
+		}
 
-			// Draw a colored circle on the part if connected to a pipe with a color other than black
+		virtual protected void DrawBackground(Graphics graphics)
+		{
 			if (m_Pipes != null && m_Pipes.Count > 0 && m_Pipes[0].PipeColor != Color.Black)
 			{
 				using (SolidBrush sb = new SolidBrush(m_Pipes[0].PipeColor))

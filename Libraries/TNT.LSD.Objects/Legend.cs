@@ -92,7 +92,7 @@ namespace TNT.LSD.Objects
 
 			foreach (LegendEntry le in legendEntries)
 			{
-				maxTextHeight = System.Math.Max(maxTextHeight, le.Height(graphics, textFont));
+				maxTextHeight = System.Math.Max(maxTextHeight, le.Height(graphics, textFont) + 2);
 				maxTextWidth = System.Math.Max(maxTextWidth, le.Width(graphics, textFont));
 			}
 
