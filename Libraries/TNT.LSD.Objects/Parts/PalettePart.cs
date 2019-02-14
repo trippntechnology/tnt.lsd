@@ -182,9 +182,11 @@ namespace TNT.LSD.Objects
 
 		virtual protected void DrawBackground(Graphics graphics)
 		{
-			if (m_Pipes != null && m_Pipes.Count > 0 && m_Pipes[0].PipeColor != Color.Black)
+			Color? backgroundColor = this is Valve ? this.Color : m_Pipes.Count>0 ? (Color?)m_Pipes[0].PipeColor : null;
+			
+			if (backgroundColor != null && backgroundColor?.ToArgb() != Color.Black.ToArgb())
 			{
-				using (SolidBrush sb = new SolidBrush(m_Pipes[0].PipeColor))
+				using (SolidBrush sb = new SolidBrush((Color)backgroundColor))
 				{
 					graphics.FillEllipse(sb, new Rectangle(base.Position.X - (PART_COLOR_CIRCLE_SIZE / 2), base.Position.Y - (PART_COLOR_CIRCLE_SIZE / 2), PART_COLOR_CIRCLE_SIZE, PART_COLOR_CIRCLE_SIZE));
 				}
