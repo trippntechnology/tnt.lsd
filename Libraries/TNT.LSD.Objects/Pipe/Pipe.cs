@@ -17,6 +17,8 @@ namespace TNT.LSD.Objects
 	/// </summary>
 	public abstract class Pipe : BasePart
 	{
+		const int PIPE_SIZE_INDICATOR_PIXELS = 4;
+
 		#region Properties
 
 		[XmlIgnore()]
@@ -218,7 +220,7 @@ namespace TNT.LSD.Objects
 					var midPoint = Part1.Position + (pipeVector / 2.0);
 					var angle = Convert.ToSingle(pipeVector.Unit.Angle().InDegrees);
 					var unitVector = new Vector(new PointF(-1, -1)).Unit;
-					var adjVector = unitVector * 5;
+					var adjVector = unitVector * PIPE_SIZE_INDICATOR_PIXELS;
 					p.Width = 1;
 
 					var point = (PointF)adjVector;
@@ -230,10 +232,10 @@ namespace TNT.LSD.Objects
 					if (pipeSizeIndex == 2)
 					{
 						// Diamond
-						var p0 = new Vector(0, 1).Unit * 5;
-						var p1 = new Vector(-1, 0).Unit * 5;
-						var p2 = new Vector(0, -1).Unit * 5;
-						var p3 = new Vector(1, 0).Unit * 5;
+						var p0 = new Vector(0, 1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
+						var p1 = new Vector(-1, 0).Unit * PIPE_SIZE_INDICATOR_PIXELS;
+						var p2 = new Vector(0, -1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
+						var p3 = new Vector(1, 0).Unit * PIPE_SIZE_INDICATOR_PIXELS;
 						var points = new PointF[] { (PointF)p0, (PointF)p1, (PointF)p2, (PointF)p3 };
 						graphics.FillPolygon(solidBrush, points);
 					}
@@ -251,10 +253,10 @@ namespace TNT.LSD.Objects
 					{
 						// Triangle
 						var p0 = new Vector(0, 0);
-						var p1 = new Vector(1, 1).Unit * 5;
-						var p2 = new Vector(1, -1).Unit * 5;
-						var p3 = new Vector(-1, -1).Unit * 5;
-						var p4 = new Vector(-1, 1).Unit * 5;
+						var p1 = new Vector(1, 1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
+						var p2 = new Vector(1, -1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
+						var p3 = new Vector(-1, -1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
+						var p4 = new Vector(-1, 1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
 						var points = new PointF[] { (PointF)p1, (PointF)p2, (PointF)p0, (PointF)p3, (PointF)p4, (PointF)p0 };
 						graphics.FillPolygon(solidBrush, points);
 					}
