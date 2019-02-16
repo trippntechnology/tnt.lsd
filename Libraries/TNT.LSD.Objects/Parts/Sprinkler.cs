@@ -12,6 +12,8 @@ namespace TNT.LSD.Objects
 {
 	public class Sprinkler : LateralPart
 	{
+		const string DEFAULT_INLET_SIZE = "1/2\"";
+
 		#region Static Constants
 
 		static Point[] HEXAGON = {new Point(-4,-8), new Point(3,-8),
@@ -52,6 +54,15 @@ namespace TNT.LSD.Objects
 
 					if (descriptionIndex > -1 && m_BodyPartCodesList.Count > descriptionIndex)
 						BodyCode = m_BodyPartCodesList[descriptionIndex];
+
+					if (descriptionIndex > -1 && descriptionIndex < InletSizes.Count)
+					{
+						InletSize = InletSizes[descriptionIndex];
+					}
+					else
+					{
+						InletSize = DEFAULT_INLET_SIZE;
+					}
 				}
 			}
 		}
@@ -130,13 +141,18 @@ namespace TNT.LSD.Objects
 
 		#region Inlet
 
+		protected List<string> m_InletSizesList = new List<string>();
+
 		[Description("Specifies the inlet size of the sprinkler")]
 		[DisplayName("Inlet Size")]
-		[TypeConverter(typeof(TypeConverters.SizeList))]
+		[ReadOnly(true)]
+		public string InletSize { get; set; }
+
+		[Editor(@"System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
 #if !PALETTE_PROPERTIES
 		[Browsable(false)]
 #endif
-		public string InletSize { get; set; }
+		public List<string> InletSizes { get { return m_InletSizesList; } set { m_InletSizesList = value; } }
 
 		#endregion
 
