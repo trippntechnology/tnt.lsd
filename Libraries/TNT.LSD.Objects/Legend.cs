@@ -7,6 +7,11 @@ namespace TNT.LSD.Objects
 {
 	public class Legend : TNTShape
 	{
+		const int MAX_TEXT_WIDTH = 0;
+		const int MAX_TEXT_HEIGHT = 0;
+		const int MIN_WIDTH = 100;
+		const int MIN_HEIGHT = 100;
+
 		#region Constructors
 
 		public Legend(Legend obj)
@@ -14,6 +19,9 @@ namespace TNT.LSD.Objects
 		{
 		}
 
+		/// <summary>
+		/// Needed for deserialization
+		/// </summary>
 		public Legend()
 			: base()
 		{
@@ -59,10 +67,6 @@ namespace TNT.LSD.Objects
 			int legendHeight = 20;
 
 			List<LegendEntry> legendEntries = new List<LegendEntry>();
-			int maxTextWidth = 0;
-			int maxTextHeight = 0;
-			int minWidth = 100;
-			int minHeight = 100;
 
 			var distinctLegendText = (from o in drawingOptions.PartsLayer where o is PalettePart && !(o as PalettePart).ExcludeFromLegend orderby (o as PalettePart).LegendText select (o as PalettePart).LegendText).Distinct();
 
@@ -75,29 +79,28 @@ namespace TNT.LSD.Objects
 			#region Add pipe sizes to legend
 
 			var distinctPipe = (from p in drawingOptions.PartsLayer where p is Pipe select p as Pipe).ToList().Distinct(new PipeComparer());
-			LateralPipe legendPipe = new LateralPipe(new TNTPart(new Point(0, 8)), new TNTPart(new Point(16, 8)));
 
-			//foreach (string size in distinctPipesSizes)
 			foreach (Pipe pipe in distinctPipe)
 			{
+				var legendPipe = new LateralPipe(new TNTPart(new Point(-20, 8)), new TNTPart(new Point(36, 8)));
 				legendPipe.PipeSize = pipe.PipeSize;
 				legendPipe.LineStyle = pipe.LineStyle;
-				Bitmap bm = new Bitmap(16, 16);
-				Graphics gp = Graphics.FromImage(bm);
-				legendPipe.Draw(gp, drawingOptions);
-				legendEntries.Add(new LegendEntry(bm, string.Format("{0} {1}", legendPipe.PipeSize, pipe is LateralPipe ? "Lateral" : "Main")));
+				legendEntries.Add(new PipeLegendEntry(legendPipe, string.Format("{0} {1}", legendPipe.PipeSize, pipe is LateralPipe ? "Lateral" : "Main")));
 			}
 
 			#endregion
 
+			int textWidth = MAX_TEXT_WIDTH;
+			int textHeight = MAX_TEXT_HEIGHT;
+
 			foreach (LegendEntry le in legendEntries)
 			{
-				maxTextHeight = System.Math.Max(maxTextHeight, le.Height(graphics, textFont));
-				maxTextWidth = System.Math.Max(maxTextWidth, le.Width(graphics, textFont));
+				textHeight = System.Math.Max(textHeight, le.Height(graphics, textFont) + 2);
+				textWidth = System.Math.Max(textWidth, le.Width(graphics, textFont));
 			}
 
-			int width = System.Math.Max(minWidth, maxTextWidth);
-			int height = System.Math.Max(minHeight, maxTextHeight * (legendEntries.Count + 1) + legendHeight);
+			int width = System.Math.Max(MIN_WIDTH, textWidth);
+			int height = System.Math.Max(MIN_HEIGHT, textHeight * (legendEntries.Count + 1) + legendHeight);
 
 			ControlPoints[4].MoveTo(ControlPoints[0].XPos + width, ControlPoints[0].YPos + height, true);
 
@@ -125,7 +128,7 @@ namespace TNT.LSD.Objects
 				foreach (LegendEntry le in legendEntries)
 				{
 					le.Draw(graphics, ControlPoints[0].XPos, ControlPoints[0].YPos + currentYPos, textFont, textBrush);
-					currentYPos += maxTextHeight;
+					currentYPos += textHeight;
 				}
 			}
 
@@ -183,9 +186,34 @@ namespace TNT.LSD.Objects
 		}
 	}
 
+	public class PipeLegendEntry : LegendEntry
+	{
+		protected const int PIPE_OFFSET = 8;
+
+		public Pipe Pipe { get; set; }
+
+		public PipeLegendEntry(Pipe pipe, string description)
+			: base(null, description)
+		{
+			this.Pipe = pipe;
+		}
+
+		public override void Draw(Graphics graphics, int xPos, int yPos, Font font, Brush brush)
+		{
+			int pipeXPos = xPos + MARGIN;
+			int pipeYpos = yPos + PIPE_OFFSET;
+			int descXPos = pipeXPos + 16 + MARGIN;
+
+			this.Pipe.Part1.MoveTo(pipeXPos, pipeYpos);
+			this.Pipe.Part2.MoveTo(pipeXPos + 16, pipeYpos);
+			this.Pipe.Draw(graphics, new DrawingOptions());
+			graphics.DrawString(Description, font, brush, descXPos, yPos);
+		}
+	}
+
 	public class LegendEntry
 	{
-		private const int MARGIN = 3;
+		protected const int MARGIN = 3;
 		public Image Image { get; set; }
 		public string Description { get; set; }
 
@@ -195,7 +223,7 @@ namespace TNT.LSD.Objects
 			Description = description;
 		}
 
-		public void Draw(Graphics graphics, int xPos, int yPos, Font font, Brush brush)
+		virtual public void Draw(Graphics graphics, int xPos, int yPos, Font font, Brush brush)
 		{
 			int imageXPos = xPos + MARGIN;
 			int descXPos = imageXPos + Image.Width + MARGIN;
@@ -206,12 +234,12 @@ namespace TNT.LSD.Objects
 
 		public int Height(Graphics graphics, Font font)
 		{
-			return System.Math.Max(Image.Height, graphics.MeasureString(Description, font).ToSize().Height);
+			return System.Math.Max(16, graphics.MeasureString(Description, font).ToSize().Height);
 		}
 
 		public int Width(Graphics graphics, Font font)
 		{
-			return MARGIN + Image.Width + MARGIN + graphics.MeasureString(Description, font).ToSize().Width + MARGIN;
+			return MARGIN + 16 + MARGIN + graphics.MeasureString(Description, font).ToSize().Width + MARGIN;
 		}
 	}
 
