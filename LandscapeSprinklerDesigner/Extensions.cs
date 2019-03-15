@@ -228,5 +228,13 @@ namespace LandscapeSprinklerDesigner
 				}
 			}
 		}
+
+		public static void IfNotNull<T>(this T it, Action<T> action)
+		{
+			if (it != null)
+			{
+				action?.Invoke(it);
+			}
+		}
 	}
 }

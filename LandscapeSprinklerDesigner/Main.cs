@@ -1,4 +1,5 @@
 ﻿using LandscapeSprinklerDesigner.Events;
+using LandscapeSprinklerDesigner.MenuEvents;
 using LSDComponents;
 using Microsoft.Win32;
 using System;
@@ -25,6 +26,7 @@ namespace LandscapeSprinklerDesigner
 		#region Members
 
 		private ToolStripItemCheckboxGroupManager toolStripItemDrawingGroupManager;
+		private ToolStripItemGroupManager toolStripItemMenuGroupManager;
 		private CommandManager m_CommandManager = null;
 
 		private PropertyForm m_PropertyForm = new PropertyForm();
@@ -117,6 +119,7 @@ namespace LandscapeSprinklerDesigner
 
 			InitializeCommandManager();
 			SetupDrawingGroupManager();
+			SetupMenuGroupManager();
 
 			m_DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 			m_LayoutForm.PropertyForm = m_PropertyForm;
@@ -149,6 +152,17 @@ namespace LandscapeSprinklerDesigner
 			manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
 		}
 
+		private void SetupMenuGroupManager()
+		{
+			toolStripItemMenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1);
+			var externalObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
+			toolStripItemMenuGroupManager.Create<NewMenuEvent>(ToToolStripItemArray(NewButton, NewMenu), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<ShowGridMenuEvent>(ToToolStripItemArray(ShowGridButton, ShowGridMenu), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: externalObj).LoadLayout = LoadLayout;
+		}
+
+		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
+
 		private void SetupDrawingGroupManager()
 		{
 			toolStripItemDrawingGroupManager = new ToolStripItemCheckboxGroupManager(toolStripStatusLabel1);
@@ -178,13 +192,14 @@ namespace LandscapeSprinklerDesigner
 		{
 			m_CommandManager = new CommandManager(StatusBarHintChanged);
 
-			Command cmd = m_CommandManager.Create("New", New_Click);
-			cmd.Add(NewMenu);
-			cmd.Add(NewButton);
+			Command cmd = null;
+			//cmd = m_CommandManager.Create("New", New_Click);
+			//cmd.Add(NewMenu);
+			//cmd.Add(NewButton);
 
-			cmd = m_CommandManager.Create("Open", Open_Click);
-			cmd.Add(OpenMenu);
-			cmd.Add(OpenButton);
+			//cmd = m_CommandManager.Create("Open", Open_Click);
+			//cmd.Add(OpenMenu);
+			//cmd.Add(OpenButton);
 
 			cmd = m_CommandManager.Create("Save", c => CAD.Save(false));
 			cmd.Add(SaveMenu);
@@ -413,13 +428,13 @@ namespace LandscapeSprinklerDesigner
 			cmd.Add(LayoutMenu);
 			cmd.CheckOnClick = true;
 
-			cmd = m_CommandManager.Create("ShowGrid", (c) =>
-			{
-				CAD.Settings.DrawGrid = c.Checked;
-			});
-			cmd.Add(ShowGridButton);
-			cmd.Add(ShowGridMenu);
-			cmd.CheckOnClick = true;
+			//cmd = m_CommandManager.Create("ShowGrid", (c) =>
+			//{
+			//	CAD.Settings.DrawGrid = c.Checked;
+			//});
+			//cmd.Add(ShowGridButton);
+			//cmd.Add(ShowGridMenu);
+			//cmd.CheckOnClick = true;
 		}
 
 		private void Main_Load(object sender, EventArgs e)
@@ -615,7 +630,7 @@ namespace LandscapeSprinklerDesigner
 
 			CAD.Open(fileName);
 			m_LayoutSettingsForm.Settings = CAD.Settings;
-			m_CommandManager["ShowGrid"].Checked = CAD.Settings.DrawGrid;
+			toolStripItemMenuGroupManager["Show Grid"].IfNotNull(it => { it.Checked = CAD.Settings.DrawGrid; });
 		}
 
 		private void About_Click(object sender, EventArgs e)

@@ -119,6 +119,10 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuEvents\MenuEvent.cs" />
+    <Compile Include="MenuEvents\NewMenuEvent.cs" />
+    <Compile Include="MenuEvents\OpenMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
     <Compile Include="NewLayoutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,6 +275,9 @@
     <EmbeddedResource Include="Images\polyline.png" />
     <EmbeddedResource Include="Images\rectangle.png" />
     <EmbeddedResource Include="Images\text.png" />
+    <EmbeddedResource Include="Images\new.png" />
+    <EmbeddedResource Include="Images\show_grid.png" />
+    <EmbeddedResource Include="Images\open.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>
