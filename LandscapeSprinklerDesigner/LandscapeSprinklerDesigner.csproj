@@ -119,12 +119,15 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuEvents\DeleteMenuEvent.cs" />
+    <Compile Include="MenuEvents\ExitMenuEvent.cs" />
     <Compile Include="MenuEvents\MenuEvent.cs" />
     <Compile Include="MenuEvents\NewMenuEvent.cs" />
     <Compile Include="MenuEvents\OpenMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveAsMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
+    <Compile Include="MenuEvents\UndoMenuEvent.cs" />
     <Compile Include="NewLayoutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +284,8 @@
     <EmbeddedResource Include="Images\show_grid.png" />
     <EmbeddedResource Include="Images\open.png" />
     <EmbeddedResource Include="Images\save.png" />
+    <EmbeddedResource Include="Images\undo.png" />
+    <EmbeddedResource Include="Images\delete.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

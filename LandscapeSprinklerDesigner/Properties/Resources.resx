@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="menu_delete" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="menu_delete_tooltip" xml:space="preserve">
+    <value>Delete Selected Object(s)</value>
+  </data>
+  <data name="menu_exit" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="menu_exit_tooltip" xml:space="preserve">
+    <value>Exit The Application</value>
+  </data>
   <data name="menu_new" xml:space="preserve">
     <value>&amp;New</value>
   </data>
@@ -146,5 +158,11 @@
   </data>
   <data name="menu_show_grip_tooltip" xml:space="preserve">
     <value>Toggle Grid Visibility</value>
+  </data>
+  <data name="menu_undo" xml:space="preserve">
+    <value>&amp;Undo</value>
+  </data>
+  <data name="menu_undo_tooltip" xml:space="preserve">
+    <value>Undo Previous Action</value>
   </data>
 </root>

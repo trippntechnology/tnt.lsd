@@ -161,6 +161,9 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: externalObj).LoadLayout = LoadLayout;
 			toolStripItemMenuGroupManager.Create<SaveMenuEvent>(ToToolStripItemArray(SaveMenu, SaveButton), externalObject: externalObj);
 			toolStripItemMenuGroupManager.Create<SaveAsMenuEvent>(ToToolStripItemArray(SaveAsMenu), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<ExitMenuEvent>(ToToolStripItemArray(ExitMenu), onClick: (a, e) => { Close(); });
+			toolStripItemMenuGroupManager.Create<UndoMenuEvent>(ToToolStripItemArray(UndoMenu, UndoButton), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<DeleteMenuEvent>(ToToolStripItemArray(DeleteMenu, DeleteButton), externalObject: externalObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -207,19 +210,19 @@ namespace LandscapeSprinklerDesigner
 			//cmd.Add(SaveMenu);
 			//cmd.Add(SaveButton);
 
-			//cmd = m_CommandManager.Create("SaveAs", c => CAD.Save(true));
+			//cmd = m_CommandManager.Create("SaveAs", c => CAD.Save(true));	
 			//cmd.Add(SaveAsMenu);
 
-			cmd = m_CommandManager.Create("Exit", c => Close());
-			cmd.Add(ExitMenu);
+			//cmd = m_CommandManager.Create("Exit", c => Close());
+			//cmd.Add(ExitMenu);
 
-			cmd = m_CommandManager.Create("Undo", c => CAD.Undo(), c => c.Enabled = CAD.HasUnsavedChanges && CAD.DrawingMode.UndoEnabled);
-			cmd.Add(UndoMenu);
-			cmd.Add(UndoButton);
+			//cmd = m_CommandManager.Create("Undo", c => CAD.Undo(), c => c.Enabled = CAD.HasUnsavedChanges && CAD.DrawingMode.UndoEnabled);
+			//cmd.Add(UndoMenu);
+			//cmd.Add(UndoButton);
 
-			cmd = m_CommandManager.Create("Delete", c => CAD.Delete(), EnableOnSelectedUpdate);
-			cmd.Add(DeleteMenu);
-			cmd.Add(DeleteButton);
+			//cmd = m_CommandManager.Create("Delete", c => CAD.Delete(), EnableOnSelectedUpdate);
+			//cmd.Add(DeleteMenu);
+			//cmd.Add(DeleteButton);
 
 			cmd = m_CommandManager.Create("Clone", c => CAD.Copy(), c => c.Enabled = (from o in CAD.SelectedObjects where o.CanClone select o).ToList().Count > 0);
 			cmd.Add(CloneMenu);

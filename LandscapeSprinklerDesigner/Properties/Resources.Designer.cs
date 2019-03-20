@@ -61,6 +61,42 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Delete.
+        /// </summary>
+        internal static string menu_delete {
+            get {
+                return ResourceManager.GetString("menu_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Selected Object(s).
+        /// </summary>
+        internal static string menu_delete_tooltip {
+            get {
+                return ResourceManager.GetString("menu_delete_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E&amp;xit.
+        /// </summary>
+        internal static string menu_exit {
+            get {
+                return ResourceManager.GetString("menu_exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit The Application.
+        /// </summary>
+        internal static string menu_exit_tooltip {
+            get {
+                return ResourceManager.GetString("menu_exit_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;New.
         /// </summary>
         internal static string menu_new {
@@ -147,6 +183,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_show_grip_tooltip {
             get {
                 return ResourceManager.GetString("menu_show_grip_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Undo.
+        /// </summary>
+        internal static string menu_undo {
+            get {
+                return ResourceManager.GetString("menu_undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo Previous Action.
+        /// </summary>
+        internal static string menu_undo_tooltip {
+            get {
+                return ResourceManager.GetString("menu_undo_tooltip", resourceCulture);
             }
         }
     }
