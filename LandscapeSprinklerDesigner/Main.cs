@@ -159,6 +159,8 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<NewMenuEvent>(ToToolStripItemArray(NewButton, NewMenu), externalObject: externalObj);
 			toolStripItemMenuGroupManager.Create<ShowGridMenuEvent>(ToToolStripItemArray(ShowGridButton, ShowGridMenu), externalObject: externalObj);
 			toolStripItemMenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: externalObj).LoadLayout = LoadLayout;
+			toolStripItemMenuGroupManager.Create<SaveMenuEvent>(ToToolStripItemArray(SaveMenu, SaveButton), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<SaveAsMenuEvent>(ToToolStripItemArray(SaveAsMenu), externalObject: externalObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -201,12 +203,12 @@ namespace LandscapeSprinklerDesigner
 			//cmd.Add(OpenMenu);
 			//cmd.Add(OpenButton);
 
-			cmd = m_CommandManager.Create("Save", c => CAD.Save(false));
-			cmd.Add(SaveMenu);
-			cmd.Add(SaveButton);
+			//cmd = m_CommandManager.Create("Save", c => CAD.Save(false));
+			//cmd.Add(SaveMenu);
+			//cmd.Add(SaveButton);
 
-			cmd = m_CommandManager.Create("SaveAs", c => CAD.Save(true));
-			cmd.Add(SaveAsMenu);
+			//cmd = m_CommandManager.Create("SaveAs", c => CAD.Save(true));
+			//cmd.Add(SaveAsMenu);
 
 			cmd = m_CommandManager.Create("Exit", c => Close());
 			cmd.Add(ExitMenu);

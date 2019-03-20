@@ -59,5 +59,95 @@ namespace LandscapeSprinklerDesigner.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;New.
+        /// </summary>
+        internal static string menu_new {
+            get {
+                return ResourceManager.GetString("menu_new", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Layout.
+        /// </summary>
+        internal static string menu_new_tooltip {
+            get {
+                return ResourceManager.GetString("menu_new_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Open.
+        /// </summary>
+        internal static string menu_open {
+            get {
+                return ResourceManager.GetString("menu_open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Layout.
+        /// </summary>
+        internal static string menu_open_tooltip {
+            get {
+                return ResourceManager.GetString("menu_open_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Save.
+        /// </summary>
+        internal static string menu_save {
+            get {
+                return ResourceManager.GetString("menu_save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save &amp;As.
+        /// </summary>
+        internal static string menu_save_as {
+            get {
+                return ResourceManager.GetString("menu_save_as", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Layout With New Name.
+        /// </summary>
+        internal static string menu_save_as_tooltip {
+            get {
+                return ResourceManager.GetString("menu_save_as_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Layout.
+        /// </summary>
+        internal static string menu_save_tooltip {
+            get {
+                return ResourceManager.GetString("menu_save_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Grid.
+        /// </summary>
+        internal static string menu_show_grid {
+            get {
+                return ResourceManager.GetString("menu_show_grid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Grid Visibility.
+        /// </summary>
+        internal static string menu_show_grip_tooltip {
+            get {
+                return ResourceManager.GetString("menu_show_grip_tooltip", resourceCulture);
+            }
+        }
     }
 }

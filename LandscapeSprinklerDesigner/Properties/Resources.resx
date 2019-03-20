@@ -117,4 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="menu_new" xml:space="preserve">
+    <value>&amp;New</value>
+  </data>
+  <data name="menu_new_tooltip" xml:space="preserve">
+    <value>Create New Layout</value>
+  </data>
+  <data name="menu_open" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="menu_open_tooltip" xml:space="preserve">
+    <value>Open Layout</value>
+  </data>
+  <data name="menu_save" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="menu_save_as" xml:space="preserve">
+    <value>Save &amp;As</value>
+  </data>
+  <data name="menu_save_as_tooltip" xml:space="preserve">
+    <value>Save Layout With New Name</value>
+  </data>
+  <data name="menu_save_tooltip" xml:space="preserve">
+    <value>Save Layout</value>
+  </data>
+  <data name="menu_show_grid" xml:space="preserve">
+    <value>Show Grid</value>
+  </data>
+  <data name="menu_show_grip_tooltip" xml:space="preserve">
+    <value>Toggle Grid Visibility</value>
+  </data>
 </root>

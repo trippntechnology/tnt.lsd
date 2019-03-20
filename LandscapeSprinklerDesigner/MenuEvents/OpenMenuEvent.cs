@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using LandscapeSprinklerDesigner.Properties;
+using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -13,9 +14,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 		private OpenFileDialog openFileDialog;
 		private ApplicationRegistry applicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 
-		public override string Text => "&Open";
+		public override string Text => Resources.menu_open;
 
-		public override string ToolTipText => "Open Layout";
+		public override string ToolTipText => Resources.menu_open_tooltip;
 
 		public LoadLayoutDelegate LoadLayout { get; set; }
 
@@ -25,7 +26,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			openFileDialog.DefaultExt = "lsd";
 			openFileDialog.Filter = "Landscape Sprinkler Design files|*.lsd;*.lsdx";
 			openFileDialog.RestoreDirectory = true;
-			openFileDialog.Title = "Open Layout";
+			openFileDialog.Title = Resources.menu_open;
 		}
 
 		public override void MouseClick(object sender, EventArgs e)

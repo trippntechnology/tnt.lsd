@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LandscapeSprinklerDesigner.Properties;
+using System;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
@@ -6,9 +7,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 	{
 		public override bool CheckOnClick => true;
 
-		public override string Text => "Show Grid";
+		public override string Text => Resources.menu_show_grid;
 
-		public override string ToolTipText => "Toggle Grid Visibility";
+		public override string ToolTipText => Resources.menu_show_grip_tooltip;
 
 		public ShowGridMenuEvent()
 			: base(ResourceToImage("LandscapeSprinklerDesigner.Images.show_grid.png"))

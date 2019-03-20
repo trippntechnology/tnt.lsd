@@ -1,4 +1,5 @@
-﻿using LSDComponents;
+﻿using LandscapeSprinklerDesigner.Properties;
+using LSDComponents;
 using System;
 using System.Collections.Generic;
 using TNT.LSD.Objects;
@@ -7,9 +8,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 {
 	class NewMenuEvent : MenuEvent
 	{
-		public override string Text => "&New";
+		public override string Text => Resources.menu_new;
 
-		public override string ToolTipText => "Create new layout";
+		public override string ToolTipText => Resources.menu_new_tooltip;
 
 		public NewMenuEvent()
 			: base(ResourceToImage("LandscapeSprinklerDesigner.Images.new.png"))
