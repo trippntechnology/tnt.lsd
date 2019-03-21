@@ -164,6 +164,9 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<ExitMenuEvent>(ToToolStripItemArray(ExitMenu), onClick: (a, e) => { Close(); });
 			toolStripItemMenuGroupManager.Create<UndoMenuEvent>(ToToolStripItemArray(UndoMenu, UndoButton), externalObject: externalObj);
 			toolStripItemMenuGroupManager.Create<DeleteMenuEvent>(ToToolStripItemArray(DeleteMenu, DeleteButton), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<CloneMenuEvent>(ToToolStripItemArray(CloneMenu, CloneButton), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<SelectAllMenuEvent>(ToToolStripItemArray(SelectAllMenu), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<PropertiesMenuEvent>(ToToolStripItemArray(PropertiesButton, PropertiesMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PropertyForm, DockPanel));
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -198,54 +201,13 @@ namespace LandscapeSprinklerDesigner
 			m_CommandManager = new CommandManager(StatusBarHintChanged);
 
 			Command cmd = null;
-			//cmd = m_CommandManager.Create("New", New_Click);
-			//cmd.Add(NewMenu);
-			//cmd.Add(NewButton);
 
-			//cmd = m_CommandManager.Create("Open", Open_Click);
-			//cmd.Add(OpenMenu);
-			//cmd.Add(OpenButton);
-
-			//cmd = m_CommandManager.Create("Save", c => CAD.Save(false));
-			//cmd.Add(SaveMenu);
-			//cmd.Add(SaveButton);
-
-			//cmd = m_CommandManager.Create("SaveAs", c => CAD.Save(true));	
-			//cmd.Add(SaveAsMenu);
-
-			//cmd = m_CommandManager.Create("Exit", c => Close());
-			//cmd.Add(ExitMenu);
-
-			//cmd = m_CommandManager.Create("Undo", c => CAD.Undo(), c => c.Enabled = CAD.HasUnsavedChanges && CAD.DrawingMode.UndoEnabled);
-			//cmd.Add(UndoMenu);
-			//cmd.Add(UndoButton);
-
-			//cmd = m_CommandManager.Create("Delete", c => CAD.Delete(), EnableOnSelectedUpdate);
-			//cmd.Add(DeleteMenu);
-			//cmd.Add(DeleteButton);
-
-			cmd = m_CommandManager.Create("Clone", c => CAD.Copy(), c => c.Enabled = (from o in CAD.SelectedObjects where o.CanClone select o).ToList().Count > 0);
-			cmd.Add(CloneMenu);
-			cmd.Add(CloneButton);
-
-			cmd = m_CommandManager.Create("SelectAll", c =>
-			{
-				if (CAD.DrawingMode.GetType() == typeof(LSDComponents.DrawingModes.SelectMode))
-				{
-					CAD.SelectAll();
-				}
-			}, c =>
-			{
-				c.Enabled = CAD.DrawingMode.GetType() == typeof(LSDComponents.DrawingModes.SelectMode);
-			});
-			cmd.Add(SelectAllMenu);
-
-			cmd = m_CommandManager.Create("Properties", ViewMenu_Click, ToggleViewState);
-			cmd.Add(PropertiesButton);
-			cmd.Add(PropertiesMenu);
-			cmd.Text = m_PropertyForm.Text;
-			cmd.Image = m_PropertyForm.Icon.ToBitmap();
-			cmd.Tag = m_PropertyForm;
+			//cmd = m_CommandManager.Create("Properties", ViewMenu_Click, ToggleViewState);
+			//cmd.Add(PropertiesButton);
+			//cmd.Add(PropertiesMenu);
+			//cmd.Text = m_PropertyForm.Text;
+			//cmd.Image = m_PropertyForm.Icon.ToBitmap();
+			//cmd.Tag = m_PropertyForm;
 
 			cmd = m_CommandManager.Create("PartsList", ViewMenu_Click, ToggleViewState);
 			cmd.Add(PartsListButton);
@@ -469,7 +431,7 @@ namespace LandscapeSprinklerDesigner
 
 			m_LayoutForm.Show(DockPanel);
 
-			m_CommandManager["Properties"].Checked = !m_PropertyForm.IsHidden;
+			//m_CommandManager["Properties"].Checked = !m_PropertyForm.IsHidden;
 			m_CommandManager["PartsList"].Checked = !m_PartsListForm.IsHidden;
 			m_CommandManager["PaletteTree"].Checked = !m_PalletForm.IsHidden;
 			m_CommandManager["LayoutSettings"].Checked = !m_LayoutSettingsForm.IsHidden;

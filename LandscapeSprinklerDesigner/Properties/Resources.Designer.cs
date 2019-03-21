@@ -61,6 +61,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Clone.
+        /// </summary>
+        internal static string menu_clone {
+            get {
+                return ResourceManager.GetString("menu_clone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a clone of the selected object(s).
+        /// </summary>
+        internal static string menu_clone_tooltip {
+            get {
+                return ResourceManager.GetString("menu_clone_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Delete.
         /// </summary>
         internal static string menu_delete {
@@ -70,7 +88,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Selected Object(s).
+        ///   Looks up a localized string similar to Delete selected object(s).
         /// </summary>
         internal static string menu_delete_tooltip {
             get {
@@ -88,7 +106,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exit The Application.
+        ///   Looks up a localized string similar to Exit the application.
         /// </summary>
         internal static string menu_exit_tooltip {
             get {
@@ -106,7 +124,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create New Layout.
+        ///   Looks up a localized string similar to Create new layout.
         /// </summary>
         internal static string menu_new_tooltip {
             get {
@@ -124,11 +142,29 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open Layout.
+        ///   Looks up a localized string similar to Open layout.
         /// </summary>
         internal static string menu_open_tooltip {
             get {
                 return ResourceManager.GetString("menu_open_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Properties Editor.
+        /// </summary>
+        internal static string menu_properties {
+            get {
+                return ResourceManager.GetString("menu_properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide/Show properties editor.
+        /// </summary>
+        internal static string menu_properties_tooltip {
+            get {
+                return ResourceManager.GetString("menu_properties_tooltip", resourceCulture);
             }
         }
         
@@ -151,7 +187,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save Layout With New Name.
+        ///   Looks up a localized string similar to Save layout with new name.
         /// </summary>
         internal static string menu_save_as_tooltip {
             get {
@@ -160,11 +196,29 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save Layout.
+        ///   Looks up a localized string similar to Save layout.
         /// </summary>
         internal static string menu_save_tooltip {
             get {
                 return ResourceManager.GetString("menu_save_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select &amp;All.
+        /// </summary>
+        internal static string menu_select_all {
+            get {
+                return ResourceManager.GetString("menu_select_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all objects.
+        /// </summary>
+        internal static string menu_select_all_tooltip {
+            get {
+                return ResourceManager.GetString("menu_select_all_tooltip", resourceCulture);
             }
         }
         
@@ -178,7 +232,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle Grid Visibility.
+        ///   Looks up a localized string similar to Toggle grid visibility.
         /// </summary>
         internal static string menu_show_grip_tooltip {
             get {
@@ -196,7 +250,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Undo Previous Action.
+        ///   Looks up a localized string similar to Undo previous action.
         /// </summary>
         internal static string menu_undo_tooltip {
             get {

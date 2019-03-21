@@ -117,29 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="menu_clone" xml:space="preserve">
+    <value>&amp;Clone</value>
+  </data>
+  <data name="menu_clone_tooltip" xml:space="preserve">
+    <value>Create a clone of the selected object(s)</value>
+  </data>
   <data name="menu_delete" xml:space="preserve">
     <value>&amp;Delete</value>
   </data>
   <data name="menu_delete_tooltip" xml:space="preserve">
-    <value>Delete Selected Object(s)</value>
+    <value>Delete selected object(s)</value>
   </data>
   <data name="menu_exit" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
   <data name="menu_exit_tooltip" xml:space="preserve">
-    <value>Exit The Application</value>
+    <value>Exit the application</value>
   </data>
   <data name="menu_new" xml:space="preserve">
     <value>&amp;New</value>
   </data>
   <data name="menu_new_tooltip" xml:space="preserve">
-    <value>Create New Layout</value>
+    <value>Create new layout</value>
   </data>
   <data name="menu_open" xml:space="preserve">
     <value>&amp;Open</value>
   </data>
   <data name="menu_open_tooltip" xml:space="preserve">
-    <value>Open Layout</value>
+    <value>Open layout</value>
+  </data>
+  <data name="menu_properties" xml:space="preserve">
+    <value>Show Properties Editor</value>
+  </data>
+  <data name="menu_properties_tooltip" xml:space="preserve">
+    <value>Hide/Show properties editor</value>
   </data>
   <data name="menu_save" xml:space="preserve">
     <value>&amp;Save</value>
@@ -148,21 +160,27 @@
     <value>Save &amp;As</value>
   </data>
   <data name="menu_save_as_tooltip" xml:space="preserve">
-    <value>Save Layout With New Name</value>
+    <value>Save layout with new name</value>
   </data>
   <data name="menu_save_tooltip" xml:space="preserve">
-    <value>Save Layout</value>
+    <value>Save layout</value>
+  </data>
+  <data name="menu_select_all" xml:space="preserve">
+    <value>Select &amp;All</value>
+  </data>
+  <data name="menu_select_all_tooltip" xml:space="preserve">
+    <value>Select all objects</value>
   </data>
   <data name="menu_show_grid" xml:space="preserve">
     <value>Show Grid</value>
   </data>
   <data name="menu_show_grip_tooltip" xml:space="preserve">
-    <value>Toggle Grid Visibility</value>
+    <value>Toggle grid visibility</value>
   </data>
   <data name="menu_undo" xml:space="preserve">
     <value>&amp;Undo</value>
   </data>
   <data name="menu_undo_tooltip" xml:space="preserve">
-    <value>Undo Previous Action</value>
+    <value>Undo previous action</value>
   </data>
 </root>
