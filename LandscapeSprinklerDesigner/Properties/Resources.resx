@@ -135,6 +135,12 @@
   <data name="menu_exit_tooltip" xml:space="preserve">
     <value>Exit the application</value>
   </data>
+  <data name="menu_layout_settings" xml:space="preserve">
+    <value>Layout Settings</value>
+  </data>
+  <data name="menu_layout_settings_tooltip" xml:space="preserve">
+    <value>Hide/Show layout settings</value>
+  </data>
   <data name="menu_new" xml:space="preserve">
     <value>&amp;New</value>
   </data>
@@ -147,8 +153,20 @@
   <data name="menu_open_tooltip" xml:space="preserve">
     <value>Open layout</value>
   </data>
+  <data name="menu_parts_listing" xml:space="preserve">
+    <value>Parts Listing</value>
+  </data>
+  <data name="menu_parts_listing_tooltip" xml:space="preserve">
+    <value>Hide/Show parts listing</value>
+  </data>
+  <data name="menu_parts_palette" xml:space="preserve">
+    <value>Parts Palette</value>
+  </data>
+  <data name="menu_parts_palette_tooltip" xml:space="preserve">
+    <value>Hide/Show parts palette</value>
+  </data>
   <data name="menu_properties" xml:space="preserve">
-    <value>Show Properties Editor</value>
+    <value>Properties Editor</value>
   </data>
   <data name="menu_properties_tooltip" xml:space="preserve">
     <value>Hide/Show properties editor</value>

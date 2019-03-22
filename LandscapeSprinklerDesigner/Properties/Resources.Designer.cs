@@ -115,6 +115,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Layout Settings.
+        /// </summary>
+        internal static string menu_layout_settings {
+            get {
+                return ResourceManager.GetString("menu_layout_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide/Show layout settings.
+        /// </summary>
+        internal static string menu_layout_settings_tooltip {
+            get {
+                return ResourceManager.GetString("menu_layout_settings_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;New.
         /// </summary>
         internal static string menu_new {
@@ -151,7 +169,43 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Properties Editor.
+        ///   Looks up a localized string similar to Parts Listing.
+        /// </summary>
+        internal static string menu_parts_listing {
+            get {
+                return ResourceManager.GetString("menu_parts_listing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide/Show parts listing.
+        /// </summary>
+        internal static string menu_parts_listing_tooltip {
+            get {
+                return ResourceManager.GetString("menu_parts_listing_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parts Palette.
+        /// </summary>
+        internal static string menu_parts_palette {
+            get {
+                return ResourceManager.GetString("menu_parts_palette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide/Show parts palette.
+        /// </summary>
+        internal static string menu_parts_palette_tooltip {
+            get {
+                return ResourceManager.GetString("menu_parts_palette_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Properties Editor.
         /// </summary>
         internal static string menu_properties {
             get {

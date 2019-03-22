@@ -119,12 +119,16 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuEvents\CheckableMenuEvent.cs" />
     <Compile Include="MenuEvents\CloneMenuEvent.cs" />
     <Compile Include="MenuEvents\DeleteMenuEvent.cs" />
     <Compile Include="MenuEvents\ExitMenuEvent.cs" />
+    <Compile Include="MenuEvents\LayoutSettingsEvent.cs" />
     <Compile Include="MenuEvents\MenuEvent.cs" />
     <Compile Include="MenuEvents\NewMenuEvent.cs" />
     <Compile Include="MenuEvents\OpenMenuEvent.cs" />
+    <Compile Include="MenuEvents\PartsListMenuEvent.cs" />
+    <Compile Include="MenuEvents\PartsPaletteEvent.cs" />
     <Compile Include="MenuEvents\PropertiesMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveAsMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveMenuEvent.cs" />
@@ -291,6 +295,9 @@
     <EmbeddedResource Include="Images\delete.png" />
     <EmbeddedResource Include="Images\clone.png" />
     <EmbeddedResource Include="Images\properties.png" />
+    <EmbeddedResource Include="Images\parts_list.png" />
+    <EmbeddedResource Include="Images\parts_palette.png" />
+    <EmbeddedResource Include="Images\layout_settings.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

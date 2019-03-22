@@ -155,18 +155,21 @@ namespace LandscapeSprinklerDesigner
 		private void SetupMenuGroupManager()
 		{
 			toolStripItemMenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1);
-			var externalObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
-			toolStripItemMenuGroupManager.Create<NewMenuEvent>(ToToolStripItemArray(NewButton, NewMenu), externalObject: externalObj);
-			toolStripItemMenuGroupManager.Create<ShowGridMenuEvent>(ToToolStripItemArray(ShowGridButton, ShowGridMenu), externalObject: externalObj);
-			toolStripItemMenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: externalObj).LoadLayout = LoadLayout;
-			toolStripItemMenuGroupManager.Create<SaveMenuEvent>(ToToolStripItemArray(SaveMenu, SaveButton), externalObject: externalObj);
-			toolStripItemMenuGroupManager.Create<SaveAsMenuEvent>(ToToolStripItemArray(SaveAsMenu), externalObject: externalObj);
+			var exObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
+			toolStripItemMenuGroupManager.Create<NewMenuEvent>(ToToolStripItemArray(NewButton, NewMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ShowGridMenuEvent>(ToToolStripItemArray(ShowGridButton, ShowGridMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: exObj).LoadLayout = LoadLayout;
+			toolStripItemMenuGroupManager.Create<SaveMenuEvent>(ToToolStripItemArray(SaveMenu, SaveButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SaveAsMenuEvent>(ToToolStripItemArray(SaveAsMenu), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<ExitMenuEvent>(ToToolStripItemArray(ExitMenu), onClick: (a, e) => { Close(); });
-			toolStripItemMenuGroupManager.Create<UndoMenuEvent>(ToToolStripItemArray(UndoMenu, UndoButton), externalObject: externalObj);
-			toolStripItemMenuGroupManager.Create<DeleteMenuEvent>(ToToolStripItemArray(DeleteMenu, DeleteButton), externalObject: externalObj);
-			toolStripItemMenuGroupManager.Create<CloneMenuEvent>(ToToolStripItemArray(CloneMenu, CloneButton), externalObject: externalObj);
-			toolStripItemMenuGroupManager.Create<SelectAllMenuEvent>(ToToolStripItemArray(SelectAllMenu), externalObject: externalObj);
+			toolStripItemMenuGroupManager.Create<UndoMenuEvent>(ToToolStripItemArray(UndoMenu, UndoButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<DeleteMenuEvent>(ToToolStripItemArray(DeleteMenu, DeleteButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CloneMenuEvent>(ToToolStripItemArray(CloneMenu, CloneButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SelectAllMenuEvent>(ToToolStripItemArray(SelectAllMenu), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<PropertiesMenuEvent>(ToToolStripItemArray(PropertiesButton, PropertiesMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PropertyForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<PartsListMenuEvent>(ToToolStripItemArray(PartsListButton, PartsListMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PartsListForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<PartsPaletteEvent>(ToToolStripItemArray(PaletteTreeButton, PaletteTreeMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PalletForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -209,27 +212,27 @@ namespace LandscapeSprinklerDesigner
 			//cmd.Image = m_PropertyForm.Icon.ToBitmap();
 			//cmd.Tag = m_PropertyForm;
 
-			cmd = m_CommandManager.Create("PartsList", ViewMenu_Click, ToggleViewState);
-			cmd.Add(PartsListButton);
-			cmd.Add(PartsListMenu);
-			cmd.Text = m_PartsListForm.Text;
-			cmd.Image = m_PartsListForm.Icon.ToBitmap();
-			cmd.Tag = m_PartsListForm;
+			//cmd = m_CommandManager.Create("PartsList", ViewMenu_Click, ToggleViewState);
+			//cmd.Add(PartsListButton);
+			//cmd.Add(PartsListMenu);
+			//cmd.Text = m_PartsListForm.Text;
+			//cmd.Image = m_PartsListForm.Icon.ToBitmap();
+			//cmd.Tag = m_PartsListForm;
 
-			cmd = m_CommandManager.Create("PaletteTree", ViewMenu_Click, ToggleViewState);
-			cmd.Add(PaletteTreeButton);
-			cmd.Add(PaletteTreeMenu);
-			cmd.Text = m_PalletForm.Text;
-			cmd.Image = m_PalletForm.Icon.ToBitmap();
-			cmd.Tag = m_PalletForm;
+			//cmd = m_CommandManager.Create("PaletteTree", ViewMenu_Click, ToggleViewState);
+			//cmd.Add(PaletteTreeButton);
+			//cmd.Add(PaletteTreeMenu);
+			//cmd.Text = m_PalletForm.Text;
+			//cmd.Image = m_PalletForm.Icon.ToBitmap();
+			//cmd.Tag = m_PalletForm;
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
 
-			cmd = m_CommandManager.Create("LayoutSettings", ViewMenu_Click, ToggleViewState);
-			cmd.Add(LayoutSettingsButton);
-			cmd.Add(LayoutSettingsMenu);
-			cmd.Text = m_LayoutSettingsForm.Text;
-			cmd.Image = m_LayoutSettingsForm.Icon.ToBitmap();
-			cmd.Tag = m_LayoutSettingsForm;
+			//cmd = m_CommandManager.Create("LayoutSettings", ViewMenu_Click, ToggleViewState);
+			//cmd.Add(LayoutSettingsButton);
+			//cmd.Add(LayoutSettingsMenu);
+			//cmd.Text = m_LayoutSettingsForm.Text;
+			//cmd.Image = m_LayoutSettingsForm.Icon.ToBitmap();
+			//cmd.Tag = m_LayoutSettingsForm;
 
 			cmd = m_CommandManager.Create("AlwaysShowDistances", c =>
 			{
@@ -432,9 +435,9 @@ namespace LandscapeSprinklerDesigner
 			m_LayoutForm.Show(DockPanel);
 
 			//m_CommandManager["Properties"].Checked = !m_PropertyForm.IsHidden;
-			m_CommandManager["PartsList"].Checked = !m_PartsListForm.IsHidden;
-			m_CommandManager["PaletteTree"].Checked = !m_PalletForm.IsHidden;
-			m_CommandManager["LayoutSettings"].Checked = !m_LayoutSettingsForm.IsHidden;
+			//m_CommandManager["PartsList"].Checked = !m_PartsListForm.IsHidden;
+			//m_CommandManager["PaletteTree"].Checked = !m_PalletForm.IsHidden;
+			//m_CommandManager["LayoutSettings"].Checked = !m_LayoutSettingsForm.IsHidden;
 
 			statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
 
