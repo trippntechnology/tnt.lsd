@@ -205,34 +205,7 @@ namespace LandscapeSprinklerDesigner
 
 			Command cmd = null;
 
-			//cmd = m_CommandManager.Create("Properties", ViewMenu_Click, ToggleViewState);
-			//cmd.Add(PropertiesButton);
-			//cmd.Add(PropertiesMenu);
-			//cmd.Text = m_PropertyForm.Text;
-			//cmd.Image = m_PropertyForm.Icon.ToBitmap();
-			//cmd.Tag = m_PropertyForm;
-
-			//cmd = m_CommandManager.Create("PartsList", ViewMenu_Click, ToggleViewState);
-			//cmd.Add(PartsListButton);
-			//cmd.Add(PartsListMenu);
-			//cmd.Text = m_PartsListForm.Text;
-			//cmd.Image = m_PartsListForm.Icon.ToBitmap();
-			//cmd.Tag = m_PartsListForm;
-
-			//cmd = m_CommandManager.Create("PaletteTree", ViewMenu_Click, ToggleViewState);
-			//cmd.Add(PaletteTreeButton);
-			//cmd.Add(PaletteTreeMenu);
-			//cmd.Text = m_PalletForm.Text;
-			//cmd.Image = m_PalletForm.Icon.ToBitmap();
-			//cmd.Tag = m_PalletForm;
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			//cmd = m_CommandManager.Create("LayoutSettings", ViewMenu_Click, ToggleViewState);
-			//cmd.Add(LayoutSettingsButton);
-			//cmd.Add(LayoutSettingsMenu);
-			//cmd.Text = m_LayoutSettingsForm.Text;
-			//cmd.Image = m_LayoutSettingsForm.Icon.ToBitmap();
-			//cmd.Tag = m_LayoutSettingsForm;
 
 			cmd = m_CommandManager.Create("AlwaysShowDistances", c =>
 			{
@@ -433,11 +406,6 @@ namespace LandscapeSprinklerDesigner
 			}
 
 			m_LayoutForm.Show(DockPanel);
-
-			//m_CommandManager["Properties"].Checked = !m_PropertyForm.IsHidden;
-			//m_CommandManager["PartsList"].Checked = !m_PartsListForm.IsHidden;
-			//m_CommandManager["PaletteTree"].Checked = !m_PalletForm.IsHidden;
-			//m_CommandManager["LayoutSettings"].Checked = !m_LayoutSettingsForm.IsHidden;
 
 			statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
 

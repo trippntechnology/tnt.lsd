@@ -2,7 +2,7 @@
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
-	class PropertiesMenuEvent : CheckableMenuEvent
+	class PropertiesMenuEvent : DockMenuEvent
 	{
 		public override string Text => Resources.menu_properties;
 

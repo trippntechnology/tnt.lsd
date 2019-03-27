@@ -5,14 +5,14 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
-	abstract class CheckableMenuEvent : ToolStripItemGroup
+	abstract class DockMenuEvent : ToolStripItemGroup
 	{
 		public override bool CheckOnClick => true;
 		protected Tuple<DockContent, DockPanel> tuple => base.ExternalObject as Tuple<DockContent, DockPanel>;
 		protected DockContent dockContent => tuple.Item1 as DockContent;
 		protected DockPanel dockPanel => tuple.Item2 as DockPanel;
 
-		public CheckableMenuEvent(Image image = null) : base(image)
+		public DockMenuEvent(Image image = null) : base(image)
 		{
 		}
 

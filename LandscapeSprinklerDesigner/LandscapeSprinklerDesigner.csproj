@@ -119,7 +119,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuEvents\CheckableMenuEvent.cs" />
+    <Compile Include="MenuEvents\DockMenuEvent.cs" />
     <Compile Include="MenuEvents\CloneMenuEvent.cs" />
     <Compile Include="MenuEvents\DeleteMenuEvent.cs" />
     <Compile Include="MenuEvents\ExitMenuEvent.cs" />

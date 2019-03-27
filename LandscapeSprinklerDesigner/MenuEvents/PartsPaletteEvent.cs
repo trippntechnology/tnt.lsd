@@ -3,7 +3,7 @@ using System;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
-	class PartsPaletteEvent : CheckableMenuEvent
+	class PartsPaletteEvent : DockMenuEvent
 	{
 		public override string Text => Resources.menu_parts_palette;
 
