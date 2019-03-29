@@ -99,7 +99,7 @@ namespace LandscapeSprinklerDesigner
 
 			if (!e.Cancel)
 			{
-				var objects = (from o in CAD.SelectedObjects where o is PalettePart select o as object).ToList();
+				var objects = (from o in CAD.SelectedObjects where o is PalettePart select o as TNTObject).ToList();
 				CADContextMenu.AddProperties(objects, CAD);
 			}
 		}
