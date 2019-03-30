@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using TNT.LSD.Objects;
 using static System.ComponentModel.TypeConverter;
 
 namespace LandscapeSprinklerDesigner
@@ -82,7 +83,7 @@ namespace LandscapeSprinklerDesigner
 			return values;
 		}
 
-		public static void AddProperties(this ContextMenuStrip contextMenuStrip, List<object> objects, TNTCAD cad)
+		public static void AddProperties(this ContextMenuStrip contextMenuStrip, List<TNTObject> objects, TNTCAD cad)
 		{
 			_ToolStripItems.ForEach(t => contextMenuStrip.Items.Remove(t));
 
@@ -106,7 +107,7 @@ namespace LandscapeSprinklerDesigner
 				}
 			}
 
-			if (propertyNames.Count> 0)
+			if (propertyNames.Count > 0)
 			{
 				ToolStripItem mi = new ToolStripSeparator();
 				_ToolStripItems.Add(mi);
@@ -141,6 +142,8 @@ namespace LandscapeSprinklerDesigner
 						ToolStripMenuItem tsmi = new ToolStripMenuItem(v.ToString(), null, (sender, e) =>
 						{
 							ToolStripMenuItem valuesMenuItem = sender as ToolStripMenuItem;
+
+							cad.CreateUndoActions(objects, UndoAction.UndoActionType.uaModify);
 
 							foreach (var obj in objects)
 							{

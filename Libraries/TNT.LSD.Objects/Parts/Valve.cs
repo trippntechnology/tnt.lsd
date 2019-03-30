@@ -10,7 +10,17 @@ namespace TNT.LSD.Objects
 {
 	public class Valve : GenericPart
 	{
+		protected new const int PART_COLOR_CIRCLE_SIZE = 12;
+
 		#region Properties
+
+		[Description("Radius of the background color")]
+		[DisplayName("Color Radius")]
+		[DefaultValue(PART_COLOR_CIRCLE_SIZE)]
+#if !PALETTE_PROPERTIES
+		[Browsable(false)]
+#endif
+		public int ColorRadius { get; set; }
 
 		[Description("Color associated with the zone")]
 		[DisplayName("Zone Color")]
@@ -50,6 +60,7 @@ namespace TNT.LSD.Objects
 		{
 			InletThreads = "FIPT";
 			OutletThread = "FIPT";
+			ColorRadius = PART_COLOR_CIRCLE_SIZE;
 		}
 
 		public Valve(Valve obj)
@@ -57,6 +68,7 @@ namespace TNT.LSD.Objects
 		{
 			InletThreads = obj.InletThreads;
 			OutletThread = obj.OutletThread;
+			ColorRadius = obj.ColorRadius;
 		}
 
 		#endregion
@@ -97,6 +109,19 @@ namespace TNT.LSD.Objects
 		}
 
 		#region Overrides
+
+		protected override void DrawBackground(Graphics graphics)
+		{
+			Color? backgroundColor = this is Valve ? this.Color : m_Pipes.Count > 0 ? (Color?)m_Pipes[0].PipeColor : null;
+
+			if (backgroundColor != null && backgroundColor?.ToArgb() != Color.Black.ToArgb())
+			{
+				using (SolidBrush sb = new SolidBrush((Color)backgroundColor))
+				{
+					graphics.FillEllipse(sb, new Rectangle(base.Position.X - (this.ColorRadius / 2), base.Position.Y - (this.ColorRadius / 2), this.ColorRadius, this.ColorRadius));
+				}
+			}
+		}
 
 		public override TNTObject Clone()
 		{
