@@ -129,10 +129,13 @@
     <Compile Include="MenuEvents\OpenMenuEvent.cs" />
     <Compile Include="MenuEvents\PartsListMenuEvent.cs" />
     <Compile Include="MenuEvents\PartsPaletteEvent.cs" />
+    <Compile Include="MenuEvents\PersistedMenuEvent.cs" />
     <Compile Include="MenuEvents\PropertiesMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveAsMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveMenuEvent.cs" />
     <Compile Include="MenuEvents\SelectAllMenuEvent.cs" />
+    <Compile Include="MenuEvents\LabelHeadsMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowDistanceMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
     <Compile Include="MenuEvents\UndoMenuEvent.cs" />
     <Compile Include="NewLayoutDialog.cs">
@@ -298,6 +301,8 @@
     <EmbeddedResource Include="Images\parts_list.png" />
     <EmbeddedResource Include="Images\parts_palette.png" />
     <EmbeddedResource Include="Images\layout_settings.png" />
+    <EmbeddedResource Include="Images\label_heads.png" />
+    <EmbeddedResource Include="Images\show_distance.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

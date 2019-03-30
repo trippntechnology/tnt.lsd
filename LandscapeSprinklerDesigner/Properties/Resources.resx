@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Application" xml:space="preserve">
+    <value>LandscapeSprinklerDesigner</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Tripp'n Technology</value>
+  </data>
   <data name="menu_clone" xml:space="preserve">
     <value>&amp;Clone</value>
   </data>
@@ -134,6 +140,12 @@
   </data>
   <data name="menu_exit_tooltip" xml:space="preserve">
     <value>Exit the application</value>
+  </data>
+  <data name="menu_label_heads" xml:space="preserve">
+    <value>&amp;Label Heads</value>
+  </data>
+  <data name="menu_label_heads_tooltip" xml:space="preserve">
+    <value>Labels the heads with their coverage</value>
   </data>
   <data name="menu_layout_settings" xml:space="preserve">
     <value>Layout Settings</value>
@@ -188,6 +200,12 @@
   </data>
   <data name="menu_select_all_tooltip" xml:space="preserve">
     <value>Select all objects</value>
+  </data>
+  <data name="menu_show_distances" xml:space="preserve">
+    <value>Always Show &amp;Distances</value>
+  </data>
+  <data name="menu_show_distance_tooltip" xml:space="preserve">
+    <value>Shows measurements even when the object isn't selected</value>
   </data>
   <data name="menu_show_grid" xml:space="preserve">
     <value>Show Grid</value>

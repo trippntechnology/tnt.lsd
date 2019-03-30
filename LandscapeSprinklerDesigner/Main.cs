@@ -1,5 +1,6 @@
 ﻿using LandscapeSprinklerDesigner.Events;
 using LandscapeSprinklerDesigner.MenuEvents;
+using LandscapeSprinklerDesigner.Properties;
 using LSDComponents;
 using Microsoft.Win32;
 using System;
@@ -170,6 +171,8 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<PartsListMenuEvent>(ToToolStripItemArray(PartsListButton, PartsListMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PartsListForm, DockPanel));
 			toolStripItemMenuGroupManager.Create<PartsPaletteEvent>(ToToolStripItemArray(PaletteTreeButton, PaletteTreeMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PalletForm, DockPanel));
 			toolStripItemMenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -207,14 +210,6 @@ namespace LandscapeSprinklerDesigner
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
 
-			cmd = m_CommandManager.Create("AlwaysShowDistances", c =>
-			{
-				CAD.DrawingOptions.AlwaysShowDistances = c.Checked;
-				CAD.Repaint();
-			});
-			cmd.Add(ShowDistancesMenu);
-			cmd.Add(ShowDistancesButton);
-
 			cmd = m_CommandManager.Create("ShowCoverage", c =>
 			{
 				CAD.DrawingOptions.ShowCoverage = c.Checked;
@@ -222,14 +217,6 @@ namespace LandscapeSprinklerDesigner
 			});
 			cmd.Add(CoverageMenu);
 			cmd.Add(CoverageButton);
-
-			cmd = m_CommandManager.Create("LabelHeads", c =>
-			{
-				CAD.DrawingOptions.LabelHeads = c.Checked;
-				CAD.Repaint();
-			});
-			cmd.Add(LabelHeadsMenu);
-			cmd.Add(LabelHeadsButton);
 
 			cmd = m_CommandManager.Create("ShowPartsToolTip");
 			cmd.Add(PartsToolTipMenu);
@@ -391,10 +378,6 @@ namespace LandscapeSprinklerDesigner
 			SnapToGrid_Click(m_CommandManager["SnapToGrid"]);
 			m_CommandManager["AutoPipeSize"].Checked = m_ApplicationRegistry.ReadBoolean("AutoPipeSize", true);
 			CAD.DrawingOptions.AutoSizePipes = m_CommandManager["AutoPipeSize"].Checked;
-			m_CommandManager["LabelHeads"].Checked = m_ApplicationRegistry.ReadBoolean("LabelHeads", true);
-			CAD.DrawingOptions.LabelHeads = m_CommandManager["LabelHeads"].Checked;
-			m_CommandManager["AlwaysShowDistances"].Checked = m_ApplicationRegistry.ReadBoolean("AlwaysShowDistances", false);
-			CAD.DrawingOptions.AlwaysShowDistances = m_CommandManager["AlwaysShowDistances"].Checked;
 
 			#endregion
 
@@ -484,8 +467,8 @@ namespace LandscapeSprinklerDesigner
 			#region Save state to Registry
 
 			m_ApplicationRegistry.WriteBoolean("AutoPipeSize", m_CommandManager["AutoPipeSize"].Checked);
-			m_ApplicationRegistry.WriteBoolean("AlwaysShowDistances", m_CommandManager["AlwaysShowDistances"].Checked);
-			m_ApplicationRegistry.WriteBoolean("LabelHeads", m_CommandManager["LabelHeads"].Checked);
+			(toolStripItemMenuGroupManager[Resources.menu_show_distances] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
+			(toolStripItemMenuGroupManager[Resources.menu_label_heads] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
 			m_ApplicationRegistry.WriteInteger("Scale", tbScale.Value);
 			m_ApplicationRegistry.WriteBoolean("SnapToGrid", SnapToGridButton.Checked);
 			m_ApplicationRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);

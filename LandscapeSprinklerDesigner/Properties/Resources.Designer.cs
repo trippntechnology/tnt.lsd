@@ -61,6 +61,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LandscapeSprinklerDesigner.
+        /// </summary>
+        internal static string Application {
+            get {
+                return ResourceManager.GetString("Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tripp&apos;n Technology.
+        /// </summary>
+        internal static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Clone.
         /// </summary>
         internal static string menu_clone {
@@ -111,6 +129,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_exit_tooltip {
             get {
                 return ResourceManager.GetString("menu_exit_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Label Heads.
+        /// </summary>
+        internal static string menu_label_heads {
+            get {
+                return ResourceManager.GetString("menu_label_heads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels the heads with their coverage.
+        /// </summary>
+        internal static string menu_label_heads_tooltip {
+            get {
+                return ResourceManager.GetString("menu_label_heads_tooltip", resourceCulture);
             }
         }
         
@@ -273,6 +309,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_select_all_tooltip {
             get {
                 return ResourceManager.GetString("menu_select_all_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows measurements even when the object isn&apos;t selected.
+        /// </summary>
+        internal static string menu_show_distance_tooltip {
+            get {
+                return ResourceManager.GetString("menu_show_distance_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always Show &amp;Distances.
+        /// </summary>
+        internal static string menu_show_distances {
+            get {
+                return ResourceManager.GetString("menu_show_distances", resourceCulture);
             }
         }
         

@@ -17,7 +17,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 		public TNTCAD CAD => _Tuple.Item2;
 		public LayoutSettingsForm LayoutSettings => _Tuple.Item3;
 
-		public bool HasSelectedObjects => CAD.SelectedObjects.Count > 0; 
+		public bool HasSelectedObjects => CAD.SelectedObjects.Count > 0;
 
 		public MenuEvent(Image image = null) : base(image)
 		{
