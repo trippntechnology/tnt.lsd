@@ -175,7 +175,10 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 			toolStripItemMenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
-			toolStripItemMenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<MoveToBackMenuEvent>(ToToolStripItemArray(SendToBackButton, SendToBackMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<MoveToFrontMenuEvent>(ToToolStripItemArray(BringToFrontMenu, BringToFrontButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.aligntogrid), externalObject: exObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -212,19 +215,6 @@ namespace LandscapeSprinklerDesigner
 			Command cmd = null;
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("BringToFront", c => CAD.BringToFront(), EnableOnSelectedUpdate);
-			cmd.Add(BringToFrontMenu);
-			cmd.Add(BringToFrontButton);
-
-			cmd = m_CommandManager.Create("SendToBack", c => CAD.SendToBack(), EnableOnSelectedUpdate);
-			cmd.Add(SendToBackMenu);
-			cmd.Add(SendToBackButton);
-
-			cmd = m_CommandManager.Create("AlignToGrid", c => CAD.AlignToGrid(), EnableOnSelectedUpdate);
-			cmd.Add(m_LayoutForm.aligntogrid);
-			cmd.Add(AlignToGridMenu);
-			cmd.Add(AlignToGridButton);
 
 			cmd = m_CommandManager.Create("SpaceEqually", c => CAD.SpaceSelectedEqually(), c => c.Enabled = (from o in CAD.SelectedObjects where o is TNTPart select o).ToList().Count > 2);
 			cmd.Add(m_LayoutForm.space);
@@ -450,10 +440,10 @@ namespace LandscapeSprinklerDesigner
 
 			#region Save state to Registry
 
+			var persistedMenuEvent = (from p in toolStripItemMenuGroupManager.Values where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
+			persistedMenuEvent.ForEach(p => p.SaveState(m_ApplicationRegistry));
+
 			m_ApplicationRegistry.WriteBoolean("AutoPipeSize", m_CommandManager["AutoPipeSize"].Checked);
-			(toolStripItemMenuGroupManager[Resources.menu_show_distances] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
-			(toolStripItemMenuGroupManager[Resources.menu_label_heads] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
-			(toolStripItemMenuGroupManager[Resources.menu_snap_to_grid] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
 			m_ApplicationRegistry.WriteInteger("Scale", tbScale.Value);
 			m_ApplicationRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
 			m_ApplicationRegistry.SaveFormState(this);

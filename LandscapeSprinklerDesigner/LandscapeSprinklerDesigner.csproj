@@ -119,6 +119,8 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuEvents\AlignToGridMenuEvent.cs" />
+    <Compile Include="MenuEvents\MoveToFrontMenuEvent.cs" />
     <Compile Include="MenuEvents\DockMenuEvent.cs" />
     <Compile Include="MenuEvents\CloneMenuEvent.cs" />
     <Compile Include="MenuEvents\DeleteMenuEvent.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="MenuEvents\SaveMenuEvent.cs" />
     <Compile Include="MenuEvents\SelectAllMenuEvent.cs" />
     <Compile Include="MenuEvents\LabelHeadsMenuEvent.cs" />
+    <Compile Include="MenuEvents\MoveToBackMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowCoverageMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowDistanceMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
@@ -309,6 +312,9 @@
     <EmbeddedResource Include="Images\show_coverage.png" />
     <EmbeddedResource Include="Images\show_parts.png" />
     <EmbeddedResource Include="Images\snap_to_grid.png" />
+    <EmbeddedResource Include="Images\move_to_back.png" />
+    <EmbeddedResource Include="Images\move_to_front.png" />
+    <EmbeddedResource Include="Images\align_to_grid.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

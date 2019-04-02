@@ -237,4 +237,22 @@
   <data name="menu_undo_tooltip" xml:space="preserve">
     <value>Undo previous action</value>
   </data>
+  <data name="menu_align_to_grid" xml:space="preserve">
+    <value>Align To Grid</value>
+  </data>
+  <data name="menu_align_to_grid_tooltip" xml:space="preserve">
+    <value>Aligns selected objects to nearest grid intersection</value>
+  </data>
+  <data name="menu_move_to_back" xml:space="preserve">
+    <value>Move To Back</value>
+  </data>
+  <data name="menu_move_to_back_tooltip" xml:space="preserve">
+    <value>Bring selected object(s) to the back</value>
+  </data>
+  <data name="menu_move_to_front" xml:space="preserve">
+    <value>Bring To Front</value>
+  </data>
+  <data name="menu_move_to_front_tooltip" xml:space="preserve">
+    <value>Bring selected object(s) to the front</value>
+  </data>
 </root>

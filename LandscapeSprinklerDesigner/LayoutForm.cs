@@ -94,9 +94,6 @@ namespace LandscapeSprinklerDesigner
 
 		private void CADContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			// Only allow context menu to show when SelectMode is being used.
-			e.Cancel = !(CAD.DrawingMode is SelectMode || CAD.DrawingMode is ImageMode);
-
 			if (!e.Cancel)
 			{
 				var objects = (from o in CAD.SelectedObjects where o is PalettePart select o as TNTObject).ToList();

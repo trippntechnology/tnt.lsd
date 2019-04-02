@@ -79,6 +79,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Align To Grid.
+        /// </summary>
+        internal static string menu_align_to_grid {
+            get {
+                return ResourceManager.GetString("menu_align_to_grid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aligns selected objects to nearest grid intersection.
+        /// </summary>
+        internal static string menu_align_to_grid_tooltip {
+            get {
+                return ResourceManager.GetString("menu_align_to_grid_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Clone.
         /// </summary>
         internal static string menu_clone {
@@ -165,6 +183,42 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_layout_settings_tooltip {
             get {
                 return ResourceManager.GetString("menu_layout_settings_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move To Back.
+        /// </summary>
+        internal static string menu_move_to_back {
+            get {
+                return ResourceManager.GetString("menu_move_to_back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bring selected object(s) to the back.
+        /// </summary>
+        internal static string menu_move_to_back_tooltip {
+            get {
+                return ResourceManager.GetString("menu_move_to_back_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bring To Front.
+        /// </summary>
+        internal static string menu_move_to_front {
+            get {
+                return ResourceManager.GetString("menu_move_to_front", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bring selected object(s) to the front.
+        /// </summary>
+        internal static string menu_move_to_front_tooltip {
+            get {
+                return ResourceManager.GetString("menu_move_to_front_tooltip", resourceCulture);
             }
         }
         
