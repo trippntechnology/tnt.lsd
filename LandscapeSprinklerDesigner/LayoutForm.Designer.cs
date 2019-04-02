@@ -60,11 +60,9 @@
 			// 
 			this.CAD.ContextMenuStrip = this.CADContextMenu;
 			this.CAD.DrawingLayers = 2;
-			selectMode1.ShowPartsToolTip = null;
 			this.CAD.DrawingMode = selectMode1;
 			this.CAD.Location = new System.Drawing.Point(0, 0);
 			this.CAD.Name = "CAD";
-			this.CAD.ShowPartsToolTip = null;
 			this.CAD.Size = new System.Drawing.Size(1600, 1600);
 			this.CAD.SnapToGrid = true;
 			this.CAD.TabIndex = 4;

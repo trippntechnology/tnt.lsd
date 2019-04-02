@@ -313,6 +313,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Coverage.
+        /// </summary>
+        internal static string menu_show_coverage {
+            get {
+                return ResourceManager.GetString("menu_show_coverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows the sprinkler coverage.
+        /// </summary>
+        internal static string menu_show_coverage_tooltip {
+            get {
+                return ResourceManager.GetString("menu_show_coverage_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shows measurements even when the object isn&apos;t selected.
         /// </summary>
         internal static string menu_show_distance_tooltip {
@@ -345,6 +363,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_show_grip_tooltip {
             get {
                 return ResourceManager.GetString("menu_show_grip_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Part &amp;Tooltip.
+        /// </summary>
+        internal static string menu_show_parts {
+            get {
+                return ResourceManager.GetString("menu_show_parts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the parts that represent the image.
+        /// </summary>
+        internal static string menu_show_parts_tooltip {
+            get {
+                return ResourceManager.GetString("menu_show_parts_tooltip", resourceCulture);
             }
         }
         

@@ -30,16 +30,16 @@ namespace LSDComponents.DrawingModes
 			//m_ToolTip.AutoPopDelay = 50000;  // 5000
 			//m_ToolTip.InitialDelay = 5000;  // 500
 			m_ToolTip.IsBalloon = true;  // false
-			//m_ToolTip.ReshowDelay = 1000;  // 100
-			//m_ToolTip.ShowAlways = true; // false
-			//m_ToolTip.ToolTipIcon = ToolTipIcon.Info; // None
-			//m_ToolTip.ToolTipTitle = "ToolTipTitle"; // string.Empty
-			//m_ToolTip.UseAnimation = false; // true
-			//m_ToolTip.UseFading = false;  // true
+																	 //m_ToolTip.ReshowDelay = 1000;  // 100
+																	 //m_ToolTip.ShowAlways = true; // false
+																	 //m_ToolTip.ToolTipIcon = ToolTipIcon.Info; // None
+																	 //m_ToolTip.ToolTipTitle = "ToolTipTitle"; // string.Empty
+																	 //m_ToolTip.UseAnimation = false; // true
+																	 //m_ToolTip.UseFading = false;  // true
 		}
 
 		public SelectMode(SelectMode obj)
-			:base(obj)
+			: base(obj)
 		{
 			m_ToolTip.IsBalloon = obj.m_ToolTip.IsBalloon;
 		}
@@ -133,11 +133,11 @@ namespace LSDComponents.DrawingModes
 				{
 					cad.SetStateInfo(m_UnderlaidObject.MouseOver(currentPos, modifierKeys).GetStateInfo(currentPos, modifierKeys));
 
-					if (ShowPartsToolTip == null || !ShowPartsToolTip.Checked || !m_UnderlaidObject.Selected)
+					if (!cad.ShowPartsToolTip || !m_UnderlaidObject.Selected)
 					{
 						m_ToolTip.SetToolTip(cad, string.Empty);
 					}
-					else if (ShowPartsToolTip != null && ShowPartsToolTip.Checked && m_ShowToolTip && m_UnderlaidObject is BasePart)
+					else if (cad.ShowPartsToolTip && m_ShowToolTip && m_UnderlaidObject is BasePart)
 					{
 						Dictionary<string, Part> parts = DALPart.GetParts();
 						(m_UnderlaidObject as BasePart).SetPartQuantity(parts);

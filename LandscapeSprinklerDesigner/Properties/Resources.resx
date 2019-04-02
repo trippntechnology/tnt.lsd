@@ -201,6 +201,12 @@
   <data name="menu_select_all_tooltip" xml:space="preserve">
     <value>Select all objects</value>
   </data>
+  <data name="menu_show_coverage" xml:space="preserve">
+    <value>&amp;Coverage</value>
+  </data>
+  <data name="menu_show_coverage_tooltip" xml:space="preserve">
+    <value>Shows the sprinkler coverage</value>
+  </data>
   <data name="menu_show_distances" xml:space="preserve">
     <value>Always Show &amp;Distances</value>
   </data>
@@ -212,6 +218,12 @@
   </data>
   <data name="menu_show_grip_tooltip" xml:space="preserve">
     <value>Toggle grid visibility</value>
+  </data>
+  <data name="menu_show_parts" xml:space="preserve">
+    <value>Part &amp;Tooltip</value>
+  </data>
+  <data name="menu_show_parts_tooltip" xml:space="preserve">
+    <value>Show the parts that represent the image</value>
   </data>
   <data name="menu_undo" xml:space="preserve">
     <value>&amp;Undo</value>

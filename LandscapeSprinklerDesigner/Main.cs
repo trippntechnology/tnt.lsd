@@ -173,6 +173,8 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
 			toolStripItemMenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 			toolStripItemMenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ShowPartsMenuItem>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -209,19 +211,6 @@ namespace LandscapeSprinklerDesigner
 			Command cmd = null;
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("ShowCoverage", c =>
-			{
-				CAD.DrawingOptions.ShowCoverage = c.Checked;
-				CAD.Repaint();
-			});
-			cmd.Add(CoverageMenu);
-			cmd.Add(CoverageButton);
-
-			cmd = m_CommandManager.Create("ShowPartsToolTip");
-			cmd.Add(PartsToolTipMenu);
-			cmd.Add(PartsToolTipButton);
-			CAD.ShowPartsToolTip = cmd;
 
 			cmd = m_CommandManager.Create("SnapToGrid", SnapToGrid_Click);
 			cmd.Add(SnapToGridMenu);

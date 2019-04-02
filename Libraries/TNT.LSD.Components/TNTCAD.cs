@@ -23,7 +23,6 @@ using TNT.LSD.Objects.Interfaces;
 using TNT.LSD.Settings;
 using TNT.Math;
 using TNT.Utilities;
-using TNT.Utilities.CommandManagement;
 
 namespace LSDComponents
 {
@@ -213,7 +212,6 @@ namespace LSDComponents
 				m_DrawingMode.Reset(this);
 
 				m_DrawingMode = value;
-				m_DrawingMode.ShowPartsToolTip = ShowPartsToolTip;
 				m_DrawingMode.Reset(this);
 				UnselectAll();
 				DrawLayers(m_ActiveLayer);
@@ -269,7 +267,7 @@ namespace LSDComponents
 		}
 
 		[XmlIgnore()]
-		public Command ShowPartsToolTip { get; set; }
+		public bool ShowPartsToolTip { get; set; }
 
 		[XmlIgnore()]
 		public Image Design { get { return m_DrawingLayers.Last(); } }
@@ -735,7 +733,7 @@ namespace LSDComponents
 			CreateUndoActions(list, undoType);
 		}
 
-		protected void CreateUndoActions<T>(List<T> objs, UndoAction.UndoActionType undoType) where T : TNTObject
+		public void CreateUndoActions<T>(List<T> objs, UndoAction.UndoActionType undoType) where T : TNTObject
 		{
 			UndoActionList uaList = new UndoActionList();
 
