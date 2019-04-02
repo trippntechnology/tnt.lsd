@@ -225,6 +225,12 @@
   <data name="menu_show_parts_tooltip" xml:space="preserve">
     <value>Show the parts that represent the image</value>
   </data>
+  <data name="menu_snap_to_grid" xml:space="preserve">
+    <value>Snap To Grid</value>
+  </data>
+  <data name="menu_snap_to_grid_tooltip" xml:space="preserve">
+    <value>Enable/Disable snap-to-grid</value>
+  </data>
   <data name="menu_undo" xml:space="preserve">
     <value>&amp;Undo</value>
   </data>

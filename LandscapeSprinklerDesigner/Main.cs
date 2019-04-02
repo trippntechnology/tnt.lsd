@@ -174,7 +174,8 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 			toolStripItemMenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 			toolStripItemMenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
-			toolStripItemMenuGroupManager.Create<ShowPartsMenuItem>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -211,10 +212,6 @@ namespace LandscapeSprinklerDesigner
 			Command cmd = null;
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("SnapToGrid", SnapToGrid_Click);
-			cmd.Add(SnapToGridMenu);
-			cmd.Add(SnapToGridButton);
 
 			cmd = m_CommandManager.Create("BringToFront", c => CAD.BringToFront(), EnableOnSelectedUpdate);
 			cmd.Add(BringToFrontMenu);
@@ -363,8 +360,6 @@ namespace LandscapeSprinklerDesigner
 			m_ApplicationRegistry.LoadFormState(this);
 			m_ApplicationRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
 			tbScale.Value = m_ApplicationRegistry.ReadInteger("Scale", tbScale.Value);
-			m_CommandManager["SnapToGrid"].Checked = m_ApplicationRegistry.ReadBoolean("SnapToGrid", true);
-			SnapToGrid_Click(m_CommandManager["SnapToGrid"]);
 			m_CommandManager["AutoPipeSize"].Checked = m_ApplicationRegistry.ReadBoolean("AutoPipeSize", true);
 			CAD.DrawingOptions.AutoSizePipes = m_CommandManager["AutoPipeSize"].Checked;
 
@@ -458,8 +453,8 @@ namespace LandscapeSprinklerDesigner
 			m_ApplicationRegistry.WriteBoolean("AutoPipeSize", m_CommandManager["AutoPipeSize"].Checked);
 			(toolStripItemMenuGroupManager[Resources.menu_show_distances] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
 			(toolStripItemMenuGroupManager[Resources.menu_label_heads] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
+			(toolStripItemMenuGroupManager[Resources.menu_snap_to_grid] as PersistedMenuEvent).IfNotNull(it => it.SaveState(m_ApplicationRegistry));
 			m_ApplicationRegistry.WriteInteger("Scale", tbScale.Value);
-			m_ApplicationRegistry.WriteBoolean("SnapToGrid", SnapToGridButton.Checked);
 			m_ApplicationRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
 			m_ApplicationRegistry.SaveFormState(this);
 
@@ -594,12 +589,7 @@ namespace LandscapeSprinklerDesigner
 				}
 			}
 		}
-
-		private void SnapToGrid_Click(Command cmd)
-		{
-			CAD.SnapToGrid = cmd.Checked;
-		}
-
+		
 		private void Open_Click(Command cmd)
 		{
 			openFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);

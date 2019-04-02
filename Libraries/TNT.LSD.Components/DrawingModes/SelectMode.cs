@@ -30,12 +30,12 @@ namespace LSDComponents.DrawingModes
 			//m_ToolTip.AutoPopDelay = 50000;  // 5000
 			//m_ToolTip.InitialDelay = 5000;  // 500
 			m_ToolTip.IsBalloon = true;  // false
-																	 //m_ToolTip.ReshowDelay = 1000;  // 100
-																	 //m_ToolTip.ShowAlways = true; // false
-																	 //m_ToolTip.ToolTipIcon = ToolTipIcon.Info; // None
-																	 //m_ToolTip.ToolTipTitle = "ToolTipTitle"; // string.Empty
-																	 //m_ToolTip.UseAnimation = false; // true
-																	 //m_ToolTip.UseFading = false;  // true
+			//m_ToolTip.ReshowDelay = 1000;  // 100
+			//m_ToolTip.ShowAlways = true; // false
+			//m_ToolTip.ToolTipIcon = ToolTipIcon.Info; // None
+			//m_ToolTip.ToolTipTitle = "ToolTipTitle"; // string.Empty
+			//m_ToolTip.UseAnimation = false; // true
+			//m_ToolTip.UseFading = false;  // true
 		}
 
 		public SelectMode(SelectMode obj)

@@ -3,7 +3,7 @@ using System;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
-	class ShowPartsMenuItem : MenuEvent
+	class ShowPartsMenuEvent : MenuEvent
 	{
 		public override bool CheckOnClick => true;
 
@@ -11,7 +11,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		public override string ToolTipText => Resources.menu_show_parts_tooltip;
 
-		public ShowPartsMenuItem() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.show_parts.png"))
+		public ShowPartsMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.show_parts.png"))
 		{
 		}
 

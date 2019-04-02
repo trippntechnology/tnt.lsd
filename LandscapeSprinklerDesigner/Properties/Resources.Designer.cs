@@ -385,6 +385,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Snap To Grid.
+        /// </summary>
+        internal static string menu_snap_to_grid {
+            get {
+                return ResourceManager.GetString("menu_snap_to_grid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable/Disable snap-to-grid.
+        /// </summary>
+        internal static string menu_snap_to_grid_tooltip {
+            get {
+                return ResourceManager.GetString("menu_snap_to_grid_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Undo.
         /// </summary>
         internal static string menu_undo {

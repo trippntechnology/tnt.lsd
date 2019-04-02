@@ -138,7 +138,8 @@
     <Compile Include="MenuEvents\ShowCoverageMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowDistanceMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
-    <Compile Include="MenuEvents\ShowPartsMenuItem.cs" />
+    <Compile Include="MenuEvents\ShowPartsMenuEvent.cs" />
+    <Compile Include="MenuEvents\SnapToGridMenuEvent.cs" />
     <Compile Include="MenuEvents\UndoMenuEvent.cs" />
     <Compile Include="NewLayoutDialog.cs">
       <SubType>Form</SubType>
@@ -307,6 +308,7 @@
     <EmbeddedResource Include="Images\show_distance.png" />
     <EmbeddedResource Include="Images\show_coverage.png" />
     <EmbeddedResource Include="Images\show_parts.png" />
+    <EmbeddedResource Include="Images\snap_to_grid.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>
