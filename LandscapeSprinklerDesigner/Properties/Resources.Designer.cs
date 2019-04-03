@@ -97,6 +97,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Size Pipe.
+        /// </summary>
+        internal static string menu_auto_size {
+            get {
+                return ResourceManager.GetString("menu_auto_size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size the pipe allow for required flow rates.
+        /// </summary>
+        internal static string menu_auto_size_tooltip {
+            get {
+                return ResourceManager.GetString("menu_auto_size_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Clone.
         /// </summary>
         internal static string menu_clone {
@@ -453,6 +471,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_snap_to_grid_tooltip {
             get {
                 return ResourceManager.GetString("menu_snap_to_grid_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space Equally.
+        /// </summary>
+        internal static string menu_space_equally {
+            get {
+                return ResourceManager.GetString("menu_space_equally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spaces selected object equally.
+        /// </summary>
+        internal static string menu_space_equally_tooltip {
+            get {
+                return ResourceManager.GetString("menu_space_equally_tooltip", resourceCulture);
             }
         }
         

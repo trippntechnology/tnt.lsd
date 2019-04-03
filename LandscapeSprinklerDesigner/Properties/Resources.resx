@@ -243,6 +243,12 @@
   <data name="menu_align_to_grid_tooltip" xml:space="preserve">
     <value>Aligns selected objects to nearest grid intersection</value>
   </data>
+  <data name="menu_auto_size" xml:space="preserve">
+    <value>Auto Size Pipe</value>
+  </data>
+  <data name="menu_auto_size_tooltip" xml:space="preserve">
+    <value>Size the pipe allow for required flow rates</value>
+  </data>
   <data name="menu_move_to_back" xml:space="preserve">
     <value>Move To Back</value>
   </data>
@@ -254,5 +260,11 @@
   </data>
   <data name="menu_move_to_front_tooltip" xml:space="preserve">
     <value>Bring selected object(s) to the front</value>
+  </data>
+  <data name="menu_space_equally" xml:space="preserve">
+    <value>Space Equally</value>
+  </data>
+  <data name="menu_space_equally_tooltip" xml:space="preserve">
+    <value>Spaces selected object equally</value>
   </data>
 </root>

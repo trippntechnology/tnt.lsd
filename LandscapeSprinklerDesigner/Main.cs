@@ -179,6 +179,8 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<MoveToBackMenuEvent>(ToToolStripItemArray(SendToBackButton, SendToBackMenu), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<MoveToFrontMenuEvent>(ToToolStripItemArray(BringToFrontMenu, BringToFrontButton), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.aligntogrid), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<SpaceEquallyMenuEvent>(ToToolStripItemArray(SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.space), externalObject: exObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -215,15 +217,6 @@ namespace LandscapeSprinklerDesigner
 			Command cmd = null;
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("SpaceEqually", c => CAD.SpaceSelectedEqually(), c => c.Enabled = (from o in CAD.SelectedObjects where o is TNTPart select o).ToList().Count > 2);
-			cmd.Add(m_LayoutForm.space);
-			cmd.Add(SpaceEquallyMenu);
-			cmd.Add(SpaceEquallyButton);
-
-			cmd = m_CommandManager.Create("AutoPipeSize", c => CAD.DrawingOptions.AutoSizePipes = c.Checked);
-			cmd.Add(AutoSizeMenu);
-			cmd.Add(AutoSizeButton);
 
 			cmd = m_CommandManager.Create("GetArea", c =>
 			{
@@ -333,14 +326,6 @@ namespace LandscapeSprinklerDesigner
 			cmd.Add(LayoutButton);
 			cmd.Add(LayoutMenu);
 			cmd.CheckOnClick = true;
-
-			//cmd = m_CommandManager.Create("ShowGrid", (c) =>
-			//{
-			//	CAD.Settings.DrawGrid = c.Checked;
-			//});
-			//cmd.Add(ShowGridButton);
-			//cmd.Add(ShowGridMenu);
-			//cmd.CheckOnClick = true;
 		}
 
 		private void Main_Load(object sender, EventArgs e)
@@ -350,8 +335,6 @@ namespace LandscapeSprinklerDesigner
 			m_ApplicationRegistry.LoadFormState(this);
 			m_ApplicationRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
 			tbScale.Value = m_ApplicationRegistry.ReadInteger("Scale", tbScale.Value);
-			m_CommandManager["AutoPipeSize"].Checked = m_ApplicationRegistry.ReadBoolean("AutoPipeSize", true);
-			CAD.DrawingOptions.AutoSizePipes = m_CommandManager["AutoPipeSize"].Checked;
 
 			#endregion
 
@@ -443,7 +426,6 @@ namespace LandscapeSprinklerDesigner
 			var persistedMenuEvent = (from p in toolStripItemMenuGroupManager.Values where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
 			persistedMenuEvent.ForEach(p => p.SaveState(m_ApplicationRegistry));
 
-			m_ApplicationRegistry.WriteBoolean("AutoPipeSize", m_CommandManager["AutoPipeSize"].Checked);
 			m_ApplicationRegistry.WriteInteger("Scale", tbScale.Value);
 			m_ApplicationRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
 			m_ApplicationRegistry.SaveFormState(this);
