@@ -121,6 +121,8 @@
     </Compile>
     <Compile Include="MenuEvents\AlignToGridMenuEvent.cs" />
     <Compile Include="MenuEvents\AutoSizeMenuEvent.cs" />
+    <Compile Include="MenuEvents\CalculateAreaMenuEvent.cs" />
+    <Compile Include="MenuEvents\CalculateDistanceMenuEvent.cs" />
     <Compile Include="MenuEvents\MoveToFrontMenuEvent.cs" />
     <Compile Include="MenuEvents\DockMenuEvent.cs" />
     <Compile Include="MenuEvents\CloneMenuEvent.cs" />
@@ -134,6 +136,10 @@
     <Compile Include="MenuEvents\PartsPaletteEvent.cs" />
     <Compile Include="MenuEvents\PersistedMenuEvent.cs" />
     <Compile Include="MenuEvents\PropertiesMenuEvent.cs" />
+    <Compile Include="MenuEvents\Rotate180MenuEvent.cs" />
+    <Compile Include="MenuEvents\RotateRightMenuEvent.cs" />
+    <Compile Include="MenuEvents\RotateLeftMenuEvent.cs" />
+    <Compile Include="MenuEvents\RotateMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveAsMenuEvent.cs" />
     <Compile Include="MenuEvents\SaveMenuEvent.cs" />
     <Compile Include="MenuEvents\SelectAllMenuEvent.cs" />
@@ -319,6 +325,11 @@
     <EmbeddedResource Include="Images\align_to_grid.png" />
     <EmbeddedResource Include="Images\auto_size.png" />
     <EmbeddedResource Include="Images\space_equally.png" />
+    <EmbeddedResource Include="Images\calculate_area.png" />
+    <EmbeddedResource Include="Images\calculate_distance.png" />
+    <EmbeddedResource Include="Images\rotate_180.png" />
+    <EmbeddedResource Include="Images\rotate_left.png" />
+    <EmbeddedResource Include="Images\rotate_right.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

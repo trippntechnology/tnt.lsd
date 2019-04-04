@@ -115,6 +115,42 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculate Area.
+        /// </summary>
+        internal static string menu_calculate_area {
+            get {
+                return ResourceManager.GetString("menu_calculate_area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gets the area of the selected enclosed object(s).
+        /// </summary>
+        internal static string menu_calculate_area_tooltip {
+            get {
+                return ResourceManager.GetString("menu_calculate_area_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculate Length.
+        /// </summary>
+        internal static string menu_calculate_length {
+            get {
+                return ResourceManager.GetString("menu_calculate_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gets the length of the selected object(s).
+        /// </summary>
+        internal static string menu_calculate_length_tooltip {
+            get {
+                return ResourceManager.GetString("menu_calculate_length_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Clone.
         /// </summary>
         internal static string menu_clone {
@@ -327,6 +363,60 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_properties_tooltip {
             get {
                 return ResourceManager.GetString("menu_properties_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate 180.
+        /// </summary>
+        internal static string menu_rotate_180 {
+            get {
+                return ResourceManager.GetString("menu_rotate_180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotates the selected image(s) 180 degrees.
+        /// </summary>
+        internal static string menu_rotate_180_tooltip {
+            get {
+                return ResourceManager.GetString("menu_rotate_180_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate 90 Counterclockwise.
+        /// </summary>
+        internal static string menu_rotate_left {
+            get {
+                return ResourceManager.GetString("menu_rotate_left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotates the selected image(s) 90 degrees counterclockwise.
+        /// </summary>
+        internal static string menu_rotate_left_tooltip {
+            get {
+                return ResourceManager.GetString("menu_rotate_left_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate 90 Clockwise.
+        /// </summary>
+        internal static string menu_rotate_right {
+            get {
+                return ResourceManager.GetString("menu_rotate_right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotates the selected image(s) 90 degrees clockwise.
+        /// </summary>
+        internal static string menu_rotate_right_tooltip {
+            get {
+                return ResourceManager.GetString("menu_rotate_right_tooltip", resourceCulture);
             }
         }
         

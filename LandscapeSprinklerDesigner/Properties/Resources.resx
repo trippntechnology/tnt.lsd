@@ -267,4 +267,34 @@
   <data name="menu_space_equally_tooltip" xml:space="preserve">
     <value>Spaces selected object equally</value>
   </data>
+  <data name="menu_calculate_area" xml:space="preserve">
+    <value>Calculate Area</value>
+  </data>
+  <data name="menu_calculate_area_tooltip" xml:space="preserve">
+    <value>Gets the area of the selected enclosed object(s)</value>
+  </data>
+  <data name="menu_calculate_length" xml:space="preserve">
+    <value>Calculate Length</value>
+  </data>
+  <data name="menu_calculate_length_tooltip" xml:space="preserve">
+    <value>Gets the length of the selected object(s)</value>
+  </data>
+  <data name="menu_rotate_180" xml:space="preserve">
+    <value>Rotate 180</value>
+  </data>
+  <data name="menu_rotate_180_tooltip" xml:space="preserve">
+    <value>Rotates the selected image(s) 180 degrees</value>
+  </data>
+  <data name="menu_rotate_left" xml:space="preserve">
+    <value>Rotate 90 Counterclockwise</value>
+  </data>
+  <data name="menu_rotate_left_tooltip" xml:space="preserve">
+    <value>Rotates the selected image(s) 90 degrees counterclockwise</value>
+  </data>
+  <data name="menu_rotate_right" xml:space="preserve">
+    <value>Rotate 90 Clockwise</value>
+  </data>
+  <data name="menu_rotate_right_tooltip" xml:space="preserve">
+    <value>Rotates the selected image(s) 90 degrees clockwise</value>
+  </data>
 </root>

@@ -1,6 +1,5 @@
 ﻿using LandscapeSprinklerDesigner.Events;
 using LandscapeSprinklerDesigner.MenuEvents;
-using LandscapeSprinklerDesigner.Properties;
 using LSDComponents;
 using Microsoft.Win32;
 using System;
@@ -181,6 +180,11 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.aligntogrid), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
 			toolStripItemMenuGroupManager.Create<SpaceEquallyMenuEvent>(ToToolStripItemArray(SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.space), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CalculateAreaMenuEvent>(ToToolStripItemArray(AreaMenu, AreaButton, m_LayoutForm.area), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CalculateDistanceMenuEvent>(ToToolStripItemArray(LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<RotateLeftMenuEvent>(ToToolStripItemArray(Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<RotateRightMenuEvent>(ToToolStripItemArray(Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<Rotate180MenuEvent>(ToToolStripItemArray(Rotate180Menu, Rotate180Button, m_LayoutForm.rotate180), externalObject: exObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -217,25 +221,6 @@ namespace LandscapeSprinklerDesigner
 			Command cmd = null;
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("GetArea", c =>
-			{
-				double area = CAD.GetArea();
-				double sqrFt = Math.Round(area, 2);
-				double acre = Math.Round(area / 43560.1742405, 2);
-				MessageBox.Show(string.Format("{0} square feet. {1} acres", sqrFt, acre), "Selected Area");
-			}, c => c.Enabled = CAD.AreaAvailable);
-			cmd.Add(m_LayoutForm.area);
-			cmd.Add(AreaMenu);
-			cmd.Add(AreaButton);
-
-			cmd = m_CommandManager.Create("GetLength", c =>
-				{
-					double length = Math.Round(CAD.GetLength(), 2);
-					MessageBox.Show(string.Format("{0} feet.", length), "Selected Length");
-				}, c => c.Enabled = CAD.LengthAvailable);
-			cmd.Add(LengthMenuItem);
-			cmd.Add(LengthButton);
 
 			cmd = m_CommandManager.Create("CheckForUpdate", c =>
 			{
@@ -285,24 +270,6 @@ namespace LandscapeSprinklerDesigner
 				}
 			});
 			cmd.Add(RegisterMenu);
-
-			cmd = m_CommandManager.Create("RotateClockwise90", RotateSelectedPaletteParts, EnablePalettePartsSelected);
-			cmd.Tag = 90;
-			cmd.Add(m_LayoutForm.rotateclock);
-			cmd.Add(Rotate90ClockwiseMenu);
-			cmd.Add(Rotate90ClockwiseButton);
-
-			cmd = m_CommandManager.Create("RotateCounterclockwise90", RotateSelectedPaletteParts, EnablePalettePartsSelected);
-			cmd.Tag = -90;
-			cmd.Add(m_LayoutForm.rotatecounter);
-			cmd.Add(Rotate90CounterclockwiseMenu);
-			cmd.Add(Rotate90CounterclockwiseButton);
-
-			cmd = m_CommandManager.Create("Rotate180", RotateSelectedPaletteParts, EnablePalettePartsSelected);
-			cmd.Tag = 180;
-			cmd.Add(m_LayoutForm.rotate180);
-			cmd.Add(Rotate180Menu);
-			cmd.Add(Rotate180Button);
 
 			cmd = m_CommandManager.Create("SumGPM", (c) =>
 				{
@@ -561,7 +528,7 @@ namespace LandscapeSprinklerDesigner
 				}
 			}
 		}
-		
+
 		private void Open_Click(Command cmd)
 		{
 			openFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
