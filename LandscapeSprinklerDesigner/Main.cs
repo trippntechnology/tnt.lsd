@@ -306,9 +306,11 @@ namespace LandscapeSprinklerDesigner
 
 			cmd = m_CommandManager.Create("GetArea", c =>
 			{
+				var name = Path.GetFileNameWithoutExtension(CAD.CurrentFileName);
 				double area = CAD.GetArea();
 				double sqrFt = Math.Round(area, 2);
 				double acre = Math.Round(area / 43560.1742405, 2);
+				Clipboard.SetText($"{name}\t{DateTime.Now.ToShortDateString()}\t{acre}");
 				MessageBox.Show(string.Format("{0} square feet. {1} acres", sqrFt, acre), "Selected Area");
 			}, c => c.Enabled = CAD.AreaAvailable);
 			cmd.Add(m_LayoutForm.area);
