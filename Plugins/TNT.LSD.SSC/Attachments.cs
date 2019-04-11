@@ -58,8 +58,6 @@ namespace TNT.LSD.SSC
 				// Generate PDF
 				GeneratePDF(appData, appData.TNTCAD, pdfFileName);
 
-				Clipboard.SetText(name);
-
 				//var thread = new Thread(() =>
 				//{
 				//									//var toast = new Toast();

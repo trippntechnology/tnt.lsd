@@ -735,7 +735,7 @@ namespace LSDComponents
 			CreateUndoActions(list, undoType);
 		}
 
-		protected void CreateUndoActions<T>(List<T> objs, UndoAction.UndoActionType undoType) where T : TNTObject
+		public void CreateUndoActions<T>(List<T> objs, UndoAction.UndoActionType undoType) where T : TNTObject
 		{
 			UndoActionList uaList = new UndoActionList();
 
