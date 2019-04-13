@@ -76,8 +76,8 @@
     <AssemblyInfo_GUID>34a0198b-a28b-4161-9af7-b9ba2256e0a8</AssemblyInfo_GUID>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.13.2.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.13.3.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetZip.1.13.3\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -103,6 +103,9 @@
     </Reference>
     <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>

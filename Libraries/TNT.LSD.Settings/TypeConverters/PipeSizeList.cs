@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using TNT.Reflection;
 
 namespace TNT.LSD.Settings.TypeConverters
 {
