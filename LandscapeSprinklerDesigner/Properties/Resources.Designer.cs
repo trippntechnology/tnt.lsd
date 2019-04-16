@@ -583,6 +583,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sum GPM.
+        /// </summary>
+        internal static string menu_sum_gpm {
+            get {
+                return ResourceManager.GetString("menu_sum_gpm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sum GPM of selected lateral parts.
+        /// </summary>
+        internal static string menu_sum_gpm_tooltip {
+            get {
+                return ResourceManager.GetString("menu_sum_gpm_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Undo.
         /// </summary>
         internal static string menu_undo {

@@ -151,6 +151,7 @@
     <Compile Include="MenuEvents\ShowPartsMenuEvent.cs" />
     <Compile Include="MenuEvents\SnapToGridMenuEvent.cs" />
     <Compile Include="MenuEvents\SpaceEquallyMenuEvent.cs" />
+    <Compile Include="MenuEvents\SumGPMMenuEvent.cs" />
     <Compile Include="MenuEvents\UndoMenuEvent.cs" />
     <Compile Include="NewLayoutDialog.cs">
       <SubType>Form</SubType>
@@ -330,6 +331,7 @@
     <EmbeddedResource Include="Images\rotate_180.png" />
     <EmbeddedResource Include="Images\rotate_left.png" />
     <EmbeddedResource Include="Images\rotate_right.png" />
+    <EmbeddedResource Include="Images\sum_gpm.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>

@@ -147,6 +147,7 @@
 			this.polyButton = new System.Windows.Forms.ToolStripButton();
 			this.textButton = new System.Windows.Forms.ToolStripButton();
 			this.legendButton = new System.Windows.Forms.ToolStripButton();
+			this.SumGPM = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuStrip1.SuspendLayout();
 			this.ToolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -460,7 +461,8 @@
             this.SpaceEquallyMenu,
             this.toolStripMenuItem8,
             this.AreaMenu,
-            this.LengthMenuItem});
+            this.LengthMenuItem,
+            this.SumGPM});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
@@ -1166,7 +1168,7 @@
             this.legendButton});
 			this.toolStrip4.Location = new System.Drawing.Point(734, 0);
 			this.toolStrip4.Name = "toolStrip4";
-			this.toolStrip4.Size = new System.Drawing.Size(227, 25);
+			this.toolStrip4.Size = new System.Drawing.Size(196, 25);
 			this.toolStrip4.TabIndex = 8;
 			// 
 			// selectButton
@@ -1240,6 +1242,12 @@
 			this.legendButton.Name = "legendButton";
 			this.legendButton.Size = new System.Drawing.Size(23, 22);
 			this.legendButton.Text = "toolStripButton1";
+			// 
+			// SumGPM
+			// 
+			this.SumGPM.Name = "SumGPM";
+			this.SumGPM.Size = new System.Drawing.Size(189, 22);
+			this.SumGPM.Text = "toolStripMenuItem10";
 			// 
 			// Main
 			// 
@@ -1399,6 +1407,7 @@
 		private System.Windows.Forms.ToolStripButton polyButton;
 		private System.Windows.Forms.ToolStripButton textButton;
 		private System.Windows.Forms.ToolStripButton legendButton;
+		private System.Windows.Forms.ToolStripMenuItem SumGPM;
 	}
 }
 

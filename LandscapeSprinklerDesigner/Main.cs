@@ -185,6 +185,7 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<RotateLeftMenuEvent>(ToToolStripItemArray(Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<RotateRightMenuEvent>(ToToolStripItemArray(Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<Rotate180MenuEvent>(ToToolStripItemArray(Rotate180Menu, Rotate180Button, m_LayoutForm.rotate180), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SumGPMMenuEvent>(ToToolStripItemArray(ButtonSumGPM, m_LayoutForm.sumGpm, SumGPM), externalObject: exObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -270,21 +271,6 @@ namespace LandscapeSprinklerDesigner
 				}
 			});
 			cmd.Add(RegisterMenu);
-
-			cmd = m_CommandManager.Create("SumGPM", (c) =>
-				{
-					var lateralParts = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList();
-					double gpm = 0;
-
-					lateralParts.ForEach(p => gpm += Convert.ToDouble(p.GPM));
-
-					MessageBox.Show(this, string.Format("GPM of selected parts: {0}", gpm), "Selected GPM");
-				}, (c) =>
-				{
-					var lateralParts = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList();
-					c.Enabled = lateralParts.Count > 0;
-				});
-			cmd.Add(ButtonSumGPM);
 
 			cmd = m_CommandManager.Create("Background", (c) =>
 			{

@@ -44,6 +44,7 @@
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.area = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculateDistance = new System.Windows.Forms.ToolStripMenuItem();
+			this.sumGpm = new System.Windows.Forms.ToolStripMenuItem();
 			this.tntPanel1.SuspendLayout();
 			this.CADContextMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -62,14 +63,24 @@
 			// CAD
 			// 
 			this.CAD.ContextMenuStrip = this.CADContextMenu;
+			this.CAD.CurrentFileName = "";
+			this.CAD.DrawBackground = false;
 			this.CAD.DrawingLayers = 2;
+			selectMode1.DefaultObject = null;
+			selectMode1.DefaultObjectType = "";
+			selectMode1.Layer = 0;
 			this.CAD.DrawingMode = selectMode1;
+			this.CAD.GridColor = System.Drawing.Color.Empty;
+			this.CAD.GridColorAlphaValue = 0;
+			this.CAD.HeightInFeet = 0;
 			this.CAD.Location = new System.Drawing.Point(0, 0);
 			this.CAD.Name = "CAD";
+			this.CAD.ShowPartsToolTip = false;
 			this.CAD.Size = new System.Drawing.Size(1600, 1600);
 			this.CAD.SnapToGrid = true;
 			this.CAD.TabIndex = 4;
 			this.CAD.Text = "tntcad1";
+			this.CAD.WidthInFeet = 0;
 			this.CAD.OnObjectsSelected += new LSDComponents.ObjectsSelectedDelegate(this.CAD_OnObjectsSelected);
 			this.CAD.TextChanged += new System.EventHandler(this.CAD_TextChanged);
 			// 
@@ -85,9 +96,10 @@
             this.rotate180,
             this.toolStripMenuItem2,
             this.area,
-            this.calculateDistance});
+            this.calculateDistance,
+            this.sumGpm});
 			this.CADContextMenu.Name = "CADContextMenu";
-			this.CADContextMenu.Size = new System.Drawing.Size(181, 214);
+			this.CADContextMenu.Size = new System.Drawing.Size(181, 236);
 			this.CADContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.CADContextMenu_Opening);
 			// 
 			// snaptogrid
@@ -148,6 +160,12 @@
 			this.calculateDistance.Size = new System.Drawing.Size(180, 22);
 			this.calculateDistance.Text = "toolStripMenuItem1";
 			// 
+			// sumGpm
+			// 
+			this.sumGpm.Name = "sumGpm";
+			this.sumGpm.Size = new System.Drawing.Size(180, 22);
+			this.sumGpm.Text = "toolStripMenuItem1";
+			// 
 			// LayoutForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,5 +206,6 @@
 		public System.Windows.Forms.ToolStripMenuItem snaptogrid;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		public System.Windows.Forms.ToolStripMenuItem calculateDistance;
+		public System.Windows.Forms.ToolStripMenuItem sumGpm;
 	}
 }
