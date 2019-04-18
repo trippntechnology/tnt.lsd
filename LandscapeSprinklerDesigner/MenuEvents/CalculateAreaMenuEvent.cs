@@ -1,5 +1,6 @@
 ﻿using LandscapeSprinklerDesigner.Properties;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
@@ -23,9 +24,11 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		public override void MouseClick(object sender, EventArgs e)
 		{
+			var name = Path.GetFileNameWithoutExtension(CAD.CurrentFileName);
 			double area = CAD.GetArea();
 			double sqrFt = Math.Round(area, 2);
-			double acre = Math.Round(area / ACRE_FEET, 2);
+			double acre = Math.Round(area / 43560.1742405, 2);
+			Clipboard.SetText($"{name}\t{DateTime.Now.ToShortDateString()}\t{acre}");
 			MessageBox.Show(string.Format("{0} square feet. {1} acres", sqrFt, acre), "Selected Area");
 		}
 	}
