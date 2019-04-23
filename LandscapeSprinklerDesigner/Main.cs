@@ -3,7 +3,6 @@ using LandscapeSprinklerDesigner.MenuEvents;
 using LSDComponents;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,7 +11,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using TNT.Configuration;
-using TNT.LSD.Objects;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
 using TNT.Utilities.CommandManagement;
@@ -37,9 +35,6 @@ namespace LandscapeSprinklerDesigner
 		private static ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 		private LayoutSettingsForm m_LayoutSettingsForm = new LayoutSettingsForm();
 		private PDFForm m_PDFForm = null;
-
-		// Set to null when enabling the registration process
-		private bool? m_IsAuthorized = null;
 
 		#endregion
 
@@ -117,7 +112,8 @@ namespace LandscapeSprinklerDesigner
 		{
 			InitializeComponent();
 
-			InitializeCommandManager();
+			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
+
 			SetupDrawingGroupManager();
 			SetupMenuGroupManager();
 
@@ -187,6 +183,8 @@ namespace LandscapeSprinklerDesigner
 			toolStripItemMenuGroupManager.Create<Rotate180MenuEvent>(ToToolStripItemArray(Rotate180Menu, Rotate180Button, m_LayoutForm.rotate180), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<SumGPMMenuEvent>(ToToolStripItemArray(ButtonSumGPM, m_LayoutForm.sumGpm, SumGPM), externalObject: exObj);
 			toolStripItemMenuGroupManager.Create<ShowLandscapeMenuEvent>(ToToolStripItemArray(LayoutButton, LayoutMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CheckForUpdateMenuItem>(ToToolStripItemArray(CheckForUpdateMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<RegisterMenuEvent>(ToToolStripItemArray(RegisterMenu), externalObject: exObj);
 		}
 
 		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -216,64 +214,6 @@ namespace LandscapeSprinklerDesigner
 			CAD.Repaint(0);
 		}
 
-		private void InitializeCommandManager()
-		{
-			m_CommandManager = new CommandManager(StatusBarHintChanged);
-
-			Command cmd = null;
-
-			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("CheckForUpdate", c =>
-			{
-				try
-				{
-					CheckVersion((curVer, appInfo) =>
-								{
-									if (appInfo != null)
-									{
-										Version latestVer = new Version(appInfo.Version);
-
-										if (latestVer > curVer)
-										{
-											new UpdateInformation().ShowDialog(this, curVer.ToString(), latestVer.ToString(), appInfo.URL.ToString());
-											//MessageBox.Show(this, string.Format("Version {0} is available for download", appInfo.Version.ToString()), "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-										}
-										else
-										{
-											MessageBox.Show(this, "The latest version is installed", "Version Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-										}
-									}
-								});
-				}
-				catch (Exception ex)
-				{
-					System.Diagnostics.Debug.WriteLine(ex.Message);
-					MessageBox.Show(this, "The update server is unavailable. Please verify you're connected to the internet and try again.", "Update Server Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				}
-			});
-			cmd.Add(CheckForUpdateMenu);
-
-			cmd = m_CommandManager.Create("Register", c =>
-			{
-				using (RegistrationForm form = new RegistrationForm())
-				{
-					if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-					{
-						m_IsAuthorized = null;
-						c.Visible = !IsAuthorized;
-						m_CommandManager["PartsList"].Visible = IsAuthorized;
-
-						if (IsAuthorized)
-						{
-							(m_CommandManager["PartsList"].Tag as DockContent).Show();
-						}
-					}
-				}
-			});
-			cmd.Add(RegisterMenu);
-		}
-
 		private void Main_Load(object sender, EventArgs e)
 		{
 			#region Restore state from Registery
@@ -294,8 +234,6 @@ namespace LandscapeSprinklerDesigner
 			m_LayoutForm.Show(DockPanel);
 
 			statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
-
-			m_CommandManager["Register"].Visible = !IsAuthorized;
 
 			#region Check for update thread
 
@@ -488,95 +426,6 @@ namespace LandscapeSprinklerDesigner
 		{
 			toolStripStatusLabel1.Text = hint;
 		}
-
-		#region CommandManager Events
-
-		private void ViewMenu_Click(Command cmd)
-		{
-			DockContent dc = cmd.Tag as DockContent;
-
-			if (dc != null)
-			{
-				if (cmd.Checked)
-				{
-					dc.Show(DockPanel);
-				}
-				else
-				{
-					dc.Hide();
-				}
-			}
-		}
-
-		private void Open_Click(Command cmd)
-		{
-			openFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
-
-			if (HandleUnsavedChanges() && openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-			{
-				LoadLayout(openFileDialog.FileName);
-				m_ApplicationRegistry.WriteString("InitialDirectory", Path.GetDirectoryName(openFileDialog.FileName));
-			}
-		}
-
-		private void New_Click(Command cmd)
-		{
-			if (HandleUnsavedChanges())
-			{
-				NewLayoutDialog nld = new NewLayoutDialog();
-				TNTCADState state = new TNTCADState(CAD);
-
-				for (int index = 0; index < CAD.State.ObjectLayers.Count; index++)
-				{
-					state.ObjectLayers.Add(new List<TNTObject>());
-				}
-
-				if (nld.ShowDialog(this, state.Settings) == System.Windows.Forms.DialogResult.OK)
-				{
-					CAD.State = state;
-					CAD.CurrentFileName = string.Empty;
-				}
-
-				m_LayoutSettingsForm.Settings = CAD.Settings;
-				CAD.Settings.DrawGrid = m_CommandManager["ShowGrid"].Checked;
-				CAD.Refresh();
-			}
-		}
-
-		private void EnableOnSelectedUpdate(Command cmd)
-		{
-			cmd.Enabled = CAD.SelectedObjects.Count > 0;
-		}
-
-		private void ToggleViewState(Command cmd)
-		{
-			DockContent dc = cmd.Tag as DockContent;
-
-			if (dc != null)
-			{
-				cmd.Checked = !dc.IsHidden;
-			}
-		}
-
-		private void EnablePalettePartsSelected(Command cmd)
-		{
-			var paletteParts = (from s in CAD.SelectedObjects where s is PalettePart select s as PalettePart).ToList();
-			cmd.Enabled = CAD.SelectedObjects.Count != 0 && CAD.SelectedObjects.Count == paletteParts.Count;
-		}
-
-		private void RotateSelectedPaletteParts(Command c)
-		{
-			int angle = (int)c.Tag;
-			CAD.SelectedObjects.ForEach(o =>
-				{
-					PalettePart p = o as PalettePart;
-					p.RotationAngle += angle;
-				});
-
-			CAD.ShowPropertyChanges();
-		}
-
-		#endregion
 
 		public void FileNameChanged(string fileName)
 		{

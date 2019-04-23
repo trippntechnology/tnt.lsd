@@ -151,6 +151,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check For Update.
+        /// </summary>
+        internal static string menu_check_for_update {
+            get {
+                return ResourceManager.GetString("menu_check_for_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checks if there is an update availble.
+        /// </summary>
+        internal static string menu_check_for_update_tooltip {
+            get {
+                return ResourceManager.GetString("menu_check_for_update_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Clone.
         /// </summary>
         internal static string menu_clone {
@@ -363,6 +381,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_properties_tooltip {
             get {
                 return ResourceManager.GetString("menu_properties_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        internal static string menu_register {
+            get {
+                return ResourceManager.GetString("menu_register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register the application.
+        /// </summary>
+        internal static string menu_register_tooltip {
+            get {
+                return ResourceManager.GetString("menu_register_tooltip", resourceCulture);
             }
         }
         

@@ -309,4 +309,16 @@
   <data name="menu_show_landscape_image_tooltip" xml:space="preserve">
     <value>Hide/Show Landscape Image</value>
   </data>
+  <data name="menu_check_for_update" xml:space="preserve">
+    <value>Check For Update</value>
+  </data>
+  <data name="menu_check_for_update_tooltip" xml:space="preserve">
+    <value>Checks if there is an update availble</value>
+  </data>
+  <data name="menu_register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="menu_register_tooltip" xml:space="preserve">
+    <value>Register the application</value>
+  </data>
 </root>

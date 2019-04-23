@@ -127,6 +127,7 @@
     <Compile Include="MenuEvents\AutoSizeMenuEvent.cs" />
     <Compile Include="MenuEvents\CalculateAreaMenuEvent.cs" />
     <Compile Include="MenuEvents\CalculateDistanceMenuEvent.cs" />
+    <Compile Include="MenuEvents\CheckForUpdateMenuItem.cs" />
     <Compile Include="MenuEvents\MoveToFrontMenuEvent.cs" />
     <Compile Include="MenuEvents\DockMenuEvent.cs" />
     <Compile Include="MenuEvents\CloneMenuEvent.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="MenuEvents\PartsPaletteEvent.cs" />
     <Compile Include="MenuEvents\PersistedMenuEvent.cs" />
     <Compile Include="MenuEvents\PropertiesMenuEvent.cs" />
+    <Compile Include="MenuEvents\RegisterMenuEvent.cs" />
     <Compile Include="MenuEvents\Rotate180MenuEvent.cs" />
     <Compile Include="MenuEvents\RotateRightMenuEvent.cs" />
     <Compile Include="MenuEvents\RotateLeftMenuEvent.cs" />
