@@ -529,6 +529,24 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Landscape Image.
+        /// </summary>
+        internal static string menu_show_landscape_image {
+            get {
+                return ResourceManager.GetString("menu_show_landscape_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide/Show Landscape Image.
+        /// </summary>
+        internal static string menu_show_landscape_image_tooltip {
+            get {
+                return ResourceManager.GetString("menu_show_landscape_image_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Part &amp;Tooltip.
         /// </summary>
         internal static string menu_show_parts {

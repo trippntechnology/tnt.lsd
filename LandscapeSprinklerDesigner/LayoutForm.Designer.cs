@@ -63,16 +63,8 @@
 			// CAD
 			// 
 			this.CAD.ContextMenuStrip = this.CADContextMenu;
-			this.CAD.CurrentFileName = "";
-			this.CAD.DrawBackground = false;
 			this.CAD.DrawingLayers = 2;
-			selectMode1.DefaultObject = null;
-			selectMode1.DefaultObjectType = "";
-			selectMode1.Layer = 0;
 			this.CAD.DrawingMode = selectMode1;
-			this.CAD.GridColor = System.Drawing.Color.Empty;
-			this.CAD.GridColorAlphaValue = 0;
-			this.CAD.HeightInFeet = 0;
 			this.CAD.Location = new System.Drawing.Point(0, 0);
 			this.CAD.Name = "CAD";
 			this.CAD.ShowPartsToolTip = false;
@@ -80,7 +72,6 @@
 			this.CAD.SnapToGrid = true;
 			this.CAD.TabIndex = 4;
 			this.CAD.Text = "tntcad1";
-			this.CAD.WidthInFeet = 0;
 			this.CAD.OnObjectsSelected += new LSDComponents.ObjectsSelectedDelegate(this.CAD_OnObjectsSelected);
 			this.CAD.TextChanged += new System.EventHandler(this.CAD_TextChanged);
 			// 

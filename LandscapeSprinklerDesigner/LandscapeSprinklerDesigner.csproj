@@ -149,6 +149,7 @@
     <Compile Include="MenuEvents\SelectAllMenuEvent.cs" />
     <Compile Include="MenuEvents\LabelHeadsMenuEvent.cs" />
     <Compile Include="MenuEvents\MoveToBackMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowLandscapeMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowCoverageMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowDistanceMenuEvent.cs" />
     <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
@@ -336,6 +337,7 @@
     <EmbeddedResource Include="Images\rotate_left.png" />
     <EmbeddedResource Include="Images\rotate_right.png" />
     <EmbeddedResource Include="Images\sum_gpm.png" />
+    <EmbeddedResource Include="Images\show_landscape.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>
