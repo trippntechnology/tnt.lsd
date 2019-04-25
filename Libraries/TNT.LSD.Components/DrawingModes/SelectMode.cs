@@ -39,7 +39,7 @@ namespace LSDComponents.DrawingModes
 		}
 
 		public SelectMode(SelectMode obj)
-			:base(obj)
+			: base(obj)
 		{
 			m_ToolTip.IsBalloon = obj.m_ToolTip.IsBalloon;
 		}
@@ -133,11 +133,11 @@ namespace LSDComponents.DrawingModes
 				{
 					cad.SetStateInfo(m_UnderlaidObject.MouseOver(currentPos, modifierKeys).GetStateInfo(currentPos, modifierKeys));
 
-					if (ShowPartsToolTip == null || !ShowPartsToolTip.Checked || !m_UnderlaidObject.Selected)
+					if (!cad.ShowPartsToolTip || !m_UnderlaidObject.Selected)
 					{
 						m_ToolTip.SetToolTip(cad, string.Empty);
 					}
-					else if (ShowPartsToolTip != null && ShowPartsToolTip.Checked && m_ShowToolTip && m_UnderlaidObject is BasePart)
+					else if (cad.ShowPartsToolTip && m_ShowToolTip && m_UnderlaidObject is BasePart)
 					{
 						Dictionary<string, Part> parts = DALPart.GetParts();
 						(m_UnderlaidObject as BasePart).SetPartQuantity(parts);

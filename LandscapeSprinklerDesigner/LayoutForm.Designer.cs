@@ -34,6 +34,8 @@
 			this.tntPanel1 = new LSDComponents.TNTPanel();
 			this.CAD = new LSDComponents.TNTCAD();
 			this.CADContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.snaptogrid = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.aligntogrid = new System.Windows.Forms.ToolStripMenuItem();
 			this.space = new System.Windows.Forms.ToolStripMenuItem();
 			this.rotateclock = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +43,8 @@
 			this.rotate180 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.area = new System.Windows.Forms.ToolStripMenuItem();
+			this.calculateDistance = new System.Windows.Forms.ToolStripMenuItem();
+			this.sumGpm = new System.Windows.Forms.ToolStripMenuItem();
 			this.tntPanel1.SuspendLayout();
 			this.CADContextMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -60,11 +64,10 @@
 			// 
 			this.CAD.ContextMenuStrip = this.CADContextMenu;
 			this.CAD.DrawingLayers = 2;
-			selectMode1.ShowPartsToolTip = null;
 			this.CAD.DrawingMode = selectMode1;
 			this.CAD.Location = new System.Drawing.Point(0, 0);
 			this.CAD.Name = "CAD";
-			this.CAD.ShowPartsToolTip = null;
+			this.CAD.ShowPartsToolTip = false;
 			this.CAD.Size = new System.Drawing.Size(1600, 1600);
 			this.CAD.SnapToGrid = true;
 			this.CAD.TabIndex = 4;
@@ -75,57 +78,84 @@
 			// CADContextMenu
 			// 
 			this.CADContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.snaptogrid,
+            this.toolStripSeparator1,
             this.aligntogrid,
             this.space,
             this.rotateclock,
             this.rotatecounter,
             this.rotate180,
             this.toolStripMenuItem2,
-            this.area});
+            this.area,
+            this.calculateDistance,
+            this.sumGpm});
 			this.CADContextMenu.Name = "CADContextMenu";
-			this.CADContextMenu.Size = new System.Drawing.Size(153, 164);
+			this.CADContextMenu.Size = new System.Drawing.Size(181, 236);
 			this.CADContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.CADContextMenu_Opening);
+			// 
+			// snaptogrid
+			// 
+			this.snaptogrid.Name = "snaptogrid";
+			this.snaptogrid.Size = new System.Drawing.Size(180, 22);
+			this.snaptogrid.Text = "toolStripMenuItem1";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
 			// 
 			// aligntogrid
 			// 
 			this.aligntogrid.Name = "aligntogrid";
-			this.aligntogrid.Size = new System.Drawing.Size(152, 22);
+			this.aligntogrid.Size = new System.Drawing.Size(180, 22);
 			this.aligntogrid.Text = "item1";
 			// 
 			// space
 			// 
 			this.space.Name = "space";
-			this.space.Size = new System.Drawing.Size(152, 22);
+			this.space.Size = new System.Drawing.Size(180, 22);
 			this.space.Text = "item2";
 			// 
 			// rotateclock
 			// 
 			this.rotateclock.Name = "rotateclock";
-			this.rotateclock.Size = new System.Drawing.Size(152, 22);
+			this.rotateclock.Size = new System.Drawing.Size(180, 22);
 			this.rotateclock.Text = "item3";
 			// 
 			// rotatecounter
 			// 
 			this.rotatecounter.Name = "rotatecounter";
-			this.rotatecounter.Size = new System.Drawing.Size(152, 22);
+			this.rotatecounter.Size = new System.Drawing.Size(180, 22);
 			this.rotatecounter.Text = "item4";
 			// 
 			// rotate180
 			// 
 			this.rotate180.Name = "rotate180";
-			this.rotate180.Size = new System.Drawing.Size(152, 22);
+			this.rotate180.Size = new System.Drawing.Size(180, 22);
 			this.rotate180.Text = "item5";
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// area
 			// 
 			this.area.Name = "area";
-			this.area.Size = new System.Drawing.Size(152, 22);
+			this.area.Size = new System.Drawing.Size(180, 22);
 			this.area.Text = "item6";
+			// 
+			// calculateDistance
+			// 
+			this.calculateDistance.Name = "calculateDistance";
+			this.calculateDistance.Size = new System.Drawing.Size(180, 22);
+			this.calculateDistance.Text = "toolStripMenuItem1";
+			// 
+			// sumGpm
+			// 
+			this.sumGpm.Name = "sumGpm";
+			this.sumGpm.Size = new System.Drawing.Size(180, 22);
+			this.sumGpm.Text = "toolStripMenuItem1";
 			// 
 			// LayoutForm
 			// 
@@ -164,9 +194,9 @@
 		public System.Windows.Forms.ToolStripMenuItem rotate180;
 		public System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 		public System.Windows.Forms.ToolStripMenuItem area;
-
-
-
-
+		public System.Windows.Forms.ToolStripMenuItem snaptogrid;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		public System.Windows.Forms.ToolStripMenuItem calculateDistance;
+		public System.Windows.Forms.ToolStripMenuItem sumGpm;
 	}
 }

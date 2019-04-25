@@ -1,8 +1,8 @@
 ﻿using LandscapeSprinklerDesigner.Events;
+using LandscapeSprinklerDesigner.MenuEvents;
 using LSDComponents;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,7 +11,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using TNT.Configuration;
-using TNT.LSD.Objects;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
 using TNT.Utilities.CommandManagement;
@@ -25,6 +24,7 @@ namespace LandscapeSprinklerDesigner
 		#region Members
 
 		private ToolStripItemCheckboxGroupManager toolStripItemDrawingGroupManager;
+		private ToolStripItemGroupManager toolStripItemMenuGroupManager;
 		private CommandManager m_CommandManager = null;
 
 		private PropertyForm m_PropertyForm = new PropertyForm();
@@ -35,9 +35,6 @@ namespace LandscapeSprinklerDesigner
 		private static ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 		private LayoutSettingsForm m_LayoutSettingsForm = new LayoutSettingsForm();
 		private PDFForm m_PDFForm = null;
-
-		// Set to null when enabling the registration process
-		private bool? m_IsAuthorized = null;
 
 		#endregion
 
@@ -115,8 +112,10 @@ namespace LandscapeSprinklerDesigner
 		{
 			InitializeComponent();
 
-			InitializeCommandManager();
+			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
+
 			SetupDrawingGroupManager();
+			SetupMenuGroupManager();
 
 			m_DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 			m_LayoutForm.PropertyForm = m_PropertyForm;
@@ -149,6 +148,47 @@ namespace LandscapeSprinklerDesigner
 			manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
 		}
 
+		private void SetupMenuGroupManager()
+		{
+			toolStripItemMenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1);
+			var exObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
+			toolStripItemMenuGroupManager.Create<NewMenuEvent>(ToToolStripItemArray(NewButton, NewMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ShowGridMenuEvent>(ToToolStripItemArray(ShowGridButton, ShowGridMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: exObj).LoadLayout = LoadLayout;
+			toolStripItemMenuGroupManager.Create<SaveMenuEvent>(ToToolStripItemArray(SaveMenu, SaveButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SaveAsMenuEvent>(ToToolStripItemArray(SaveAsMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ExitMenuEvent>(ToToolStripItemArray(ExitMenu), onClick: (a, e) => { Close(); });
+			toolStripItemMenuGroupManager.Create<UndoMenuEvent>(ToToolStripItemArray(UndoMenu, UndoButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<DeleteMenuEvent>(ToToolStripItemArray(DeleteMenu, DeleteButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CloneMenuEvent>(ToToolStripItemArray(CloneMenu, CloneButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SelectAllMenuEvent>(ToToolStripItemArray(SelectAllMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<PropertiesMenuEvent>(ToToolStripItemArray(PropertiesButton, PropertiesMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PropertyForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<PartsListMenuEvent>(ToToolStripItemArray(PartsListButton, PartsListMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PartsListForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<PartsPaletteEvent>(ToToolStripItemArray(PaletteTreeButton, PaletteTreeMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PalletForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
+			toolStripItemMenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<MoveToBackMenuEvent>(ToToolStripItemArray(SendToBackButton, SendToBackMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<MoveToFrontMenuEvent>(ToToolStripItemArray(BringToFrontMenu, BringToFrontButton), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.space), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			toolStripItemMenuGroupManager.Create<SpaceEquallyMenuEvent>(ToToolStripItemArray(SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.aligntogrid), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CalculateAreaMenuEvent>(ToToolStripItemArray(AreaMenu, AreaButton, m_LayoutForm.area), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CalculateDistanceMenuEvent>(ToToolStripItemArray(LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<RotateLeftMenuEvent>(ToToolStripItemArray(Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<RotateRightMenuEvent>(ToToolStripItemArray(Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<Rotate180MenuEvent>(ToToolStripItemArray(Rotate180Menu, Rotate180Button, m_LayoutForm.rotate180), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<SumGPMMenuEvent>(ToToolStripItemArray(ButtonSumGPM, m_LayoutForm.sumGpm, SumGPM), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<ShowLandscapeMenuEvent>(ToToolStripItemArray(LayoutButton, LayoutMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<CheckForUpdateMenuItem>(ToToolStripItemArray(CheckForUpdateMenu), externalObject: exObj);
+			toolStripItemMenuGroupManager.Create<RegisterMenuEvent>(ToToolStripItemArray(RegisterMenu), externalObject: exObj);
+		}
+
+		private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
+
 		private void SetupDrawingGroupManager()
 		{
 			toolStripItemDrawingGroupManager = new ToolStripItemCheckboxGroupManager(toolStripStatusLabel1);
@@ -174,256 +214,6 @@ namespace LandscapeSprinklerDesigner
 			CAD.Repaint(0);
 		}
 
-		private void InitializeCommandManager()
-		{
-			m_CommandManager = new CommandManager(StatusBarHintChanged);
-
-			Command cmd = m_CommandManager.Create("New", New_Click);
-			cmd.Add(NewMenu);
-			cmd.Add(NewButton);
-
-			cmd = m_CommandManager.Create("Open", Open_Click);
-			cmd.Add(OpenMenu);
-			cmd.Add(OpenButton);
-
-			cmd = m_CommandManager.Create("Save", c => CAD.Save(false));
-			cmd.Add(SaveMenu);
-			cmd.Add(SaveButton);
-
-			cmd = m_CommandManager.Create("SaveAs", c => CAD.Save(true));
-			cmd.Add(SaveAsMenu);
-
-			cmd = m_CommandManager.Create("Exit", c => Close());
-			cmd.Add(ExitMenu);
-
-			cmd = m_CommandManager.Create("Undo", c => CAD.Undo(), c => c.Enabled = CAD.HasUnsavedChanges && CAD.DrawingMode.UndoEnabled);
-			cmd.Add(UndoMenu);
-			cmd.Add(UndoButton);
-
-			cmd = m_CommandManager.Create("Delete", c => CAD.Delete(), EnableOnSelectedUpdate);
-			cmd.Add(DeleteMenu);
-			cmd.Add(DeleteButton);
-
-			cmd = m_CommandManager.Create("Clone", c => CAD.Copy(), c => c.Enabled = (from o in CAD.SelectedObjects where o.CanClone select o).ToList().Count > 0);
-			cmd.Add(CloneMenu);
-			cmd.Add(CloneButton);
-
-			cmd = m_CommandManager.Create("SelectAll", c =>
-			{
-				if (CAD.DrawingMode.GetType() == typeof(LSDComponents.DrawingModes.SelectMode))
-				{
-					CAD.SelectAll();
-				}
-			}, c =>
-			{
-				c.Enabled = CAD.DrawingMode.GetType() == typeof(LSDComponents.DrawingModes.SelectMode);
-			});
-			cmd.Add(SelectAllMenu);
-
-			cmd = m_CommandManager.Create("Properties", ViewMenu_Click, ToggleViewState);
-			cmd.Add(PropertiesButton);
-			cmd.Add(PropertiesMenu);
-			cmd.Text = m_PropertyForm.Text;
-			cmd.Image = m_PropertyForm.Icon.ToBitmap();
-			cmd.Tag = m_PropertyForm;
-
-			cmd = m_CommandManager.Create("PartsList", ViewMenu_Click, ToggleViewState);
-			cmd.Add(PartsListButton);
-			cmd.Add(PartsListMenu);
-			cmd.Text = m_PartsListForm.Text;
-			cmd.Image = m_PartsListForm.Icon.ToBitmap();
-			cmd.Tag = m_PartsListForm;
-
-			cmd = m_CommandManager.Create("PaletteTree", ViewMenu_Click, ToggleViewState);
-			cmd.Add(PaletteTreeButton);
-			cmd.Add(PaletteTreeMenu);
-			cmd.Text = m_PalletForm.Text;
-			cmd.Image = m_PalletForm.Icon.ToBitmap();
-			cmd.Tag = m_PalletForm;
-			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-			cmd = m_CommandManager.Create("LayoutSettings", ViewMenu_Click, ToggleViewState);
-			cmd.Add(LayoutSettingsButton);
-			cmd.Add(LayoutSettingsMenu);
-			cmd.Text = m_LayoutSettingsForm.Text;
-			cmd.Image = m_LayoutSettingsForm.Icon.ToBitmap();
-			cmd.Tag = m_LayoutSettingsForm;
-
-			cmd = m_CommandManager.Create("AlwaysShowDistances", c =>
-			{
-				CAD.DrawingOptions.AlwaysShowDistances = c.Checked;
-				CAD.Repaint();
-			});
-			cmd.Add(ShowDistancesMenu);
-			cmd.Add(ShowDistancesButton);
-
-			cmd = m_CommandManager.Create("ShowCoverage", c =>
-			{
-				CAD.DrawingOptions.ShowCoverage = c.Checked;
-				CAD.Repaint();
-			});
-			cmd.Add(CoverageMenu);
-			cmd.Add(CoverageButton);
-
-			cmd = m_CommandManager.Create("LabelHeads", c =>
-			{
-				CAD.DrawingOptions.LabelHeads = c.Checked;
-				CAD.Repaint();
-			});
-			cmd.Add(LabelHeadsMenu);
-			cmd.Add(LabelHeadsButton);
-
-			cmd = m_CommandManager.Create("ShowPartsToolTip");
-			cmd.Add(PartsToolTipMenu);
-			cmd.Add(PartsToolTipButton);
-			CAD.ShowPartsToolTip = cmd;
-
-			cmd = m_CommandManager.Create("SnapToGrid", SnapToGrid_Click);
-			cmd.Add(SnapToGridMenu);
-			cmd.Add(SnapToGridButton);
-
-			cmd = m_CommandManager.Create("BringToFront", c => CAD.BringToFront(), EnableOnSelectedUpdate);
-			cmd.Add(BringToFrontMenu);
-			cmd.Add(BringToFrontButton);
-
-			cmd = m_CommandManager.Create("SendToBack", c => CAD.SendToBack(), EnableOnSelectedUpdate);
-			cmd.Add(SendToBackMenu);
-			cmd.Add(SendToBackButton);
-
-			cmd = m_CommandManager.Create("AlignToGrid", c => CAD.AlignToGrid(), EnableOnSelectedUpdate);
-			cmd.Add(m_LayoutForm.aligntogrid);
-			cmd.Add(AlignToGridMenu);
-			cmd.Add(AlignToGridButton);
-
-			cmd = m_CommandManager.Create("SpaceEqually", c => CAD.SpaceSelectedEqually(), c => c.Enabled = (from o in CAD.SelectedObjects where o is TNTPart select o).ToList().Count > 2);
-			cmd.Add(m_LayoutForm.space);
-			cmd.Add(SpaceEquallyMenu);
-			cmd.Add(SpaceEquallyButton);
-
-			cmd = m_CommandManager.Create("AutoPipeSize", c => CAD.DrawingOptions.AutoSizePipes = c.Checked);
-			cmd.Add(AutoSizeMenu);
-			cmd.Add(AutoSizeButton);
-
-			cmd = m_CommandManager.Create("GetArea", c =>
-			{
-				var name = Path.GetFileNameWithoutExtension(CAD.CurrentFileName);
-				double area = CAD.GetArea();
-				double sqrFt = Math.Round(area, 2);
-				double acre = Math.Round(area / 43560.1742405, 2);
-				Clipboard.SetText($"{name}\t{DateTime.Now.ToShortDateString()}\t{acre}");
-				MessageBox.Show(string.Format("{0} square feet. {1} acres", sqrFt, acre), "Selected Area");
-			}, c => c.Enabled = CAD.AreaAvailable);
-			cmd.Add(m_LayoutForm.area);
-			cmd.Add(AreaMenu);
-			cmd.Add(AreaButton);
-
-			cmd = m_CommandManager.Create("GetLength", c =>
-				{
-					double length = Math.Round(CAD.GetLength(), 2);
-					MessageBox.Show(string.Format("{0} feet.", length), "Selected Length");
-				}, c => c.Enabled = CAD.LengthAvailable);
-			cmd.Add(LengthMenuItem);
-			cmd.Add(LengthButton);
-
-			cmd = m_CommandManager.Create("CheckForUpdate", c =>
-			{
-				try
-				{
-					CheckVersion((curVer, appInfo) =>
-								{
-									if (appInfo != null)
-									{
-										Version latestVer = new Version(appInfo.Version);
-
-										if (latestVer > curVer)
-										{
-											new UpdateInformation().ShowDialog(this, curVer.ToString(), latestVer.ToString(), appInfo.URL.ToString());
-											//MessageBox.Show(this, string.Format("Version {0} is available for download", appInfo.Version.ToString()), "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-										}
-										else
-										{
-											MessageBox.Show(this, "The latest version is installed", "Version Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-										}
-									}
-								});
-				}
-				catch (Exception ex)
-				{
-					System.Diagnostics.Debug.WriteLine(ex.Message);
-					MessageBox.Show(this, "The update server is unavailable. Please verify you're connected to the internet and try again.", "Update Server Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				}
-			});
-			cmd.Add(CheckForUpdateMenu);
-
-			cmd = m_CommandManager.Create("Register", c =>
-			{
-				using (RegistrationForm form = new RegistrationForm())
-				{
-					if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-					{
-						m_IsAuthorized = null;
-						c.Visible = !IsAuthorized;
-						m_CommandManager["PartsList"].Visible = IsAuthorized;
-
-						if (IsAuthorized)
-						{
-							(m_CommandManager["PartsList"].Tag as DockContent).Show();
-						}
-					}
-				}
-			});
-			cmd.Add(RegisterMenu);
-
-			cmd = m_CommandManager.Create("RotateClockwise90", RotateSelectedPaletteParts, EnablePalettePartsSelected);
-			cmd.Tag = 90;
-			cmd.Add(m_LayoutForm.rotateclock);
-			cmd.Add(Rotate90ClockwiseMenu);
-			cmd.Add(Rotate90ClockwiseButton);
-
-			cmd = m_CommandManager.Create("RotateCounterclockwise90", RotateSelectedPaletteParts, EnablePalettePartsSelected);
-			cmd.Tag = -90;
-			cmd.Add(m_LayoutForm.rotatecounter);
-			cmd.Add(Rotate90CounterclockwiseMenu);
-			cmd.Add(Rotate90CounterclockwiseButton);
-
-			cmd = m_CommandManager.Create("Rotate180", RotateSelectedPaletteParts, EnablePalettePartsSelected);
-			cmd.Tag = 180;
-			cmd.Add(m_LayoutForm.rotate180);
-			cmd.Add(Rotate180Menu);
-			cmd.Add(Rotate180Button);
-
-			cmd = m_CommandManager.Create("SumGPM", (c) =>
-				{
-					var lateralParts = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList();
-					double gpm = 0;
-
-					lateralParts.ForEach(p => gpm += Convert.ToDouble(p.GPM));
-
-					MessageBox.Show(this, string.Format("GPM of selected parts: {0}", gpm), "Selected GPM");
-				}, (c) =>
-				{
-					var lateralParts = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList();
-					c.Enabled = lateralParts.Count > 0;
-				});
-			cmd.Add(ButtonSumGPM);
-
-			cmd = m_CommandManager.Create("Background", (c) =>
-			{
-				CAD.DrawBackground = c.Checked;
-			});
-			cmd.Add(LayoutButton);
-			cmd.Add(LayoutMenu);
-			cmd.CheckOnClick = true;
-
-			cmd = m_CommandManager.Create("ShowGrid", (c) =>
-			{
-				CAD.Settings.DrawGrid = c.Checked;
-			});
-			cmd.Add(ShowGridButton);
-			cmd.Add(ShowGridMenu);
-			cmd.CheckOnClick = true;
-		}
-
 		private void Main_Load(object sender, EventArgs e)
 		{
 			#region Restore state from Registery
@@ -431,14 +221,6 @@ namespace LandscapeSprinklerDesigner
 			m_ApplicationRegistry.LoadFormState(this);
 			m_ApplicationRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
 			tbScale.Value = m_ApplicationRegistry.ReadInteger("Scale", tbScale.Value);
-			m_CommandManager["SnapToGrid"].Checked = m_ApplicationRegistry.ReadBoolean("SnapToGrid", true);
-			SnapToGrid_Click(m_CommandManager["SnapToGrid"]);
-			m_CommandManager["AutoPipeSize"].Checked = m_ApplicationRegistry.ReadBoolean("AutoPipeSize", true);
-			CAD.DrawingOptions.AutoSizePipes = m_CommandManager["AutoPipeSize"].Checked;
-			m_CommandManager["LabelHeads"].Checked = m_ApplicationRegistry.ReadBoolean("LabelHeads", true);
-			CAD.DrawingOptions.LabelHeads = m_CommandManager["LabelHeads"].Checked;
-			m_CommandManager["AlwaysShowDistances"].Checked = m_ApplicationRegistry.ReadBoolean("AlwaysShowDistances", false);
-			CAD.DrawingOptions.AlwaysShowDistances = m_CommandManager["AlwaysShowDistances"].Checked;
 
 			#endregion
 
@@ -451,14 +233,7 @@ namespace LandscapeSprinklerDesigner
 
 			m_LayoutForm.Show(DockPanel);
 
-			m_CommandManager["Properties"].Checked = !m_PropertyForm.IsHidden;
-			m_CommandManager["PartsList"].Checked = !m_PartsListForm.IsHidden;
-			m_CommandManager["PaletteTree"].Checked = !m_PalletForm.IsHidden;
-			m_CommandManager["LayoutSettings"].Checked = !m_LayoutSettingsForm.IsHidden;
-
 			statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
-
-			m_CommandManager["Register"].Visible = !IsAuthorized;
 
 			#region Check for update thread
 
@@ -532,11 +307,10 @@ namespace LandscapeSprinklerDesigner
 
 			#region Save state to Registry
 
-			m_ApplicationRegistry.WriteBoolean("AutoPipeSize", m_CommandManager["AutoPipeSize"].Checked);
-			m_ApplicationRegistry.WriteBoolean("AlwaysShowDistances", m_CommandManager["AlwaysShowDistances"].Checked);
-			m_ApplicationRegistry.WriteBoolean("LabelHeads", m_CommandManager["LabelHeads"].Checked);
+			var persistedMenuEvent = (from p in toolStripItemMenuGroupManager.Values where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
+			persistedMenuEvent.ForEach(p => p.SaveState(m_ApplicationRegistry));
+
 			m_ApplicationRegistry.WriteInteger("Scale", tbScale.Value);
-			m_ApplicationRegistry.WriteBoolean("SnapToGrid", SnapToGridButton.Checked);
 			m_ApplicationRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
 			m_ApplicationRegistry.SaveFormState(this);
 
@@ -617,7 +391,7 @@ namespace LandscapeSprinklerDesigner
 
 			CAD.Open(fileName);
 			m_LayoutSettingsForm.Settings = CAD.Settings;
-			m_CommandManager["ShowGrid"].Checked = CAD.Settings.DrawGrid;
+			toolStripItemMenuGroupManager["Show Grid"].IfNotNull(it => { it.Checked = CAD.Settings.DrawGrid; });
 		}
 
 		private void About_Click(object sender, EventArgs e)
@@ -652,100 +426,6 @@ namespace LandscapeSprinklerDesigner
 		{
 			toolStripStatusLabel1.Text = hint;
 		}
-
-		#region CommandManager Events
-
-		private void ViewMenu_Click(Command cmd)
-		{
-			DockContent dc = cmd.Tag as DockContent;
-
-			if (dc != null)
-			{
-				if (cmd.Checked)
-				{
-					dc.Show(DockPanel);
-				}
-				else
-				{
-					dc.Hide();
-				}
-			}
-		}
-
-		private void SnapToGrid_Click(Command cmd)
-		{
-			CAD.SnapToGrid = cmd.Checked;
-		}
-
-		private void Open_Click(Command cmd)
-		{
-			openFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
-
-			if (HandleUnsavedChanges() && openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-			{
-				LoadLayout(openFileDialog.FileName);
-				m_ApplicationRegistry.WriteString("InitialDirectory", Path.GetDirectoryName(openFileDialog.FileName));
-			}
-		}
-
-		private void New_Click(Command cmd)
-		{
-			if (HandleUnsavedChanges())
-			{
-				NewLayoutDialog nld = new NewLayoutDialog();
-				TNTCADState state = new TNTCADState(CAD);
-
-				for (int index = 0; index < CAD.State.ObjectLayers.Count; index++)
-				{
-					state.ObjectLayers.Add(new List<TNTObject>());
-				}
-
-				if (nld.ShowDialog(this, state.Settings) == System.Windows.Forms.DialogResult.OK)
-				{
-					CAD.State = state;
-					CAD.CurrentFileName = string.Empty;
-				}
-
-				m_LayoutSettingsForm.Settings = CAD.Settings;
-				CAD.Settings.DrawGrid = m_CommandManager["ShowGrid"].Checked;
-				CAD.Refresh();
-			}
-		}
-
-		private void EnableOnSelectedUpdate(Command cmd)
-		{
-			cmd.Enabled = CAD.SelectedObjects.Count > 0;
-		}
-
-		private void ToggleViewState(Command cmd)
-		{
-			DockContent dc = cmd.Tag as DockContent;
-
-			if (dc != null)
-			{
-				cmd.Checked = !dc.IsHidden;
-			}
-		}
-
-		private void EnablePalettePartsSelected(Command cmd)
-		{
-			var paletteParts = (from s in CAD.SelectedObjects where s is PalettePart select s as PalettePart).ToList();
-			cmd.Enabled = CAD.SelectedObjects.Count != 0 && CAD.SelectedObjects.Count == paletteParts.Count;
-		}
-
-		private void RotateSelectedPaletteParts(Command c)
-		{
-			int angle = (int)c.Tag;
-			CAD.SelectedObjects.ForEach(o =>
-				{
-					PalettePart p = o as PalettePart;
-					p.RotationAngle += angle;
-				});
-
-			CAD.ShowPropertyChanges();
-		}
-
-		#endregion
 
 		public void FileNameChanged(string fileName)
 		{

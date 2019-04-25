@@ -113,18 +113,6 @@
 			this.tbScale = new System.Windows.Forms.TrackBar();
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
 			this.DockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-			this.ToolStrip3 = new System.Windows.Forms.ToolStrip();
-			this.PropertiesButton = new System.Windows.Forms.ToolStripButton();
-			this.PartsListButton = new System.Windows.Forms.ToolStripButton();
-			this.PaletteTreeButton = new System.Windows.Forms.ToolStripButton();
-			this.LayoutSettingsButton = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-			this.ShowDistancesButton = new System.Windows.Forms.ToolStripButton();
-			this.LabelHeadsButton = new System.Windows.Forms.ToolStripButton();
-			this.CoverageButton = new System.Windows.Forms.ToolStripButton();
-			this.PartsToolTipButton = new System.Windows.Forms.ToolStripButton();
-			this.LayoutButton = new System.Windows.Forms.ToolStripButton();
-			this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
 			this.ToolStrip2 = new System.Windows.Forms.ToolStrip();
 			this.AutoSizeButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -138,6 +126,18 @@
 			this.AreaButton = new System.Windows.Forms.ToolStripButton();
 			this.LengthButton = new System.Windows.Forms.ToolStripButton();
 			this.ButtonSumGPM = new System.Windows.Forms.ToolStripButton();
+			this.ToolStrip3 = new System.Windows.Forms.ToolStrip();
+			this.PropertiesButton = new System.Windows.Forms.ToolStripButton();
+			this.PartsListButton = new System.Windows.Forms.ToolStripButton();
+			this.PaletteTreeButton = new System.Windows.Forms.ToolStripButton();
+			this.LayoutSettingsButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+			this.ShowDistancesButton = new System.Windows.Forms.ToolStripButton();
+			this.LabelHeadsButton = new System.Windows.Forms.ToolStripButton();
+			this.CoverageButton = new System.Windows.Forms.ToolStripButton();
+			this.PartsToolTipButton = new System.Windows.Forms.ToolStripButton();
+			this.LayoutButton = new System.Windows.Forms.ToolStripButton();
+			this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip4 = new System.Windows.Forms.ToolStrip();
 			this.selectButton = new System.Windows.Forms.ToolStripButton();
 			this.rectangleButton = new System.Windows.Forms.ToolStripButton();
@@ -147,6 +147,7 @@
 			this.polyButton = new System.Windows.Forms.ToolStripButton();
 			this.textButton = new System.Windows.Forms.ToolStripButton();
 			this.legendButton = new System.Windows.Forms.ToolStripButton();
+			this.SumGPM = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuStrip1.SuspendLayout();
 			this.ToolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -154,8 +155,8 @@
 			this.toolStripContainer1.ContentPanel.SuspendLayout();
 			this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
 			this.toolStripContainer1.SuspendLayout();
-			this.ToolStrip3.SuspendLayout();
 			this.ToolStrip2.SuspendLayout();
+			this.ToolStrip3.SuspendLayout();
 			this.toolStrip4.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -460,7 +461,8 @@
             this.SpaceEquallyMenu,
             this.toolStripMenuItem8,
             this.AreaMenu,
-            this.LengthMenuItem});
+            this.LengthMenuItem,
+            this.SumGPM});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
@@ -893,133 +895,6 @@
 			this.DockPanel.Size = new System.Drawing.Size(985, 548);
 			this.DockPanel.TabIndex = 1;
 			// 
-			// ToolStrip3
-			// 
-			this.ToolStrip3.Dock = System.Windows.Forms.DockStyle.None;
-			this.ToolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PropertiesButton,
-            this.PartsListButton,
-            this.PaletteTreeButton,
-            this.LayoutSettingsButton,
-            this.toolStripSeparator13,
-            this.ShowDistancesButton,
-            this.LabelHeadsButton,
-            this.CoverageButton,
-            this.PartsToolTipButton,
-            this.LayoutButton,
-            this.ShowGridButton});
-			this.ToolStrip3.Location = new System.Drawing.Point(486, 0);
-			this.ToolStrip3.Name = "ToolStrip3";
-			this.ToolStrip3.Size = new System.Drawing.Size(248, 25);
-			this.ToolStrip3.TabIndex = 7;
-			// 
-			// PropertiesButton
-			// 
-			this.PropertiesButton.CheckOnClick = true;
-			this.PropertiesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PropertiesButton.Image = ((System.Drawing.Image)(resources.GetObject("PropertiesButton.Image")));
-			this.PropertiesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PropertiesButton.Name = "PropertiesButton";
-			this.PropertiesButton.Size = new System.Drawing.Size(23, 22);
-			this.PropertiesButton.Text = "toolStripButton1";
-			// 
-			// PartsListButton
-			// 
-			this.PartsListButton.CheckOnClick = true;
-			this.PartsListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PartsListButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsListButton.Image")));
-			this.PartsListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PartsListButton.Name = "PartsListButton";
-			this.PartsListButton.Size = new System.Drawing.Size(23, 22);
-			this.PartsListButton.Text = "toolStripButton1";
-			// 
-			// PaletteTreeButton
-			// 
-			this.PaletteTreeButton.CheckOnClick = true;
-			this.PaletteTreeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PaletteTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("PaletteTreeButton.Image")));
-			this.PaletteTreeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PaletteTreeButton.Name = "PaletteTreeButton";
-			this.PaletteTreeButton.Size = new System.Drawing.Size(23, 22);
-			this.PaletteTreeButton.Text = "toolStripButton1";
-			// 
-			// LayoutSettingsButton
-			// 
-			this.LayoutSettingsButton.CheckOnClick = true;
-			this.LayoutSettingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LayoutSettingsButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutSettingsButton.Image")));
-			this.LayoutSettingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LayoutSettingsButton.Name = "LayoutSettingsButton";
-			this.LayoutSettingsButton.Size = new System.Drawing.Size(23, 22);
-			this.LayoutSettingsButton.Text = "toolStripButton1";
-			// 
-			// toolStripSeparator13
-			// 
-			this.toolStripSeparator13.Name = "toolStripSeparator13";
-			this.toolStripSeparator13.Size = new System.Drawing.Size(6, 25);
-			// 
-			// ShowDistancesButton
-			// 
-			this.ShowDistancesButton.CheckOnClick = true;
-			this.ShowDistancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.ShowDistancesButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowDistancesButton.Image")));
-			this.ShowDistancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.ShowDistancesButton.Name = "ShowDistancesButton";
-			this.ShowDistancesButton.Size = new System.Drawing.Size(23, 22);
-			this.ShowDistancesButton.Text = "Always Show &Distances";
-			this.ShowDistancesButton.ToolTipText = "Shows measurements even when the object isn\'t selected";
-			// 
-			// LabelHeadsButton
-			// 
-			this.LabelHeadsButton.CheckOnClick = true;
-			this.LabelHeadsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LabelHeadsButton.Image = ((System.Drawing.Image)(resources.GetObject("LabelHeadsButton.Image")));
-			this.LabelHeadsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LabelHeadsButton.Name = "LabelHeadsButton";
-			this.LabelHeadsButton.Size = new System.Drawing.Size(23, 22);
-			this.LabelHeadsButton.Text = "&Label Heads";
-			this.LabelHeadsButton.ToolTipText = "Labels the heads with their coverage";
-			// 
-			// CoverageButton
-			// 
-			this.CoverageButton.CheckOnClick = true;
-			this.CoverageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.CoverageButton.Image = ((System.Drawing.Image)(resources.GetObject("CoverageButton.Image")));
-			this.CoverageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.CoverageButton.Name = "CoverageButton";
-			this.CoverageButton.Size = new System.Drawing.Size(23, 22);
-			this.CoverageButton.Text = "&Coverage";
-			this.CoverageButton.ToolTipText = "Shows the sprinkler coverage";
-			// 
-			// PartsToolTipButton
-			// 
-			this.PartsToolTipButton.CheckOnClick = true;
-			this.PartsToolTipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.PartsToolTipButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsToolTipButton.Image")));
-			this.PartsToolTipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.PartsToolTipButton.Name = "PartsToolTipButton";
-			this.PartsToolTipButton.Size = new System.Drawing.Size(23, 22);
-			this.PartsToolTipButton.Text = "Part &Tooltip";
-			this.PartsToolTipButton.ToolTipText = "Show the parts that represent the image";
-			// 
-			// LayoutButton
-			// 
-			this.LayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.LayoutButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutButton.Image")));
-			this.LayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.LayoutButton.Name = "LayoutButton";
-			this.LayoutButton.Size = new System.Drawing.Size(23, 22);
-			this.LayoutButton.Text = "toolStripButton1";
-			// 
-			// ShowGridButton
-			// 
-			this.ShowGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.ShowGridButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowGridButton.Image")));
-			this.ShowGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.ShowGridButton.Name = "ShowGridButton";
-			this.ShowGridButton.Size = new System.Drawing.Size(23, 22);
-			this.ShowGridButton.Text = "toolStripButton1";
-			// 
 			// ToolStrip2
 			// 
 			this.ToolStrip2.Dock = System.Windows.Forms.DockStyle.None;
@@ -1152,6 +1027,133 @@
 			this.ButtonSumGPM.Size = new System.Drawing.Size(23, 22);
 			this.ButtonSumGPM.Text = "Sum the GPM of selected lateral parts";
 			// 
+			// ToolStrip3
+			// 
+			this.ToolStrip3.Dock = System.Windows.Forms.DockStyle.None;
+			this.ToolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PropertiesButton,
+            this.PartsListButton,
+            this.PaletteTreeButton,
+            this.LayoutSettingsButton,
+            this.toolStripSeparator13,
+            this.ShowDistancesButton,
+            this.LabelHeadsButton,
+            this.CoverageButton,
+            this.PartsToolTipButton,
+            this.LayoutButton,
+            this.ShowGridButton});
+			this.ToolStrip3.Location = new System.Drawing.Point(486, 0);
+			this.ToolStrip3.Name = "ToolStrip3";
+			this.ToolStrip3.Size = new System.Drawing.Size(248, 25);
+			this.ToolStrip3.TabIndex = 7;
+			// 
+			// PropertiesButton
+			// 
+			this.PropertiesButton.CheckOnClick = true;
+			this.PropertiesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PropertiesButton.Image = ((System.Drawing.Image)(resources.GetObject("PropertiesButton.Image")));
+			this.PropertiesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PropertiesButton.Name = "PropertiesButton";
+			this.PropertiesButton.Size = new System.Drawing.Size(23, 22);
+			this.PropertiesButton.Text = "toolStripButton1";
+			// 
+			// PartsListButton
+			// 
+			this.PartsListButton.CheckOnClick = true;
+			this.PartsListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PartsListButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsListButton.Image")));
+			this.PartsListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PartsListButton.Name = "PartsListButton";
+			this.PartsListButton.Size = new System.Drawing.Size(23, 22);
+			this.PartsListButton.Text = "toolStripButton1";
+			// 
+			// PaletteTreeButton
+			// 
+			this.PaletteTreeButton.CheckOnClick = true;
+			this.PaletteTreeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PaletteTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("PaletteTreeButton.Image")));
+			this.PaletteTreeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PaletteTreeButton.Name = "PaletteTreeButton";
+			this.PaletteTreeButton.Size = new System.Drawing.Size(23, 22);
+			this.PaletteTreeButton.Text = "toolStripButton1";
+			// 
+			// LayoutSettingsButton
+			// 
+			this.LayoutSettingsButton.CheckOnClick = true;
+			this.LayoutSettingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LayoutSettingsButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutSettingsButton.Image")));
+			this.LayoutSettingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LayoutSettingsButton.Name = "LayoutSettingsButton";
+			this.LayoutSettingsButton.Size = new System.Drawing.Size(23, 22);
+			this.LayoutSettingsButton.Text = "toolStripButton1";
+			// 
+			// toolStripSeparator13
+			// 
+			this.toolStripSeparator13.Name = "toolStripSeparator13";
+			this.toolStripSeparator13.Size = new System.Drawing.Size(6, 25);
+			// 
+			// ShowDistancesButton
+			// 
+			this.ShowDistancesButton.CheckOnClick = true;
+			this.ShowDistancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ShowDistancesButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowDistancesButton.Image")));
+			this.ShowDistancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ShowDistancesButton.Name = "ShowDistancesButton";
+			this.ShowDistancesButton.Size = new System.Drawing.Size(23, 22);
+			this.ShowDistancesButton.Text = "Always Show &Distances";
+			this.ShowDistancesButton.ToolTipText = "Shows measurements even when the object isn\'t selected";
+			// 
+			// LabelHeadsButton
+			// 
+			this.LabelHeadsButton.CheckOnClick = true;
+			this.LabelHeadsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LabelHeadsButton.Image = ((System.Drawing.Image)(resources.GetObject("LabelHeadsButton.Image")));
+			this.LabelHeadsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LabelHeadsButton.Name = "LabelHeadsButton";
+			this.LabelHeadsButton.Size = new System.Drawing.Size(23, 22);
+			this.LabelHeadsButton.Text = "&Label Heads";
+			this.LabelHeadsButton.ToolTipText = "Labels the heads with their coverage";
+			// 
+			// CoverageButton
+			// 
+			this.CoverageButton.CheckOnClick = true;
+			this.CoverageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.CoverageButton.Image = ((System.Drawing.Image)(resources.GetObject("CoverageButton.Image")));
+			this.CoverageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.CoverageButton.Name = "CoverageButton";
+			this.CoverageButton.Size = new System.Drawing.Size(23, 22);
+			this.CoverageButton.Text = "&Coverage";
+			this.CoverageButton.ToolTipText = "Shows the sprinkler coverage";
+			// 
+			// PartsToolTipButton
+			// 
+			this.PartsToolTipButton.CheckOnClick = true;
+			this.PartsToolTipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.PartsToolTipButton.Image = ((System.Drawing.Image)(resources.GetObject("PartsToolTipButton.Image")));
+			this.PartsToolTipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.PartsToolTipButton.Name = "PartsToolTipButton";
+			this.PartsToolTipButton.Size = new System.Drawing.Size(23, 22);
+			this.PartsToolTipButton.Text = "Part &Tooltip";
+			this.PartsToolTipButton.ToolTipText = "Show the parts that represent the image";
+			// 
+			// LayoutButton
+			// 
+			this.LayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.LayoutButton.Image = ((System.Drawing.Image)(resources.GetObject("LayoutButton.Image")));
+			this.LayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.LayoutButton.Name = "LayoutButton";
+			this.LayoutButton.Size = new System.Drawing.Size(23, 22);
+			this.LayoutButton.Text = "toolStripButton1";
+			// 
+			// ShowGridButton
+			// 
+			this.ShowGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ShowGridButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowGridButton.Image")));
+			this.ShowGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ShowGridButton.Name = "ShowGridButton";
+			this.ShowGridButton.Size = new System.Drawing.Size(23, 22);
+			this.ShowGridButton.Text = "toolStripButton1";
+			// 
 			// toolStrip4
 			// 
 			this.toolStrip4.Dock = System.Windows.Forms.DockStyle.None;
@@ -1241,6 +1243,12 @@
 			this.legendButton.Size = new System.Drawing.Size(23, 22);
 			this.legendButton.Text = "toolStripButton1";
 			// 
+			// SumGPM
+			// 
+			this.SumGPM.Name = "SumGPM";
+			this.SumGPM.Size = new System.Drawing.Size(189, 22);
+			this.SumGPM.Text = "toolStripMenuItem10";
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1268,10 +1276,10 @@
 			this.toolStripContainer1.TopToolStripPanel.PerformLayout();
 			this.toolStripContainer1.ResumeLayout(false);
 			this.toolStripContainer1.PerformLayout();
-			this.ToolStrip3.ResumeLayout(false);
-			this.ToolStrip3.PerformLayout();
 			this.ToolStrip2.ResumeLayout(false);
 			this.ToolStrip2.PerformLayout();
+			this.ToolStrip3.ResumeLayout(false);
+			this.ToolStrip3.PerformLayout();
 			this.toolStrip4.ResumeLayout(false);
 			this.toolStrip4.PerformLayout();
 			this.ResumeLayout(false);
@@ -1399,6 +1407,7 @@
 		private System.Windows.Forms.ToolStripButton polyButton;
 		private System.Windows.Forms.ToolStripButton textButton;
 		private System.Windows.Forms.ToolStripButton legendButton;
+		private System.Windows.Forms.ToolStripMenuItem SumGPM;
 	}
 }
 

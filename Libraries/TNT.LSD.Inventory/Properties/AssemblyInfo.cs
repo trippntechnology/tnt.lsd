@@ -12,7 +12,7 @@
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
 [assembly: System.Reflection.AssemblyCopyright("Copyright Tripp\'n Technology, LLC. 2019")]
 [assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-1902091008")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-1904161742")]
 [assembly: System.Reflection.AssemblyTitle("Landscape Sprinkler Designer Inventory")]
 [assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
 [assembly: System.Reflection.AssemblyDescription("Landscape Sprinkler Designer Inventory")]
