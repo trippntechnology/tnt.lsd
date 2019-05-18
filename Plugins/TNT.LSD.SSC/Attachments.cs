@@ -9,10 +9,6 @@ namespace TNT.LSD.SSC
 {
 	public class Attachments : Plugin
 	{
-		public override string MenuStripName => "MenuStrip1";
-
-		public override string ToolStripName => "ToolStrip1";
-
 		public override string Text => "SSC Attachments";
 
 		public override string ToolTipText => "Generate SSC Attachments";

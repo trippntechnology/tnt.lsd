@@ -11,10 +11,6 @@ namespace TNT.LSD.SSC
 {
 	public class Package : Plugin
 	{
-		public override string MenuStripName => "MenuStrip1";
-
-		public override string ToolStripName => "ToolStrip1";
-
 		public override string Text => "SSC Package";
 
 		public override string ToolTipText => "Create a package for SSC";
@@ -91,15 +87,15 @@ namespace TNT.LSD.SSC
 			return menuStrip;
 		}
 
-		public override ToolStrip GetToolStrip()
-		{
-			ToolStrip toolStrip = new ToolStrip();
+		public override ToolStrip GetToolStrip() => null;
+		//{
+		//	ToolStrip toolStrip = new ToolStrip();
 
-			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>();
-			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStrip.Items.Add(toolStripButton);
+		//	ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>();
+		//	toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		//	toolStrip.Items.Add(toolStripButton);
 
-			return toolStrip;
-		}
+		//	return toolStrip;
+		//}
 	}
 }

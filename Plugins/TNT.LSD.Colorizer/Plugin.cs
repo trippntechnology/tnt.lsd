@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using TNT.LSD.Objects;
 using TNT.Plugin.Manager;
 using TNT.Utilities;
-using System;
 
 namespace TNT.LSD.Colorizer
 {
@@ -34,6 +33,7 @@ namespace TNT.LSD.Colorizer
 
 			List<int> rgbValues = m_ApplicationRegistry.ReadList<int>("Colors");
 			List<Valve> valves = (from v in appData.TNTCAD.State.ObjectLayers.Last() where v is Valve select v as Valve).ToList();
+			var pipes = (from o in appData.TNTCAD.State.ObjectLayers.Last() where o is Pipe select o as Pipe).ToList();
 
 			int colorIndex = 0;
 
@@ -44,6 +44,11 @@ namespace TNT.LSD.Colorizer
 				{
 					rgbValues.Add(color.ToArgb());
 				}
+			}
+
+			foreach (var pipe in pipes)
+			{
+				pipe.PipeColor = Color.Black;
 			}
 
 			foreach (Valve v in valves)
