@@ -9,10 +9,6 @@ namespace TNT.LSD.SSC
 {
 	public class PDF : Plugin
 	{
-		public override string MenuStripName => "MenuStrip1";
-
-		public override string ToolStripName => "ToolStrip1";
-
 		public override string Text => "Export SSC PDF";
 
 		public override string ToolTipText => "Generate PDF for SSC";
@@ -68,15 +64,15 @@ namespace TNT.LSD.SSC
 			return menuStrip;
 		}
 
-		public override System.Windows.Forms.ToolStrip GetToolStrip()
-		{
-			ToolStrip toolStrip = new ToolStrip();
+		public override System.Windows.Forms.ToolStrip GetToolStrip() => null;
+		//{
+		//	ToolStrip toolStrip = new ToolStrip();
 
-			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>();
-			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStrip.Items.Add(toolStripButton);
+		//	ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>();
+		//	toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		//	toolStrip.Items.Add(toolStripButton);
 
-			return toolStrip;
-		}
+		//	return toolStrip;
+		//}
 	}
 }

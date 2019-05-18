@@ -1,11 +1,11 @@
-﻿using System;
+﻿using LSDComponents;
+using Microsoft.Win32;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using LSDComponents;
 using TNT.Utilities;
-using Microsoft.Win32;
-using System.IO;
 
 namespace TNT.LSD.Background
 {
@@ -23,15 +23,14 @@ namespace TNT.LSD.Background
 		public DialogResult ShowDialog(IWin32Window owner, TNTCADState state)
 		{
 			MyEventArgs mea = new MyEventArgs();
-
-			DialogResult result = DialogResult.OK;
 			FindFileButton_Click(null, mea);
 
-			if (mea.DialogResult == DialogResult.OK)
-			{
-				result = base.ShowDialog(owner);
+			var dialogResult = mea.DialogResult;
 
-				if (result == System.Windows.Forms.DialogResult.OK)
+			if (dialogResult == DialogResult.OK)
+			{
+				dialogResult = base.ShowDialog(owner);
+				if (dialogResult == System.Windows.Forms.DialogResult.OK)
 				{
 					double pixelsPerFoot = Convert.ToDouble(PixelPerFootTextBox.Text);
 					state.BackgroundImage = new Bitmap(FileNameTextBox.Text);
@@ -40,9 +39,8 @@ namespace TNT.LSD.Background
 				}
 			}
 
-			return result;
+			return dialogResult;
 		}
-
 		private void FindFileButton_Click(object sender, EventArgs e)
 		{
 			MyEventArgs myEventArgs = (e as MyEventArgs) == null ? new MyEventArgs() : (e as MyEventArgs);

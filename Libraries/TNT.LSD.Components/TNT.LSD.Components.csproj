@@ -101,8 +101,8 @@
     <Reference Include="TNT.Math, Version=1.1.2.1948, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Math.1.1.2\lib\net45\TNT.Math.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    <Reference Include="TNT.Plugin.Manager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Plugin.Manager.1.1.0\lib\net462\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>

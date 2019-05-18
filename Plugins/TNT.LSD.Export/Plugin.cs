@@ -18,7 +18,7 @@ namespace TNT.LSD.Export
 
 		public override string MenuStripName => "MenuStrip1";
 
-		public override string ToolStripName => "ToolStrip1";
+		public override string ToolStripName => "pluginToolStrip";
 
 		public override string Text => "Export";
 
@@ -102,15 +102,15 @@ namespace TNT.LSD.Export
 			return menuStrip;
 		}
 
-		public override ToolStrip GetToolStrip()
-		{
-			ToolStrip toolStrip = new ToolStrip();
+		public override ToolStrip GetToolStrip() => null;
+		//{
+		//	ToolStrip toolStrip = new ToolStrip();
 
-			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, GetImage(JPGImageResource), JPGToolTipText);
-			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStrip.Items.Add(toolStripButton);
+		//	ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, GetImage(JPGImageResource), JPGToolTipText);
+		//	toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		//	toolStrip.Items.Add(toolStripButton);
 
-			return toolStrip;
-		}
+		//	return toolStrip;
+		//}
 	}
 }
