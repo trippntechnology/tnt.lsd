@@ -67,17 +67,7 @@ namespace TNT.LSD.Colorizer
 
 			for (int row = 0; row < colors.Count; row++)
 			{
-				AddColor(colors[row]);
-			}
-		}
-
-		private void AddColor_Click(object sender, EventArgs e)
-		{
-			ColorDialog cd = new ColorDialog();
-
-			if (cd.ShowDialog() == DialogResult.OK)
-			{
-				AddColor(cd.Color);
+				AddColor(colors[row], new RowStyle(SizeType.Percent, 1f / colors.Count));
 			}
 		}
 
@@ -95,7 +85,8 @@ namespace TNT.LSD.Colorizer
 			Panel panel = new Panel()
 			{
 				BackColor = backColor,
-				Dock = DockStyle.Fill
+				Dock = DockStyle.Fill,
+				Margin = new Padding(1)
 			};
 
 			panel.Click += Panel_Click;
@@ -118,17 +109,12 @@ namespace TNT.LSD.Colorizer
 			}
 		}
 
-		private void RemoveColor_Click(object sender, EventArgs e)
-		{
-			RemoveColor();
-		}
+		private void RemoveColor_Click(object sender, EventArgs e) => RemoveColor();
 
-		private void AddColor(Color color)
+		private void AddColor(Color color, RowStyle rowStyle)
 		{
 			ctlp.Controls.Add(CreatePanel(color));
-			ctlp.RowCount = ctlp.Controls.Count;
-			ctlp.RowStyles.Add(new RowStyle(SizeType.Percent));
-			FormatRows(ctlp.RowStyles);
+			ctlp.RowStyles.Add(rowStyle);
 		}
 
 		private void RemoveColor()

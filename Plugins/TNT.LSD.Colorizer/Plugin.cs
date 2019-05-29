@@ -22,10 +22,7 @@ namespace TNT.LSD.Colorizer
 
 		public override string ToolTipText => "Apply color to each valve in the design";
 
-		public override Image Image
-		{
-			get { return base.GetImage("TNT.LSD.Colorizer.Images.paintbrush.png"); }
-		}
+		public override Image Image => base.GetImage("TNT.LSD.Colorizer.Images.paintbrush.png");
 
 		public override void Execute(System.Windows.Forms.IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{
@@ -98,9 +95,6 @@ namespace TNT.LSD.Colorizer
 			editColors.MouseEnter += base.Item_MouseEnter;
 			editColors.MouseLeave += base.Item_MouseLeave;
 			toolStripSplitButton.DropDownItems.Add(editColors);
-
-			//ToolStripMenuItem whiteColor = new ToolStripMenuItem("White", null, (a,b) =>)
-
 
 			return toolStrip;
 		}
