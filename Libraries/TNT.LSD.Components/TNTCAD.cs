@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -32,7 +33,7 @@ namespace LSDComponents
 	using UndoActionStack = Stack<List<UndoAction>>;
 
 	public delegate void ObjectsSelectedDelegate(object[] objs);
-	public delegate void PartsUpdatedDelegate(List<Part> parts);
+	public delegate Task PartsUpdatedDelegate(List<Part> parts);
 	public delegate void FileNameChanged(string fileName);
 
 	public partial class TNTCAD : Control

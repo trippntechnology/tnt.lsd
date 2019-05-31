@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TNT.LSD.Inventory;
-using System.Linq;
 
 namespace LandscapeSprinklerDesigner
 {
 	public partial class PartsListForm : DockableForm
 	{
+		private CancellationTokenSource cts = null;
+
 		public PartsListForm()
 		{
 			InitializeComponent();
@@ -20,20 +24,39 @@ namespace LandscapeSprinklerDesigner
 		/// </summary>
 		/// <param name="parts">List of parts</param>
 		/// and description</param>
-		public void SetParts(List<Part> parts)
+		public async Task SetParts(List<Part> parts)
 		{
-			Parts_ListView.Items.Clear();
-
-			foreach (Part p in parts)
+			IProgress<List<Part>> doWork = new Progress<List<Part>>(listOfParts =>
 			{
-				ListViewItem lvi = null;
+				Debug.WriteLine("SetParts called");
+				Parts_ListView.BeginUpdate();
+				Parts_ListView.Items.Clear();
 
-				lvi = Parts_ListView.Items.Add(p.Code);
-				lvi.SubItems.Add(p.Description);
-				lvi.SubItems.Add(p.Quantity.ToString());
-			}
+				foreach (Part p in parts)
+				{
+					ListViewItem lvi = null;
 
-			Parts_ListView.Sort();
+					lvi = Parts_ListView.Items.Add(p.Code);
+					lvi.SubItems.Add(p.Description);
+					lvi.SubItems.Add(p.Quantity.ToString());
+				}
+
+				Parts_ListView.Sort();
+				Parts_ListView.EndUpdate();
+			});
+
+			cts?.Cancel();
+			cts = new CancellationTokenSource();
+
+			var task = Task.Run(async () =>
+			{
+				await Task.Delay(1000, cts.Token);
+
+				if (!cts.Token.IsCancellationRequested)
+				{
+					doWork.Report(parts);
+				}
+			}, cts.Token);
 		}
 
 		/// <summary>
