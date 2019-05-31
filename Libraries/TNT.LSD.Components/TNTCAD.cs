@@ -33,7 +33,7 @@ namespace LSDComponents
 	using UndoActionStack = Stack<List<UndoAction>>;
 
 	public delegate void ObjectsSelectedDelegate(object[] objs);
-	public delegate Task PartsUpdatedDelegate(List<Part> parts);
+	public delegate void PartsUpdatedDelegate(List<Part> parts);
 	public delegate void FileNameChanged(string fileName);
 
 	public partial class TNTCAD : Control

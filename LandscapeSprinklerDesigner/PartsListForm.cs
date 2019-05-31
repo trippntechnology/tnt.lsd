@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TNT.LSD.Inventory;
 
@@ -10,7 +8,7 @@ namespace LandscapeSprinklerDesigner
 {
 	public partial class PartsListForm : DockableForm
 	{
-		private CancellationTokenSource cts = null;
+		private Debouncer debouncer = new Debouncer();
 
 		public PartsListForm()
 		{
@@ -24,7 +22,7 @@ namespace LandscapeSprinklerDesigner
 		/// </summary>
 		/// <param name="parts">List of parts</param>
 		/// and description</param>
-		public async Task SetParts(List<Part> parts)
+		public void SetParts(List<Part> parts)
 		{
 			IProgress<List<Part>> doWork = new Progress<List<Part>>(listOfParts =>
 			{
@@ -45,18 +43,10 @@ namespace LandscapeSprinklerDesigner
 				Parts_ListView.EndUpdate();
 			});
 
-			cts?.Cancel();
-			cts = new CancellationTokenSource();
-
-			var task = Task.Run(async () =>
+			var task = debouncer.DebounceAsync(token =>
 			{
-				await Task.Delay(1000, cts.Token);
-
-				if (!cts.Token.IsCancellationRequested)
-				{
-					doWork.Report(parts);
-				}
-			}, cts.Token);
+				doWork.Report(parts);
+			});
 		}
 
 		/// <summary>

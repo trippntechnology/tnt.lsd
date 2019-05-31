@@ -88,6 +88,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Debouncer.cs" />
     <Compile Include="DockableForm.cs">
       <SubType>Form</SubType>
     </Compile>
