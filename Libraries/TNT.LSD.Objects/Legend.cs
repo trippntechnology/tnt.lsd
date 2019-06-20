@@ -11,6 +11,8 @@ namespace TNT.LSD.Objects
 		const int MAX_TEXT_HEIGHT = 0;
 		const int MIN_WIDTH = 100;
 		const int MIN_HEIGHT = 100;
+		const int HEADER_HEIGHT = 20;
+		const int FOOTER_HEIGHT = 10;
 
 		#region Constructors
 
@@ -64,7 +66,6 @@ namespace TNT.LSD.Objects
 		public override void Draw(Graphics graphics, DrawingOptions drawingOptions)
 		{
 			Font textFont = new Font("Arial", 10);
-			int legendHeight = 20;
 
 			List<LegendEntry> legendEntries = new List<LegendEntry>();
 
@@ -100,7 +101,7 @@ namespace TNT.LSD.Objects
 			}
 
 			int width = System.Math.Max(MIN_WIDTH, textWidth);
-			int height = System.Math.Max(MIN_HEIGHT, textHeight * (legendEntries.Count + 1) + legendHeight);
+			int height = System.Math.Max(MIN_HEIGHT, textHeight * legendEntries.Count + HEADER_HEIGHT + FOOTER_HEIGHT);
 
 			ControlPoints[4].MoveTo(ControlPoints[0].XPos + width, ControlPoints[0].YPos + height, true);
 
@@ -121,9 +122,9 @@ namespace TNT.LSD.Objects
 				graphics.DrawPath(pen, path);
 				graphics.FillPath(brush, path);
 
-				graphics.DrawString("Legend", font, textBrush, new Rectangle(ControlPoints[0].Position, new Size(width, legendHeight)), stringFormat);
+				graphics.DrawString("Legend", font, textBrush, new Rectangle(ControlPoints[0].Position, new Size(width, HEADER_HEIGHT)), stringFormat);
 
-				int currentYPos = legendHeight;
+				int currentYPos = HEADER_HEIGHT;
 
 				foreach (LegendEntry le in legendEntries)
 				{
