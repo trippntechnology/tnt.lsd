@@ -8,9 +8,9 @@ namespace PalletDesigner.Events
 
 		public override string ToolTipText => "Delete a node";
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 
 			this.PalletNodeTreeView.DeleteSelectedNode();
 			this.PropertyGrid.SelectedObject = null;

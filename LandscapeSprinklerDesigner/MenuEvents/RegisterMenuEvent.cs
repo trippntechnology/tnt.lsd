@@ -11,10 +11,10 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		public override void OnApplicationIdle(object sender, EventArgs e)
 		{
-			this.Enabled = false;
+			//this.Enabled = false;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			using (RegistrationForm form = new RegistrationForm())
 			{

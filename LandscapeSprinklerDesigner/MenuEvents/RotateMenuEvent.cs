@@ -19,7 +19,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			this.Enabled = CAD.SelectedObjects.Count != 0 && CAD.SelectedObjects.Count == paletteParts.Count;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			CAD.SelectedObjects.ForEach(o =>
 			{

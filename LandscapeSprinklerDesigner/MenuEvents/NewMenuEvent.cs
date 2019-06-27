@@ -18,9 +18,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			if (HandleUnsavedChanges())
 			{
 				NewLayoutDialog nld = new NewLayoutDialog();

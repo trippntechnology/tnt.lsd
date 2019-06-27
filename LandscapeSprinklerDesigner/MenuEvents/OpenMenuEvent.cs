@@ -29,9 +29,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			openFileDialog.Title = Resources.menu_open;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			openFileDialog.InitialDirectory = applicationRegistry.ReadString("InitialDirectory", string.Empty);
 
 			if (HandleUnsavedChanges() && openFileDialog.ShowDialog() == DialogResult.OK)

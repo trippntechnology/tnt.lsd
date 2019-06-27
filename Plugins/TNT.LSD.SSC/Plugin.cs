@@ -11,6 +11,8 @@ namespace TNT.LSD.SSC
 
 		public override string ToolStripName => "pluginToolStrip";
 
+		public override bool LicenseRequired => true;
+
 		protected void GeneratePDF(ApplicationData appData, TNTCAD cad, string fileName)
 		{
 			// Unselect all objects so that they are included in the drawn image for the PDF

@@ -15,9 +15,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			Enabled = CAD.DrawingMode.GetType() == typeof(LSDComponents.DrawingModes.SelectMode);
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			if (CAD.DrawingMode.GetType() == typeof(LSDComponents.DrawingModes.SelectMode))
 			{
 				CAD.SelectAll();

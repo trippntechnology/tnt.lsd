@@ -22,8 +22,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			this.Enabled = Enabled = CAD.AreaAvailable;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
+			base.OnMouseClick(sender, e);
 			var name = Path.GetFileNameWithoutExtension(CAD.CurrentFileName);
 			double area = CAD.GetArea();
 			double sqrFt = Math.Round(area, 2);

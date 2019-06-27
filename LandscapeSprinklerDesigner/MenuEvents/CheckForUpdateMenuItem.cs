@@ -20,7 +20,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			this.Enabled = false;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			try
 			{

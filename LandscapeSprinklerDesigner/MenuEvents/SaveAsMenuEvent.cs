@@ -1,5 +1,5 @@
-﻿using System;
-using LandscapeSprinklerDesigner.Properties;
+﻿using LandscapeSprinklerDesigner.Properties;
+using System;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
@@ -9,9 +9,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		public override string ToolTipText => Resources.menu_save_as_tooltip;
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			CAD.Save(true);
 		}
 	}

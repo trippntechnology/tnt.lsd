@@ -18,7 +18,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			this.Enabled = CAD.SelectedObjects.Count > 0;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			CAD.SendToBack();
 		}
