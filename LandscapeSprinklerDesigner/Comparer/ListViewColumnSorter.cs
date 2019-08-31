@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
 using System.Windows.Forms;
 
 namespace LandscapeSprinklerDesigner.Comparer
 {
-	public class ListViewColumnSorter: IComparer
+	public class ListViewColumnSorter : IComparer
 	{
 		public int Column { get; set; }
 		public SortOrder Order { get; set; }
@@ -29,14 +26,21 @@ namespace LandscapeSprinklerDesigner.Comparer
 			listviewX = (ListViewItem)x;
 			listviewY = (ListViewItem)y;
 
+			var subItemsX = listviewX.SubItems;
+			var subItemsY = listviewY.SubItems;
+
 			// Compare the two items
 			if (Column == 2)
 			{
 				compareResult = Convert.ToInt32(listviewX.SubItems[Column].Text) - Convert.ToInt32(listviewY.SubItems[Column].Text);
 			}
-			else
+			else if (Column < subItemsX.Count && Column < subItemsY.Count)
 			{
 				compareResult = Comparer.Compare(listviewX.SubItems[Column].Text, listviewY.SubItems[Column].Text);
+			}
+			else
+			{
+				compareResult = 1;
 			}
 
 			// Calculate correct return value based on object comparison

@@ -433,7 +433,7 @@ namespace TNT.LSD.Objects
 		{
 			base.ResolveReferences(objects);
 
-			List<TNTObject> objList = ControlPoints.ConvertAll<TNTObject>(delegate(TNTControlPoint c) { return (TNTObject)c; });
+			List<TNTObject> objList = ControlPoints.ConvertAll<TNTObject>(delegate (TNTControlPoint c) { return (TNTObject)c; });
 
 			// Assign ControlPointMoved to all TNTControl points
 			foreach (TNTControlPoint cp in ControlPoints)
@@ -522,8 +522,10 @@ namespace TNT.LSD.Objects
 
 		public override void AlignToGrid()
 		{
-			foreach (TNTControlPoint cp in ControlPoints)
+			foreach (TNTControlPoint cp in ControlPoints.Where(p => !(p is TNTBezierControlPoint)))
 			{
+				// Find TNTBezierControlPoints with the same location and align
+				ControlPoints.Where(p => p is TNTBezierControlPoint && p.Position == cp.Position).ToList().ForEach(p => p.AlignToGrid());
 				cp.AlignToGrid();
 			}
 		}
