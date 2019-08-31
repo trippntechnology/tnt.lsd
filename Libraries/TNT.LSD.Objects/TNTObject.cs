@@ -295,20 +295,23 @@ namespace TNT.LSD.Objects
 			{
 				TNTBezierControlPoint bezierPoint = m_SelectedControlPoint as TNTBezierControlPoint;
 
-				if (bezierPoint != null && modifierKeys == Keys.Shift)
+				// Snap to grid if Control key is pressed
+				var pos1 = modifierKeys.HasFlag(Keys.Control) ? currentPos.SnapToGrid() : currentPos;
+
+				if (bezierPoint != null && (modifierKeys & Keys.Shift) == Keys.Shift)
 				{
-					// Adjust the other bezier point in the opposite direction
-					Point adjPoint = bezierPoint.EndPoint.Position.Subtract(currentPos).Add(bezierPoint.EndPoint.Position);
+					// Calculate position of opposite bezier point if Shift key is pressed and move both points
+					var pos2 = bezierPoint.EndPoint.Position.Subtract(pos1).Add(bezierPoint.EndPoint.Position);
 					var controlPoints = (from p in this.ControlPoints where (p is TNTBezierControlPoint) && (p as TNTBezierControlPoint).EndPointID == bezierPoint.EndPointID && p.ID != bezierPoint.ID select p).ToList();
-					controlPoints.ForEach(p => p.MoveTo(adjPoint.X, adjPoint.Y, true));
-					m_SelectedControlPoint.MoveTo(currentPos.X, currentPos.Y, true);
+					controlPoints.ForEach(p => p.MoveTo(pos2.X, pos2.Y, true));
+					m_SelectedControlPoint.MoveTo(pos1.X, pos1.Y, true);
 				}
 				else
 				{
 					if (m_SelectedControlPoint is TNTBezierControlPoint)
 					{
 						// Don't align this move to grid
-						m_SelectedControlPoint.MoveTo(currentPos.X, currentPos.Y, true);
+						m_SelectedControlPoint.MoveTo(pos1.X, pos1.Y, true);
 					}
 					else
 					{
