@@ -69,16 +69,9 @@ namespace LSDComponents.DrawingModes
 
 				m_PrepareUndo = false;
 
-				if (cad.SnapToGrid)
-				{
-					// Adjust the positions to align to the grid.
-					m_LastMousePosition = m_LastMousePosition.SnapToGrid();
-					currentPos = currentPos.SnapToGrid();
-				}
-
 				foreach (TNTObject obj in cad.SelectedObjects)
 				{
-					obj.Move(currentPos, currentPos.X - m_LastMousePosition.X, currentPos.Y - m_LastMousePosition.Y, false, modifierKeys);
+					obj.Move(currentPos, m_LastMousePosition, cad.SnapToGrid, false, modifierKeys);
 				}
 
 				cad.Refresh();
