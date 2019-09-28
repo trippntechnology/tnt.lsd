@@ -335,7 +335,7 @@ namespace TNT.LSD.PDFGenerator
 			Assembly asm = Assembly.GetEntryAssembly();
 			AssemblyDescriptionAttribute ada = ((AssemblyDescriptionAttribute)asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]);
 
-			return string.Concat(ada.Description, " (", asm.GetName().Version.ToString(), ")");
+			return string.Concat("https://www.landscapesprinklerdesigner.com/ ", "(", asm.GetName().Version.ToString(), ")");
 		}
 
 		/// <summary>
