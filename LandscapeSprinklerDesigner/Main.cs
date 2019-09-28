@@ -3,6 +3,7 @@ using LandscapeSprinklerDesigner.MenuEvents;
 using LSDComponents;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,6 @@ using System.Windows.Forms;
 using TNT.Configuration;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
-using TNT.Utilities.CommandManagement;
 using TNT.Web;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -25,16 +25,15 @@ namespace LandscapeSprinklerDesigner
 
 		private ToolStripItemCheckboxGroupManager toolStripItemDrawingGroupManager;
 		private ToolStripItemGroupManager toolStripItemMenuGroupManager;
-		private CommandManager m_CommandManager = null;
 
 		private PropertyForm m_PropertyForm = new PropertyForm();
 		private LayoutForm m_LayoutForm = new LayoutForm();
 		private PartsListForm m_PartsListForm = new PartsListForm();
 		private PalletTreeForm m_PalletForm = new PalletTreeForm();
-		private DeserializeDockContent m_DeserializeDockContent;
 		private static ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 		private LayoutSettingsForm m_LayoutSettingsForm = new LayoutSettingsForm();
 		private PDFForm m_PDFForm = null;
+		private List<DockContent> dockables = null;
 
 		#endregion
 
@@ -112,12 +111,13 @@ namespace LandscapeSprinklerDesigner
 		{
 			InitializeComponent();
 
+			dockables = new List<DockContent> { m_LayoutForm, m_LayoutSettingsForm, m_PartsListForm, m_PalletForm };
+
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
 
 			SetupDrawingGroupManager();
 			SetupMenuGroupManager();
 
-			m_DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 			m_LayoutForm.PropertyForm = m_PropertyForm;
 			m_LayoutForm.LayoutSettingsForm = m_LayoutSettingsForm;
 			m_LayoutForm.StatusLabel = toolStripStatusLabel1;
@@ -227,7 +227,7 @@ namespace LandscapeSprinklerDesigner
 
 			if (File.Exists(configFile))
 			{
-				DockPanel.LoadFromXml(configFile, m_DeserializeDockContent);
+				DockPanel.LoadFromXml(configFile, new DeserializeDockContent(GetContentFromPersistString));
 			}
 
 			m_LayoutForm.Show(DockPanel);
@@ -316,53 +316,7 @@ namespace LandscapeSprinklerDesigner
 			#endregion
 		}
 
-		private IDockContent GetContentFromPersistString(string persistString)
-		{
-			IDockContent dc = null;
-
-			if (persistString == typeof(PropertyForm).ToString())
-			{
-				dc = m_PropertyForm;
-			}
-			else if (persistString == typeof(PartsListForm).ToString())
-			{
-				dc = m_PartsListForm;
-			}
-			else if (persistString == typeof(PalletTreeForm).ToString())
-			{
-				dc = m_PalletForm;
-			}
-			else if (persistString == typeof(LayoutSettingsForm).ToString())
-			{
-				dc = m_LayoutSettingsForm;
-			}
-			//else if (persistString == typeof(GridForm).ToString())
-			//{
-			//  dc = m_GridForm;
-			//}
-			//else
-			//{
-			//  // DummyDoc overrides GetPersistString to add extra information into persistString.
-			//  // Any DockContent may override this value to add any needed information for deserialization.
-
-			//  string[] parsedStrings = persistString.Split(new char[] { ',' });
-			//  if (parsedStrings.Length != 3)
-			//    return null;
-
-			//  if (parsedStrings[0] != typeof(DummyDoc).ToString())
-			//    return null;
-
-			//  DummyDoc dummyDoc = new DummyDoc();
-			//  if (parsedStrings[1] != string.Empty)
-			//    dummyDoc.FileName = parsedStrings[1];
-			//  if (parsedStrings[2] != string.Empty)
-			//    dummyDoc.Text = parsedStrings[2];
-
-			//  return dummyDoc;
-			//}
-
-			return dc;
-		}
+		private IDockContent GetContentFromPersistString(string persistString) => dockables.Find(d => d.GetType().ToString() == persistString);
 
 		private void tbScale_ValueChanged(object sender, EventArgs e)
 		{
@@ -452,9 +406,6 @@ namespace LandscapeSprinklerDesigner
 			}
 		}
 
-		private void landscapeSprinklerDesignOnTheWebToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Process.Start("http://LandscapeSprinklerDesign.com");
-		}
+		private void OnTheWebToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start("https://www.LandscapeSprinklerDesigner.com");
 	}
 }
