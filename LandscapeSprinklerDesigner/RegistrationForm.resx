@@ -112,12 +112,36 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="LicenseText.Text" xml:space="preserve">
+    <value>Paste License Here
+
+--- BEGIN ---
+SVYQAAAATVBqdGRNSGJNenNGSkJvZO+sA6fF6N2Tfi2dyFZjbt0AzU3Ks8r82YKy+F4JdRpBsTlgj9P7
+7k+D+Ev//eWmY+2NRpgLc+p0Rk0LcAzs8NAFdF4iALIMMzv4bn86ERyXL3CZSngwByJ8Egz4CRr16Svk
+wydcZv5J1PCjdYqBeF/fUF0R6iMYF5KH5y9mxgjDpZKncmJ3sP44b0OvAqpIpimT7Qoo966je8ZKs8bI
+DKhb7TdSWe39x7rbHPDQhVyby/ga8oOzpDfzAAZpPl0EpNu5VV473x4EKtnqYZEpmga7uNW5WmqfGbSW
+vR2gO96NjxFogg2iOruBEMPhAU/siatMrPRLbnyD8zTT6Niqdm8Gunn2z/qpZ/Ql6EtWLhlgiABqS734
+BfoGRwjP31oQlQCSgPyYVhnA+vxuyTQzYUc=
+--- END ---</value>
+  </data>
+  <data name="LicenseText.WaterMarkText" xml:space="preserve">
+    <value>Paste License Here
+
+--- BEGIN ---
+SVYQAAAATVBqdGRNSGJNenNGSkJvZO+sA6fF6N2Tfi2dyFZjbt0AzU3Ks8r82YKy+F4JdRpBsTlgj9P7
+7k+D+Ev//eWmY+2NRpgLc+p0Rk0LcAzs8NAFdF4iALIMMzv4bn86ERyXL3CZSngwByJ8Egz4CRr16Svk
+wydcZv5J1PCjdYqBeF/fUF0R6iMYF5KH5y9mxgjDpZKncmJ3sP44b0OvAqpIpimT7Qoo966je8ZKs8bI
+DKhb7TdSWe39x7rbHPDQhVyby/ga8oOzpDfzAAZpPl0EpNu5VV473x4EKtnqYZEpmga7uNW5WmqfGbSW
+vR2gO96NjxFogg2iOruBEMPhAU/siatMrPRLbnyD8zTT6Niqdm8Gunn2z/qpZ/Ql6EtWLhlgiABqS734
+BfoGRwjP31oQlQCSgPyYVhnA+vxuyTQzYUc=
+--- END ---</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

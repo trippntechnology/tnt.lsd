@@ -321,4 +321,10 @@
   <data name="menu_register_tooltip" xml:space="preserve">
     <value>Register the application</value>
   </data>
+  <data name="key" xml:space="preserve">
+    <value>2w0BpDIZd7jwYlyQi3jokbmbACiHreTj6wdv8GGNePI=</value>
+  </data>
+  <data name="registry_license" xml:space="preserve">
+    <value>License</value>
+  </data>
 </root>

@@ -8,13 +8,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
-using TNT.Configuration;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
-using TNT.Web;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner
@@ -33,7 +29,6 @@ namespace LandscapeSprinklerDesigner
 		private LayoutForm m_LayoutForm = new LayoutForm();
 		private PartsListForm m_PartsListForm = new PartsListForm();
 		private PalletTreeForm m_PalletForm = new PalletTreeForm();
-		private static ApplicationRegistry m_ApplicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 		private LayoutSettingsForm m_LayoutSettingsForm = new LayoutSettingsForm();
 		private PDFForm m_PDFForm = null;
 		private List<DockContent> dockables = null;
@@ -50,8 +45,6 @@ namespace LandscapeSprinklerDesigner
 				return ata != null ? ata.Title : string.Empty;
 			}
 		}
-
-		public static ApplicationRegistry Registery { get { return m_ApplicationRegistry; } }
 
 		protected TNTCAD CAD { get { return m_LayoutForm.CAD; } }
 
@@ -113,6 +106,8 @@ namespace LandscapeSprinklerDesigner
 		public Main()
 		{
 			InitializeComponent();
+
+			Global.userRegistry = new ApplicationRegistry(this, Registry.CurrentUser, Properties.Resources.Company, Properties.Resources.Application);
 
 			dockables = new List<DockContent> { m_LayoutForm, m_LayoutSettingsForm, m_PartsListForm, m_PalletForm };
 
@@ -179,14 +174,14 @@ namespace LandscapeSprinklerDesigner
 			MenuGroupManager.Create<PropertiesMenuEvent>(ToToolStripItemArray(PropertiesButton, PropertiesMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PropertyForm, DockPanel));
 			MenuGroupManager.Create<PartsPaletteEvent>(ToToolStripItemArray(PaletteTreeButton, PaletteTreeMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PalletForm, DockPanel));
 			MenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
-			MenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
-			MenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			MenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(Global.userRegistry);
+			MenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(Global.userRegistry);
 			MenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
-			MenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			MenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(Global.userRegistry);
 			MenuGroupManager.Create<MoveToBackMenuEvent>(ToToolStripItemArray(SendToBackButton, SendToBackMenu), externalObject: exObj);
 			MenuGroupManager.Create<MoveToFrontMenuEvent>(ToToolStripItemArray(BringToFrontMenu, BringToFrontButton), externalObject: exObj);
 			MenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.space), externalObject: exObj);
-			MenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(m_ApplicationRegistry);
+			MenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(Global.userRegistry);
 			MenuGroupManager.Create<SpaceEquallyMenuEvent>(ToToolStripItemArray(SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.aligntogrid), externalObject: exObj);
 			MenuGroupManager.Create<RotateLeftMenuEvent>(ToToolStripItemArray(Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter), externalObject: exObj);
 			MenuGroupManager.Create<RotateRightMenuEvent>(ToToolStripItemArray(Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock), externalObject: exObj);
@@ -198,12 +193,25 @@ namespace LandscapeSprinklerDesigner
 
 		private bool IsLicensed(bool allowMessageBox, ToolStripItemGroup itemGroup)
 		{
-			var isLicensed = IS_LICENSED;
+			var license = Global.GetLicense();
+			var isLicensed = false;
 
-			if (!isLicensed && allowMessageBox)
+			if (license != null && license.ExpirationTime > DateTime.Now)
 			{
-				MessageBox.Show(this, "This feature is not licensed", "License Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				isLicensed = true;
 			}
+			else if (allowMessageBox)
+			{
+				if (license == null)
+				{
+					MessageBox.Show(this, "This feature is not licensed", "License Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				else if (license.ExpirationTime < DateTime.Now)
+				{
+					MessageBox.Show(this, "The license for this feature has expired.", "License Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+			}
+
 			return isLicensed;
 		}
 
@@ -238,9 +246,8 @@ namespace LandscapeSprinklerDesigner
 		{
 			#region Restore state from Registery
 
-			m_ApplicationRegistry.LoadFormState(this);
-			m_ApplicationRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
-			tbScale.Value = m_ApplicationRegistry.ReadInteger("Scale", tbScale.Value);
+			Global.userRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
+			tbScale.Value = Global.userRegistry.ReadInteger("Scale", tbScale.Value);
 
 			#endregion
 
@@ -254,37 +261,6 @@ namespace LandscapeSprinklerDesigner
 			m_LayoutForm.Show(DockPanel);
 
 			statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
-
-			#region Check for update thread
-
-			new Thread(o =>
-				{
-					try
-					{
-						ToolStripStatusLabel upgradeLabel = o as ToolStripStatusLabel;
-
-						CheckVersion((v, a) =>
-							{
-								if (a != null)
-								{
-									Version latestVer = new Version(a.Version);
-
-									if (latestVer > v)
-									{
-										upgradeLabel.Text = string.Format("Download version {0}", a.Version.ToString());
-										upgradeLabel.ToolTipText = a.URL.ToString();
-										upgradeLabel.Visible = true;
-									}
-								}
-							});
-					}
-					catch (Exception ex)
-					{
-						System.Diagnostics.Debug.WriteLine(ex.Message);
-					}
-				}).Start(UpgradeAvailableStatusLink);
-
-			#endregion
 		}
 
 		private bool HandleUnsavedChanges()
@@ -328,11 +304,10 @@ namespace LandscapeSprinklerDesigner
 			#region Save state to Registry
 
 			var persistedMenuEvent = (from p in MenuGroupManager.Values where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
-			persistedMenuEvent.ForEach(p => p.SaveState(m_ApplicationRegistry));
+			persistedMenuEvent.ForEach(p => p.SaveState(Global.userRegistry));
 
-			m_ApplicationRegistry.WriteInteger("Scale", tbScale.Value);
-			m_ApplicationRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
-			m_ApplicationRegistry.SaveFormState(this);
+			Global.userRegistry.WriteInteger("Scale", tbScale.Value);
+			Global.userRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
 
 			#endregion
 		}
@@ -412,19 +387,6 @@ namespace LandscapeSprinklerDesigner
 		{
 			ToolStripStatusLabel upgradeLabel = sender as ToolStripStatusLabel;
 			Process.Start(upgradeLabel.ToolTipText);
-		}
-
-		private void CheckVersion(Action<Version, TNT.Web.LSD.Models.Application> action)
-		{
-			RESTClient restClient = XmlSection<RESTClient>.Deserialize("TNT.Web");
-			GuidAttribute attr = Utilities.GetAssemblyAttribute<GuidAttribute>(Assembly.GetExecutingAssembly());
-			AssemblyFileVersionAttribute verAttr = Utilities.GetAssemblyAttribute<AssemblyFileVersionAttribute>(Assembly.GetExecutingAssembly());
-			TNT.Web.LSD.Models.Response<TNT.Web.LSD.Models.Application> appResponse = restClient.Get<TNT.Web.LSD.Models.Response<TNT.Web.LSD.Models.Application>>(string.Format("Application/{0}", attr.Value));
-
-			if (action != null && appResponse.Success)
-			{
-				action(new Version(verAttr.Version), appResponse.Payload);
-			}
 		}
 
 		private void OnTheWebToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start("https://www.LandscapeSprinklerDesigner.com");

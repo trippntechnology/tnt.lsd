@@ -1,23 +1,20 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+using System.Linq;
 using System.Windows.Forms;
-using TNT.Configuration;
-using TNT.Utilities;
-using TNT.Web;
-using TNT.Web.LSD.Models;
+using TNT.Cryptography;
 
 namespace LandscapeSprinklerDesigner
 {
 	public partial class RegistrationForm : Form
 	{
+		private const string BEGIN = "--- BEGIN ---";
+		private const string END = "--- END ---";
+
 		public RegistrationForm()
 		{
 			InitializeComponent();
-
 			System.Windows.Forms.Application.Idle += new EventHandler(Application_Idle);
+			this.ActiveControl = label1;
 		}
 
 		public new DialogResult ShowDialog(IWin32Window owner)
@@ -28,31 +25,7 @@ namespace LandscapeSprinklerDesigner
 			{
 				try
 				{
-					RESTClient restClient = XmlSection<RESTClient>.Deserialize("TNT.Web");
-					GuidAttribute attr = Utilities.GetAssemblyAttribute<GuidAttribute>(Assembly.GetExecutingAssembly());
-					string volSerialNumber = Registration.GetVolumeSerialNumber();
-					RegistrationKey regKey = new RegistrationKey();
-					regKey.License = LicenseText.Text;
-
-					AuthorizationKeyRequest akr = new AuthorizationKeyRequest() { ApplicationID = new Guid(attr.Value), HardwareID = volSerialNumber, LicenseKey = regKey.License };
-					Response<string> keyResponse = restClient.Post<Response<string>>("AuthorizationKey", akr);
-
-					if (!keyResponse.Success)
-					{
-						throw new Exception(keyResponse.Message);
-					}
-
-					regKey.Authorization = keyResponse.Payload;
-					string hash = Registration.GenerateSHA1Hash(string.Concat(volSerialNumber, attr.Value, LicenseText.Text));
-
-					if (hash == regKey.Authorization)
-					{
-						string path = Assembly.GetExecutingAssembly().Location;
-						path = Path.GetDirectoryName(path);
-
-						Registration.SetRegistrationKey(regKey, Path.Combine(path, "license.txt"));
-						MessageBox.Show(owner, "Registration complete.", "Registration Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					}
+					var license = Global.SetLicense(LicenseText.Lines.ToList());
 				}
 				catch (Exception ex)
 				{
@@ -65,10 +38,10 @@ namespace LandscapeSprinklerDesigner
 
 		protected void Application_Idle(object sender, EventArgs e)
 		{
-			RegisterButton.Enabled = Regex.IsMatch(LicenseText.Text, "^(([^-]{4})-){4}[^-]{4}$");
+			var firstLine = LicenseText.Lines?.FirstOrDefault() ?? string.Empty;
+			var lastLine = LicenseText.Lines?.LastOrDefault() ?? string.Empty;
+
+			RegisterButton.Enabled = firstLine == BEGIN && lastLine == END;
 		}
 	}
-
-
-
 }
