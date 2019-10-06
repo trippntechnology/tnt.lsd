@@ -109,7 +109,7 @@ namespace LandscapeSprinklerDesigner
 
 			Global.userRegistry = new ApplicationRegistry(this, Registry.CurrentUser, Properties.Resources.Company, Properties.Resources.Application);
 
-			dockables = new List<DockContent> { m_LayoutForm, m_LayoutSettingsForm, m_PartsListForm, m_PalletForm };
+			dockables = new List<DockContent> { m_LayoutForm, m_LayoutSettingsForm, m_PartsListForm, m_PalletForm, m_PropertyForm };
 
 			m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
 
