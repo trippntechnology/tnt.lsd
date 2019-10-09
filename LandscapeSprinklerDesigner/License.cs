@@ -1,11 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace LandscapeSprinklerDesigner
 {
 	public class License
 	{
-		public string Licensee { get; set; }
-		public DateTime ExpirationTime{ get; set; }
+		[DisplayName("Issued To")]
+		public string IssuedTo { get; set; }
+
+		[DisplayName("Expires On")]
+		public DateTime ExpiresOn { get; set; }
 
 		public License() { }
 	}

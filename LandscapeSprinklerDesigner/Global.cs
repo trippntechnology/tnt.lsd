@@ -42,7 +42,7 @@ namespace LandscapeSprinklerDesigner
 			return _license;
 		}
 
-		private static License Decrypt(List<string> lines)
+		public static License Decrypt(List<string> lines)
 		{
 			var encryptedText = lines.Count > 1 ? Symmetric.RemoveTags(lines) : lines.First();
 			var cipher = new Cipher(Convert.FromBase64String(encryptedText));

@@ -196,7 +196,7 @@ namespace LandscapeSprinklerDesigner
 			var license = Global.GetLicense();
 			var isLicensed = false;
 
-			if (license != null && license.ExpirationTime > DateTime.Now)
+			if (license != null && license.ExpiresOn > DateTime.Now)
 			{
 				isLicensed = true;
 			}
@@ -206,7 +206,7 @@ namespace LandscapeSprinklerDesigner
 				{
 					MessageBox.Show(this, "This feature is not licensed", "License Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
-				else if (license.ExpirationTime < DateTime.Now)
+				else if (license.ExpiresOn < DateTime.Now)
 				{
 					MessageBox.Show(this, "The license for this feature has expired.", "License Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
