@@ -31,7 +31,7 @@ namespace LandscapeSprinklerDesigner
 					var license = Global.SetLicense(LicenseText.Lines.ToList());
 
 					var msg = new StringBuilder();
-					msg.AppendLine("Registration Successful");
+					msg.AppendLine("Successfully Registered");
 					msg.AppendLine($"To: {license.IssuedTo}");
 					msg.AppendLine($"Until: {license.ExpiresOn}");
 					MessageBox.Show(owner, msg.ToString(), "Registration Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);

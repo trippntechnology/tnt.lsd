@@ -145,11 +145,13 @@ namespace LandscapeSprinklerDesigner
 			var manager = new TNT.Plugin.Manager.Manager(Controls, pluginOnClickHandler, StatusBarHintChanged);
 
 			manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
+
+			Global.LicenseLive.Observe(license => LicensedMenuGroupManager.LicensedChanged(license?.ExpiresOn >= DateTime.Now));
 		}
 
 		private void SetupLicenseGroupManager()
 		{
-			LicensedMenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1, IsLicensed);
+			LicensedMenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1) { IsLicensed = IsLicensed };
 			var exObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
 			LicensedMenuGroupManager.Create<PartsListMenuEvent>(ToToolStripItemArray(PartsListButton, PartsListMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PartsListForm, DockPanel));
 			LicensedMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);

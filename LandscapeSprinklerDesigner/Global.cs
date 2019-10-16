@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using TNT.Cryptography;
+using TNT.LiveData;
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner
@@ -12,19 +13,19 @@ namespace LandscapeSprinklerDesigner
 	public static class Global
 	{
 		private static string _license_path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "license.txt");
-		private static License _license = null;
+		public static LiveData<License> LicenseLive = new LiveData<License>();
 
 		public static ApplicationRegistry userRegistry = null; // Initialized in Main()
 		public static ApplicationRegistry machineRegistry = new ApplicationRegistry(Registry.LocalMachine, Properties.Resources.Company, Properties.Resources.Application);
 
 		public static License GetLicense(bool swallowException = true)
 		{
-			if (_license == null)
+			if (LicenseLive.Value == null && File.Exists(_license_path))
 			{
 				var lines = File.ReadAllLines(_license_path).ToList();
 				try
 				{
-					_license = Decrypt(lines);
+					LicenseLive.Value = Decrypt(lines);
 				}
 				catch (Exception)
 				{
@@ -32,14 +33,14 @@ namespace LandscapeSprinklerDesigner
 				}
 			}
 
-			return _license;
+			return LicenseLive.Value;
 		}
 
 		public static License SetLicense(List<string> lines)
 		{
-			_license = Decrypt(lines);
+			LicenseLive.Value = Decrypt(lines);
 			File.WriteAllLines(_license_path, lines);
-			return _license;
+			return LicenseLive.Value;
 		}
 
 		public static License Decrypt(List<string> lines)

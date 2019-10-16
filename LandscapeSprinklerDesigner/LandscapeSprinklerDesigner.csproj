@@ -64,14 +64,17 @@
     <Reference Include="TNT.Cryptography, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Cryptography.2.0.1-preview-06\lib\netstandard2.0\TNT.Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="TNT.LiveData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.LiveData.1.0.1\lib\netstandard2.0\TNT.LiveData.dll</HintPath>
+    </Reference>
     <Reference Include="TNT.Plugin.Manager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Plugin.Manager.1.1.0\lib\net462\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.ToolStripItemManager, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.ToolStripItemManager.1.5.0\lib\net461\TNT.ToolStripItemManager.dll</HintPath>
+    <Reference Include="TNT.ToolStripItemManager, Version=1.5.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.ToolStripItemManager.1.5.2\lib\net472\TNT.ToolStripItemManager.dll</HintPath>
     </Reference>
     <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
