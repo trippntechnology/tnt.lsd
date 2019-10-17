@@ -17,8 +17,6 @@ namespace LandscapeSprinklerDesigner
 {
 	public partial class Main : Form
 	{
-		const bool IS_LICENSED = true;
-
 		#region Members
 
 		private ToolStripItemCheckboxGroupManager DrawingGroupManager;
@@ -239,14 +237,14 @@ namespace LandscapeSprinklerDesigner
 			TNT.Plugin.Manager.Plugin p = tsi.Tag as TNT.Plugin.Manager.Plugin;
 
 			//ApplicationData data = new ApplicationData("This is the name field in the app data");
-			p.Execute(this, sender as ToolStripItem, new ApplicationData(CAD, this.DockPanel), IS_LICENSED);
+			p.Execute(this, sender as ToolStripItem, new ApplicationData(CAD, this.DockPanel), Global.LicenseLive.Value?.ExpiresOn >= DateTime.Now);
 
 			CAD.Repaint(0);
 		}
 
 		private void Main_Load(object sender, EventArgs e)
 		{
-			#region Restore state from Registery
+			#region Restore state from Registry
 
 			Global.userRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
 			tbScale.Value = Global.userRegistry.ReadInteger("Scale", tbScale.Value);
