@@ -24,6 +24,8 @@ namespace TNT.LSD.Colorizer
 
 		public override Image Image => base.GetImage("TNT.LSD.Colorizer.Images.paintbrush.png");
 
+		public override bool LicenseRequired => true;
+
 		public override void Execute(System.Windows.Forms.IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{
 			ApplicationData appData = content as ApplicationData;

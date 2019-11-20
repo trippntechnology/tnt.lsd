@@ -21,9 +21,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			Enabled = (from o in CAD.SelectedObjects where o.CanClone select o).ToList().Count > 0;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			CAD.Copy();
 		}
 	}

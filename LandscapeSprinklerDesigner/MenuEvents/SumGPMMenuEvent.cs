@@ -22,7 +22,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			this.Enabled = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList().Count > 0;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			var lateralParts = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList();
 			double gpm = 0;

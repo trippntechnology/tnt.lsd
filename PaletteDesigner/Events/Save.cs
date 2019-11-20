@@ -10,13 +10,13 @@ namespace PalletDesigner.Events
 		public override string ToolTipText => "Save a palette file";
 
 		public Save()
-			:base(ResourceToImage("PalletDesigner.Images.disk.png"))
+			: base(ResourceToImage("PalletDesigner.Images.disk.png"))
 		{
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 
 			if (base.ExternalObject is Main main)
 			{
@@ -26,7 +26,7 @@ namespace PalletDesigner.Events
 				}
 				else
 				{
-					base.ToolStripItemGroupManager["Save &As"]?.MouseClick(sender, e);
+					base.ToolStripItemGroupManager["Save &As"]?.OnMouseClick(sender, e);
 				}
 			}
 		}

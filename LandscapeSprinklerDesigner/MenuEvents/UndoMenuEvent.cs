@@ -21,9 +21,9 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			Enabled = CAD.HasUnsavedChanges && CAD.DrawingMode.UndoEnabled;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			CAD.Undo();
 		}
 	}

@@ -9,9 +9,9 @@ namespace PalletDesigner.Events
 
 		public override string ToolTipText => "Export image associated with node";
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			using (var sfd = new SaveFileDialog())
 			{
 				if (sfd.ShowDialog() == DialogResult.OK)

@@ -14,7 +14,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 		{
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			double length = Math.Round(CAD.GetLength(), 2);
 			MessageBox.Show(string.Format("{0} feet.", length), "Selected Length");

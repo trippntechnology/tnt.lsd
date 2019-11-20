@@ -22,7 +22,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 		public override void RestoreState(ApplicationRegistry applicationRegistry)
 		{
 			this.Checked = applicationRegistry.ReadBoolean(REGISTRY_KEY, true);
-			MouseClick(null, null);
+			OnMouseClick(null, null);
 		}
 
 		public override void SaveState(ApplicationRegistry applicationRegistry)
@@ -30,7 +30,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			CAD.DrawingOptions.LabelHeads = this.Checked;
 			CAD.Repaint();

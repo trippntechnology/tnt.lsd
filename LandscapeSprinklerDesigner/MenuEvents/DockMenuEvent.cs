@@ -22,9 +22,19 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			base.Checked = !dockContent.IsHidden;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnLicenseChanged(bool isLicensed)
 		{
-			base.MouseClick(sender, e);
+			base.OnLicenseChanged(isLicensed);
+			if (!isLicensed)
+			{
+				base.Checked = false;
+				dockContent.IsHidden = true;
+			}
+		}
+
+		public override void OnMouseClick(object sender, EventArgs e)
+		{
+			base.OnMouseClick(sender, e);
 
 			if (base.Checked)
 			{

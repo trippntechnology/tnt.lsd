@@ -1,5 +1,5 @@
-﻿using System;
-using LandscapeSprinklerDesigner.Properties;
+﻿using LandscapeSprinklerDesigner.Properties;
+using System;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
@@ -15,7 +15,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 		{
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			CAD.DrawingOptions.ShowCoverage = this.Checked;
 			CAD.Repaint();

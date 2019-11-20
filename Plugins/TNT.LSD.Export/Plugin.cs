@@ -1,9 +1,8 @@
 ﻿using LSDComponents;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
-using System;
-using System.Drawing;
 
 namespace TNT.LSD.Export
 {
@@ -25,6 +24,8 @@ namespace TNT.LSD.Export
 		public override string ToolTipText => string.Empty;
 
 		public override Image Image => null;
+
+		public override bool LicenseRequired => true;
 
 		public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{

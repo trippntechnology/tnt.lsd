@@ -17,6 +17,8 @@ namespace TNT.LSD.Background
 
 		public override string ToolTipText => "Hide/Show Landscape Image";
 
+		public override bool LicenseRequired => true;
+
 		public override Image Image => base.GetImage("TNT.LSD.Background.Images.show_landscape.png");
 
 		public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)

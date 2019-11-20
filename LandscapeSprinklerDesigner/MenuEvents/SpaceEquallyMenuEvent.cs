@@ -20,7 +20,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 			this.Enabled = (from o in CAD.SelectedObjects where o is TNTPart select o).ToList().Count > 2;
 		}
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
 			CAD.SpaceSelectedEqually();
 		}

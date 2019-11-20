@@ -12,9 +12,9 @@ namespace PalletDesigner.Events
 
 		public override string ToolTipText => "Add image to node";
 
-		public override void MouseClick(object sender, EventArgs e)
+		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			base.MouseClick(sender, e);
+			base.OnMouseClick(sender, e);
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
 				if (this.OpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

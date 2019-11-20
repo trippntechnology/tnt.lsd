@@ -8,6 +8,8 @@ namespace TNT.LSD.Background
 
 		public override string ToolStripName => "pluginToolStrip";
 
+		public override bool LicenseRequired => true;
+
 		public override MenuStrip GetMenuStrip()
 		{
 			var existingMenu = base._Manager.FindToolStripMenuItem(MenuStripName, "Landscape");

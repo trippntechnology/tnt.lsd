@@ -79,6 +79,15 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2w0BpDIZd7jwYlyQi3jokbmbACiHreTj6wdv8GGNePI=.
+        /// </summary>
+        internal static string key {
+            get {
+                return ResourceManager.GetString("key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Align To Grid.
         /// </summary>
         internal static string menu_align_to_grid {
@@ -669,6 +678,15 @@ namespace LandscapeSprinklerDesigner.Properties {
         internal static string menu_undo_tooltip {
             get {
                 return ResourceManager.GetString("menu_undo_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        internal static string registry_license {
+            get {
+                return ResourceManager.GetString("registry_license", resourceCulture);
             }
         }
     }
