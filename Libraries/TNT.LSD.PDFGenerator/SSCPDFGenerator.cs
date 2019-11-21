@@ -95,6 +95,19 @@ namespace TNT.LSD.PDFGenerator
 
 			CreateImagePage(document, image);
 
+			if (content.Coverage != null)
+			{
+				image = new Bitmap(content.Coverage.Width, content.Coverage.Height + (int)size.Height);
+
+				graphics = Graphics.FromImage(image);
+				graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, image.Width, image.Height);
+				graphics.DrawImage(content.Coverage, new Point(0, 0));
+
+				graphics.DrawString(disclaimer, font, new SolidBrush(Color.Black), new RectangleF(new PointF(0, content.Coverage.Height), size));
+
+				CreateImagePage(document, image);
+			}
+
 			document.Close();
 		}
 

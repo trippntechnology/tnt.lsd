@@ -1,4 +1,5 @@
 ﻿using LSDComponents;
+using System.Drawing;
 using TNT.LSD.PDFGenerator;
 using TNT.LSD.Settings;
 using WeifenLuo.WinFormsUI.Docking;
@@ -19,12 +20,23 @@ namespace TNT.LSD.SSC
 			cad.UnselectAll();
 			cad.Repaint();
 
-			int previousScale = cad.DisplayScale;
+			var scale = cad.DisplayScale;
+			var showCoverage = cad.DrawingOptions.ShowCoverage;
 			cad.DisplayScale = 100;
+			cad.DrawingOptions.ShowCoverage = false;
+
+			cad.Repaint();
+			var design = cad.Design.Clone() as Image;
+
+			cad.DrawingOptions.ShowCoverage = true;
+			cad.Repaint();
+
+			var coverage = cad.Design.Clone() as Image;
 
 			Content pdfContent = new Content()
 			{
-				Design = cad.Design,
+				Design = design,
+				Coverage = coverage,
 				DynamicProperties = cad.Settings,
 				Parts = cad.GetPartsList()
 			};
@@ -40,7 +52,8 @@ namespace TNT.LSD.SSC
 
 			(new PDFGenerator.SSCPDFGenerator()).Generate(fileName, pdfContent);
 
-			cad.DisplayScale = previousScale;
+			cad.DisplayScale = scale;
+			cad.DrawingOptions.ShowCoverage = showCoverage;
 
 			PDFForm pdfForm = new PDFForm();
 			pdfForm.Show(fileName, appData.DockPanel, DockState.Document);

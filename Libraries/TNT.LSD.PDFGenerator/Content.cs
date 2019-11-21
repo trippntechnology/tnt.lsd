@@ -15,6 +15,11 @@ namespace TNT.LSD.PDFGenerator
 		public Image Design { get; set; }
 
 		/// <summary>
+		/// Image that shows the coverage
+		/// </summary>
+		public Image Coverage { get; set; }
+
+		/// <summary>
 		/// Design's number
 		/// </summary>
 		public string DesignNumber { get; set; }
