@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +15,6 @@ namespace LandscapeSprinklerDesigner
 		public static LiveData<License> LicenseLive = new LiveData<License>();
 
 		public static ApplicationRegistry userRegistry = null; // Initialized in Main()
-		public static ApplicationRegistry machineRegistry = new ApplicationRegistry(Registry.LocalMachine, Properties.Resources.Company, Properties.Resources.Application);
 
 		public static License GetLicense(bool swallowException = true)
 		{
