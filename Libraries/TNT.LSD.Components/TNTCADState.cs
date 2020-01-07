@@ -127,6 +127,12 @@ namespace LSDComponents
 		[XmlIgnore()]
 		public List<Part> StaticParts { get { return Settings.StaticParts; } }
 
+		public SystemType SystemType
+		{
+			get { return Settings.SystemType; }
+			set { Settings.SystemType = value; }
+		}
+
 		#endregion
 
 		#endregion

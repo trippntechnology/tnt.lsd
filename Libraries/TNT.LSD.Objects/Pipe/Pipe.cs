@@ -7,6 +7,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects.Extensions;
+using TNT.LSD.Settings;
 using TNT.LSD.Settings.TypeConverters;
 using TNT.Math;
 
@@ -348,7 +349,7 @@ namespace TNT.LSD.Objects
 		/// Add pipe quantities
 		/// </summary>
 		/// <param name="parts">List of parts who's quantities should be updated</param>
-		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
 		{
 			List<string> codes = new List<string>(new string[] { "", "PI075", "PI100", "PI125", "PI150", "PI200" });
 			int index = m_PipeSizeList.IndexOf(PipeSize);

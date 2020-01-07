@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using TNT.LSD.Inventory;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -45,9 +46,9 @@ namespace TNT.LSD.Objects
 			return new DripAdapter(this);
 		}
 
-		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			if (m_Pipes == null || m_Pipes.Count < 1)
 			{

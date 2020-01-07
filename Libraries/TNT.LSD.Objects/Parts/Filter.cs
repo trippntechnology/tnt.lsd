@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text.RegularExpressions;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -76,7 +77,7 @@ namespace TNT.LSD.Objects
 			base.Assign(obj);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
 			int pipeSizeIndex = Pipes != null && Pipes.Count > 0 ? m_PipeSizeList.IndexOf(Pipes[0].PipeSize) : 2;
 			int filterSizeIndex = pipeSizeIndex == 3 ? 2 : pipeSizeIndex;
@@ -106,7 +107,7 @@ namespace TNT.LSD.Objects
 				GetPart(parts, string.Format("FI{0}X{1}STRB", pipeSizeCode, filterSizeCode)).Quantity += 2;
 			}
 
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 		}
 
 		#endregion

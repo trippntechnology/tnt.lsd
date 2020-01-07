@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects.ControlPoints;
 using TNT.LSD.Objects.Extensions;
+using TNT.LSD.Settings;
 using TNT.Math;
 
 namespace TNT.LSD.Objects
@@ -138,7 +139,7 @@ namespace TNT.LSD.Objects
 			ControlPoints.First().MoveTo(p.X, p.Y, true);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
 		{
 			if (m_Pipes == null || m_Pipes.Count < 2)
 			{

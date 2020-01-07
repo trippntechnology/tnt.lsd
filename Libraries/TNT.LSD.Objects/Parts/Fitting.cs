@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -10,7 +11,7 @@ namespace TNT.LSD.Objects
 
 		#region Static
 
-		private static string[] SLIP_CAPS = {"FI050SCAP", "FI075SCAP", "FI100SCAP", "FI125SCAP", "FI150SCAP", "FI200SCAP" };
+		private static string[] SLIP_CAPS = { "FI050SCAP", "FI075SCAP", "FI100SCAP", "FI125SCAP", "FI150SCAP", "FI200SCAP" };
 
 		#endregion
 
@@ -63,9 +64,9 @@ namespace TNT.LSD.Objects
 			return isOver;
 		}
 
-		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			if (m_Pipes.Count != 1)
 			{
@@ -87,7 +88,7 @@ namespace TNT.LSD.Objects
 		{
 			// This was neccessary to keep other objects selected when click on an already selected fitting to
 			// begin moving the selected objects.
-			m_SelectedControlPoint = null; 
+			m_SelectedControlPoint = null;
 		}
 
 		#endregion

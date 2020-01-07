@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using TNT.LSD.Settings;
 using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
@@ -128,9 +129,9 @@ namespace TNT.LSD.Objects
 			return new Valve(this);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			LateralPipe latPipe = m_Pipes.Find(p => p is LateralPipe) as LateralPipe;
 			MainlinePipe mainPipe = m_Pipes.Find(p => p is MainlinePipe) as MainlinePipe;

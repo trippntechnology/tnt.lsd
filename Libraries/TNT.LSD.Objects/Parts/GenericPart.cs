@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -103,9 +104,9 @@ namespace TNT.LSD.Objects
 			base.Assign(obj);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			string[] modelCodes = ModelCode.Split(';');
 

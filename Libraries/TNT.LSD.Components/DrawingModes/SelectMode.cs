@@ -8,6 +8,7 @@ using TNT.LSD.Inventory;
 using TNT.LSD.Inventory.DAL;
 using TNT.LSD.Objects;
 using TNT.LSD.Objects.Extensions;
+using TNT.LSD.Settings;
 
 namespace LSDComponents.DrawingModes
 {
@@ -133,7 +134,7 @@ namespace LSDComponents.DrawingModes
 					else if (cad.ShowPartsToolTip && m_ShowToolTip && m_UnderlaidObject is BasePart)
 					{
 						Dictionary<string, Part> parts = DALPart.GetParts();
-						(m_UnderlaidObject as BasePart).SetPartQuantity(parts);
+						(m_UnderlaidObject as BasePart).SetPartQuantity(parts, SystemType.PVC);
 						StringBuilder sb = new StringBuilder();
 						List<Part> partsList = (from p in parts where (p.Value as Part).Quantity > 0 select p.Value).ToList();
 

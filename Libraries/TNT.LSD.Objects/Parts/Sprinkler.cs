@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects.ControlPoints;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -337,9 +338,9 @@ namespace TNT.LSD.Objects
 			#endregion
 		}
 
-		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			#region Body/Nozzle
 

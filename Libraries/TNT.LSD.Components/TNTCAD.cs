@@ -1168,7 +1168,7 @@ namespace LSDComponents
 			}
 
 			// Set part quantities
-			parts.ForEach(p => p.SetPartQuantity(inventoryParts));
+			parts.ForEach(p => p.SetPartQuantity(inventoryParts, Settings.SystemType));
 
 			TNTSource source = parts.Find(p => p is TNTSource) as TNTSource;
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using TNT.LSD.Settings;
 using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
@@ -160,7 +161,7 @@ namespace TNT.LSD.Objects
 			return true;
 		}
 
-		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
 			if (!string.IsNullOrEmpty(SWKeyCode))
 			{

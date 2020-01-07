@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using TNT.LSD.Inventory;
+using TNT.LSD.Settings;
 using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
@@ -54,7 +55,8 @@ namespace TNT.LSD.Objects
 		/// Call to set the parts quantities
 		/// </summary>
 		/// <param name="parts">Dictionary of parts</param>
-		abstract public void SetPartQuantity(Dictionary<string, Part> parts);
+		/// <param name="systemType">Indicates the type of parts to set</param>
+		abstract public void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType);
 
 		/// <summary>
 		/// Called to deterimine if this pipe type can be added to this part

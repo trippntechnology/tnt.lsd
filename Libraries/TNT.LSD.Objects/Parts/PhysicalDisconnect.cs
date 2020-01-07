@@ -1,4 +1,5 @@
 ﻿using System;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -36,12 +37,12 @@ namespace TNT.LSD.Objects
 			return base.CanAddPipe(pipeType, out reason);
 		}
 
-		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
 			GetPart(parts, "PD2").Quantity += 1;
 			GetPart(parts, "VBJUMBO").Quantity += 1;
 
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 		}
 
 		/// <summary>
