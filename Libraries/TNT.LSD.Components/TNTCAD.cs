@@ -1201,7 +1201,7 @@ namespace LSDComponents
 				// Round pipe to nearest 20' length
 				neededParts.ForEach(p =>
 				{
-					if ((Regex.IsMatch(p.Code, "^PI") && !Regex.IsMatch(p.Code, "200C")) || Regex.IsMatch(p.Code, "FUNNYPIPE"))
+					if ((Regex.IsMatch(p.Code, "^(PI|POLY)") && !Regex.IsMatch(p.Code, "200C")) || Regex.IsMatch(p.Code, "FUNNYPIPE"))
 					{
 						p.Quantity = TNT.Math.Extensions.RoundUpToNearest(p.Quantity, 20);
 					}
