@@ -1,6 +1,5 @@
 ﻿using LandscapeSprinklerDesigner.Properties;
 using System;
-using System.Windows.Forms;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
@@ -12,20 +11,12 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		public override void OnApplicationIdle(object sender, EventArgs e)
 		{
-			this.Enabled = false;
+			this.Enabled = Global.GetLicense() != null;
 		}
 
 		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			try
-			{
-				MessageBox.Show("Not implemented");
-			}
-			catch (Exception ex)
-			{
-				System.Diagnostics.Debug.WriteLine(ex.Message);
-				MessageBox.Show(this.Owner, "The update server is unavailable. Please verify you're connected to the internet and try again.", "Update Server Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
+			Global.CheckForUpdate(base.Owner, false);
 		}
 	}
 }
