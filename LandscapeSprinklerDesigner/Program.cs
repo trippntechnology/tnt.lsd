@@ -22,6 +22,8 @@ namespace LandscapeSprinklerDesigner
 
 			Main frmMain = new Main();
 
+			Global.CheckForUpdate(frmMain);
+
 #if !DISABLE_SPLASH
 
 			frmMain.SplashForm = new Splash();

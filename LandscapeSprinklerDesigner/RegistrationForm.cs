@@ -16,19 +16,21 @@ namespace LandscapeSprinklerDesigner
 		{
 			InitializeComponent();
 			System.Windows.Forms.Application.Idle += new EventHandler(Application_Idle);
-			this.ActiveControl = propertyGrid;
+			this.ActiveControl = panelDetail;
 		}
 
 		public new DialogResult ShowDialog(IWin32Window owner)
 		{
-			propertyGrid.SelectedObject = Global.GetLicense();
+			var license = Global.GetLicense();
+			SetLicenseDetails(license);
+
 			DialogResult result = base.ShowDialog(owner);
 
 			if (result == System.Windows.Forms.DialogResult.OK)
 			{
 				try
 				{
-					var license = Global.SetLicense(LicenseText.Lines.ToList());
+					license = Global.SetLicense(LicenseText.Lines.ToList());
 
 					var msg = new StringBuilder();
 					msg.AppendLine("Successfully Registered");
@@ -59,9 +61,23 @@ namespace LandscapeSprinklerDesigner
 			try
 			{
 				var license = Global.Decrypt(LicenseText.Lines.ToList());
-				propertyGrid.SelectedObject = license;
+				SetLicenseDetails(license);
 			}
-			catch { }
+			catch { SetLicenseDetails(null); }
+		}
+
+		private void SetLicenseDetails(License license)
+		{
+			if (license != null)
+			{
+				labelIssuedTo.Text = license.IssuedTo;
+				labelValidUntil.Text = license.ExpiresOn.ToString();
+			}
+			else
+			{
+				labelIssuedTo.Text = string.Empty;
+				labelValidUntil.Text = string.Empty;
+			}
 		}
 
 		private void propertyGrid_SelectedObjectsChanged(object sender, EventArgs e)

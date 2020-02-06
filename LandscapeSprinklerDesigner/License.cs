@@ -11,6 +11,14 @@ namespace LandscapeSprinklerDesigner
 		[DisplayName("Expires On")]
 		public DateTime ExpiresOn { get; set; }
 
+		[DisplayName("Application ID")]
+		public int ApplicationID { get; set; }
+
+		public string Secret { get; set; }
+
+		[DisplayName("Service Endpoint")]
+		public string ServiceEndpoint { get; set; }
+
 		public License() { }
 	}
 }
