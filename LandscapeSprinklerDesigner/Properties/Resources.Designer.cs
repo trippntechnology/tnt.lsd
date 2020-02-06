@@ -19,7 +19,7 @@ namespace LandscapeSprinklerDesigner.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -79,7 +79,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2w0BpDIZd7jwYlyQi3jokbmbACiHreTj6wdv8GGNePI=.
+        ///   Looks up a localized string similar to soHZhf9TKM5LtL9Qoew08y0JiQRMKrLp5M3L/kkd7iU=.
         /// </summary>
         internal static string key {
             get {
