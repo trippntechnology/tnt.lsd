@@ -1,4 +1,5 @@
 ﻿using LSDComponents;
+using System.Drawing;
 using TNT.LSD.PDFGenerator;
 using TNT.LSD.Settings;
 using WeifenLuo.WinFormsUI.Docking;
@@ -13,18 +14,30 @@ namespace TNT.LSD.SSC
 
 		public override bool LicenseRequired => true;
 
-		protected void GeneratePDF(ApplicationData appData, TNTCAD cad, string fileName)
+		protected void GeneratePDF(ApplicationData appData, TNTCAD _cad, string fileName)
 		{
+			// Create a copy so that it doesn't effect the actual layout
+			var cad = new TNTCAD(_cad);
+
 			// Unselect all objects so that they are included in the drawn image for the PDF
 			cad.UnselectAll();
 			cad.Repaint();
 
-			int previousScale = cad.DisplayScale;
 			cad.DisplayScale = 100;
+			cad.DrawingOptions.ShowCoverage = false;
+
+			cad.Repaint();
+			var design = cad.Design.Clone() as Image;
+
+			cad.DrawingOptions.ShowCoverage = true;
+			cad.Repaint();
+
+			var coverage = cad.Design.Clone() as Image;
 
 			Content pdfContent = new Content()
 			{
-				Design = cad.Design,
+				Design = design,
+				Coverage = coverage,
 				DynamicProperties = cad.Settings,
 				Parts = cad.GetPartsList()
 			};
@@ -39,8 +52,6 @@ namespace TNT.LSD.SSC
 			}
 
 			(new PDFGenerator.SSCPDFGenerator()).Generate(fileName, pdfContent);
-
-			cad.DisplayScale = previousScale;
 
 			PDFForm pdfForm = new PDFForm();
 			pdfForm.Show(fileName, appData.DockPanel, DockState.Document);
