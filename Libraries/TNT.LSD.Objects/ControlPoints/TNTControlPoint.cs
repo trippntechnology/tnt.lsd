@@ -191,9 +191,9 @@ namespace TNT.LSD.Objects.ControlPoints
 
 			if (!Hidden)
 			{
-				int radius = this.Image.Width / 2;
+				int radius = this.Image.Width;
 				GraphicsPath path = new GraphicsPath();
-				path.AddEllipse(-radius, -radius, this.Image.Width, this.Image.Height);
+				path.AddEllipse(-radius, -radius, this.Image.Width * 2, this.Image.Height * 2);
 				Region region = new Region(path);
 				region.Translate(m_Position.X, m_Position.Y);
 

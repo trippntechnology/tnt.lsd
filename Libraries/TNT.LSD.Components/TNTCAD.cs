@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -321,6 +320,25 @@ namespace LSDComponents
 			DoubleBuffered = true;
 			m_DrawingLayers.Add(new Bitmap(1, 1));
 			m_DrawingOptions = new DrawingOptions() { BaseFont = Font };
+		}
+
+		public TNTCAD(TNTCAD obj)
+		{
+			this.m_LastLocation = obj.m_LastLocation;
+			this.m_DrawingLayers = obj.m_DrawingLayers;
+			this.m_ConstructedObject = obj.m_ConstructedObject;
+			this.m_PropertyGridUndoActions = obj.m_PropertyGridUndoActions;
+			this.m_State = obj.m_State;
+			this.m_CurrentFileName = obj.m_CurrentFileName;
+			this.m_Scale = obj.m_Scale;
+			this.m_ActiveLayer = obj.m_ActiveLayer;
+			this.m_DrawingMode = obj.m_DrawingMode;
+			this.m_UndoActions = obj.m_UndoActions;
+			this.m_DownKeys = obj.m_DownKeys;
+			this.m_DrawingOptions = new DrawingOptions(obj.m_DrawingOptions);
+			this._DrawBackground = obj._DrawBackground;
+			this.SnapToGrid = obj.SnapToGrid;
+			this.ShowPartsToolTip = obj.ShowPartsToolTip;
 		}
 
 		#region Drawing methods

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
 using TNT.Cryptography;
 using TNT.LiveData;
 using TNT.Utilities;
@@ -49,6 +52,40 @@ namespace LandscapeSprinklerDesigner
 			var decryptedBytes = symmetric.Decrypt(cipher, cipher.IV);
 			var plainText = Symmetric.Deserialize<string>(decryptedBytes);
 			return Utilities.Deserialize<object>(plainText, new Type[] { typeof(License) }) as License;
+		}
+
+		public static void CheckForUpdate(IWin32Window owner, bool showOnlyIfExists = true)
+		{
+			try
+			{
+				var license = Global.GetLicense();
+				if (license == null) return;
+
+				var exePath = Assembly.GetExecutingAssembly().Location;
+				var exeFolder = Path.GetDirectoryName(exePath);
+
+				var sb = new StringBuilder();
+				sb.Append($" /i {license.ApplicationID}");
+				sb.Append($" /a \"{exePath}\"");
+				sb.Append($" /p {license.Secret}");
+				sb.Append($" /e {license.ServiceEndpoint}");
+
+				if (showOnlyIfExists) sb.Append($" /s");
+
+				var process = new Process();
+
+				process.StartInfo.FileName = Path.Combine(exeFolder, "updater\\tnt.updater.exe");
+				process.StartInfo.Arguments = sb.ToString();
+
+				Debug.WriteLine("Checking for update ...");
+				Debug.WriteLine($"\tArgs: {process.StartInfo.Arguments}");
+				process.Start();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+				MessageBox.Show(owner, "The update server is unavailable. Please verify you're connected to the internet and try again.", "Update Server Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
 		}
 	}
 }

@@ -79,7 +79,7 @@ namespace LandscapeSprinklerDesigner.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STiK49PQWbS/WHeaPx8YwLRZKiPy1qUXlLx9wN+YZ5E=.
+        ///   Looks up a localized string similar to soHZhf9TKM5LtL9Qoew08y0JiQRMKrLp5M3L/kkd7iU=.
         /// </summary>
         internal static string key {
             get {
