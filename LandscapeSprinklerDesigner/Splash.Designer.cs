@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
 			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.versionPlaceholder = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
@@ -39,11 +38,11 @@
 			this.timer.Interval = 5000;
 			this.timer.Tick += new System.EventHandler(this.timer_Tick);
 			// 
-			// panelVersion
+			// versionPlaceholder
 			// 
 			this.versionPlaceholder.BackColor = System.Drawing.Color.Transparent;
 			this.versionPlaceholder.Location = new System.Drawing.Point(414, 161);
-			this.versionPlaceholder.Name = "panelVersion";
+			this.versionPlaceholder.Name = "versionPlaceholder";
 			this.versionPlaceholder.Size = new System.Drawing.Size(200, 100);
 			this.versionPlaceholder.TabIndex = 0;
 			// 
@@ -51,7 +50,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 32F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+			this.BackgroundImage = global::LandscapeSprinklerDesigner.Properties.Resources.splash;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.ClientSize = new System.Drawing.Size(709, 558);
 			this.Controls.Add(this.versionPlaceholder);
