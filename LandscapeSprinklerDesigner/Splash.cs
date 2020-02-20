@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -10,24 +9,15 @@ namespace LandscapeSprinklerDesigner
 	public partial class Splash : Form
 	{
 		private string m_Version = string.Empty;
-		private string m_Status = string.Empty;
-
-		public string Status { get { return m_Status; } set { m_Status = value; UpdateFormDisplay(BackgroundImage); } }
 
 		public Splash()
 		{
 			InitializeComponent();
 
-			using (Stream s = this.GetType().Assembly.GetManifestResourceStream("LandscapeSprinklerDesigner.splash.png"))
-			{
-				BackgroundImage = new Bitmap(s);
-			}
-
 			Width = BackgroundImage.Width;
 			Height = BackgroundImage.Height;
 
-			Assembly asm = Assembly.GetEntryAssembly();
-			m_Version = asm.GetName().Version.ToString();
+			m_Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
 		}
 
 		public void ShowAsSplash()
@@ -36,22 +26,10 @@ namespace LandscapeSprinklerDesigner
 			Show();
 		}
 
-		public new DialogResult ShowDialog()
-		{
-			return base.ShowDialog();
-		}
-
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			timer.Enabled = false;
-			this.Click += new EventHandler(Splash_Click);
-			Hide();
-		}
-
-		private void Splash_Click(object sender, EventArgs e)
-		{
-			this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			Hide();
 		}
 
@@ -67,17 +45,22 @@ namespace LandscapeSprinklerDesigner
 			}
 		}
 
-		//Updates the Form's display using API calls
-		public void UpdateFormDisplay(Image backgroundImage)
+		private void DrawVersion()
 		{
-			Graphics g = Graphics.FromImage(backgroundImage);
-			Rectangle versionRect = new Rectangle(275, 150, 150, 30);
-			Rectangle statusRect = new Rectangle(25, 328, 256, 30);
+			Graphics g = Graphics.FromImage(this.BackgroundImage);
+			Rectangle versionRect = versionPlaceholder.ClientRectangle;
+			versionRect.Offset(versionPlaceholder.Left, versionPlaceholder.Top);
 			StringFormat format = new StringFormat();
 			format.Alignment = StringAlignment.Center;
 			format.LineAlignment = StringAlignment.Center;
 			g.DrawString(m_Version, Font, new SolidBrush(Color.FromArgb(50, Color.Black)), new Rectangle(versionRect.Left + 4, versionRect.Top + 4, versionRect.Width, versionRect.Height), format);
-			g.DrawString(m_Version, Font, new SolidBrush(ForeColor), versionRect, format);
+			g.DrawString(m_Version, Font, new SolidBrush(Color.Black), versionRect, format);
+		}
+
+		//Updates the Form's display using API calls
+		public void UpdateFormDisplay(Image backgroundImage)
+		{
+			DrawVersion();
 
 			IntPtr screenDc = API.GetDC(IntPtr.Zero);
 			IntPtr memDc = API.CreateCompatibleDC(screenDc);
@@ -131,6 +114,18 @@ namespace LandscapeSprinklerDesigner
 		{
 			//Call our drawing function
 			UpdateFormDisplay(this.BackgroundImage);
+		}
+
+		private void Splash_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				timer.Enabled = !timer.Enabled;
+			}
+			else if (e.Button == MouseButtons.Left)
+			{
+				timer_Tick(sender, e);
+			}
 		}
 	}
 
