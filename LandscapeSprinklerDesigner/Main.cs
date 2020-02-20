@@ -46,57 +46,6 @@ namespace LandscapeSprinklerDesigner
 
 		protected TNTCAD CAD { get { return m_LayoutForm.CAD; } }
 
-#if !DISABLE_REGISTRATION
-
-		private bool IsAuthorized
-		{
-			get
-			{
-				if (m_IsAuthorized == null)
-				{
-					string path = Assembly.GetExecutingAssembly().Location;
-					path = Path.GetDirectoryName(path);
-					RegistrationKey regKey = null;
-
-					try
-					{
-						regKey = Registration.GetRegistrationKey(Path.Combine(path, "license.txt"));
-					}
-					catch (FileNotFoundException) { }
-
-					m_IsAuthorized = false;
-
-					if (regKey != null && !string.IsNullOrEmpty(regKey.License) && !string.IsNullOrEmpty(regKey.Authorization))
-					{
-						string volSerialNumber = Registration.GetVolumeSerialNumber();
-						GuidAttribute attr = Utilities.GetAssemblyAttribute<GuidAttribute>(Assembly.GetExecutingAssembly());
-
-						string hash = Registration.GenerateSHA1Hash(string.Concat(volSerialNumber, attr.Value, regKey.License));
-
-						m_IsAuthorized = regKey.Authorization == hash;
-					}
-
-					if (!(bool)m_IsAuthorized)
-					{
-						// Use to hide when not licensed
-						m_CommandManager["PartsList"].Visible = false;
-						(m_CommandManager["PartsList"].Tag as DockContent).Hide();
-					}
-				}
-
-				return (bool)m_IsAuthorized;
-			}
-		}
-
-#else
-
-		private bool IsAuthorized
-		{
-			get { return true; }
-		}
-
-#endif
-
 		#endregion
 
 		public Splash SplashForm { get; set; }

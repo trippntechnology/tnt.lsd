@@ -1193,13 +1193,13 @@ namespace LSDComponents
 			// Mainline drains
 			if (source != null && source.Pipes.Count > 0)
 			{
-				inventoryParts["AUTOLD"].Quantity += State.MainlineDrains;
+				inventoryParts["KD22"].Quantity += State.MainlineDrains;
 				string pipeCode = m_PipeSizeList.SizeToCode(source.Pipes[0].PipeSize);
 				inventoryParts[string.Format("FI{0}X050SSTTEE", pipeCode)].Quantity += State.MainlineDrains;
 			}
 
 			// Lateral drains
-			inventoryParts["AUTOLD"].Quantity += valves.Count * State.LateralDrains;
+			inventoryParts["KD22"].Quantity += valves.Count * State.LateralDrains;
 			inventoryParts["FI075X050SSTTEE"].Quantity += valves.Count * State.LateralDrains;
 
 			// Add static parts
