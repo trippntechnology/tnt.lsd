@@ -49,8 +49,8 @@
     <Reference Include="TNT.Plugin.Manager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Plugin.Manager.1.1.0\lib\net462\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
+    <Reference Include="TNT.Utilities, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Utilities.1.7.0\lib\net462\TNT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
