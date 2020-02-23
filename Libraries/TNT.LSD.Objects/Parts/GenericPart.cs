@@ -13,6 +13,8 @@ namespace TNT.LSD.Objects
 
 		#region Model
 
+		protected virtual void onModelIndexChanged(int index) { }
+
 		protected string m_Model;
 
 		[Description("Specifies the model to use")]
@@ -29,7 +31,10 @@ namespace TNT.LSD.Objects
 					int descriptionIndex = ModelDescriptions.IndexOf(m_Model);
 
 					if (descriptionIndex > -1 && m_ModelCodes.Count > descriptionIndex)
+					{
 						ModelCode = m_ModelCodes[descriptionIndex];
+						onModelIndexChanged(descriptionIndex);
+					}
 				}
 			}
 		}

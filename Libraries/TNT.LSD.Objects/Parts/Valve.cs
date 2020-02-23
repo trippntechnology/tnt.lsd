@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -48,6 +49,24 @@ namespace TNT.LSD.Objects
 #endif
 		public string OutletThread { get; set; }
 
+		protected List<string> m_SizeCodes = new List<string>();
+
+		[Editor(@"System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+#if !PALETTE_PROPERTIES
+		[Browsable(false)]
+#endif
+		virtual public List<string> SizeCodes
+		{
+			get { return m_SizeCodes; }
+			set { m_SizeCodes = value; }
+		}
+
+		[TypeConverter(typeof(TypeConverters.SizeList))]
+		[Description("Valve Size")]
+		[DefaultValue("100")]
+		[ReadOnly(true)]
+		public string Size { get; set; } = "100";
+
 		[Browsable(false)]
 		[XmlIgnore()]
 		public ValveBox AssociatedValveBox { get; set; }
@@ -70,9 +89,18 @@ namespace TNT.LSD.Objects
 			InletThreads = obj.InletThreads;
 			OutletThread = obj.OutletThread;
 			ColorRadius = obj.ColorRadius;
+			SizeCodes = obj.SizeCodes;
 		}
 
 		#endregion
+
+		protected override void onModelIndexChanged(int index)
+		{
+			if (SizeCodes.Count > index)
+			{
+				this.Size = SizeCodes[index];
+			}
+		}
 
 		/// <summary>
 		/// Sets the Color throughout the zone
