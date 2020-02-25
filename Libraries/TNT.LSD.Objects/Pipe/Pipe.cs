@@ -120,6 +120,8 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		public int PipeSizeIndex => m_PipeSizeList.IndexOf(PipeSize);
+
 		#endregion
 
 		#region Constructors
@@ -210,11 +212,10 @@ namespace TNT.LSD.Objects
 		{
 			using (Pen p = new Pen(Color.FromArgb(Selected ? 100 : 255, PipeColor)))
 			{
-				int pipeSizeIndex = m_PipeSizeList.IndexOf(PipeSize);
 				p.DashStyle = LineStyle;
 				graphics.DrawLine(p, Part1.Position, Part2.Position);
 
-				if (pipeSizeIndex > 1)
+				if (PipeSizeIndex > 1)
 				{
 					var solidBrush = new SolidBrush(Color.FromArgb(255, this.PipeColor));
 					var pipeVector = new Vector(Part1.Position, Part2.Position);
@@ -230,7 +231,7 @@ namespace TNT.LSD.Objects
 					graphics.TranslateTransform(midPoint.X, midPoint.Y);
 					graphics.RotateTransform(angle);
 
-					if (pipeSizeIndex == 2)
+					if (PipeSizeIndex == 2)
 					{
 						// Diamond
 						var p0 = new Vector(0, 1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
@@ -240,17 +241,17 @@ namespace TNT.LSD.Objects
 						var points = new PointF[] { (PointF)p0, (PointF)p1, (PointF)p2, (PointF)p3 };
 						graphics.FillPolygon(solidBrush, points);
 					}
-					else if (pipeSizeIndex == 3)
+					else if (PipeSizeIndex == 3)
 					{
 						// Rectangle
 						graphics.FillRectangle(solidBrush, rect);
 					}
-					else if (pipeSizeIndex == 4)
+					else if (PipeSizeIndex == 4)
 					{
 						// Circle
 						graphics.FillEllipse(solidBrush, rect);
 					}
-					else if (pipeSizeIndex == 5)
+					else if (PipeSizeIndex == 5)
 					{
 						// Triangle
 						var p0 = new Vector(0, 0);
