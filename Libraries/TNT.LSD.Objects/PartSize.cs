@@ -83,9 +83,25 @@ namespace TNT.LSD.Objects
 		/// <returns>The <see cref="PartSize"/> represented by the human readable text</returns>
 		public static PartSize GetSizeByReadable(string readable) => Sizes.Find(size => size.Readable == readable);
 
+		/// <summary>
+		/// Less than or equal operator
+		/// </summary>
 		public static bool operator <=(PartSize lhs, PartSize rhs) => lhs.Index <= rhs.Index;
-
+		
+		/// <summary>
+		/// Greater than or equal operator
+		/// </summary>
 		public static bool operator >=(PartSize lhs, PartSize rhs) => lhs.Index >= rhs.Index;
+		
+		/// <summary>
+		/// Less than operator
+		/// </summary>
+		public static bool operator <(PartSize lhs, PartSize rhs) => lhs.Index < rhs.Index;
+		
+		/// <summary>
+		/// Greater than operator
+		/// </summary>
+		public static bool operator >(PartSize lhs, PartSize rhs) => lhs.Index > rhs.Index;
 
 		/// <summary>
 		/// Formatted for debugging inspection

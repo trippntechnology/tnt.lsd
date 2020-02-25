@@ -2,24 +2,35 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a valve box
+	/// </summary>
 	public class ValveBox : DryPart
 	{
+		/// <summary>
+		/// Valves encompassed by this valve box
+		/// </summary>
 		[Browsable(false)]
 		[XmlIgnore()]
 		public List<Valve> AssociatedValves { get; set; }
 
+		/// <summary>
+		/// Indicates whether or not to use a manifold
+		/// </summary>
 		[Description("Use manifold fittings for the valves located within this valve box")]
 		[DisplayName("Use Manifold")]
 		[DefaultValue(true)]
 		public bool UseManifold { get; set; }
 
+		/// <summary>
+		/// Maximum number of 1" valves that can fit in this valve box
+		/// </summary>
 		[Description("Indicates the maximum number of valves that can fit in this valve box")]
 		[DisplayName("Maximum Valve Quantity")]
 #if !PALETTE_PROPERTIES
@@ -27,6 +38,9 @@ namespace TNT.LSD.Objects
 #endif
 		public int MaximumValveQuantity { get; set; }
 
+		/// <summary>
+		/// Number of bags of gravel to include with the valve box
+		/// </summary>
 		[Description("Indicates the number of bags of gravel that should be included with valve box")]
 		[DisplayName("Bags of Gravel")]
 #if !PALETTE_PROPERTIES
@@ -34,7 +48,7 @@ namespace TNT.LSD.Objects
 #endif
 		public float BagsOfGravel { get; set; }
 
-		public int ManifoldCount
+		private int ManifoldCount
 		{
 			get
 			{
@@ -49,7 +63,10 @@ namespace TNT.LSD.Objects
 		}
 
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="obj"></param>
 		public ValveBox(ValveBox obj)
 			: base(obj)
 		{
@@ -58,6 +75,9 @@ namespace TNT.LSD.Objects
 			BagsOfGravel = obj.BagsOfGravel;
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public ValveBox()
 			: base()
 		{
@@ -65,6 +85,10 @@ namespace TNT.LSD.Objects
 			BagsOfGravel = 1F;
 		}
 
+		/// <summary>
+		/// Clones this <see cref="ValveBox"/>
+		/// </summary>
+		/// <returns>Copy of this <see cref="ValveBox"/></returns>
 		public override TNTObject Clone()
 		{
 			return new ValveBox(this);
@@ -103,6 +127,9 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Adds manifold adapter to the main line
+		/// </summary>
 		private void AddMainLineAdapter(Dictionary<string, Part> parts, PartSize mainlineSize, Manifold manifold)
 		{
 			// Glue adapter from manifold inlet to main
@@ -119,18 +146,23 @@ namespace TNT.LSD.Objects
 			{
 				parts[$"AF18012150"].Quantity += 1;
 				parts[$"FI150SSCOUP"].Quantity += mainlineSize >= PartSize.SIZE_125 ? 1 : 0;
-				parts[$"FI100x075SSRB"].Quantity += mainlineSize == PartSize.SIZE_075 ? 1 : 0;
-				parts[$"FI150x125SSRB"].Quantity += mainlineSize == PartSize.SIZE_125 ? 1 : 0;
+				parts[$"FI100X075SSRB"].Quantity += mainlineSize == PartSize.SIZE_075 ? 1 : 0;
+				parts[$"FI150X125SSRB"].Quantity += mainlineSize == PartSize.SIZE_125 ? 1 : 0;
 			}
 			else if (manifold.Size == PartSize.SIZE_200)
 			{
-				parts[$"AF18012{PartSize.SIZE_200}"].Quantity += 1;
-				parts[$"FI200SSCOUP"].Quantity += mainlineSize == PartSize.SIZE_200 ? 1 : 0;
-				//parts[$"FI100x075SSRB"].Quantity += mainlineSize == PartSize.SIZE_075 ? 1 : 0;
-				parts[$"FI150x{mainlineSize.Code}SSRB"].Quantity += mainlineSize <= PartSize.SIZE_125 ? 1 : 0;
+				parts[$"AF18012{PartSize.SIZE_200.Code}"].Quantity += 1;
+				parts[$"FI200SSCOUP"].Quantity += mainlineSize != PartSize.SIZE_200 ? 1 : 0;
+				if (mainlineSize < PartSize.SIZE_150)
+				{
+					parts[$"FI150X{mainlineSize.Code}SSRB"].Quantity += 1;
+				}
 			}
 		}
 
+		/// <summary>
+		/// Adds manifold cap
+		/// </summary>
 		private void AddManifoldCap(Dictionary<string, Part> parts, PartSize mainlineSize, Manifold manifold)
 		{
 			if (manifold.Size == PartSize.SIZE_100)
@@ -146,6 +178,9 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Updates the <paramref name="parts"/> with the quantities associated with this valve box
+		/// </summary>
 		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
@@ -176,7 +211,7 @@ namespace TNT.LSD.Objects
 				else
 				{
 					// Outlet
-					AddMainLineAdapter(parts, mainlineMaxSize, manifold);
+					AddMainLineAdapter(parts, mainlineMinSize, manifold);
 				}
 			}
 		}
@@ -184,16 +219,11 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Indicates whether the main line terminates here
 		/// </summary>
-		/// <returns>True if terminates, false otherwise</returns>
-		private bool Terminates()
-		{
-			return AssociatedValves.Find(v => v.GetPipeCount(typeof(MainlinePipe)) == 1) != null;
-		}
+		private bool Terminates() => AssociatedValves.Find(v => v.GetPipeCount(typeof(MainlinePipe)) == 1) != null;
 
 		/// <summary>
 		/// Gets a <see cref="Manifold"/> that is sized to the mainline size
 		/// </summary>
-		/// <returns><see cref="Manifold"/> that is sized to the mainline size</returns>
 		public Manifold GetManifold()
 		{
 			Manifold manifold = null;
@@ -223,7 +253,6 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Gets the <see cref="PartSize"/> of the manifold. It will match the mainline size.
 		/// </summary>
-		/// <returns><see cref="PartSize"/> of the manifold</returns>
 		private PartSize GetManifoldSize()
 		{
 			// Get the largest index of the mainline pipe
@@ -250,9 +279,8 @@ namespace TNT.LSD.Objects
 		}
 
 		/// <summary>
-		/// Gets the <see cref="PartSize"/> of the mainline
+		/// Gets the <see cref="PartSize"/> that represents the maximum size of the main line within this valve box
 		/// </summary>
-		/// <returns><see cref="PartSize"/> of the mainline</returns>
 		private PartSize GetMainlineMaxSize()
 		{
 			// Get the largest index of the inlet pipe
@@ -268,6 +296,9 @@ namespace TNT.LSD.Objects
 			return PartSize.GetSize(index);
 		}
 
+		/// <summary>
+		/// Gets the <see cref="PartSize"/> that represents the minimum size of the main line within this valve box
+		/// </summary>
 		private PartSize GetMainlineMinSize()
 		{
 			int index = PartSize.SIZE_200.Index + 1;
