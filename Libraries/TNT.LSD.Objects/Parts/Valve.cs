@@ -209,48 +209,53 @@ namespace TNT.LSD.Objects
 
 			if (manifold != null)
 			{
-				var code = manifold.Size == PartSize.SIZE_100 ? string.Empty : manifold.Size.Code;
-
 				if (InletThreads == "FIPT")
 				{
-					// Add slip adapter from manifold to toe nipple
-					parts[$"AF18012{code}"].Quantity += 1;
-
-					// Add toe nipple out of valve
-					parts[$"NI{valveSize.Code}X4TOE"].Quantity += 1;
-
-					// Add coupler and bushing if needed
+					// Add parts from manifold to valve
 					if (manifold.Size == PartSize.SIZE_100 && valveSize == PartSize.SIZE_100)
 					{
-						// We're good
+						// Male adapter
+						parts[$"AF18010"].Quantity += 1;
 					}
-					else if (manifold.Size == PartSize.SIZE_150)
+					else
 					{
-						if (valveSize == PartSize.SIZE_100)
+						// Add slip adapter from manifold to toe nipple
+						parts[$"AF18012{manifold.Size.Code}"].Quantity += 1;
+
+						// Add toe nipple out of valve
+						parts[$"NI{valveSize.Code}X4TOE"].Quantity += 1;
+						
+						
+						// Add coupler and bushing if needed
+						if (manifold.Size == PartSize.SIZE_150)
 						{
-							// We're good
+							if (valveSize == PartSize.SIZE_100)
+							{
+								// We're good
+							}
+							else if (valveSize == PartSize.SIZE_150)
+							{
+								parts[$"FI{manifold.Size.Code}SSCOUP"].Quantity += 1;
+							}
 						}
-						else if (valveSize == PartSize.SIZE_150)
+						else if (manifold.Size == PartSize.SIZE_200)
 						{
-							parts[$"FI{manifold.Size.Code}SSCOUP"].Quantity += 1;
-						}
-					}
-					else if (manifold.Size == PartSize.SIZE_200)
-					{
-						if (valveSize == PartSize.SIZE_100)
-						{
-							parts[$"FI{PartSize.SIZE_150.Code}X{PartSize.SIZE_100.Code}SSRB"].Quantity += 1;
-						}
-						else if (valveSize == PartSize.SIZE_150)
-						{
-							// We're good
-						}
-						else if (valveSize == PartSize.SIZE_200)
-						{
-							parts[$"FI{manifold.Size.Code}SSCOUP"].Quantity += 1;
+							if (valveSize == PartSize.SIZE_100)
+							{
+								parts[$"FI{PartSize.SIZE_150.Code}X{PartSize.SIZE_100.Code}SSRB"].Quantity += 1;
+							}
+							else if (valveSize == PartSize.SIZE_150)
+							{
+								// We're good
+							}
+							else if (valveSize == PartSize.SIZE_200)
+							{
+								parts[$"FI{manifold.Size.Code}SSCOUP"].Quantity += 1;
+							}
 						}
 					}
 
+					// Add manifold fitting out of valve to lateral
 					if (latPipe != null)
 					{
 						var latPipeSize = PartSize.GetSize(latPipe.PipeSizeIndex);
@@ -259,16 +264,14 @@ namespace TNT.LSD.Objects
 						{
 							// Add transition nipple out of valve and slip adapter
 							var transitionSize = valveSize == PartSize.SIZE_100 ? string.Empty : valveSize.Code;
+							var slipAdapterCode = valveSize == PartSize.SIZE_100 && latPipeSize == PartSize.SIZE_075 ? 3 : 2;
 							parts[$"AF18011{transitionSize}"].Quantity += 1;
-							parts[$"AF18012{transitionSize}"].Quantity += 1;
+							parts[$"AF1801{slipAdapterCode}{transitionSize}"].Quantity += 1;
 
+							// Add coupler and bushing if needed
 							if (valveSize == PartSize.SIZE_100)
 							{
-								if (latPipeSize < PartSize.SIZE_100)
-								{
-									parts[$"FI{valveSize.Code}X{latPipeSize.Code}SSRB"].Quantity += 1;
-								}
-								else if (latPipeSize == PartSize.SIZE_125)
+								if (latPipeSize == PartSize.SIZE_125)
 								{
 									parts[$"FI{PartSize.SIZE_125.Code}SSCOUP"].Quantity += 1;
 								}
