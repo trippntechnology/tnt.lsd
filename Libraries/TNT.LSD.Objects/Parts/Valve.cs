@@ -1,29 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using TNT.LSD.Settings;
-using TNT.LSD.Settings.TypeConverters;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a valve
+	/// </summary>
 	public class Valve : GenericPart
 	{
-		protected new const int PART_COLOR_CIRCLE_SIZE = 12;
+		/// <summary>
+		/// Default size of the circle drawn with the valve color
+		/// </summary>
+		protected const int DEFAULT_COLOR_RADIUS = 12;
 
 		#region Properties
 
+		/// <summary>
+		/// Radius of color circle
+		/// </summary>
 		[Description("Radius of the background color")]
 		[DisplayName("Color Radius")]
-		[DefaultValue(PART_COLOR_CIRCLE_SIZE)]
+		[DefaultValue(DEFAULT_COLOR_RADIUS)]
 #if !PALETTE_PROPERTIES
 		[Browsable(false)]
 #endif
 		public int ColorRadius { get; set; }
 
+		/// <summary>
+		/// Color associated with zone
+		/// </summary>
 		[Description("Color associated with the zone")]
 		[DisplayName("Zone Color")]
 		[DefaultValue(typeof(Color), "Black")]
@@ -31,8 +42,11 @@ namespace TNT.LSD.Objects
 		[Browsable(true)]
 		public override Color Color { get { return base.Color; } set { base.Color = value; } }
 
+		/// <summary>
+		/// Gender of inlet threads
+		/// </summary>
 		[TypeConverter(typeof(TypeConverters.ThreadGenderList))]
-		[Description("Gender if inlet threads")]
+		[Description("Gender of inlet threads")]
 		[DisplayName("Inlet Threads")]
 		[DefaultValue("FIPT")]
 #if !PALETTE_PROPERTIES
@@ -40,8 +54,11 @@ namespace TNT.LSD.Objects
 #endif
 		public string InletThreads { get; set; }
 
+		/// <summary>
+		/// Gender of outlet threads
+		/// </summary>
 		[TypeConverter(typeof(TypeConverters.ThreadGenderList))]
-		[Description("Gender if outlet threads")]
+		[Description("Gender of outlet threads")]
 		[DisplayName("Outlet Threads")]
 		[DefaultValue("FIPT")]
 #if !PALETTE_PROPERTIES
@@ -49,24 +66,27 @@ namespace TNT.LSD.Objects
 #endif
 		public string OutletThread { get; set; }
 
-		protected List<string> m_SizeCodes = new List<string>();
-
+		/// <summary>
+		/// List of size codes, i.e. 100, 125, etc that can be associate with this valve
+		/// </summary>
 		[Editor(@"System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
 #if !PALETTE_PROPERTIES
 		[Browsable(false)]
 #endif
-		virtual public List<string> SizeCodes
-		{
-			get { return m_SizeCodes; }
-			set { m_SizeCodes = value; }
-		}
+		virtual public List<string> SizeCodes { get; set; }
 
+		/// <summary>
+		/// Size code of the valve
+		/// </summary>
 		[TypeConverter(typeof(TypeConverters.SizeList))]
 		[Description("Valve Size")]
 		[DefaultValue("100")]
 		[ReadOnly(true)]
-		public string Size { get; set; } = "100";
+		public string SizeCode { get; set; } = "100";
 
+		/// <summary>
+		/// <see cref="ValveBox"/> that encloses this valve
+		/// </summary>
 		[Browsable(false)]
 		[XmlIgnore()]
 		public ValveBox AssociatedValveBox { get; set; }
@@ -75,14 +95,20 @@ namespace TNT.LSD.Objects
 
 		#region Constructors
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public Valve()
 			: base()
 		{
 			InletThreads = "FIPT";
 			OutletThread = "FIPT";
-			ColorRadius = PART_COLOR_CIRCLE_SIZE;
+			ColorRadius = DEFAULT_COLOR_RADIUS;
 		}
 
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
 		public Valve(Valve obj)
 			: base(obj)
 		{
@@ -94,22 +120,26 @@ namespace TNT.LSD.Objects
 
 		#endregion
 
+		/// <summary>
+		/// Called when the <see cref="GenericPart.Model"/> changes
+		/// </summary>
+		/// <param name="index">Index of the model</param>
 		protected override void onModelIndexChanged(int index)
 		{
 			if (SizeCodes.Count > index)
 			{
-				this.Size = SizeCodes[index];
+				this.SizeCode = SizeCodes[index];
 			}
 		}
 
 		/// <summary>
 		/// Sets the Color throughout the zone
 		/// </summary>
-		public virtual void ColorizeZone()
-		{
-			ColorizeZone(this, null);
-		}
+		public virtual void ColorizeZone() => ColorizeZone(this, null);
 
+		/// <summary>
+		/// Applies the color associated with the valve to the lateral lines and parts.
+		/// </summary>
 		protected virtual void ColorizeZone(TNTPart currentPart, TNTPart lastPart)
 		{
 			// Get the lateral pipes
@@ -139,6 +169,9 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
+		/// <summary>
+		/// Draws the color associated with the zone behind the valve image
+		/// </summary>
 		protected override void DrawBackground(Graphics graphics)
 		{
 			Color? backgroundColor = this is Valve ? this.Color : m_Pipes.Count > 0 ? (Color?)m_Pipes[0].PipeColor : null;
@@ -152,10 +185,12 @@ namespace TNT.LSD.Objects
 			}
 		}
 
-		public override TNTObject Clone()
-		{
-			return new Valve(this);
-		}
+		/// <summary>
+		/// Creates a copy of this <see cref="Valve"/>
+		/// </summary>
+		/// <returns></returns>
+		public override TNTObject Clone() => new Valve(this);
+
 
 		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
@@ -163,73 +198,163 @@ namespace TNT.LSD.Objects
 
 			var latPipe = m_Pipes.Find(p => p is LateralPipe) as LateralPipe;
 			var mainPipes = m_Pipes.FindAll(p => p is MainlinePipe).ConvertAll(p => p as MainlinePipe);
-			var valveSize = PartSize.GetSize(this.Size);
-
-			Match match = Regex.Match(Model, @"^(?<size>[^ ]*)");
-
-			if (!match.Success)
-			{
-				return;
-			}
+			var valveSize = PartSize.GetSize(this.SizeCode);
 
 			System.Diagnostics.Debug.WriteLine($"AssociatedValveBox: {AssociatedValveBox}");
 			System.Diagnostics.Debug.WriteLine($"valveSize: {valveSize}");
 			System.Diagnostics.Debug.WriteLine($"size: {valveSize}");
 
-			// When mainline exists determine inlet parts
-			if (mainPipes.Count > 0)
+			// See if a manifold exists
+			var manifold = AssociatedValveBox?.GetManifold();
+
+			if (manifold != null)
 			{
-				// See if a manifold exists
-				var manifold = AssociatedValveBox?.GetManifold();
+				var code = manifold.Size == PartSize.SIZE_100 ? string.Empty : manifold.Size.Code;
 
-				if (manifold != null)
+				if (InletThreads == "FIPT")
 				{
-					var code = manifold.Size == PartSize.SIZE_100 ? string.Empty : manifold.Size.Code;
+					// Add slip adapter from manifold to toe nipple
+					parts[$"AF18012{code}"].Quantity += 1;
 
-					if (InletThreads == "FIPT")
+					// Add toe nipple out of valve
+					parts[$"NI{valveSize.Code}X4TOE"].Quantity += 1;
+
+					// Add coupler and bushing if needed
+					if (manifold.Size == PartSize.SIZE_100 && valveSize == PartSize.SIZE_100)
 					{
-						if (valveSize == manifold.Size)
+						// We're good
+					}
+					else if (manifold.Size == PartSize.SIZE_150)
+					{
+						if (valveSize == PartSize.SIZE_100)
 						{
-							parts[$"AF18010{code}"].Quantity += 1;
+							// We're good
+						}
+						else if (valveSize == PartSize.SIZE_150)
+						{
+							parts[$"FI{manifold.Size.Code}SSCOUP"].Quantity += 1;
 						}
 					}
-					else
+					else if (manifold.Size == PartSize.SIZE_200)
 					{
-
+						if (valveSize == PartSize.SIZE_100)
+						{
+							parts[$"FI{PartSize.SIZE_150.Code}X{PartSize.SIZE_100.Code}SSRB"].Quantity += 1;
+						}
+						else if (valveSize == PartSize.SIZE_150)
+						{
+							// We're good
+						}
+						else if (valveSize == PartSize.SIZE_200)
+						{
+							parts[$"FI{manifold.Size.Code}SSCOUP"].Quantity += 1;
+						}
 					}
 
-					//if (manifold.Size )
+					if (latPipe != null)
+					{
+						var latPipeSize = PartSize.GetSize(latPipe.PipeSizeIndex);
 
+						if (OutletThread == "FIPT")
+						{
+							// Add transition nipple out of valve and slip adapter
+							var transitionSize = valveSize == PartSize.SIZE_100 ? string.Empty : valveSize.Code;
+							parts[$"AF18011{transitionSize}"].Quantity += 1;
+							parts[$"AF18012{transitionSize}"].Quantity += 1;
+
+							if (valveSize == PartSize.SIZE_100)
+							{
+								if (latPipeSize < PartSize.SIZE_100)
+								{
+									parts[$"FI{valveSize.Code}X{latPipeSize.Code}SSRB"].Quantity += 1;
+								}
+								else if (latPipeSize == PartSize.SIZE_125)
+								{
+									parts[$"FI{PartSize.SIZE_125.Code}SSCOUP"].Quantity += 1;
+								}
+							}
+							else if (valveSize == PartSize.SIZE_150)
+							{
+								if (latPipeSize < PartSize.SIZE_100)
+								{
+									parts[$"FI{PartSize.SIZE_100.Code}X{latPipeSize.Code}SSRB"].Quantity += 1;
+								}
+								else if (latPipeSize == PartSize.SIZE_125)
+								{
+									parts[$"FI{PartSize.SIZE_150.Code}SSCOUP"].Quantity += 1;
+									parts[$"FI{PartSize.SIZE_150.Code}X{PartSize.SIZE_125.Code}SSRB"].Quantity += 1;
+								}
+								else if (latPipeSize == PartSize.SIZE_150)
+								{
+									parts[$"FI{PartSize.SIZE_150.Code}SSCOUP"].Quantity += 1;
+								}
+							}
+							else if (valveSize == PartSize.SIZE_200)
+							{
+								if (latPipeSize < PartSize.SIZE_150)
+								{
+									parts[$"FI{PartSize.SIZE_150.Code}X{latPipeSize.Code}SSRB"].Quantity += 1;
+								}
+								else if (latPipeSize == PartSize.SIZE_200)
+								{
+									parts[$"FI{PartSize.SIZE_200.Code}SSCOUP"].Quantity += 1;
+								}
+							}
+						}
+						else // MIPT
+						{
+							// Add transition nipple out of valve and slip adapter
+							var transitionSize = valveSize == PartSize.SIZE_100 ? string.Empty : valveSize.Code;
+							parts[$"AF18017{transitionSize}"].Quantity += 1;
+							parts[$"AF18012{transitionSize}"].Quantity += 1;
+
+							if (valveSize == PartSize.SIZE_100)
+							{
+								if (latPipeSize < PartSize.SIZE_100)
+								{
+									parts[$"FI{valveSize.Code}X{latPipeSize.Code}SSRB"].Quantity += 1;
+								}
+								else if (latPipeSize == PartSize.SIZE_125)
+								{
+									parts[$"FI{PartSize.SIZE_125.Code}SSCOUP"].Quantity += 1;
+								}
+							}
+						}
+					}
 				}
-
-				//if (AssociatedValveBox != null && AssociatedValveBox.UseManifold)
-				//{
-				//	// Add inlet MA
-				//	switch (valveSizeIndex)
-				//	{
-				//		case 2: // 1"
-				//			parts["AF18010"].Quantity += 1;
-				//			break;
-				//		case 4: // 1-1/2"
-				//			parts["AF18010150"].Quantity += 1;
-				//			break;
-				//		case 5: // 2"
-				//			parts["AF18010200"].Quantity += 1;
-				//			break;
-				//	}
-				//}
 				else
 				{
-					//int mainPipeSizeIndex = m_PipeSizeList.IndexOf(mainPipe.PipeSize);
-					string toeCode = string.Format("NI{0}X4TOE", valveSize.Code);
-
-					if (!parts.ContainsKey(toeCode))
-					{
-						parts.Add(toeCode, new TNT.LSD.Inventory.Part() { Code = toeCode });
-					}
-
-					parts[toeCode].Quantity += 1;
+					throw new NotImplementedException();
 				}
+			}
+
+			//if (AssociatedValveBox != null && AssociatedValveBox.UseManifold)
+			//{
+			//	// Add inlet MA
+			//	switch (valveSizeIndex)
+			//	{
+			//		case 2: // 1"
+			//			parts["AF18010"].Quantity += 1;
+			//			break;
+			//		case 4: // 1-1/2"
+			//			parts["AF18010150"].Quantity += 1;
+			//			break;
+			//		case 5: // 2"
+			//			parts["AF18010200"].Quantity += 1;
+			//			break;
+			//	}
+			//}
+			else
+			{
+				//int mainPipeSizeIndex = m_PipeSizeList.IndexOf(mainPipe.PipeSize);
+				string toeCode = string.Format("NI{0}X4TOE", valveSize.Code);
+
+				if (!parts.ContainsKey(toeCode))
+				{
+					parts.Add(toeCode, new TNT.LSD.Inventory.Part() { Code = toeCode });
+				}
+
+				parts[toeCode].Quantity += 1;
 			}
 
 			return;
@@ -327,6 +452,12 @@ namespace TNT.LSD.Objects
 			//}
 		}
 
+		/// <summary>
+		/// Indicates if a pipe can be connected to this <see cref="Valve"/>
+		/// </summary>
+		/// <param name="pipeType">Type of <see cref="Pipe"/></param>
+		/// <param name="reason">Reason that can be returned indicating why the pipe could not be added</param>
+		/// <returns>True if <see cref="Pipe"/> of type <paramref name="pipeType"/> can be added, false otherwise</returns>
 		public override bool CanAddPipe(System.Type pipeType, out string reason)
 		{
 			base.CanAddPipe(pipeType, out reason);
@@ -347,11 +478,11 @@ namespace TNT.LSD.Objects
 			return true;
 		}
 
-		//public override bool TerminatePipe()
-		//{
-		//	return true;
-		//}
-
+		/// <summary>
+		/// Sizes the lateral line pipe
+		/// </summary>
+		/// <param name="upstreamPipe"></param>
+		/// <returns>The required flow from this point on downstream</returns>
 		public override double SizePipe(Pipe upstreamPipe)
 		{
 			if (!Sized)
@@ -371,6 +502,10 @@ namespace TNT.LSD.Objects
 			return RequiredFlow;
 		}
 
+		/// <summary>
+		/// Gets the count of the <see cref="Pipe"/> connections of type <paramref name="pipeType"/>
+		/// </summary>
+		/// <returns>Count of the <see cref="Pipe"/> connections of type <paramref name="pipeType"/></returns>
 		public int GetPipeCount(System.Type pipeType)
 		{
 			return m_Pipes.FindAll(p => p.GetType() == pipeType)?.Count ?? 0;
