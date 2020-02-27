@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
@@ -16,22 +14,27 @@ namespace TNT.LSD.Objects
 	/// </summary>
 	public class DripAdapter : LateralPart
 	{
+		/// <summary>
+		/// Type of pipe stubbed to the surface
+		/// </summary>
 		[Description("Type of pipe stubbed to the surface")]
 		public StubType Stub { get; set; }
 
 		#region Constructors
 
-		public DripAdapter(Point position, String fileName)
-			: base(position, fileName)
-		{
-		}
-
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="obj">Object to copy</param>
 		public DripAdapter(DripAdapter obj)
 			: base(obj)
 		{
+			Stub = obj.Stub;
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public DripAdapter()
 			: base()
 		{
@@ -41,89 +44,70 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
+		/// <summary>
+		/// Clones this <see cref="DripAdapter"/>
+		/// </summary>
+		/// <returns></returns>
 		public override TNTObject Clone()
 		{
 			return new DripAdapter(this);
 		}
 
+		/// <summary>
+		/// Adds the parts needed to stub off the pipe
+		/// </summary>
 		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 
-			if (m_Pipes == null || m_Pipes.Count < 1)
+			var maxPipeSize = GetMaxPipeSize(typeof(LateralPipe));
+			var minPipeSize = m_Pipes.Count > 1 ? GetMinPipeSize(typeof(LateralPipe)) : null;
+
+			// Only add parts if there is a lateral line connected
+			if (maxPipeSize == null) return;
+
+			if (Stub == StubType.FunnyPipe)
 			{
-				return;
-			}
-
-			string pipeCode = SIZE_CODE[GetMaxPipeSizeIndex()];
-			string outletCode = SIZE_CODE[0];
-
-			#region Fitting
-
-			string fittingCode = string.Empty;
-
-			if (m_Pipes.Count == 1)
-			{
-				// Need to add elbow
-				if (this.Stub == StubType.PVC)
+				if (minPipeSize == null)// && maxPipeSize <= PartSize.SIZE_100)
 				{
-					fittingCode = string.Format("FI{0}SS90", pipeCode);
+					var elbowCode = $"FI{maxPipeSize.Code}X{PartSize.SIZE_050.Code}ST90";
+
+					if (!parts.ContainsKey(elbowCode))
+					{
+						parts.Add(elbowCode, new Part() { Code = elbowCode });
+					}
+
+					parts[elbowCode].Quantity += 1;
 				}
-				else if (this.Stub == StubType.FunnyPipe)
+				else
 				{
-					if (pipeCode == outletCode)
-					{
-						fittingCode = string.Format("FI{0}ST90", pipeCode);
-					}
-					else
-					{
-						fittingCode = string.Format("FI{0}X{1}ST90", pipeCode, outletCode);
-					}
+					parts[$"FI{maxPipeSize.Code}X{PartSize.SIZE_050.Code}SSTTEE"].Quantity += 1;
 				}
-			}
-			else
-			{
-				// Need to add tee
-				if (this.Stub == StubType.PVC)
-				{
-					fittingCode = string.Format("FI{0}SSSTEE", pipeCode);
-				}
-				else if (this.Stub == StubType.FunnyPipe)
-				{
-					if (pipeCode == outletCode)
-					{
-						fittingCode = string.Format("FI{0}SSTTEE", pipeCode);
-					}
-					else
-					{
-						fittingCode = string.Format("FI{0}X{1}SSTTEE", pipeCode, outletCode);
-					}
-				}
-			}
 
-			if (!parts.ContainsKey(fittingCode))
-			{
-				parts.Add(fittingCode, new Part() { Code = fittingCode });
-			}
-
-			parts[fittingCode].Quantity += 1;
-
-			#endregion
-
-			#region Funny Pipe/pvc
-
-			if (this.Stub == StubType.PVC)
-			{
-				parts[$"PI{pipeCode}"].Quantity += 1;
-				parts[$"FI{pipeCode}SCAP"].Quantity += 1;
-			}
-			else if (this.Stub == StubType.FunnyPipe)
-			{
 				parts["FPSBE050"].Quantity += 1;
 				parts["FUNNYPIPE"].Quantity += 1;
+				parts["HRFIG8"].Quantity += 1;
 			}
+			else if (Stub == StubType.PVC)
+			{
+				if (minPipeSize == null)
+				{
+					parts[$"FI{maxPipeSize.Code}SS90"].Quantity += 1;
+				}
+				else
+				{
+					parts[$"FI{maxPipeSize.Code}SSSTEE"].Quantity += 1;
 
-			#endregion
+				}
+
+				if (maxPipeSize > PartSize.SIZE_075)
+				{
+					parts[$"FI{maxPipeSize.Code}X{PartSize.SIZE_075.Code}SSRB"].Quantity += 1;
+				}
+
+				parts[$"PI{PartSize.SIZE_075.Code}"].Quantity += 1;
+				parts[$"FI{PartSize.SIZE_075.Code}SCAP"].Quantity += 1;
+			}
 		}
 
 		#endregion

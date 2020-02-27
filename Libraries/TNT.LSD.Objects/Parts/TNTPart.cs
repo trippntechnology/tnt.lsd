@@ -327,5 +327,27 @@ namespace TNT.LSD.Objects
 
 			return sizeIndex;
 		}
+
+		/// <summary>
+		/// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
+		/// </summary>
+		/// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
+		virtual protected PartSize GetMaxPipeSize(System.Type pipeType)
+		{
+			int index = PartSize.SIZE_050.Index - 1;
+			m_Pipes.FindAll(p => p.GetType() == pipeType).ForEach(p => index = System.Math.Max(index, p.PipeSizeIndex));
+			return PartSize.GetSize(index);
+		}
+
+		/// <summary>
+		/// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
+		/// </summary>
+		/// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
+		virtual protected PartSize GetMinPipeSize(System.Type pipeType)
+		{
+			int index = PartSize.SIZE_200.Index + 1;
+			m_Pipes.FindAll(p => p.GetType() == pipeType).ForEach(p => index = System.Math.Min(index, p.PipeSizeIndex));
+			return PartSize.GetSize(index);
+		}
 	}
 }
