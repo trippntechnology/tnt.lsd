@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
@@ -200,6 +199,58 @@ namespace TNT.LSD.Objects
 		public override bool TerminatePipe() => true;
 
 		/// <summary>
+		/// Adds parts between source and S&W
+		/// </summary>
+		private void AddSW(CodedParts parts, SystemType systemType, PartSize mainSize, PartSize sourceSize)
+		{
+			// Get length of key for CL200 pipe
+			Match match = Regex.Match(SWKey, "(?<feet>[0-9]*)'");
+			int keyLength = 5;
+
+			if (match.Success)
+			{
+				keyLength = Convert.ToInt32(match.Groups["feet"].Value);
+			}
+
+			// Add cl200 pipe and snug cap
+			parts.Add("PI200C", System.Math.Max(5, keyLength));
+			parts.Add("2SNUGCAP", 1);
+
+			string tee = string.Format("BN{0}TEE", sourceSize.Code);
+
+			if (SourceType == "Copper")
+			{
+				// Copper compression tee
+				parts.Add(string.Format("BCT{0}CTS{0}FIPT", sourceSize.Code), 1);
+			}
+			else if (SourceType == "Poly" || SourceType == "Galvanized")
+			{
+				// Pack joints and tee
+				parts.Add(string.Format("PJ{0}IPSX{0}MIP", sourceSize.Code), 2);
+				parts.Add(tee, 1);
+			}
+			else if (SourceType == "Poly CTS")
+			{
+				// Pack joints, tee, and stiffiners
+				parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code), 2);
+				parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize.Code), 2);
+				parts.Add(tee, 1);
+			}
+			else if (SourceType == "PVC")
+			{
+				// PVC tee
+				parts.Add(string.Format("FI{0}SSTTEE", sourceSize.Code), 1);
+			}
+
+			// Brass nipple in and out of SW
+			parts.Add(string.Format("BN{0}X2", sourceSize.Code), 2);
+			// SW
+			parts.Add(string.Format("SW{0}", sourceSize.Code), 1);
+			// Elbow off nipple
+			parts.Add(string.Format("BN{0}90", sourceSize.Code), 1);
+		}
+
+		/// <summary>
 		/// Sets the parts associated with this source
 		/// </summary>
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
@@ -213,115 +264,80 @@ namespace TNT.LSD.Objects
 			// Add S&W key if specified
 			if (!string.IsNullOrEmpty(SWKeyCode))
 			{
-				parts[SWKeyCode].Quantity += 1;
+				parts.Add(SWKeyCode, 1);
 			}
 
 			if (IncludeSW)
 			{
-				#region S&W
-
-				// Get length of key for CL200 pipe
-				Match match = Regex.Match(SWKey, "(?<feet>[0-9]*)'");
-				int keyLength = 5;
-
-				if (match.Success)
-				{
-					keyLength = Convert.ToInt32(match.Groups["feet"].Value);
-				}
-
-				// Add cl200 pipe and snug cap
-				parts["PI200C"].Quantity += System.Math.Max(5, keyLength);
-				parts["2SNUGCAP"].Quantity += 1;
-
-				string tee = string.Format("BN{0}TEE", sourceSize.Code);
-				string nipples = string.Format("BN{0}X2", sourceSize.Code);
-				string sw = string.Format("SW{0}", sourceSize.Code);
-
-				if (SourceType == "Copper")
-				{
-					GetPart(parts, string.Format("BCT{0}CTS{0}FIPT", sourceSize.Code)).Quantity += 1;
-				}
-				else if (SourceType == "Poly" || SourceType == "Galvanized")
-				{
-					GetPart(parts, string.Format("PJ{0}IPSX{0}MIP", sourceSize.Code)).Quantity += 2;
-					GetPart(parts, tee).Quantity += 1;
-				}
-				else if (SourceType == "Poly CTS")
-				{
-					GetPart(parts, string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code)).Quantity += 2;
-					GetPart(parts, string.Format("PJ{0}CTSSTIFFENER", sourceSize.Code)).Quantity += 2;
-					GetPart(parts, tee).Quantity += 1;
-				}
-				else if (SourceType == "PVC")
-				{
-					GetPart(parts, string.Format("FI{0}SSTTEE", sourceSize.Code)).Quantity += 1;
-				}
-
-				GetPart(parts, nipples).Quantity += 1;
-				GetPart(parts, string.Format("NI{0}X4TOE", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, sw).Quantity += 1;
-
-				#endregion
-			}
-			else if (SourceType == "Copper")
-			{
-				GetPart(parts, string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("BN{0}90", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("NI{0}X4TOE", sourceSize.Code)).Quantity += 1;
+				AddSW(parts, systemType, mainSize, sourceSize);  // Ends with female thread connection
 			}
 			else if (SourceType == "PVC")
 			{
-				GetPart(parts, string.Format("FI{0}SSSTEE", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("FI{0}SSCOUP", sourceSize.Code)).Quantity += 1;
+				parts.Add(string.Format("FI{0}SSTTEE", sourceSize.Code), 1);
 			}
-			else if (SourceType == "Galvanized" || SourceType == "Poly")
+			else
 			{
-				GetPart(parts, string.Format("PJ{0}IPSX{0}MIP", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("BN{0}90", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("NI{0}X4TOE", sourceSize.Code)).Quantity += 1;
-			}
-			else if (SourceType == "Poly CTS")
-			{
-				GetPart(parts, string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("PJ{0}CTSSTIFFENER", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("BN{0}90", sourceSize.Code)).Quantity += 1;
-				GetPart(parts, string.Format("NI{0}X4TOE", sourceSize.Code)).Quantity += 1;
-			}
-
-			if (IncludeSW || SourceType != "PVC")
-			{
-				if (sourceSize <= mainSize)
+				if (SourceType == "Copper")
 				{
-					GetPart(parts, string.Format("FI{0}SSCOUPSCH80", mainSize.Code)).Quantity += 1;
+					parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code), 1);
+				}
+				else if (SourceType == "Galvanized" || SourceType == "Poly")
+				{
+					parts.Add(string.Format("PJ{0}IPSX{0}MIP", sourceSize.Code), 1);
+				}
+				else if (SourceType == "Poly CTS")
+				{
+					parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code), 1);
+					parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize.Code), 1);
 				}
 
+				// Brass elbo to redirect
+				parts.Add(string.Format("BN{0}90", sourceSize.Code), 1);
+			}
+
+			if (systemType == SystemType.PVC)
+			{
 				if (sourceSize < mainSize)
 				{
-					GetPart(parts, string.Format("FI{0}X{1}SSRBSCH80", mainSize.Code, sourceSize.Code)).Quantity += 1;
+					parts.Add($"NI{sourceSize.Code}X4", 1);
+					parts.Add($"FI{mainSize.Code}SSCOUP", 1);
+					parts.Add($"FI{mainSize.Code}X{sourceSize.Code}STRB", 1);
 				}
 				else if (sourceSize > mainSize)
 				{
-					GetPart(parts, string.Format("FI{0}SSCOUPSCH80", sourceSize.Code)).Quantity += 1;
-					GetPart(parts, string.Format("FI{0}X{1}SSRB", sourceSize.Code, mainSize.Code)).Quantity += 1;
+					parts.Add($"NI{sourceSize.Code}X4TOE", 1);
+					parts.Add($"FI{sourceSize.Code}SSCOUP", 1);
+					parts.Add($"FI{sourceSize.Code}X{mainSize.Code}SSRB", 1);
+				}
+				else
+				{
+					// Same
+					parts.Add($"NI{sourceSize.Code}X4TOE", 1);
+					parts.Add($"FI{sourceSize.Code}SSCOUP", 1);
+				}
+			}
+			else
+			{
+				// Thread to barbed ma out of SW
+				if (sourceSize > mainSize)
+				{
+					parts.Add($"PF{mainSize.Code}BTMA", 1);
+					parts.Add($"FI{sourceSize.Code}X{mainSize.Code}TTRB", 1);
+				}
+				else if (sourceSize < mainSize)
+				{
+					parts.Add($"PF{mainSize.Code}BTFA", 1);
+					parts.Add($"FI{mainSize.Code}X{sourceSize.Code}TTRB", 1);
+					parts.Add($"NI{sourceSize.Code}X4", 1);
+				}
+				else
+				{
+					// Same
+					parts.Add($"PF{mainSize.Code}BTMA", 1);
 				}
 
-				GetPart(parts, string.Format("FI{0}SS90", mainSize.Code)).Quantity += 1;
-
-				//// Added elbow
-				//if (sourceSizeIndex == mainSizeIndex)
-				//{
-				//	GetPart(parts, string.Format("FI{0}ST90", sourceSizeCode)).Quantity += 1;
-				//}
-				//else if (sourceSizeIndex < mainSizeIndex)
-				//{
-				//	GetPart(parts, string.Format("FI{0}SS90", mainSizeCode)).Quantity += 1;
-				//	GetPart(parts, string.Format("FI{0}X{1}STRB", mainSizeCode, sourceSizeCode)).Quantity += 1;
-				//}
-				//else
-				//{
-				//	GetPart(parts, string.Format("FI{0}ST90", sourceSizeCode)).Quantity += 1;
-				//	GetPart(parts, string.Format("FI{0}X{1}SSRBSCH80", sourceSizeCode, mainSizeCode)).Quantity += 1;
-				//}
+				var hcCode = mainSize == PartSize.SIZE_125 ? PartSize.SIZE_150.Code : mainSize.Code;
+				parts.Add($"HC{hcCode}", 1);
 			}
 		}
 	}
