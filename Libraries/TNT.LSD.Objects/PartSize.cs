@@ -107,6 +107,6 @@ namespace TNT.LSD.Objects
 		/// Formatted for debugging inspection
 		/// </summary>
 		/// <returns><see cref="PartSize"/></returns>
-		public override string ToString() => this.Readable;
+		public override string ToString() => this.Code;
 	}
 }
