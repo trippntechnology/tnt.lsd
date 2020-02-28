@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
@@ -37,7 +38,7 @@ namespace TNT.LSD.Objects
 			return new Backflow(this);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			int pipeSizeIndex = Pipes != null && Pipes.Count > 0 ? m_PipeSizeList.IndexOf(Pipes[0].PipeSize) : 2;
 

@@ -351,7 +351,7 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		/// <param name="parts">List of parts who's quantities should be updated</param>
 		/// <param name="systemType">Indicates the type of system</param>
-		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			List<string> codes;
 			switch (systemType)

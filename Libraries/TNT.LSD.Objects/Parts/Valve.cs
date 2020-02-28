@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Linq;
 using System.Xml.Serialization;
+using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
@@ -192,7 +193,7 @@ namespace TNT.LSD.Objects
 		public override TNTObject Clone() => new Valve(this);
 
 
-		public override void SetPartQuantity(Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 

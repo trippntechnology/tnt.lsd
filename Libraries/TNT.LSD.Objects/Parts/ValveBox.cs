@@ -181,7 +181,7 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Updates the <paramref name="parts"/> with the quantities associated with this valve box
 		/// </summary>
-		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 

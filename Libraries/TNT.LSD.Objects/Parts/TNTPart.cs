@@ -139,7 +139,7 @@ namespace TNT.LSD.Objects
 			ControlPoints.First().MoveTo(p.X, p.Y, true);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			if (m_Pipes == null || m_Pipes.Count < 2)
 			{

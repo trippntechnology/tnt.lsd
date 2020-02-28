@@ -109,7 +109,7 @@ namespace TNT.LSD.Objects
 			base.Assign(obj);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 

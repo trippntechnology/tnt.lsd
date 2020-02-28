@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
+using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
@@ -64,7 +65,7 @@ namespace TNT.LSD.Objects
 			return isOver;
 		}
 
-		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 

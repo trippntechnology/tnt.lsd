@@ -88,7 +88,7 @@ namespace TNT.LSD.Objects
 			return base.SizePipe(upstreamPipe);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 			parts["FLAG"].Quantity += 1;

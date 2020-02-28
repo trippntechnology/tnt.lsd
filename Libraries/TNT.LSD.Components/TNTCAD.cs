@@ -1157,7 +1157,7 @@ namespace LSDComponents
 		public List<Part> GetPartsList()
 		{
 			List<TNTObject> partsObjects = m_State.ObjectLayers[2];
-			Dictionary<string, Part> inventoryParts = DALPart.GetParts();
+			var inventoryParts = DALPart.GetParts();
 			List<BasePart> parts = (from p in partsObjects where p is BasePart select p as BasePart).ToList();
 
 			// When calculating parts, deterimine if valves are within a valve box and create the association

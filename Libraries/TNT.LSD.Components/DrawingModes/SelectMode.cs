@@ -133,7 +133,7 @@ namespace LSDComponents.DrawingModes
 					}
 					else if (cad.ShowPartsToolTip && m_ShowToolTip && m_UnderlaidObject is BasePart)
 					{
-						Dictionary<string, Part> parts = DALPart.GetParts();
+						var parts = DALPart.GetParts();
 						(m_UnderlaidObject as BasePart).SetPartQuantity(parts, cad.Settings.SystemType);
 						StringBuilder sb = new StringBuilder();
 						List<Part> partsList = (from p in parts where (p.Value as Part).Quantity > 0 select p.Value).ToList();

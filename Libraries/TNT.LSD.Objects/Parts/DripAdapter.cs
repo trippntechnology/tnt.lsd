@@ -56,7 +56,7 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Adds the parts needed to stub off the pipe
 		/// </summary>
-		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts, SystemType systemType)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
 

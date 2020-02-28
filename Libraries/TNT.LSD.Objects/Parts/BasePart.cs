@@ -56,7 +56,7 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		/// <param name="parts">Dictionary of parts</param>
 		/// <param name="systemType">Indicates the type of parts to set</param>
-		abstract public void SetPartQuantity(Dictionary<string, Part> parts, SystemType systemType);
+		abstract public void SetPartQuantity(CodedParts parts, SystemType systemType);
 
 		/// <summary>
 		/// Called to deterimine if this pipe type can be added to this part
