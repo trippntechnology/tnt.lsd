@@ -195,11 +195,10 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Indicates that this is a terminating part (only one connection allowed)
 		/// </summary>
-		/// <returns></returns>
 		public override bool TerminatePipe() => true;
 
 		/// <summary>
-		/// Adds parts between source and S&W
+		/// Adds parts between source and S&W. Connecting part is BN90 female threaded
 		/// </summary>
 		private void AddSW(CodedParts parts, SystemType systemType, PartSize mainSize, PartSize sourceSize)
 		{
@@ -216,38 +215,38 @@ namespace TNT.LSD.Objects
 			parts.Add("PI200C", System.Math.Max(5, keyLength));
 			parts.Add("2SNUGCAP", 1);
 
-			string tee = string.Format("BN{0}TEE", sourceSize.Code);
+			string tee = string.Format("BN{0}TEE", sourceSize);
 
 			if (SourceType == "Copper")
 			{
 				// Copper compression tee
-				parts.Add(string.Format("BCT{0}CTS{0}FIPT", sourceSize.Code), 1);
+				parts.Add(string.Format("BCT{0}CTS{0}FIPT", sourceSize), 1);
 			}
 			else if (SourceType == "Poly" || SourceType == "Galvanized")
 			{
 				// Pack joints and tee
-				parts.Add(string.Format("PJ{0}IPSX{0}MIP", sourceSize.Code), 2);
+				parts.Add(string.Format("PJ{0}IPSX{0}MIP", sourceSize), 2);
 				parts.Add(tee, 1);
 			}
 			else if (SourceType == "Poly CTS")
 			{
 				// Pack joints, tee, and stiffiners
-				parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code), 2);
-				parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize.Code), 2);
+				parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize), 2);
+				parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize), 2);
 				parts.Add(tee, 1);
 			}
 			else if (SourceType == "PVC")
 			{
 				// PVC tee
-				parts.Add(string.Format("FI{0}SSTTEE", sourceSize.Code), 1);
+				parts.Add(string.Format("FI{0}STFA", sourceSize), 1);
 			}
 
 			// Brass nipple in and out of SW
-			parts.Add(string.Format("BN{0}X2", sourceSize.Code), 2);
+			parts.Add(string.Format("BN{0}X2", sourceSize), 2);
 			// SW
-			parts.Add(string.Format("SW{0}", sourceSize.Code), 1);
+			parts.Add(string.Format("SW{0}", sourceSize), 1);
 			// Elbow off nipple
-			parts.Add(string.Format("BN{0}90", sourceSize.Code), 1);
+			parts.Add(string.Format("BN{0}90", sourceSize), 1);
 		}
 
 		/// <summary>
@@ -271,72 +270,74 @@ namespace TNT.LSD.Objects
 			{
 				AddSW(parts, systemType, mainSize, sourceSize);  // Ends with female thread connection
 			}
-			else if (SourceType == "PVC")
-			{
-				parts.Add(string.Format("FI{0}SSTTEE", sourceSize.Code), 1);
-			}
 			else
 			{
 				if (SourceType == "Copper")
 				{
-					parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code), 1);
+					parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize), 1);
 				}
 				else if (SourceType == "Galvanized" || SourceType == "Poly")
 				{
-					parts.Add(string.Format("PJ{0}IPSX{0}MIP", sourceSize.Code), 1);
+					parts.Add(string.Format("PJ{0}IPSX{0}MIP", sourceSize), 1);
 				}
 				else if (SourceType == "Poly CTS")
 				{
-					parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize.Code), 1);
-					parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize.Code), 1);
+					parts.Add(string.Format("PJ{0}CTSX{0}MIP", sourceSize), 1);
+					parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize), 1);
 				}
 
 				// Brass elbo to redirect
-				parts.Add(string.Format("BN{0}90", sourceSize.Code), 1);
+				parts.Add(string.Format("BN{0}90", sourceSize), 1);
 			}
 
 			if (systemType == SystemType.PVC)
 			{
 				if (sourceSize < mainSize)
 				{
-					parts.Add($"NI{sourceSize.Code}X4", 1);
-					parts.Add($"FI{mainSize.Code}SSCOUP", 1);
-					parts.Add($"FI{mainSize.Code}X{sourceSize.Code}STRB", 1);
+					if (IncludeSW || SourceType != "PVC") parts.Add($"NI{sourceSize}X4", 1);
+
+					parts.Add($"FI{mainSize}X{sourceSize}STRB", 1);
+					parts.Add($"FI{mainSize}SSCOUP", 1);
 				}
 				else if (sourceSize > mainSize)
 				{
-					parts.Add($"NI{sourceSize.Code}X4TOE", 1);
-					parts.Add($"FI{sourceSize.Code}SSCOUP", 1);
-					parts.Add($"FI{sourceSize.Code}X{mainSize.Code}SSRB", 1);
+					if (IncludeSW || SourceType != "PVC") parts.Add($"NI{sourceSize}X4TOE", 1);
+
+					parts.Add($"FI{sourceSize}X{mainSize}SSRB", 1);
+					parts.Add($"FI{sourceSize}SSCOUP", 1);
 				}
 				else
 				{
 					// Same
-					parts.Add($"NI{sourceSize.Code}X4TOE", 1);
-					parts.Add($"FI{sourceSize.Code}SSCOUP", 1);
+					if (IncludeSW || SourceType != "PVC") parts.Add($"NI{sourceSize}X4TOE", 1);
+					
+					parts.Add($"FI{sourceSize}SSCOUP", 1);
 				}
 			}
 			else
 			{
+				// Add FA to PVC source that didn't need SW
+				if (!IncludeSW && SourceType == "PVC") parts.Add($"FI{sourceSize}STFA", 1);
+
 				// Thread to barbed ma out of SW
 				if (sourceSize > mainSize)
 				{
-					parts.Add($"PF{mainSize.Code}BTMA", 1);
-					parts.Add($"FI{sourceSize.Code}X{mainSize.Code}TTRB", 1);
+					parts.Add($"PF{mainSize}BTMA", 1);
+					parts.Add($"FI{sourceSize}X{mainSize}TTRB", 1);
 				}
 				else if (sourceSize < mainSize)
 				{
-					parts.Add($"PF{mainSize.Code}BTFA", 1);
-					parts.Add($"FI{mainSize.Code}X{sourceSize.Code}TTRB", 1);
-					parts.Add($"NI{sourceSize.Code}X4", 1);
+					parts.Add($"PF{mainSize}BTFA", 1);
+					parts.Add($"FI{mainSize}X{sourceSize}TTRB", 1);
+					parts.Add($"NI{sourceSize}X4", 1);
 				}
 				else
 				{
 					// Same
-					parts.Add($"PF{mainSize.Code}BTMA", 1);
+					parts.Add($"PF{mainSize}BTMA", 1);
 				}
 
-				var hcCode = mainSize == PartSize.SIZE_125 ? PartSize.SIZE_150.Code : mainSize.Code;
+				var hcCode = mainSize == PartSize.SIZE_125 ? PartSize.SIZE_150 : mainSize;
 				parts.Add($"HC{hcCode}", 1);
 			}
 		}
