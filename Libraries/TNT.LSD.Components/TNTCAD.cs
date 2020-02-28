@@ -1193,9 +1193,17 @@ namespace LSDComponents
 			// Mainline drains
 			if (source != null && source.Pipes.Count > 0)
 			{
-				inventoryParts["KD22"].Quantity += State.MainlineDrains;
-				string pipeCode = m_PipeSizeList.SizeToCode(source.Pipes[0].PipeSize);
-				inventoryParts[string.Format("FI{0}X050SSTTEE", pipeCode)].Quantity += State.MainlineDrains;
+				inventoryParts.Add("KD22", State.MainlineDrains);
+				var mainSize = PartSize.GetSize(source.Pipes[0].PipeSizeIndex);
+				if (Settings.SystemType == SystemType.PVC)
+				{
+					inventoryParts.Add($"FI{mainSize.Code}X050SSTTEE", State.MainlineDrains);
+				}
+				else
+				{
+					inventoryParts.Add($"PF{mainSize.Code}X050BBTTEE", State.MainlineDrains);
+					inventoryParts.Add($"HC{mainSize.Code}", State.MainlineDrains * 2);
+				}
 			}
 
 			// Lateral drains

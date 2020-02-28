@@ -5,31 +5,40 @@ using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a fitting
+	/// </summary>
 	public class Fitting : TNTPart
 	{
 		private const int FOOTPRINT = 8;
-		private const int SIZE = 5;
 
-		#region Static
-
-		private static string[] SLIP_CAPS = { "FI050SCAP", "FI075SCAP", "FI100SCAP", "FI125SCAP", "FI150SCAP", "FI200SCAP" };
-
-		#endregion
-
+		/// <summary>
+		/// Indicates if this <see cref="TNTPart"/> can be cloned. Aways returns false
+		/// </summary>
 		public override bool CanClone { get { return false; } }
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public Fitting()
 			: base()
 		{
 			Color = Color.Black;
 		}
 
+		/// <summary>
+		/// Constructor that positions the fitting at <paramref name="position"/>
+		/// </summary>
 		public Fitting(Point position)
 			: base(position)
 		{
 			Color = Color.Black;
 		}
 
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="obj"></param>
 		public Fitting(Fitting obj)
 			: base(obj)
 		{
@@ -38,6 +47,9 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
+		/// <summary>
+		/// Draws a circle that represents the fitting
+		/// </summary>
 		public override void Draw(Graphics graphics, DrawingOptions drawingOptions)
 		{
 			base.Draw(graphics, drawingOptions);
@@ -50,6 +62,10 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Indicates if the maouse is over the fitting
+		/// </summary>
+		/// <returns>True if over, false otherwise</returns>
 		public override TNTObject MouseOver(Point mousePosition, System.Windows.Forms.Keys modifierKeys)
 		{
 			TNTObject isOver = null;
@@ -65,6 +81,9 @@ namespace TNT.LSD.Objects
 			return isOver;
 		}
 
+		/// <summary>
+		/// Adds a slip cap or plug if this fitting only has one pipe connection.
+		/// </summary>
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
@@ -74,17 +93,32 @@ namespace TNT.LSD.Objects
 				return;
 			}
 
-			int maxPipeSizeIndex = GetMaxPipeSizeIndex();
-
-			parts[SLIP_CAPS[maxPipeSizeIndex]].Quantity += 1;
+			var pipeSize = PartSize.GetSize(m_Pipes[0].PipeSizeIndex);
+			if (systemType == SystemType.PVC)
+			{
+				parts.Add($"FI{pipeSize.Code}SCAP", 1);
+			}
+			else
+			{
+				var hcCode = pipeSize == PartSize.SIZE_125 ? PartSize.SIZE_150.Code : pipeSize.Code;
+				parts.Add($"PF{pipeSize.Code}PLUG", 1);
+				parts.Add($"HC{hcCode}", 1);
+			}
 		}
 
+		/// <summary>
+		/// Sizes the pipe
+		/// </summary>
+		/// <returns>The required flow at this point</returns>
 		public override double SizePipe(Pipe upstreamPipe)
 		{
 			RequiredFlow = 0;
 			return base.SizePipe(upstreamPipe);
 		}
 
+		/// <summary>
+		/// Sets the selected control point to null
+		/// </summary>
 		public override void MouseDown(Point mousePosition, System.Windows.Forms.Keys modifierKeys)
 		{
 			// This was neccessary to keep other objects selected when click on an already selected fitting to
