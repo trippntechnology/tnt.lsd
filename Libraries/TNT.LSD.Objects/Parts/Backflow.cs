@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
@@ -98,10 +97,10 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			if (Pipes == null) return;
+			if (Pipes == null || Pipes.Count < 2) return;
 
-			var pipeSize1 = Pipes.Count > 0 ? PartSize.GetSize(Pipes[0].PipeSizeIndex) : null;
-			var pipeSize2 = Pipes.Count > 0 ? PartSize.GetSize(Pipes[1].PipeSizeIndex) : null;
+			var pipeSize1 = PartSize.GetSize(Pipes[0].PipeSizeIndex);
+			var pipeSize2 = PartSize.GetSize(Pipes[1].PipeSizeIndex);
 			var maxPipeSize = pipeSize1 > pipeSize2 ? pipeSize1 : pipeSize2;
 
 			// This condition is in place so that a 1" backflow is figured for 1-1/4" mainline
