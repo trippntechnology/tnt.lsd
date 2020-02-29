@@ -177,58 +177,96 @@ namespace TNT.LSD.Objects
 			if (Pipes == null || Pipes.Count < 2) return; // This case will be handed by subclasses implementation
 
 			var fittingSize = GetMaxPipeSize();
-
-			var teeCode = $"FI{fittingSize}SSSTEE";
-			var nintyCode = $"FI{fittingSize}SS90";
-			var fortyFiveCode = $"FI{fittingSize}SS45";
-
 			var pairs = GetPipePairs();
 
-			if (pairs.Count == 3)
+			if (systemType == SystemType.PVC)
 			{
-				parts.Add($"FI{fittingSize}SSSTEE", 1);
+				var nintyCode = $"FI{fittingSize}SS90";
+				var fortyFiveCode = $"FI{fittingSize}SS45";
 
-				// Find inline and perpendicular pipes pairs
-				var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
-				var perpPair = pairs.Find(p => p.Item2 == inlinePair.Item1);
-
-				if (inlinePair.Angle < 158)
+				if (pairs.Count == 3)
 				{
-					parts.Add(fortyFiveCode, 1);
+					parts.Add($"FI{fittingSize}SSSTEE", 1);
+
+					// Find inline and perpendicular pipes pairs
+					var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
+					var perpPair = pairs.Find(p => p.Item2 == inlinePair.Item1);
+
+					if (inlinePair.Angle < 158)
+					{
+						parts.Add(fortyFiveCode, 1);
+					}
+
+					if (perpPair.Angle < 68 || perpPair.Angle > 112)
+					{
+						parts.Add(fortyFiveCode, 1);
+					}
+				}
+				else if (pairs.Count == 1)
+				{
+					var angle = pairs[0].Angle;
+
+					if (angle < 68)
+					{
+						parts.Add(nintyCode, 1);
+						parts.Add(fortyFiveCode, 1);
+					}
+					else if (angle < 112)
+					{
+						parts.Add(nintyCode, 1);
+					}
+					else if (angle < 158)
+					{
+						parts.Add(fortyFiveCode, 1);
+					}
 				}
 
-				if (perpPair.Angle < 68 || perpPair.Angle > 112)
+				// Add bushings
+				foreach (Pipe pipe in Pipes)
 				{
-					parts.Add(fortyFiveCode, 1);
+					var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
+
+					if (pipeSize < fittingSize)
+					{
+						parts.Add($"FI{fittingSize}X{pipeSize}SSRB", 1);
+					}
 				}
 			}
-			else if (pairs.Count == 1)
+			else
 			{
-				var angle = pairs[0].Angle;
+				var nintyCode = $"PF{fittingSize}BB90";
 
-				if (angle < 68)
+				if (pairs.Count == 3)
 				{
-					parts.Add(nintyCode, 1);
-					parts.Add(fortyFiveCode, 1);
-				}
-				else if (angle < 112)
-				{
-					parts.Add(nintyCode, 1);
-				}
-				else if (angle < 158)
-				{
-					parts.Add(fortyFiveCode, 1);
-				}
-			}
+					parts.Add($"PF{fittingSize}TEE", 1);
+					parts.AddHoseClamp(fittingSize.Code, 3);
 
-			// Add bushings
-			foreach (Pipe pipe in Pipes)
-			{
-				var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
-
-				if (pipeSize < fittingSize)
+					// Find inline and perpendicular pipes pairs
+					var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
+					var perpPair = pairs.Find(p => p.Item2 == inlinePair.Item1);
+				}
+				else if (pairs.Count == 1)
 				{
-					parts.Add($"FI{fittingSize}X{pipeSize}SSRB", 1);
+					var angle = pairs[0].Angle;
+
+					if (angle < 112)
+					{
+						parts.Add(nintyCode, 1);
+						parts.AddHoseClamp(fittingSize.Code, 2);
+					}
+				}
+
+				// Add bushings
+				foreach (Pipe pipe in Pipes)
+				{
+					var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
+
+					if (pipeSize < fittingSize)
+					{
+						parts.Add($"PF{fittingSize}X{pipeSize}BBRB", 1);
+						parts.AddHoseClamp(fittingSize.Code, 1);
+						parts.AddHoseClamp(pipeSize.Code, 1);
+					}
 				}
 			}
 		}
