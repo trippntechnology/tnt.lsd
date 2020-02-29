@@ -368,25 +368,25 @@ namespace TNT.LSD.Objects
 
 			#endregion
 
-			if (m_Pipes == null || m_Pipes.Count < 1)
+			if (Pipes == null || Pipes.Count < 1)
 			{
 				return;
 			}
 
 			bool isRiser = Regex.IsMatch(BodyCode, "NI[0-9]{3}X[0-9]*");
-			int pipeSizeIndex = GetMaxPipeSizeIndex();
-			int inletSizeIndex = (new TypeConverters.SizeList()).IndexOf(InletSize);
-			int outletSizeIndex = isRiser ? inletSizeIndex : 0;
+			var pipeSize = GetMaxPipeSize();
+			var inletSize = PartSize.GetSizeByReadable(InletSize);
+			var outletSize = isRiser ? inletSize : PartSize.SIZE_050;
 
-			string pipeCode = SIZE_CODE[pipeSizeIndex];
-			string inletCode = SIZE_CODE[inletSizeIndex];
-			string outletCode = SIZE_CODE[outletSizeIndex];
+			string pipeCode = pipeSize.Code;
+			string inletCode = inletSize.Code;
+			string outletCode = outletSize.Code;
 
 			#region Fitting
 
 			string fittingCode = string.Empty;
 
-			if (m_Pipes.Count == 1)
+			if (Pipes.Count == 1)
 			{
 				if (pipeCode == outletCode)
 				{

@@ -183,7 +183,7 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		public override bool CanAddPipe(System.Type pipeType, out string reason)
 		{
-			if (m_Pipes.Count > 0)
+			if (Pipes.Count > 0)
 			{
 				reason = "Only one pipe can be connected to a source";
 				return false;
@@ -270,7 +270,7 @@ namespace TNT.LSD.Objects
 			{
 				AddSW(parts, systemType, mainSize, sourceSize);  // Ends with female thread connection
 			}
-			else
+			else if(SourceType != "PVC")
 			{
 				if (SourceType == "Copper")
 				{
@@ -286,7 +286,7 @@ namespace TNT.LSD.Objects
 					parts.Add(string.Format("PJ{0}CTSSTIFFENER", sourceSize), 1);
 				}
 
-				// Brass elbo to redirect
+				// Brass elbow to redirect
 				parts.Add(string.Format("BN{0}90", sourceSize), 1);
 			}
 

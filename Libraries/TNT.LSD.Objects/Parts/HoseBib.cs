@@ -25,7 +25,7 @@ namespace TNT.LSD.Objects
 		#region Overrides
 		public override bool CanAddPipe(Type pipeType, out string reason)
 		{
-			Pipe pipe = m_Pipes.Find(p => p.GetType() != pipeType);
+			Pipe pipe = Pipes.Find(p => p.GetType() != pipeType);
 
 			if (pipe != null)
 			{

@@ -175,7 +175,7 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		protected override void DrawBackground(Graphics graphics)
 		{
-			Color? backgroundColor = this is Valve ? this.Color : m_Pipes.Count > 0 ? (Color?)m_Pipes[0].PipeColor : null;
+			Color? backgroundColor = this is Valve ? this.Color : Pipes.Count > 0 ? (Color?)Pipes[0].PipeColor : null;
 
 			if (backgroundColor != null && backgroundColor?.ToArgb() != Color.Black.ToArgb())
 			{
@@ -197,8 +197,8 @@ namespace TNT.LSD.Objects
 		{
 			base.SetPartQuantity(parts, systemType);
 
-			var latPipe = m_Pipes.Find(p => p is LateralPipe) as LateralPipe;
-			var mainPipes = m_Pipes.FindAll(p => p is MainlinePipe).ConvertAll(p => p as MainlinePipe);
+			var latPipe = Pipes.Find(p => p is LateralPipe) as LateralPipe;
+			var mainPipes = Pipes.FindAll(p => p is MainlinePipe).ConvertAll(p => p as MainlinePipe);
 			var valveSize = PartSize.GetSize(this.SizeCode);
 
 			System.Diagnostics.Debug.WriteLine($"AssociatedValveBox: {AssociatedValveBox}");
@@ -466,7 +466,7 @@ namespace TNT.LSD.Objects
 		{
 			base.CanAddPipe(pipeType, out reason);
 
-			var pipe = m_Pipes.FindAll(p => p.GetType() == pipeType);
+			var pipe = Pipes.FindAll(p => p.GetType() == pipeType);
 
 			if (pipeType == typeof(MainlinePipe) && pipe?.Count > 1)
 			{
@@ -494,7 +494,7 @@ namespace TNT.LSD.Objects
 				// Only size downstream pipe from valve. Find mainline pipe if exists
 				if (upstreamPipe == null)
 				{
-					upstreamPipe = m_Pipes.Find(p => p is MainlinePipe);
+					upstreamPipe = Pipes.Find(p => p is MainlinePipe);
 				}
 
 				RequiredFlow = 0;
@@ -512,7 +512,7 @@ namespace TNT.LSD.Objects
 		/// <returns>Count of the <see cref="Pipe"/> connections of type <paramref name="pipeType"/></returns>
 		public int GetPipeCount(System.Type pipeType)
 		{
-			return m_Pipes.FindAll(p => p.GetType() == pipeType)?.Count ?? 0;
+			return Pipes.FindAll(p => p.GetType() == pipeType)?.Count ?? 0;
 		}
 
 		#endregion

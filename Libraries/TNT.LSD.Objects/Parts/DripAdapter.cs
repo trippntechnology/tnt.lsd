@@ -61,7 +61,7 @@ namespace TNT.LSD.Objects
 			base.SetPartQuantity(parts, systemType);
 
 			var maxPipeSize = GetMaxPipeSize(typeof(LateralPipe));
-			var minPipeSize = m_Pipes.Count > 1 ? GetMinPipeSize(typeof(LateralPipe)) : null;
+			var minPipeSize = Pipes.Count > 1 ? GetMinPipeSize(typeof(LateralPipe)) : null;
 
 			// Only add parts if there is a lateral line connected
 			if (maxPipeSize == null) return;

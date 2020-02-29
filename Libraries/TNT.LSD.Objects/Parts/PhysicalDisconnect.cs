@@ -4,15 +4,24 @@ using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a physical disconnect
+	/// </summary>
 	public class PhysicalDisconnect : MainlinePart
 	{
 		#region Constructors
 
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
 		public PhysicalDisconnect(PhysicalDisconnect obj)
 			: base(obj)
 		{
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public PhysicalDisconnect()
 			: base()
 		{
@@ -22,11 +31,14 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
-		public override TNTObject Clone()
-		{
-			return new PhysicalDisconnect(this);
-		}
+		/// <summary>
+		/// Clones this <see cref="PhysicalDisconnect"/>
+		/// </summary>
+		public override TNTObject Clone() => new PhysicalDisconnect(this);
 
+		/// <summary>
+		/// Indicates whether a pipce can be connected to this <see cref="PhysicalDisconnect"/>
+		/// </summary>
 		public override bool CanAddPipe(Type pipeType, out string reason)
 		{
 			if (Pipes.Count > 2)
@@ -38,12 +50,15 @@ namespace TNT.LSD.Objects
 			return base.CanAddPipe(pipeType, out reason);
 		}
 
+		/// <summary>
+		/// Sets parts associated with the physical disconnect
+		/// </summary>
+		/// <param name="parts"></param>
+		/// <param name="systemType"></param>
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			GetPart(parts, "PD2").Quantity += 1;
-			GetPart(parts, "VBJUMBO").Quantity += 1;
-
-			base.SetPartQuantity(parts, systemType);
+			parts.Add("PD2", 1);
+			parts.Add("VBJUMBO", 1);
 		}
 
 		/// <summary>
@@ -56,7 +71,7 @@ namespace TNT.LSD.Objects
 		{
 			if (!Sized)
 			{
-				m_Pipes.ForEach(p =>
+				Pipes.ForEach(p =>
 				{
 					if (upstreamPipe != null && upstreamPipe == p)
 					{

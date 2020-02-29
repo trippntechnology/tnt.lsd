@@ -13,30 +13,30 @@ using TNT.Math;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Base class for a TNT part
+	/// </summary>
 	public class TNTPart : BasePart
 	{
-		#region Static
-
-		protected static string[] SIZE_CODE = { "050", "075", "100", "125", "150", "200" };
-
-		#endregion
-
-		#region Members
-
-		protected List<Pipe> m_Pipes = new List<Pipe>();
-
-		#endregion
-
 		#region Properties
 
+		/// <summary>
+		/// <see cref="List{T}"/> of <see cref="Pipe"/>
+		/// </summary>
 		[Browsable(false)]
 		[XmlIgnore()]
-		virtual public List<Pipe> Pipes { get { return m_Pipes; } set { m_Pipes = value; } }
+		virtual public List<Pipe> Pipes { get; set; } = new List<Pipe>();
 
+		/// <summary>
+		/// <see cref="Color "/> associated with this part
+		/// </summary>
 		[XmlIgnore()]
 		[Browsable(false)]
 		virtual public Color Color { get; set; }
 
+		/// <summary>
+		/// Serializes <see cref="Color"/> from/to ARGB
+		/// </summary>
 		[Browsable(false)]
 		public int _Color
 		{
@@ -44,10 +44,16 @@ namespace TNT.LSD.Objects
 			set { Color = Color.FromArgb(value); }
 		}
 
+		/// <summary>
+		/// Indicates whether this part has been sized
+		/// </summary>
 		[Browsable(false)]
 		[XmlIgnore()]
 		public bool Sized { get; set; }
 
+		/// <summary>
+		/// Value indicating the required flow for this part
+		/// </summary>
 		[DisplayName("Required Flow")]
 		[Description("Flow required by this part and parts down stream")]
 		[ReadOnly(true)]
@@ -58,6 +64,9 @@ namespace TNT.LSD.Objects
 
 		#region Constructors
 
+		/// <summary>
+		/// Creates a part at a specified <paramref name="position"/>
+		/// </summary>
 		public TNTPart(Point position)
 			: base()
 		{
@@ -65,13 +74,18 @@ namespace TNT.LSD.Objects
 			CreateControlPoints(position);
 		}
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
 		public TNTPart(TNTPart obj)
 			: base(obj)
 		{
 			Color = obj.Color;
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public TNTPart()
 			: base()
 		{
@@ -82,32 +96,41 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
-		public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys)
-		{
-			throw new NotImplementedException();
-		}
+		/// <summary>
+		/// Not implemented
+		/// </summary>
+		public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys) => throw new NotImplementedException();
 
+		/// <summary>
+		/// Added to prevent call from subclass to base class
+		/// </summary>
 		public override void DrawDistance(Graphics graphics, TNTControlPoint p1, TNTControlPoint p2)
 		{
 			// Added so that distance between points isn't drawn.
 		}
 
-		public override TNTObject Clone()
-		{
-			return new TNTPart(this);
-		}
+		/// <summary>
+		/// Clones this part
+		/// </summary>
+		public override TNTObject Clone() => new TNTPart(this);
 
-		virtual protected void CreateControlPoints(Point position)
-		{
-			ControlPoints.Add(new TNTControlPoint(this, position));
-		}
+		/// <summary>
+		/// Create a <see cref="TNTControlPoint"/>
+		/// </summary>
+		virtual protected void CreateControlPoints(Point position) => ControlPoints.Add(new TNTControlPoint(this, position));
 
+		/// <summary>
+		/// Indicates if this <see cref="TNTPart"/> is within <paramref name="rectangle"/>
+		/// </summary>
 		public override bool InRectangle(Rectangle rectangle)
 		{
 			bool inRect = rectangle.Contains(ControlPoints[0].Position);
 			return inRect;
 		}
 
+		/// <summary>
+		/// Moves this <see cref="TNTPart"/> from it's current position to the position indicated by <paramref name="x"/> and <paramref name="y"/>
+		/// </summary>
 		public override void MoveTo(int x, int y)
 		{
 			base.MoveTo(x, y);
@@ -124,6 +147,10 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Moves this <see cref="TNTPart"/> from it's current position to the position indicated by <paramref name="x"/> and <paramref name="y"/>
+		/// and aligns the points if <paramref name="alignPoints"/> is true
+		/// </summary>
 		public override void MoveTo(int x, int y, bool alignPoints)
 		{
 			base.MoveTo(x, y, alignPoints);
@@ -133,91 +160,117 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Aligns the <see cref="ControlPoints"/> to the grid
+		/// </summary>
 		public override void AlignToGrid()
 		{
 			Point p = ControlPoints.First().Position.SnapToGrid(true);
 			ControlPoints.First().MoveTo(p.X, p.Y, true);
 		}
 
+		/// <summary>
+		/// Determines the parts needed at the pipe level when two pipes are connected
+		/// </summary>
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			if (m_Pipes == null || m_Pipes.Count < 2)
+			if (Pipes == null || Pipes.Count < 2) return; // This case will be handed by subclasses implementation
+
+			var fittingSize = GetMaxPipeSize();
+
+			var teeCode = $"FI{fittingSize}SSSTEE";
+			var nintyCode = $"FI{fittingSize}SS90";
+			var fortyFiveCode = $"FI{fittingSize}SS45";
+
+			var pairs = GetPipePairs();
+
+			if (pairs.Count == 3)
 			{
-				// This case will be handed by subclasses implementation
-				return;
-			}
+				parts.Add($"FI{fittingSize}SSSTEE", 1);
 
-			int maxPipeSizeIndex = GetMaxPipeSizeIndex();
-			string fittingSize = SIZE_CODE[maxPipeSizeIndex];
+				// Find inline and perpendicular pipes pairs
+				var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
+				var perpPair = pairs.Find(p => p.Item2 == inlinePair.Item1);
 
-			string teeCode = string.Format("FI{0}SSSTEE", fittingSize);
-			string nintyCode = string.Format("FI{0}SS90", fittingSize);
-			string fortyFiveCode = string.Format("FI{0}SS45", fittingSize);
-
-			// Add tees
-			int teeCount = m_Pipes.Count - 2;
-			parts[string.Format("FI{0}SSSTEE", fittingSize)].Quantity += teeCount;
-
-			Vector v1 = new Vector(Position, m_Pipes[0].GetOtherPart(this).Position);
-
-			#region Add elbows
-
-			for (int index = 1; index < m_Pipes.Count; index++)
-			{
-				Vector v2 = new Vector(Position, m_Pipes[index].GetOtherPart(this).Position);
-				double degree = v1.Angle(v2).InDegrees;
-
-				if (degree < 22)
+				if (inlinePair.Angle < 158)
 				{
-					// Add 2 90s
-					parts[nintyCode].Quantity += 2;
+					parts.Add(fortyFiveCode, 1);
 				}
-				else if (degree < 68)
+
+				if (perpPair.Angle < 68 || perpPair.Angle > 112)
 				{
-					// Add 90 and 45
-					parts[nintyCode].Quantity += 1;
-					parts[fortyFiveCode].Quantity += 1;
-				}
-				else if (degree < 122 && teeCount == 0)
-				{
-					// Add 90
-					parts[nintyCode].Quantity += 1;
-				}
-				else if (degree < 158 && teeCount == 0)
-				{
-					// Add 45
-					parts[fortyFiveCode].Quantity += 1;
+					parts.Add(fortyFiveCode, 1);
 				}
 			}
+			else if (pairs.Count == 1)
+			{
+				var angle = pairs[0].Angle;
 
-			#endregion
-
-			// Remove elbow not needed since a tee is used
-			//parts[nintyCode].Quantity -= (teeCount * 2);
+				if (angle < 68)
+				{
+					parts.Add(nintyCode, 1);
+					parts.Add(fortyFiveCode, 1);
+				}
+				else if (angle < 112)
+				{
+					parts.Add(nintyCode, 1);
+				}
+				else if (angle < 158)
+				{
+					parts.Add(fortyFiveCode, 1);
+				}
+			}
 
 			// Add bushings
-			foreach (Pipe pipe in m_Pipes)
+			foreach (Pipe pipe in Pipes)
 			{
-				int pipeSizeIndex = m_PipeSizeList.IndexOf(pipe.PipeSize);
-				string pipeSize = SIZE_CODE[pipeSizeIndex];
+				var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
 
-				if (pipeSizeIndex < maxPipeSizeIndex)
+				if (pipeSize < fittingSize)
 				{
-					parts[string.Format("FI{0}X{1}SSRB", fittingSize, pipeSize)].Quantity += 1;
+					parts.Add($"FI{fittingSize}X{pipeSize}SSRB", 1);
 				}
 			}
-
 		}
 
+		private List<PipePair> GetPipePairs()
+		{
+			if (Pipes.Count == 2)
+			{
+				return new List<PipePair>() { new PipePair(Pipes[0], Pipes[1], this.Position, this) };
+			}
+			else if (Pipes.Count == 3)
+			{
+				return new List<PipePair>() {
+					new PipePair(Pipes[0], Pipes[1], this.Position, this),
+					new PipePair(Pipes[1], Pipes[2], this.Position, this),
+					new PipePair(Pipes[2], Pipes[0], this.Position, this)
+				};
+			}
+			else
+			{
+				return new List<PipePair>();
+			}
+		}
+
+		/// <summary>
+		/// Checks to see if the <paramref name="pipeType"/> is the same as an existing part connected. 
+		/// </summary>
+		/// <returns>True if pipe are same, false otherwise </returns>
 		public override bool CanAddPipe(Type pipeType, out string reason)
 		{
 			base.CanAddPipe(pipeType, out reason);
 
-			Pipe pipe = m_Pipes.Find(p => p.GetType() != pipeType);
+			Pipe pipe = Pipes.Find(p => p.GetType() != pipeType);
 
 			if (pipe != null)
 			{
 				reason = "Part must be connected to same pipe types";
+				return false;
+			}
+			else if (Pipes.Count > 2)
+			{
+				reason = "Only three connections are allowed";
 				return false;
 			}
 
@@ -257,18 +310,26 @@ namespace TNT.LSD.Objects
 
 		#endregion
 
+		/// <summary>
+		/// Adds a <see cref="Pipe"/> if it hasn't already been added
+		/// </summary>
+		/// <param name="pipe"></param>
 		virtual public void AddPipe(Pipe pipe)
 		{
 			// Only add if it doesn't already exist
-			if (!m_Pipes.Contains(pipe))
+			if (!Pipes.Contains(pipe))
 			{
-				m_Pipes.Add(pipe);
+				Pipes.Add(pipe);
 			}
 		}
 
+		/// <summary>
+		/// Removes a <see cref="Pipe"/>
+		/// </summary>
+		/// <param name="pipe"></param>
 		virtual public void RemovePipe(Pipe pipe)
 		{
-			m_Pipes.Remove(pipe);
+			Pipes.Remove(pipe);
 		}
 
 		/// <summary>
@@ -281,7 +342,7 @@ namespace TNT.LSD.Objects
 			{
 				Sized = true;
 
-				m_Pipes.ForEach(p =>
+				Pipes.ForEach(p =>
 				{
 					if (upstreamPipe != null && upstreamPipe == p)
 					{
@@ -313,29 +374,13 @@ namespace TNT.LSD.Objects
 		}
 
 		/// <summary>
-		/// Gets the pipe size index of the largest pipe
-		/// </summary>
-		/// <returns>Pipe size index of the largest pipe</returns>
-		virtual protected int GetMaxPipeSizeIndex()
-		{
-			int sizeIndex = 0;
-
-			foreach (Pipe pipe in m_Pipes)
-			{
-				sizeIndex = System.Math.Max(m_PipeSizeList.IndexOf(pipe.PipeSize), sizeIndex);
-			}
-
-			return sizeIndex;
-		}
-
-		/// <summary>
 		/// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
 		/// </summary>
 		/// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
-		virtual protected PartSize GetMaxPipeSize(System.Type pipeType)
+		virtual protected PartSize GetMaxPipeSize(System.Type pipeType = null)
 		{
 			int index = PartSize.SIZE_050.Index - 1;
-			m_Pipes.FindAll(p => p.GetType() == pipeType).ForEach(p => index = System.Math.Max(index, p.PipeSizeIndex));
+			Pipes.FindAll(p => pipeType == null || p.GetType() == pipeType).ForEach(p => index = System.Math.Max(index, p.PipeSizeIndex));
 			return PartSize.GetSize(index);
 		}
 
@@ -343,11 +388,42 @@ namespace TNT.LSD.Objects
 		/// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
 		/// </summary>
 		/// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
-		virtual protected PartSize GetMinPipeSize(System.Type pipeType)
+		virtual protected PartSize GetMinPipeSize(System.Type pipeType = null)
 		{
 			int index = PartSize.SIZE_200.Index + 1;
-			m_Pipes.FindAll(p => p.GetType() == pipeType).ForEach(p => index = System.Math.Min(index, p.PipeSizeIndex));
+			Pipes.FindAll(p => pipeType == null || p.GetType() == pipeType).ForEach(p => index = System.Math.Min(index, p.PipeSizeIndex));
 			return PartSize.GetSize(index);
+		}
+
+		/// <summary>
+		/// Used to determine the angles between two <see cref="Pipe"/>
+		/// </summary>
+		internal class PipePair : Tuple<Pipe, Pipe>
+		{
+			private readonly Point position;
+			private readonly TNTPart part;
+
+			/// <summary>
+			/// Returns the angle between the two <see cref="Pipe"/>
+			/// </summary>
+			public double Angle
+			{
+				get
+				{
+					var pipeDirection1 = new Vector(this.position, Item1.GetOtherPart(this.part).Position);
+					var pipeDirection2 = new Vector(this.position, Item2.GetOtherPart(this.part).Position);
+					return pipeDirection1.Angle(pipeDirection2).InDegrees;
+				}
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			public PipePair(Pipe item1, Pipe item2, Point Position, TNTPart part) : base(item1, item2)
+			{
+				position = Position;
+				this.part = part;
+			}
 		}
 	}
 }

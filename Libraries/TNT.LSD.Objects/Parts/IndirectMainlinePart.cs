@@ -107,9 +107,9 @@ namespace TNT.LSD.Objects
 			if (Pipes != null && Pipes.Count > 0)
 			{
 				int pipeSizeIndex = m_PipeSizeList.IndexOf(Pipes[0].PipeSize);
-				string pipeSizeCode = SIZE_CODE[pipeSizeIndex];
+				string pipeSizeCode = PartSize.GetSize(pipeSizeIndex).Code;
 				int fittingThreadIndex = (new TypeConverters.SizeList()).IndexOf(FittingThreadSize);
-				string ftSizeCode = SIZE_CODE[fittingThreadIndex];
+				string ftSizeCode = PartSize.GetSize(fittingThreadIndex).Code;
 				string fittingCode = Pipes.Count == 1 ? "ST90" : "SSTTEE";
 
 				if (pipeSizeIndex == fittingThreadIndex)

@@ -88,12 +88,12 @@ namespace TNT.LSD.Objects
 		{
 			base.SetPartQuantity(parts, systemType);
 
-			if (m_Pipes.Count != 1)
+			if (Pipes.Count != 1)
 			{
 				return;
 			}
 
-			var pipeSize = PartSize.GetSize(m_Pipes[0].PipeSizeIndex);
+			var pipeSize = PartSize.GetSize(Pipes[0].PipeSizeIndex);
 			if (systemType == SystemType.PVC)
 			{
 				parts.Add($"FI{pipeSize.Code}SCAP", 1);
