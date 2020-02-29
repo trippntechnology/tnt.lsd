@@ -80,7 +80,7 @@ namespace TNT.LSD.Objects
 		/// Assigns obj's properties to this object
 		/// </summary>
 		/// <param name="obj">Source object</param>
-		public override void Assign(TNT.LSD.Objects.TNTObject obj)
+		public override void Assign(TNTObject obj)
 		{
 			Filter filter = obj as Filter;
 
@@ -114,34 +114,56 @@ namespace TNT.LSD.Objects
 			}
 
 			// Add the filter, valve box, and ball valve
-			GetPart(parts, $"{filterSize.Code}FILTER{mesh}M").Quantity += 1;
-			GetPart(parts, "VBJUMBO").Quantity += 1;
-			GetPart(parts, $"BV{filterSize.Code}FT").Quantity += 1;
+			parts.Add($"{filterSize}FILTER{mesh}M", 1);
+			parts.Add($"VBJUMBO", 1);
+			parts.Add($"BV{filterSize}FT", 1);
 
+			//if (systemType == SystemType.PVC)
+			//{
 			// Add manifold transitions or F/MAs
 			if (filterSize == PartSize.SIZE_100)
 			{
-				parts[$"AF18017"].Quantity += 1;
-				parts[$"AF18011"].Quantity += 1;
+				parts[$"AF18017"].Quantity += 1; // Female transition nipple
+				parts[$"AF18011"].Quantity += 1; // Male transition nipple
 
-				if (mainPipeSize == PartSize.SIZE_075)
+				if (systemType == SystemType.PVC)
 				{
-					parts[$"AF18013"].Quantity += 2;
+					if (mainPipeSize == PartSize.SIZE_075)
+					{
+						parts[$"AF18013"].Quantity += 2; // 3/4 slip adapter
+					}
+					else if (mainPipeSize == PartSize.SIZE_100)
+					{
+						parts[$"AF18012"].Quantity += 2; // 1-1/4 and 1 slip adapter
+					}
+					else if (mainPipeSize == PartSize.SIZE_125)
+					{
+						parts[$"AF18012"].Quantity += 2; // 1-1/4 and 1 slip adapter
+						parts[$"FI{PartSize.SIZE_125}SSCOUP"].Quantity += 2; // 1-1/4 couplers
+					}
 				}
-				else if (mainPipeSize == PartSize.SIZE_100)
+				else
 				{
-					parts[$"AF18012"].Quantity += 2;
-				}
-				else if (mainPipeSize == PartSize.SIZE_125)
-				{
-					parts[$"AF18012"].Quantity += 2;
-					parts[$"FI{PartSize.SIZE_125.Code}SSCOUP"].Quantity += 2;
+					if (mainPipeSize == PartSize.SIZE_075)
+					{
+						parts[$"AF18015"].Quantity += 2; // 3/4 barbed adapter
+					}
+					else if (mainPipeSize == PartSize.SIZE_100)
+					{
+						parts[$"AF18014"].Quantity += 2; // 1 barbed adapter
+					}
+					else if (mainPipeSize == PartSize.SIZE_125)
+					{
+						parts[$"AF18018"].Quantity += 2; // 1-1/4 barbed adapter
+					}
+
+					parts.AddHoseClamp(mainPipeSize.Code, 2);
 				}
 			}
-			else// if (filterSize == PartSize.SIZE_150)
+			else
 			{
-				parts[$"FI{filterSize.Code}STFA"].Quantity += 1;
-				parts[$"FI{filterSize.Code}TSMA"].Quantity += 1;
+				parts[$"FI{filterSize}STFA"].Quantity += 1;
+				parts[$"FI{filterSize}TSMA"].Quantity += 1;
 			}
 		}
 

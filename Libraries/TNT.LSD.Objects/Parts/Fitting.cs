@@ -102,7 +102,7 @@ namespace TNT.LSD.Objects
 			{
 				var hcCode = pipeSize == PartSize.SIZE_125 ? PartSize.SIZE_150.Code : pipeSize.Code;
 				parts.Add($"PF{pipeSize.Code}PLUG", 1);
-				parts.Add($"HC{hcCode}", 1);
+				parts.AddHoseClamp(hcCode, 1);
 			}
 		}
 

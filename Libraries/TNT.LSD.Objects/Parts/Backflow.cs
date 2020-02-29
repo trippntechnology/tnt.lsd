@@ -89,7 +89,7 @@ namespace TNT.LSD.Objects
 				parts.Add($"PF{pipeSize}BTMA", 1);
 			}
 
-			parts.Add($"HC{hcCode}", 1);
+			parts.AddHoseClamp(hcCode.Code, 1);
 		}
 
 		/// <summary>

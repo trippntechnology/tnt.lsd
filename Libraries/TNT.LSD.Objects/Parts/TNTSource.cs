@@ -310,7 +310,7 @@ namespace TNT.LSD.Objects
 				{
 					// Same
 					if (IncludeSW || SourceType != "PVC") parts.Add($"NI{sourceSize}X4TOE", 1);
-					
+
 					parts.Add($"FI{sourceSize}SSCOUP", 1);
 				}
 			}
@@ -338,7 +338,7 @@ namespace TNT.LSD.Objects
 				}
 
 				var hcCode = mainSize == PartSize.SIZE_125 ? PartSize.SIZE_150 : mainSize;
-				parts.Add($"HC{hcCode}", 1);
+				parts.AddHoseClamp(hcCode.Code, 1);
 			}
 		}
 	}

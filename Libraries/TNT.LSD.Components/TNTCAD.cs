@@ -1202,7 +1202,7 @@ namespace LSDComponents
 				else
 				{
 					inventoryParts.Add($"PF{mainSize.Code}X050BBTTEE", State.MainlineDrains);
-					inventoryParts.Add($"HC{mainSize.Code}", State.MainlineDrains * 2);
+					inventoryParts.AddHoseClamp(mainSize.Code, State.MainlineDrains * 2);
 				}
 			}
 

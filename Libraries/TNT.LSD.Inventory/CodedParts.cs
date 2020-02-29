@@ -22,5 +22,14 @@ namespace TNT.LSD.Inventory
 
 			this[code].Quantity += quantity;
 		}
+
+		/// <summary>
+		/// Adds hose clamps. Code represents the size, i.e. 075, 100, etc. If code is 125, 150 is substituted
+		/// </summary>
+		public void AddHoseClamp(string code, int quantity)
+		{
+			code = code == "125" ? "150" : code;
+			Add($"HC{code}", quantity);
+		}
 	}
 }
