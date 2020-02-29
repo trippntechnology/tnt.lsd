@@ -157,20 +157,44 @@ namespace TNT.LSD.Objects
 			if (Pipes.Count == 1)
 			{
 				// Add 90
-				parts.Add($"PF{fittingSize}BT90", 1);
+				if (fittingSize == outletThreadSize)
+				{
+					parts.Add($"PF{fittingSize}BT90", 1);
+				}
+				else
+				{
+					if (parts.ContainsKey($"PF{fittingSize}X{outletThreadSize}BT90"))
+					{
+						parts.Add($"PF{fittingSize}X{outletThreadSize}BT90", 1);
+					}
+					else
+					{
+						parts.Add($"PF{fittingSize}BT90", 1);
+						parts.Add($"FI{fittingSize}X{outletThreadSize}TTRB", 1);
+					}
+				}
 				parts.AddHoseClamp(fittingSize.Code, 1);
 			}
 			else
 			{
 				// Add Tee
-				parts.Add($"PF{fittingSize}BBTTEE", 1);
+				if (fittingSize == outletThreadSize)
+				{
+					parts.Add($"PF{fittingSize}BBTTEE", 1);
+				}
+				else
+				{
+					if (parts.ContainsKey($"PF{fittingSize}X{outletThreadSize}BBTTEE"))
+					{
+						parts.Add($"PF{fittingSize}X{outletThreadSize}BBTTEE", 1);
+					}
+					else
+					{
+						parts.Add($"PF{fittingSize}BBTTEE", 1);
+						parts.Add($"FI{fittingSize}X{outletThreadSize}TTRB", 1);
+					}
+				}
 				parts.AddHoseClamp(fittingSize.Code, 2);
-			}
-
-			if (fittingSize != outletThreadSize)
-			{
-				// Bushing to size outlet
-				parts.Add($"FI{fittingSize}X{outletThreadSize}TTRB", 1);
 			}
 		}
 
