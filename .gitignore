@@ -8,3 +8,4 @@
 **/obj/
 **/*.csproj.user
 /packages/
+/TestResults
