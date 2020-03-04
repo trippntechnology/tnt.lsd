@@ -18,6 +18,7 @@ namespace TNT.LSD.Objects
 		/// Type of pipe stubbed to the surface
 		/// </summary>
 		[Description("Type of pipe stubbed to the surface")]
+		[ReadOnly(true)]
 		public StubType Stub { get; set; }
 
 		#region Constructors
@@ -42,16 +43,11 @@ namespace TNT.LSD.Objects
 
 		#endregion
 
-		#region Overrides
-
 		/// <summary>
 		/// Clones this <see cref="DripAdapter"/>
 		/// </summary>
 		/// <returns></returns>
-		public override TNTObject Clone()
-		{
-			return new DripAdapter(this);
-		}
+		public override TNTObject Clone() => new DripAdapter(this);
 
 		/// <summary>
 		/// Adds the parts needed to stub off the pipe
@@ -66,50 +62,74 @@ namespace TNT.LSD.Objects
 			// Only add parts if there is a lateral line connected
 			if (maxPipeSize == null) return;
 
-			if (Stub == StubType.FunnyPipe)
+			if (systemType == SystemType.PVC)
 			{
-				if (minPipeSize == null)// && maxPipeSize <= PartSize.SIZE_100)
-				{
-					var elbowCode = $"FI{maxPipeSize.Code}X{PartSize.SIZE_050.Code}ST90";
-
-					if (!parts.ContainsKey(elbowCode))
-					{
-						parts.Add(elbowCode, new Part() { Code = elbowCode });
-					}
-
-					parts[elbowCode].Quantity += 1;
-				}
-				else
-				{
-					parts[$"FI{maxPipeSize.Code}X{PartSize.SIZE_050.Code}SSTTEE"].Quantity += 1;
-				}
-
-				parts["FPSBE050"].Quantity += 1;
-				parts["FUNNYPIPE"].Quantity += 1;
-				parts["HRFIG8"].Quantity += 1;
+				AddPVCFittings(parts, maxPipeSize, minPipeSize);
 			}
-			else if (Stub == StubType.PVC)
+			else
 			{
-				if (minPipeSize == null)
-				{
-					parts[$"FI{maxPipeSize.Code}SS90"].Quantity += 1;
-				}
-				else
-				{
-					parts[$"FI{maxPipeSize.Code}SSSTEE"].Quantity += 1;
-
-				}
-
-				if (maxPipeSize > PartSize.SIZE_075)
-				{
-					parts[$"FI{maxPipeSize.Code}X{PartSize.SIZE_075.Code}SSRB"].Quantity += 1;
-				}
-
-				parts[$"PI{PartSize.SIZE_075.Code}"].Quantity += 1;
-				parts[$"FI{PartSize.SIZE_075.Code}SCAP"].Quantity += 1;
+				AddPOLYFittings(parts, maxPipeSize, minPipeSize);
 			}
+
+			//if (Stub == StubType.PVC)
+			//{
+			//	if (minPipeSize == null)
+			//	{
+			//		parts.Add($"FI{maxPipeSize.Code}SS90", 1);
+			//	}
+			//	else
+			//	{
+			//		parts.Add($"FI{maxPipeSize.Code}SSSTEE", 1);
+
+			//	}
+
+			//	if (maxPipeSize > PartSize.SIZE_075)
+			//	{
+			//		parts.Add($"FI{maxPipeSize.Code}X{PartSize.SIZE_075.Code}SSRB", 1);
+			//	}
+
+			//	parts.Add($"PI{PartSize.SIZE_075.Code}", 1);
+			//	parts.Add($"FI{PartSize.SIZE_075.Code}SCAP", 1);
+			//}
 		}
 
-		#endregion
+		/// <summary>
+		/// Add PVC fittings
+		/// </summary>
+		public static void AddPVCFittings(CodedParts parts, PartSize maxPipeSize, PartSize minPipeSize)
+		{
+			if (minPipeSize == null)// && maxPipeSize <= PartSize.SIZE_100)
+			{
+				parts.Add($"FI{maxPipeSize.Code}X{PartSize.SIZE_050}ST90", 1);
+			}
+			else
+			{
+				parts.Add($"FI{maxPipeSize.Code}X{PartSize.SIZE_050}SSTTEE", 1);
+			}
+
+			parts.Add("FPSBE050", 1);
+			parts.Add("FUNNYPIPE", 1);
+			parts.Add("HRFIG8", 1);
+		}
+
+		/// <summary>
+		/// Add POLY fittings
+		/// </summary>
+		public static void AddPOLYFittings(CodedParts parts, PartSize maxPipeSize, PartSize minPipeSize)
+		{
+			if (minPipeSize == null)
+			{
+				parts.Add($"PF{maxPipeSize}X{PartSize.SIZE_050}BT90", 1);
+				parts.AddHoseClamp(maxPipeSize.Code, 1);
+			}
+			else
+			{
+				parts.Add($"PF{maxPipeSize.Code}HDSADDLE", 1);
+			}
+
+			parts.Add("FPSBE050", 1);
+			parts.Add("FUNNYPIPE", 1);
+			parts.Add("HRFIG8", 1);
+		}
 	}
 }

@@ -57,8 +57,10 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DripAdapterTests.cs" />
     <Compile Include="PointExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SprinklerTests.cs" />
     <Compile Include="ValveFittingsTests.cs" />
     <Compile Include="ValveManifoldFittingsTests.cs" />
   </ItemGroup>
