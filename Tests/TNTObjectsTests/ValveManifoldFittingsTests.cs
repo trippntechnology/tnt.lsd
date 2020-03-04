@@ -270,5 +270,70 @@ namespace TNTObjectsTests
 			var outletThreads = "MIPT";
 			Valve.AddOutletManifoldParts(parts, outletThreads, PartSize.SIZE_075, PartSize.SIZE_150, SystemType.PVC);
 		}
+
+		[TestMethod]
+		public void AddOnletParts_POLY_FIPT_100()
+		{
+			var sizes = new Dictionary<PartSize, List<PartSize>>()
+			{
+				{PartSize.SIZE_100, new List<PartSize> { PartSize.SIZE_075,  PartSize.SIZE_100, PartSize.SIZE_125 } }
+			};
+			var insertCodes = new List<string> { "15", "14", "18" };
+			var outletThreads = "FIPT";
+
+			foreach (var pair in sizes)
+			{
+				var valveSize = pair.Key;
+				pair.Value.ForEach(pipeSize =>
+				{
+					parts.Clear();
+					Valve.AddOutletManifoldParts(parts, outletThreads, pipeSize, valveSize, SystemType.POLY);
+
+					var insertCode = insertCodes[pair.Value.IndexOf(pipeSize)];
+					var hcCode = pipeSize == PartSize.SIZE_125 ? PartSize.SIZE_150 : pipeSize;
+
+					Assert.AreEqual(3, parts.Count);
+					Assert.AreEqual(parts["AF18011"].Quantity, 1);
+					Assert.AreEqual(parts[$"AF180{insertCode}"].Quantity, 1);
+					Assert.AreEqual(parts[$"HC{hcCode}"].Quantity, 1);
+				});
+			}
+		}
+
+		[TestMethod]
+		public void AddOnletParts_POLY_MIPT_100()
+		{
+			var sizes = new Dictionary<PartSize, List<PartSize>>()
+			{
+				{PartSize.SIZE_100, new List<PartSize> { PartSize.SIZE_075,  PartSize.SIZE_100, PartSize.SIZE_125 } }
+			};
+			var insertCodes = new List<string> { "15", "14", "18" };
+			var outletThreads = "MIPT";
+
+			foreach (var pair in sizes)
+			{
+				var valveSize = pair.Key;
+				pair.Value.ForEach(pipeSize =>
+				{
+					parts.Clear();
+					Valve.AddOutletManifoldParts(parts, outletThreads, pipeSize, valveSize, SystemType.POLY);
+
+					var insertCode = insertCodes[pair.Value.IndexOf(pipeSize)];
+					var hcCode = pipeSize == PartSize.SIZE_125 ? PartSize.SIZE_150 : pipeSize;
+
+					Assert.AreEqual(3, parts.Count);
+					Assert.AreEqual(parts["AF18017"].Quantity, 1);
+					Assert.AreEqual(parts[$"AF180{insertCode}"].Quantity, 1);
+					Assert.AreEqual(parts[$"HC{hcCode}"].Quantity, 1);
+				});
+			}
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void AddOnletParts_POLY_FIPT_150()
+		{
+			Valve.AddOutletManifoldParts(parts, "FIPT", PartSize.SIZE_100, PartSize.SIZE_150, SystemType.POLY);
+		}
 	}
 }

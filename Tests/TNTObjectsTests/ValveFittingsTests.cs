@@ -184,6 +184,7 @@ namespace TNTObjectsTests
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
 		public void AddInletParts_PVC_MIPT_075_MAIN()
 		{
 			var threads = "MIPT";
@@ -204,6 +205,7 @@ namespace TNTObjectsTests
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
 		public void AddInletParts_PVC_MIPT_100_MAIN()
 		{
 			var threads = "MIPT";
@@ -224,6 +226,7 @@ namespace TNTObjectsTests
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
 		public void AddInletParts_PVC_MIPT_GT_100_MAIN()
 		{
 			var threads = "MIPT";
@@ -295,8 +298,6 @@ namespace TNTObjectsTests
 		{
 			var sizes = new Dictionary<PartSize, List<PartSize>>() {
 				{ PartSize.SIZE_100, new List<PartSize>(){PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125 } },
-				//{ PartSize.SIZE_150, new List<PartSize>() { PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125, PartSize.SIZE_150 } },
-				//{ PartSize.SIZE_200, new List<PartSize>() { PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125, PartSize.SIZE_150, PartSize.SIZE_200 }},
 			};
 			var threads = "MIPT";
 
@@ -327,5 +328,156 @@ namespace TNTObjectsTests
 				});
 			}
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void AddInletParts_POLY_Invalid_Valve_Size()
+		{
+			Valve.AddInletParts(parts, "FIPT", PartSize.SIZE_100, 1, PartSize.SIZE_150, SystemType.POLY);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void AddInletParts_POLY_Invalid_Pipe_Size()
+		{
+			Valve.AddInletParts(parts, "FIPT", PartSize.SIZE_150, 1, PartSize.SIZE_100, SystemType.POLY);
+		}
+
+		[TestMethod]
+		public void AddInletParts_POLY_FIPT_100()
+		{
+			var threads = "FIPT";
+			var valveSize = PartSize.SIZE_100;
+			var mainSizes = new List<PartSize>() { PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125 };
+
+			mainSizes.ForEach(mainSize =>
+			{
+				var smallestSize = valveSize < mainSize ? valveSize : mainSize;
+				var largestSize = valveSize > mainSize ? valveSize : mainSize;
+				var hcCode = mainSize == PartSize.SIZE_125 ? PartSize.SIZE_150 : mainSize;
+
+				parts.Clear();
+				Valve.AddInletParts(parts, threads, mainSize, 1, PartSize.SIZE_100, SystemType.POLY);
+
+				Assert.AreEqual(smallestSize != largestSize ? 4 : 3, parts.Count);
+				Assert.AreEqual(parts[$"NI{smallestSize}X4"].Quantity, 1);
+				Assert.AreEqual(parts[$"PF{mainSize}BT90"].Quantity, 1);
+				if (smallestSize != largestSize)
+				{
+					Assert.AreEqual(parts[$"FI{largestSize}X{smallestSize}TTRB"].Quantity, 1);
+				}
+				Assert.AreEqual(parts[$"HC{hcCode}"].Quantity, 1);
+
+				parts.Clear();
+				Valve.AddInletParts(parts, threads, mainSize, 2, PartSize.SIZE_100, SystemType.POLY);
+
+				Assert.AreEqual(smallestSize != largestSize ? 4 : 3, parts.Count);
+				Assert.AreEqual(parts[$"NI{smallestSize}X4"].Quantity, 1);
+				Assert.AreEqual(parts[$"PF{mainSize}BBTTEE"].Quantity, 1);
+				if (smallestSize != largestSize)
+				{
+					Assert.AreEqual(parts[$"FI{largestSize}X{smallestSize}TTRB"].Quantity, 1);
+				}
+				Assert.AreEqual(parts[$"HC{hcCode}"].Quantity, 2);
+			});
+		}
+
+		[TestMethod]
+		public void AddOutletParts_POLY_FIPT_100()
+		{
+			var threads = "FIPT";
+			var valveSize = PartSize.SIZE_100;
+			var mainSizes = new List<PartSize>() { PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125 };
+			var partCounts = new List<int>() { 4, 2, 4 };
+
+			mainSizes.ForEach(pipeSize =>
+			{
+				var smallestSize = valveSize < pipeSize ? valveSize : pipeSize;
+				var largestSize = valveSize > pipeSize ? valveSize : pipeSize;
+
+				parts.Clear();
+				Valve.AddOutletParts(parts, threads, valveSize, pipeSize, SystemType.POLY);
+
+				Assert.AreEqual(partCounts[mainSizes.IndexOf(pipeSize)], parts.Count);
+				Assert.AreEqual(parts[$"PF{valveSize}BTMA"].Quantity, 1);
+				if (smallestSize != largestSize)
+				{
+					Assert.AreEqual(parts[$"PF{largestSize}X{smallestSize}BBRB"].Quantity, 1);
+				}
+
+				if (pipeSize == PartSize.SIZE_075)
+				{
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(valveSize).Code}"].Quantity, 2);
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(PartSize.SIZE_075).Code}"].Quantity, 1);
+				}
+				else if (pipeSize == PartSize.SIZE_125)
+				{
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(valveSize).Code}"].Quantity, 2);
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(PartSize.SIZE_125).Code}"].Quantity, 1);
+				}
+				else
+				{
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(largestSize).Code}"].Quantity, 1);
+				}
+			});
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void AddOutletParts_POLY_Unsupported_Valve()
+		{
+			Valve.AddOutletParts(parts, "FIPT", PartSize.SIZE_150, PartSize.SIZE_100, SystemType.POLY);
+		}
+
+
+		[TestMethod]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void AddOutletParts_POLY_Unsupported_Pipe_Size()
+		{
+			Valve.AddOutletParts(parts, "FIPT", PartSize.SIZE_100, PartSize.SIZE_150, SystemType.POLY);
+		}
+
+
+		[TestMethod]
+		public void AddOutletParts_POLY_MIPT_100()
+		{
+			var threads = "MIPT";
+			var valveSize = PartSize.SIZE_100;
+			var mainSizes = new List<PartSize>() { PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125 };
+			var partCounts = new List<int>() { 4, 2, 4 };
+
+			mainSizes.ForEach(pipeSize =>
+			{
+				var smallestSize = valveSize < pipeSize ? valveSize : pipeSize;
+				var largestSize = valveSize > pipeSize ? valveSize : pipeSize;
+
+				parts.Clear();
+				Valve.AddOutletParts(parts, threads, valveSize, pipeSize, SystemType.POLY);
+
+				Assert.AreEqual(partCounts[mainSizes.IndexOf(pipeSize)], parts.Count);
+				Assert.AreEqual(parts[$"PF{valveSize}BTFA"].Quantity, 1);
+				if (smallestSize != largestSize)
+				{
+					Assert.AreEqual(parts[$"PF{largestSize}X{smallestSize}BBRB"].Quantity, 1);
+				}
+
+				if (pipeSize == PartSize.SIZE_075)
+				{
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(valveSize).Code}"].Quantity, 2);
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(PartSize.SIZE_075).Code}"].Quantity, 1);
+				}
+				else if (pipeSize == PartSize.SIZE_125)
+				{
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(valveSize).Code}"].Quantity, 2);
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(PartSize.SIZE_125).Code}"].Quantity, 1);
+				}
+				else
+				{
+					Assert.AreEqual(parts[$"HC{SizeToHoseClamp(largestSize).Code}"].Quantity, 1);
+				}
+			});
+		}
+
+		private PartSize SizeToHoseClamp(PartSize partSize) => partSize == PartSize.SIZE_125 ? PartSize.SIZE_150 : partSize;
 	}
 }

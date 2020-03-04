@@ -228,51 +228,91 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Gets the parts associated with the outlet of the valve in a non-manifold configuration
+		/// </summary>
 		public static void AddOutletParts(CodedParts parts, string outletThread, PartSize valveSize, PartSize pipeSize, SystemType systemType)
 		{
-			if (outletThread == "FIPT")
+			if (systemType == SystemType.PVC)
 			{
-				parts.Add($"NI{valveSize}X4TOE", 1);
+				if (outletThread == "FIPT")
+				{
+					parts.Add($"NI{valveSize}X4TOE", 1);
 
-				if (valveSize == pipeSize)
-				{
-					parts.Add($"FI{valveSize}SSCOUP", 1);
-				}
-				else if (valveSize < pipeSize)
-				{
-					parts.Add($"FI{pipeSize}SSCOUP", 1);
-					parts.Add($"FI{pipeSize}X{valveSize}SSRB", 1);
+					if (valveSize == pipeSize)
+					{
+						parts.Add($"FI{valveSize}SSCOUP", 1);
+					}
+					else if (valveSize < pipeSize)
+					{
+						parts.Add($"FI{pipeSize}SSCOUP", 1);
+						parts.Add($"FI{pipeSize}X{valveSize}SSRB", 1);
+					}
+					else
+					{
+						parts.Add($"FI{valveSize}SSCOUP", 1);
+						parts.Add($"FI{valveSize}X{pipeSize}SSRB", 1);
+					}
 				}
 				else
 				{
-					parts.Add($"FI{valveSize}SSCOUP", 1);
-					parts.Add($"FI{valveSize}X{pipeSize}SSRB", 1);
+					if (valveSize > pipeSize)
+					{
+						parts.Add($"FI{valveSize}STFA", 1);
+						parts.Add($"FI{valveSize}X{pipeSize}SSRB", 1);
+					}
+					else if (pipeSize > valveSize)
+					{
+						parts.Add($"FI{pipeSize}SSCOUP", 1);
+						parts.Add($"FI{pipeSize}X{valveSize}STRB", 1);
+					}
+					else
+					{
+						parts.Add($"FI{valveSize}STFA", 1);
+					}
 				}
 			}
-			else
+			else // POLY
 			{
-				if (valveSize > pipeSize)
+				if (valveSize != PartSize.SIZE_100) throw new NotSupportedException("Only 1\" valves supported");
+				if (pipeSize > PartSize.SIZE_125) throw new NotSupportedException("Pipe size larger than 125 not supported");
+
+				if (outletThread == "FIPT")
 				{
-					parts.Add($"FI{valveSize}STFA", 1);
-					parts.Add($"FI{valveSize}X{pipeSize}SSRB", 1);
+					parts.Add($"PF{valveSize}BTMA", 1);
 				}
-				else if (pipeSize > valveSize)
+				else // MIPT
 				{
-					parts.Add($"FI{pipeSize}SSCOUP", 1);
-					parts.Add($"FI{pipeSize}X{valveSize}STRB", 1);
+					parts.Add($"PF{valveSize}BTFA", 1);
 				}
-				else
+
+				parts.AddHoseClamp(valveSize.Code, 1);
+
+				if (valveSize != pipeSize)
 				{
-					parts.Add($"FI{valveSize}STFA", 1);
+					if (valveSize > pipeSize)
+					{
+						parts.Add($"PF{valveSize}X{pipeSize}BBRB", 1);
+					}
+					else
+					{
+						parts.Add($"PF{pipeSize}X{valveSize}BBRB", 1);
+					}
+					parts.AddHoseClamp(valveSize.Code, 1);
+					parts.AddHoseClamp(pipeSize.Code, 1);
 				}
 			}
 		}
 
+		/// <summary>
+		/// Gets the inlet parts in a non-manifold configuration
+		/// </summary>
 		public static void AddInletParts(CodedParts parts, string inletThreads, PartSize mainSize, int pipeCount, PartSize valveSize, SystemType systemType)
 		{
 			if (mainSize == null) return;
+			if (inletThreads == "MIPT") throw new NotSupportedException("Only female inlet valves are supported");
 
-			if (inletThreads == "FIPT")
+			if (systemType == SystemType.PVC)
 			{
 				if (mainSize == PartSize.SIZE_075)
 				{
@@ -283,25 +323,7 @@ namespace TNT.LSD.Objects
 				{
 					parts.Add($"NI{valveSize}X4TOE", 1);
 				}
-			}
-			else  // MIPT
-			{
-				if (valveSize != PartSize.SIZE_100) throw new NotSupportedException();
 
-				if (mainSize == PartSize.SIZE_075)
-				{
-					parts.Add($"FI075X100STFA", 1);
-					parts.Add($"NI075X4TOE", 1);
-				}
-				else
-				{
-					parts.Add($"FI100STFA", 1);
-					parts.Add($"NI100X4TOE", 1);
-				}
-			}
-
-			if (systemType == SystemType.PVC)
-			{
 				if (pipeCount == 2)
 				{
 					parts.Add($"FI{mainSize}SSSTEE", 1);
@@ -315,6 +337,19 @@ namespace TNT.LSD.Objects
 			}
 			else // Poly
 			{
+				if (valveSize != PartSize.SIZE_100) throw new NotSupportedException("Only 1\" valves supported with poly");
+				if (mainSize> PartSize.SIZE_125) throw new NotSupportedException("Only pipe under 150 supported");
+
+				if (mainSize == PartSize.SIZE_075)
+				{
+					parts.Add($"FI{valveSize}X{mainSize}TTRB", 1);
+					parts.Add($"NI{mainSize}X4", 1);
+				}
+				else
+				{
+					parts.Add($"NI{valveSize}X4", 1);
+				}
+
 				if (pipeCount == 2)
 				{
 					parts.Add($"PF{mainSize}BBTTEE", 1);
@@ -325,10 +360,14 @@ namespace TNT.LSD.Objects
 					parts.Add($"PF{mainSize}BT90", 1);
 					parts.AddHoseClamp(mainSize.Code, 1);
 				}
+
 				if (mainSize > valveSize) parts.Add($"FI{mainSize}X{valveSize}TTRB", 1);
 			}
 		}
 
+		/// <summary>
+		/// Gets the outlet parts of a valve in a manifold configuration
+		/// </summary>
 		public static void AddOutletManifoldParts(CodedParts parts, string outletThread, PartSize pipeSize, PartSize valveSize, SystemType systemType)
 		{
 			if (outletThread == "FIPT")
@@ -381,12 +420,18 @@ namespace TNT.LSD.Objects
 				}
 				else // Poly
 				{
-					var insertCode = pipeSize == PartSize.SIZE_075 ? "15" : (pipeSize == PartSize.SIZE_100 ? "14" : "18");
+					if (valveSize != PartSize.SIZE_100)
+					{
+						throw new NotSupportedException();
+					}
+					else
+					{
+						var insertCode = pipeSize == PartSize.SIZE_075 ? "15" : (pipeSize == PartSize.SIZE_100 ? "14" : "18");
 
-					// Add insert adapter
-					parts.Add($"AF180{insertCode}", 1);
-					parts.AddHoseClamp(pipeSize.Code, 1);
-
+						// Add insert adapter
+						parts.Add($"AF180{insertCode}", 1);
+						parts.AddHoseClamp(pipeSize.Code, 1);
+					}
 				}
 			}
 			else // MIPT
@@ -399,7 +444,6 @@ namespace TNT.LSD.Objects
 				{
 					// Add female adapter to male manifold transition nipple out of valve
 					parts.Add($"AF18017", 1);
-
 
 					if (systemType == SystemType.PVC)
 					{
@@ -430,6 +474,9 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		/// <summary>
+		/// Gets the inlet parts of a valve for a manifold configuration
+		/// </summary>
 		public static void AddInletParts(CodedParts parts, string inletThreads, PartSize valveSize, Manifold manifold)
 		{
 			var manifoldSize = manifold.Size;

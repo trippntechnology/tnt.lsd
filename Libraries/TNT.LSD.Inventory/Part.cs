@@ -67,9 +67,6 @@ namespace TNT.LSD.Inventory
 		/// Returns the code and description
 		/// </summary>
 		/// <returns>Code and description</returns>
-		public override string ToString()
-		{
-			return string.Concat(this.Code, ": ", this.Description);
-		}
+		public override string ToString() => $"({Quantity}) {Code}: {Description}";
 	}
 }
