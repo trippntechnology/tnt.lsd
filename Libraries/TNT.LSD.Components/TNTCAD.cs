@@ -1208,7 +1208,15 @@ namespace LSDComponents
 
 			// Lateral drains
 			inventoryParts["KD22"].Quantity += valves.Count * State.LateralDrains;
-			inventoryParts["FI075X050SSTTEE"].Quantity += valves.Count * State.LateralDrains;
+			if (Settings.SystemType == SystemType.PVC)
+			{
+				inventoryParts["FI075X050SSTTEE"].Quantity += valves.Count * State.LateralDrains;
+			}
+			else
+			{
+				inventoryParts.Add($"PF{PartSize.SIZE_075}X050BBTTEE", valves.Count * State.LateralDrains);
+				inventoryParts.AddHoseClamp(PartSize.SIZE_075.Code, valves.Count * State.LateralDrains * 2);
+			}
 
 			// Add static parts
 			foreach (Part part in State.StaticParts)
