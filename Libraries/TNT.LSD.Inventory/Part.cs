@@ -53,11 +53,7 @@ namespace TNT.LSD.Inventory
 
 			if (obj.ExternalPart != null)
 			{
-				ExternalPart = new Part()
-				{
-					Code = obj.ExternalPart.Code,
-					Description = obj.ExternalPart.Description
-				};
+				ExternalPart = new Part(obj.ExternalPart);
 			}
 		}
 
