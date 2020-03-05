@@ -1227,6 +1227,21 @@ namespace LSDComponents
 				}
 			}
 
+			// Add poly couplers (1 for every 100' over 100' of poly)
+			inventoryParts
+				.Where(p => p.Value.Code.StartsWith("POLY"))
+				.Select(p => p.Value)
+				.ToList()
+				.ForEach(p =>
+			{
+				var match = Regex.Match(p.Code, "POLY([0-9]{3})");
+				var size = PartSize.GetSize(match.Groups[1].Value);
+				var couplerCount = (int)(p.Quantity / 100) - 1;
+
+				inventoryParts.Add($"PF{size}BBCOUP", couplerCount);
+				inventoryParts.AddHoseClamp(size.Code, couplerCount * 2);
+			});
+
 			// Keep only those parts that have a quantity
 			List<Part> neededParts = (from p in inventoryParts where p.Value.Quantity > 0 select p.Value).ToList();
 
