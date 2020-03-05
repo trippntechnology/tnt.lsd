@@ -128,36 +128,48 @@ namespace TNT.LSD.Objects
 		}
 
 		/// <summary>
-		/// Adds manifold adapter to the main line
+		/// Adds PVC manifold adapter to the main line
 		/// </summary>
-		private void AddMainLineAdapter(Dictionary<string, Part> parts, PartSize mainlineSize, Manifold manifold)
+		public static void AddPVCMainLineAdapter(CodedParts parts, PartSize mainlineSize, Manifold manifold)
 		{
 			// Glue adapter from manifold inlet to main
 			if (manifold.Size == PartSize.SIZE_100 && mainlineSize == PartSize.SIZE_075)
 			{
-				parts[$"AF18013"].Quantity += 1;
+				parts.Add($"AF18013", 1);
 			}
 			else if (manifold.Size == PartSize.SIZE_100)
 			{
-				parts[$"AF18012"].Quantity += 1;
-				parts[$"FI{mainlineSize.Code}SSCOUP"].Quantity += mainlineSize == PartSize.SIZE_125 ? 1 : 0;
+				parts.Add($"AF18012", 1);
+				parts.Add($"FI{mainlineSize}SSCOUP", mainlineSize == PartSize.SIZE_125 ? 1 : 0);
 			}
 			else if (manifold.Size == PartSize.SIZE_150)
 			{
-				parts[$"AF18012150"].Quantity += 1;
-				parts[$"FI150SSCOUP"].Quantity += mainlineSize >= PartSize.SIZE_125 ? 1 : 0;
-				parts[$"FI100X075SSRB"].Quantity += mainlineSize == PartSize.SIZE_075 ? 1 : 0;
-				parts[$"FI150X125SSRB"].Quantity += mainlineSize == PartSize.SIZE_125 ? 1 : 0;
+				parts.Add($"AF18012150", 1);
+				parts.Add($"FI150SSCOUP", mainlineSize >= PartSize.SIZE_125 ? 1 : 0);
+				parts.Add($"FI100X075SSRB", mainlineSize == PartSize.SIZE_075 ? 1 : 0);
+				parts.Add($"FI150X125SSRB", mainlineSize == PartSize.SIZE_125 ? 1 : 0);
 			}
 			else if (manifold.Size == PartSize.SIZE_200)
 			{
-				parts[$"AF18012{PartSize.SIZE_200.Code}"].Quantity += 1;
-				parts[$"FI200SSCOUP"].Quantity += mainlineSize != PartSize.SIZE_200 ? 1 : 0;
-				if (mainlineSize < PartSize.SIZE_150)
-				{
-					parts[$"FI150X{mainlineSize.Code}SSRB"].Quantity += 1;
-				}
+				parts.Add($"AF18012{PartSize.SIZE_200}", 1);
+				parts.Add($"FI200SSCOUP", mainlineSize == PartSize.SIZE_200 ? 1 : 0);
+				parts.Add($"FI150X{mainlineSize.Code}SSRB", mainlineSize < PartSize.SIZE_150 ? 1 : 0);
 			}
+		}
+
+
+		/// <summary>
+		/// Adds PVC manifold adapter to the main line
+		/// </summary>
+		public static void AddPOLYMainLineAdapter(CodedParts parts, PartSize mainlineSize, Manifold manifold)
+		{
+			if (manifold.Size != PartSize.SIZE_100) throw new NotSupportedException("Poly only supports 100 manifold");
+			if (mainlineSize > PartSize.SIZE_125) throw new NotSupportedException("Poly only supporst pipe sizes less than 150");
+
+			var part = mainlineSize == PartSize.SIZE_075 ? "AF18015" : (mainlineSize == PartSize.SIZE_100 ? "AF18014" : "AF18018");
+
+			parts.Add(part, 1);
+			parts.AddHoseClamp(mainlineSize.Code, 1); ;
 		}
 
 		/// <summary>
@@ -202,7 +214,14 @@ namespace TNT.LSD.Objects
 				parts[$"AF1800{manifold.Count}{code}"].Quantity += 1;
 
 				//Inlet
-				AddMainLineAdapter(parts, mainlineMaxSize, manifold);
+				if (systemType == SystemType.PVC)
+				{
+					AddPVCMainLineAdapter(parts, mainlineMaxSize, manifold);
+				}
+				else
+				{
+					AddPOLYMainLineAdapter(parts, mainlineMaxSize, manifold);
+				}
 
 				if (Terminates())
 				{
@@ -211,7 +230,14 @@ namespace TNT.LSD.Objects
 				else
 				{
 					// Outlet
-					AddMainLineAdapter(parts, mainlineMinSize, manifold);
+					if (systemType == SystemType.PVC)
+					{
+						AddPVCMainLineAdapter(parts, mainlineMinSize, manifold);
+					}
+					else
+					{
+						AddPOLYMainLineAdapter(parts, mainlineMinSize, manifold);
+					}
 				}
 			}
 		}

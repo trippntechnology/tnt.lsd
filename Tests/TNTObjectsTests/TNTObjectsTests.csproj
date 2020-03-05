@@ -61,6 +61,7 @@
     <Compile Include="PointExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SprinklerTests.cs" />
+    <Compile Include="ValveBoxTests.cs" />
     <Compile Include="ValveFittingsTests.cs" />
     <Compile Include="ValveManifoldFittingsTests.cs" />
   </ItemGroup>
