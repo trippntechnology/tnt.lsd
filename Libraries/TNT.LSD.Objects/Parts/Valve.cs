@@ -201,6 +201,9 @@ namespace TNT.LSD.Objects
 			var mainPipes = Pipes.FindAll(p => p is MainlinePipe).ConvertAll(p => p as MainlinePipe);
 			var valveSize = PartSize.GetSize(this.SizeCode);
 
+			// Add valve
+			parts.Add(ModelCode, 1);
+
 			// See if a manifold exists
 			var manifold = AssociatedValveBox?.GetManifold();
 
