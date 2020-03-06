@@ -57,8 +57,98 @@ namespace TNT.LSD.Objects
 		/// <param name="systemType"></param>
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			parts.Add("PD2", 1);
-			parts.Add("VBJUMBO", 1);
+			var pipeSize = GetMaxPipeSize();
+
+			if (systemType == SystemType.PVC)
+			{
+				SetPVCPartQuantities(parts, pipeSize);
+			}
+			else
+			{
+				SetPOLYPartQuantities(parts, pipeSize);
+			}
+		}
+
+		private void SetPOLYPartQuantities(CodedParts parts, PartSize pipeSize)
+		{
+			if (pipeSize == PartSize.SIZE_125)
+			{
+				parts.Add("PD2", 1);
+				parts.Add("FI100STFA", 1);
+				parts.Add("BV100FT", 2);
+				parts.Add("PD100CTADAPTER", 2);
+				parts.Add("PD100CAMCAP", 1);
+				parts.Add("FI125SSCOUP", 3);
+				parts.Add("FI125X100SSRB", 3);
+				parts.Add("NI100X4TOE", 2);
+				parts.Add("VBJUMBO", 1);
+			}
+			else // 075 & 100
+			{
+				parts.Add("PD2", 1);
+				parts.Add("FI100TSMA", 2);
+				parts.Add("FI100STFA", 1);
+				parts.Add("BV100FT", 2);
+				parts.Add("PD100CTADAPTER", 2);
+				parts.Add("PD100CAMCAP", 1);
+				parts.Add("VBJUMBO", 1);
+
+				if (pipeSize == PartSize.SIZE_075) parts.Add("FI100X075SSRB", 1);
+			}
+		}
+
+		private void SetPVCPartQuantities(CodedParts parts, PartSize pipeSize)
+		{
+			if (pipeSize == PartSize.SIZE_125)
+			{
+				parts.Add("PD2", 1);
+				parts.Add("FI100STFA", 1);
+				parts.Add("BV100FT", 2);
+				parts.Add("PD100CTADAPTER", 2);
+				parts.Add("PD100CAMCAP", 1);
+				parts.Add("FI125SSCOUP", 3);
+				parts.Add("FI125X100SSRB", 3);
+				parts.Add("NI100X4TOE", 2);
+				parts.Add("VBJUMBO", 1);
+			}
+			else if (pipeSize == PartSize.SIZE_150)
+			{
+				parts.Add("PD150HOSE", 2);
+				parts.Add("FI150TSMA", 1);
+				parts.Add("PD150IFCAMLOCK", 1);
+				parts.Add("PD150MMCAMLOCK", 2);
+				parts.Add("PD150CAMCAP", 1);
+				parts.Add("BV150BRONZE", 2);
+				parts.Add("NI150X4TOE", 2);
+				parts.Add("FI150SSCOUP", 2);
+				parts.Add("FI150STFASCH80", 1);
+				parts.Add("VBJUMBO", 1);
+			}
+			else if (pipeSize == PartSize.SIZE_200)
+			{
+				parts.Add("PD200HOSE", 2);
+				parts.Add("PF200BTMA", 1);
+				parts.Add("PD200IFCAMLOCK", 1);
+				parts.Add("PD200MMCAMLOCK", 2);
+				parts.Add("PD200CAMCAP", 1);
+				parts.Add("BV200BRONZE", 2);
+				parts.Add("NI200X4TOE", 2);
+				parts.Add("FI200SSCOUP", 2);
+				parts.Add("FI200STFA", 1);
+				parts.Add("VBGIANT", 1);
+			}
+			else // 075 & 100
+			{
+				parts.Add("PD2", 1);
+				parts.Add("FI100TSMA", 2);
+				parts.Add("FI100STFA", 1);
+				parts.Add("BV100FT", 2);
+				parts.Add("PD100CTADAPTER", 2);
+				parts.Add("PD100CAMCAP", 1);
+				parts.Add("VBJUMBO", 1);
+
+				if (pipeSize == PartSize.SIZE_075) parts.Add("FI100X075SSRB", 3);
+			}
 		}
 
 		/// <summary>
