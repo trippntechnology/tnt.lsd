@@ -17,6 +17,7 @@ namespace TNT.LSD.Inventory.Tests
 			Assert.IsNull(part.Code);
 			Assert.IsNull(part.Description);
 			Assert.AreEqual(0, part.Quantity);
+			Assert.AreEqual(false, part.Glueable);
 			Assert.IsNull(part.ExternalPart);
 		}
 
@@ -28,6 +29,7 @@ namespace TNT.LSD.Inventory.Tests
 				Code = "code",
 				Description = "description",
 				Quantity = 7,
+				Glueable = true,
 				ExternalPart = new Part()
 				{
 					Code = "excode",
@@ -40,6 +42,7 @@ namespace TNT.LSD.Inventory.Tests
 			Assert.AreEqual("code",part.Code);
 			Assert.AreEqual("description",part.Description);
 			Assert.AreEqual(7, part.Quantity);
+			Assert.AreEqual(true, part.Glueable);
 			Assert.IsNotNull(part.ExternalPart);
 			Assert.AreEqual("excode", part.ExternalPart.Code);
 			Assert.AreEqual("exdescription", part.ExternalPart.Description);

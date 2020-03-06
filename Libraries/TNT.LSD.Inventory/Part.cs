@@ -20,6 +20,11 @@ namespace TNT.LSD.Inventory
 		public string Description { get; set; }
 
 		/// <summary>
+		/// Indicates if the part requires cement
+		/// </summary>
+		public bool Glueable { get; set; }
+
+		/// <summary>
 		/// Part's Quantity
 		/// </summary>
 		public double Quantity { get; set; }
@@ -49,6 +54,7 @@ namespace TNT.LSD.Inventory
 		{
 			Code = obj.Code;
 			Description = obj.Description;
+			Glueable = obj.Glueable;
 			Quantity = obj.Quantity;
 
 			if (obj.ExternalPart != null)

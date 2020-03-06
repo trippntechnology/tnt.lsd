@@ -3,6 +3,7 @@ using LSDComponents.DrawingModes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -1224,6 +1225,31 @@ namespace LSDComponents
 				if (part != null && inventoryParts.ContainsKey(part.Code))
 				{
 					inventoryParts[part.Code].Quantity += part.Quantity;
+				}
+			}
+
+			// Add cement/primer if needed
+			var glueableCount = inventoryParts
+				.Where(p => p.Value.Quantity > 0 && p.Value.Glueable)
+				.Select(p => p.Value.Quantity).ToList()
+				.Sum();
+
+			var oz = glueableCount * 0.2;
+			var quarts = oz / 32;
+			var rem = oz % 32;
+
+			inventoryParts.Add("CEBCQT", (int)quarts);
+			inventoryParts.Add("CEPPPT", glueableCount > 1 ? 1 : 0);
+
+			if (rem > 0)
+			{
+				if (rem > 16)
+				{
+					inventoryParts.Add("CEBCQT", 1);
+				}
+				else
+				{
+					inventoryParts.Add("CEBCPT", 1);
 				}
 			}
 
