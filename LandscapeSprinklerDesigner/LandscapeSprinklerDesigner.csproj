@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LandscapeSprinklerDesigner</RootNamespace>
     <AssemblyName>LandscapeSprinklerDesigner</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -23,7 +23,7 @@
   <PropertyGroup>
     <AssemblyInfo_MajorVersion>3</AssemblyInfo_MajorVersion>
     <AssemblyInfo_MinorVersion>7</AssemblyInfo_MinorVersion>
-    <AssemblyInfo_PatchVersion>1</AssemblyInfo_PatchVersion>
+    <AssemblyInfo_PatchVersion>3</AssemblyInfo_PatchVersion>
     <AssemblyInfo_Title>Landscape Sprinkler Designer</AssemblyInfo_Title>
     <AssemblyInfo_GUID>5fd3560a-0efd-4e48-9df9-c4fa3f44ba15</AssemblyInfo_GUID>
   </PropertyGroup>
@@ -41,11 +41,14 @@
     <OutputPath>bin\Debug %28PALETTE_PROPERTIES%29\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -58,21 +61,23 @@
     <Reference Include="TNT.Configuration, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TNT.Configuration.1.3.2\lib\net461\TNT.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Plugin.Manager, Version=17.8.8.1742, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Plugin.Manager.17.8.8.1742\lib\net45\TNT.Plugin.Manager.dll</HintPath>
+    <Reference Include="TNT.Cryptography, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Cryptography.2.1.0\lib\netstandard2.0\TNT.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.ToolStripItemManager, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.ToolStripItemManager.1.4.0\lib\net461\TNT.ToolStripItemManager.dll</HintPath>
+    <Reference Include="TNT.LiveData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.LiveData.1.0.1\lib\netstandard2.0\TNT.LiveData.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
+    <Reference Include="TNT.Plugin.Manager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Plugin.Manager.1.1.0\lib\net462\TNT.Plugin.Manager.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Web, Version=17.2.1.2058, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Web.17.2.1.2058\lib\net45\TNT.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Web.LSD.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Web.LSD.Models.1.0.0\lib\net45\TNT.Web.LSD.Models.dll</HintPath>
+    <Reference Include="TNT.ToolStripItemManager, Version=1.5.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.ToolStripItemManager.1.5.2\lib\net472\TNT.ToolStripItemManager.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <HintPath>..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
@@ -85,6 +90,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Debouncer.cs" />
     <Compile Include="DockableForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,7 @@
     <Compile Include="Events\DrawSelectEvent.cs" />
     <Compile Include="Events\DrawTextEvent.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="LayoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,12 +121,50 @@
     <Compile Include="LayoutSettingsForm.Designer.cs">
       <DependentUpon>LayoutSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="License.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuEvents\AlignToGridMenuEvent.cs" />
+    <Compile Include="MenuEvents\AutoSizeMenuEvent.cs" />
+    <Compile Include="MenuEvents\CalculateAreaMenuEvent.cs" />
+    <Compile Include="MenuEvents\CalculateDistanceMenuEvent.cs" />
+    <Compile Include="MenuEvents\CheckForUpdateMenuItem.cs" />
+    <Compile Include="MenuEvents\MoveToFrontMenuEvent.cs" />
+    <Compile Include="MenuEvents\DockMenuEvent.cs" />
+    <Compile Include="MenuEvents\CloneMenuEvent.cs" />
+    <Compile Include="MenuEvents\DeleteMenuEvent.cs" />
+    <Compile Include="MenuEvents\ExitMenuEvent.cs" />
+    <Compile Include="MenuEvents\LayoutSettingsEvent.cs" />
+    <Compile Include="MenuEvents\MenuEvent.cs" />
+    <Compile Include="MenuEvents\NewMenuEvent.cs" />
+    <Compile Include="MenuEvents\OpenMenuEvent.cs" />
+    <Compile Include="MenuEvents\PartsListMenuEvent.cs" />
+    <Compile Include="MenuEvents\PartsPaletteEvent.cs" />
+    <Compile Include="MenuEvents\PersistedMenuEvent.cs" />
+    <Compile Include="MenuEvents\PropertiesMenuEvent.cs" />
+    <Compile Include="MenuEvents\RegisterMenuEvent.cs" />
+    <Compile Include="MenuEvents\Rotate180MenuEvent.cs" />
+    <Compile Include="MenuEvents\RotateRightMenuEvent.cs" />
+    <Compile Include="MenuEvents\RotateLeftMenuEvent.cs" />
+    <Compile Include="MenuEvents\RotateMenuEvent.cs" />
+    <Compile Include="MenuEvents\SaveAsMenuEvent.cs" />
+    <Compile Include="MenuEvents\SaveMenuEvent.cs" />
+    <Compile Include="MenuEvents\SelectAllMenuEvent.cs" />
+    <Compile Include="MenuEvents\LabelHeadsMenuEvent.cs" />
+    <Compile Include="MenuEvents\MoveToBackMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowLandscapeMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowCoverageMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowDistanceMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
+    <Compile Include="MenuEvents\ShowPartsMenuEvent.cs" />
+    <Compile Include="MenuEvents\SnapToGridMenuEvent.cs" />
+    <Compile Include="MenuEvents\SpaceEquallyMenuEvent.cs" />
+    <Compile Include="MenuEvents\SumGPMMenuEvent.cs" />
+    <Compile Include="MenuEvents\UndoMenuEvent.cs" />
     <Compile Include="NewLayoutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,25 +317,56 @@
     <EmbeddedResource Include="Images\polyline.png" />
     <EmbeddedResource Include="Images\rectangle.png" />
     <EmbeddedResource Include="Images\text.png" />
+    <EmbeddedResource Include="Images\new.png" />
+    <EmbeddedResource Include="Images\show_grid.png" />
+    <EmbeddedResource Include="Images\open.png" />
+    <EmbeddedResource Include="Images\save.png" />
+    <EmbeddedResource Include="Images\undo.png" />
+    <EmbeddedResource Include="Images\delete.png" />
+    <EmbeddedResource Include="Images\clone.png" />
+    <EmbeddedResource Include="Images\properties.png" />
+    <EmbeddedResource Include="Images\parts_list.png" />
+    <EmbeddedResource Include="Images\parts_palette.png" />
+    <EmbeddedResource Include="Images\layout_settings.png" />
+    <EmbeddedResource Include="Images\label_heads.png" />
+    <EmbeddedResource Include="Images\show_distance.png" />
+    <EmbeddedResource Include="Images\show_coverage.png" />
+    <EmbeddedResource Include="Images\show_parts.png" />
+    <EmbeddedResource Include="Images\snap_to_grid.png" />
+    <EmbeddedResource Include="Images\move_to_back.png" />
+    <EmbeddedResource Include="Images\move_to_front.png" />
+    <EmbeddedResource Include="Images\align_to_grid.png" />
+    <EmbeddedResource Include="Images\auto_size.png" />
+    <EmbeddedResource Include="Images\space_equally.png" />
+    <EmbeddedResource Include="Images\calculate_area.png" />
+    <EmbeddedResource Include="Images\calculate_distance.png" />
+    <EmbeddedResource Include="Images\rotate_180.png" />
+    <EmbeddedResource Include="Images\rotate_left.png" />
+    <EmbeddedResource Include="Images\rotate_right.png" />
+    <EmbeddedResource Include="Images\sum_gpm.png" />
+    <EmbeddedResource Include="Images\show_landscape.png" />
+    <EmbeddedResource Include="Images\application_key.png" />
     <Content Include="LandscapeSprinklerDesigner.ico" />
     <EmbeddedResource Include="splash.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(SolutionDir)Database\Inventory.sqlite $(TargetDir)
-mkdir $(TargetDir)\Transforms
-copy $(SolutionDir)LandscapeSprinklerDesigner\Transforms\*.* $(TargetDir)\Transforms\</PostBuildEvent>
+    <PostBuildEvent>
+			copy $(SolutionDir)Database\Inventory.sqlite $(TargetDir)
+			mkdir $(TargetDir)\Transforms
+			copy $(SolutionDir)LandscapeSprinklerDesigner\Transforms\*.* $(TargetDir)\Transforms\
+		</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets'))" />
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Import Project="..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets" Condition="Exists('..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets')" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets" Condition="Exists('..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" />
 </Project>

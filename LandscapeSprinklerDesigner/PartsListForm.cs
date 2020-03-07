@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using TNT.LSD.Inventory;
-using System.Linq;
 
 namespace LandscapeSprinklerDesigner
 {
 	public partial class PartsListForm : DockableForm
 	{
+		private Debouncer debouncer = new Debouncer();
+
 		public PartsListForm()
 		{
 			InitializeComponent();
@@ -22,18 +24,29 @@ namespace LandscapeSprinklerDesigner
 		/// and description</param>
 		public void SetParts(List<Part> parts)
 		{
-			Parts_ListView.Items.Clear();
-
-			foreach (Part p in parts)
+			IProgress<List<Part>> doWork = new Progress<List<Part>>(listOfParts =>
 			{
-				ListViewItem lvi = null;
+				Debug.WriteLine("SetParts called");
+				Parts_ListView.BeginUpdate();
+				Parts_ListView.Items.Clear();
 
-				lvi = Parts_ListView.Items.Add(p.Code);
-				lvi.SubItems.Add(p.Description);
-				lvi.SubItems.Add(p.Quantity.ToString());
-			}
+				foreach (Part p in parts)
+				{
+					ListViewItem lvi = null;
 
-			Parts_ListView.Sort();
+					lvi = Parts_ListView.Items.Add(p.Code);
+					lvi.SubItems.Add(p.Description);
+					lvi.SubItems.Add(p.Quantity.ToString());
+				}
+
+				Parts_ListView.Sort();
+				Parts_ListView.EndUpdate();
+			});
+
+			var task = debouncer.DebounceAsync(token =>
+			{
+				doWork.Report(parts);
+			});
 		}
 
 		/// <summary>

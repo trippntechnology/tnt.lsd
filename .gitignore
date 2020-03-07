@@ -2,7 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/LandscapeSprinklerDesigner/v15
+.vs/
+#/.vs/LandscapeSprinklerDesigner/v15
 **/bin/
 **/obj/
 **/*.csproj.user

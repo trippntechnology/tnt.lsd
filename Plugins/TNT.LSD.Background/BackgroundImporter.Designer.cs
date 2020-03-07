@@ -52,7 +52,7 @@
 			this.tableLayoutPanel1.ColumnCount = 3;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.0479F));
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.9521F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
 			this.tableLayoutPanel1.Controls.Add(this.ImportButton, 1, 2);
 			this.tableLayoutPanel1.Controls.Add(this.PixelPerFootTextBox, 1, 1);
 			this.tableLayoutPanel1.Controls.Add(this.FindFileButton, 2, 0);
@@ -85,7 +85,7 @@
 			// PixelPerFootTextBox
 			// 
 			this.PixelPerFootTextBox.Dock = System.Windows.Forms.DockStyle.Left;
-			this.PixelPerFootTextBox.Location = new System.Drawing.Point(89, 28);
+			this.PixelPerFootTextBox.Location = new System.Drawing.Point(88, 28);
 			this.PixelPerFootTextBox.Name = "PixelPerFootTextBox";
 			this.PixelPerFootTextBox.Size = new System.Drawing.Size(100, 20);
 			this.PixelPerFootTextBox.TabIndex = 8;
@@ -93,7 +93,7 @@
 			// 
 			// FindFileButton
 			// 
-			this.FindFileButton.Location = new System.Drawing.Point(333, 3);
+			this.FindFileButton.Location = new System.Drawing.Point(331, 3);
 			this.FindFileButton.Name = "FindFileButton";
 			this.FindFileButton.Size = new System.Drawing.Size(25, 19);
 			this.FindFileButton.TabIndex = 6;
@@ -104,10 +104,10 @@
 			// FileNameTextBox
 			// 
 			this.FileNameTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.FileNameTextBox.Location = new System.Drawing.Point(89, 3);
+			this.FileNameTextBox.Location = new System.Drawing.Point(88, 3);
 			this.FileNameTextBox.Name = "FileNameTextBox";
 			this.FileNameTextBox.ReadOnly = true;
-			this.FileNameTextBox.Size = new System.Drawing.Size(238, 20);
+			this.FileNameTextBox.Size = new System.Drawing.Size(237, 20);
 			this.FileNameTextBox.TabIndex = 5;
 			// 
 			// label2
@@ -116,7 +116,7 @@
 			this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.label2.Location = new System.Drawing.Point(3, 25);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(80, 25);
+			this.label2.Size = new System.Drawing.Size(79, 25);
 			this.label2.TabIndex = 4;
 			this.label2.Text = "Pixels Per Foot:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -127,7 +127,7 @@
 			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.label1.Location = new System.Drawing.Point(3, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(80, 25);
+			this.label1.Size = new System.Drawing.Size(79, 25);
 			this.label1.TabIndex = 2;
 			this.label1.Text = "File Name:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

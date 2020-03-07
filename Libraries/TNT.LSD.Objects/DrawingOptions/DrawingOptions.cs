@@ -37,5 +37,24 @@ namespace TNT.LSD.Objects
 		/// Specifies whether distances should even be shown when object isn't selected
 		/// </summary>
 		public bool AlwaysShowDistances { get; set; }
+
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public DrawingOptions() { }
+
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="obj"><see cref="DrawingOptions"/> to copy</param>
+		public DrawingOptions(DrawingOptions obj) : this()
+		{
+			this.ShowCoverage = obj.ShowCoverage;
+			this.PartsLayer = obj.PartsLayer;
+			this.AutoSizePipes = obj.AutoSizePipes;
+			this.BaseFont = obj.BaseFont;
+			this.LabelHeads = obj.LabelHeads;
+			this.AlwaysShowDistances = obj.AlwaysShowDistances;
+		}
 	}
 }

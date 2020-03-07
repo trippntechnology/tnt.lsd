@@ -32,7 +32,7 @@ namespace LandscapeSprinklerDesigner
 		{
 			#region Load state from registry
 
-			Description.Height = Main.Registery.ReadInteger(Name, "DescriptionHeight", Description.Height);
+			Description.Height = Global.userRegistry.ReadInteger(Name, "DescriptionHeight", Description.Height);
 
 			#endregion
 		}
@@ -54,9 +54,9 @@ namespace LandscapeSprinklerDesigner
 
 		private void splitter1_SplitterMoved(object sender, SplitterEventArgs e)
 		{
- 			#region Save state to registry
+			#region Save state to registry
 
-			Main.Registery.WriteInteger(Name, "DescriptionHeight", Description.Height);
+			Global.userRegistry.WriteInteger(Name, "DescriptionHeight", Description.Height);
 
 			#endregion
 		}

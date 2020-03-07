@@ -1,9 +1,8 @@
 ﻿using LSDComponents;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using TNT.Plugin.Manager;
-using System;
-using System.Drawing;
 
 namespace TNT.LSD.Export
 {
@@ -18,13 +17,15 @@ namespace TNT.LSD.Export
 
 		public override string MenuStripName => "MenuStrip1";
 
-		public override string ToolStripName => "ToolStrip1";
+		public override string ToolStripName => "pluginToolStrip";
 
 		public override string Text => "Export";
 
 		public override string ToolTipText => string.Empty;
 
 		public override Image Image => null;
+
+		public override bool LicenseRequired => true;
 
 		public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{
@@ -102,15 +103,15 @@ namespace TNT.LSD.Export
 			return menuStrip;
 		}
 
-		public override ToolStrip GetToolStrip()
-		{
-			ToolStrip toolStrip = new ToolStrip();
+		public override ToolStrip GetToolStrip() => null;
+		//{
+		//	ToolStrip toolStrip = new ToolStrip();
 
-			ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, GetImage(JPGImageResource), JPGToolTipText);
-			toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStrip.Items.Add(toolStripButton);
+		//	ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>(JPGMenuText, GetImage(JPGImageResource), JPGToolTipText);
+		//	toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		//	toolStrip.Items.Add(toolStripButton);
 
-			return toolStrip;
-		}
+		//	return toolStrip;
+		//}
 	}
 }

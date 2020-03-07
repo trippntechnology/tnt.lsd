@@ -276,30 +276,49 @@ namespace TNT.LSD.Objects
 		}
 
 		/// <summary>
-		/// Moves the control point to the exact location specified by position if control point
+		/// Moves the control point to the exact location specified by <paramref name="currentPos"/> if control point
 		/// is selected, otherwise move the object by the delta values
 		/// </summary>
-		/// <param name="position">Exact position</param>
-		/// <param name="deltaX">Change in x</param>
-		/// <param name="deltaY">Change in y</param>
+		/// <param name="currentPos">Current position</param>
+		/// <param name="lastPosition">Last position</param>
+		/// <param name="alignToGrid">Indicates positions should be aligned to the grid</param>
 		/// <param name="alignPoints">Indicates if points should be aligned</param>
 		/// <param name="modifierKeys">Modifier keys</param>
-		virtual public void Move(Point position, int deltaX, int deltaY, bool alignPoints, Keys modifierKeys)
+		public void Move(Point currentPos, Point lastPosition, bool alignToGrid, bool alignPoints, Keys modifierKeys)
 		{
+			var adjCurrent = alignToGrid ? currentPos.SnapToGrid() : currentPos;
+			var adjLast = alignToGrid ? lastPosition.SnapToGrid() : lastPosition;
+			var deltaX = adjCurrent.X - adjLast.X;
+			var deltaY = adjCurrent.Y - adjLast.Y;
+
 			if (m_SelectedControlPoint != null)
 			{
 				TNTBezierControlPoint bezierPoint = m_SelectedControlPoint as TNTBezierControlPoint;
 
-				if (bezierPoint != null && modifierKeys == Keys.Shift)
-				{
-					// Adjust the other bezier point in the opposite direction
-					Point adjPoint = bezierPoint.EndPoint.Position.Subtract(position).Add(bezierPoint.EndPoint.Position);
-					var controlPoints = (from p in this.ControlPoints where (p is TNTBezierControlPoint) && (p as TNTBezierControlPoint).EndPointID == bezierPoint.EndPointID && p.ID != bezierPoint.ID select p).ToList();
-					controlPoints.ForEach(p => p.MoveTo(adjPoint.X, adjPoint.Y, true));
-				}
+				// Snap to grid if Control key is pressed
+				var pos1 = modifierKeys.HasFlag(Keys.Control) ? currentPos.SnapToGrid() : currentPos;
 
-				// We're over control point. Move control point
-				m_SelectedControlPoint.MoveTo(position.X, position.Y, true);
+				if (bezierPoint != null && (modifierKeys & Keys.Shift) == Keys.Shift)
+				{
+					// Calculate position of opposite bezier point if Shift key is pressed and move both points
+					var pos2 = bezierPoint.EndPoint.Position.Subtract(pos1).Add(bezierPoint.EndPoint.Position);
+					var controlPoints = (from p in this.ControlPoints where (p is TNTBezierControlPoint) && (p as TNTBezierControlPoint).EndPointID == bezierPoint.EndPointID && p.ID != bezierPoint.ID select p).ToList();
+					controlPoints.ForEach(p => p.MoveTo(pos2.X, pos2.Y, true));
+					m_SelectedControlPoint.MoveTo(pos1.X, pos1.Y, true);
+				}
+				else
+				{
+					if (m_SelectedControlPoint is TNTBezierControlPoint)
+					{
+						// Don't align this move to grid
+						m_SelectedControlPoint.MoveTo(pos1.X, pos1.Y, true);
+					}
+					else
+					{
+						// We're over control point. Move control point
+						m_SelectedControlPoint.MoveTo(adjCurrent.X, adjCurrent.Y, true);
+					}
+				}
 			}
 			else
 			{

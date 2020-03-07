@@ -39,7 +39,7 @@ namespace LSDComponents.DrawingModes
 		}
 
 		public SelectMode(SelectMode obj)
-			:base(obj)
+			: base(obj)
 		{
 			m_ToolTip.IsBalloon = obj.m_ToolTip.IsBalloon;
 		}
@@ -69,16 +69,9 @@ namespace LSDComponents.DrawingModes
 
 				m_PrepareUndo = false;
 
-				if (cad.SnapToGrid)
-				{
-					// Adjust the positions to align to the grid.
-					m_LastMousePosition = m_LastMousePosition.SnapToGrid();
-					currentPos = currentPos.SnapToGrid();
-				}
-
 				foreach (TNTObject obj in cad.SelectedObjects)
 				{
-					obj.Move(currentPos, currentPos.X - m_LastMousePosition.X, currentPos.Y - m_LastMousePosition.Y, false, modifierKeys);
+					obj.Move(currentPos, m_LastMousePosition, cad.SnapToGrid, false, modifierKeys);
 				}
 
 				cad.Refresh();
@@ -133,11 +126,11 @@ namespace LSDComponents.DrawingModes
 				{
 					cad.SetStateInfo(m_UnderlaidObject.MouseOver(currentPos, modifierKeys).GetStateInfo(currentPos, modifierKeys));
 
-					if (ShowPartsToolTip == null || !ShowPartsToolTip.Checked || !m_UnderlaidObject.Selected)
+					if (!cad.ShowPartsToolTip || !m_UnderlaidObject.Selected)
 					{
 						m_ToolTip.SetToolTip(cad, string.Empty);
 					}
-					else if (ShowPartsToolTip != null && ShowPartsToolTip.Checked && m_ShowToolTip && m_UnderlaidObject is BasePart)
+					else if (cad.ShowPartsToolTip && m_ShowToolTip && m_UnderlaidObject is BasePart)
 					{
 						Dictionary<string, Part> parts = DALPart.GetParts();
 						(m_UnderlaidObject as BasePart).SetPartQuantity(parts);

@@ -37,10 +37,6 @@ namespace LSDComponents.DrawingModes
 
 		#region Properties
 
-		[XmlIgnore()]
-		[Browsable(false)]
-		virtual public Command ShowPartsToolTip { get; set; }
-
 		[DisplayName("Default Object Type")]
 		[Description("Type of the default object")]
 		[TypeConverter(typeof(TypeConverters.ObjectTypeListConverter))]

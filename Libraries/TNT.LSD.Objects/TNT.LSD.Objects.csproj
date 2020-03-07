@@ -76,6 +76,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
+    <AssemblyInfo_PatchVersion>1</AssemblyInfo_PatchVersion>
     <AssemblyInfo_Title>TNT LSD Objects</AssemblyInfo_Title>
     <AssemblyInfo_GUID>dbc5f5a0-b9bd-404a-91ef-a8dc34795844</AssemblyInfo_GUID>
   </PropertyGroup>
@@ -99,8 +100,11 @@
     <Reference Include="TNT.Math, Version=1.1.2.1948, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TNT.Math.1.1.2\lib\net45\TNT.Math.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Utilities, Version=17.3.11.2027, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Utilities.17.3.11.2027\lib\net45\TNT.Utilities.dll</HintPath>
+    <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +230,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets'))" />
+    <Error Condition="!Exists('..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets'))" />
   </Target>
-  <Import Project="..\..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets" Condition="Exists('..\..\packages\TNT.AssemblyInfo.1.4.0\build\TNT.AssemblyInfo.targets')" />
+  <Import Project="..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets" Condition="Exists('..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" />
 </Project>

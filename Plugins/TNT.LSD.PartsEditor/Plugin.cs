@@ -15,6 +15,8 @@ namespace TNT.LSD.PartsEditor
 
 		public override string ToolTipText => "Edit static parts listing";
 
+		public override bool LicenseRequired => true;
+
 		public override Image Image
 		{
 			get

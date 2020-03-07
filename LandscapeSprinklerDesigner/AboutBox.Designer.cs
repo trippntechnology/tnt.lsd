@@ -47,7 +47,7 @@
 			// 
 			this.tableLayoutPanel.ColumnCount = 2;
 			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 547F));
 			this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
 			this.tableLayoutPanel.Controls.Add(this.VersionLabel, 1, 0);
 			this.tableLayoutPanel.Controls.Add(this.listView1, 1, 1);
@@ -70,6 +70,7 @@
 			this.logoPictureBox.Name = "logoPictureBox";
 			this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 3);
 			this.logoPictureBox.Size = new System.Drawing.Size(164, 314);
+			this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.logoPictureBox.TabIndex = 13;
 			this.logoPictureBox.TabStop = false;
 			// 
@@ -90,6 +91,7 @@
             this.Version,
             this.Owner});
 			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listView1.HideSelection = false;
 			this.listView1.Location = new System.Drawing.Point(173, 19);
 			this.listView1.Name = "listView1";
 			this.listView1.Size = new System.Drawing.Size(541, 266);
