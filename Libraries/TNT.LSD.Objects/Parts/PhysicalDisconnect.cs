@@ -1,16 +1,27 @@
 ﻿using System;
+using TNT.LSD.Inventory;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a physical disconnect
+	/// </summary>
 	public class PhysicalDisconnect : MainlinePart
 	{
 		#region Constructors
 
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
 		public PhysicalDisconnect(PhysicalDisconnect obj)
 			: base(obj)
 		{
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public PhysicalDisconnect()
 			: base()
 		{
@@ -20,11 +31,14 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
-		public override TNTObject Clone()
-		{
-			return new PhysicalDisconnect(this);
-		}
+		/// <summary>
+		/// Clones this <see cref="PhysicalDisconnect"/>
+		/// </summary>
+		public override TNTObject Clone() => new PhysicalDisconnect(this);
 
+		/// <summary>
+		/// Indicates whether a pipce can be connected to this <see cref="PhysicalDisconnect"/>
+		/// </summary>
 		public override bool CanAddPipe(Type pipeType, out string reason)
 		{
 			if (Pipes.Count > 2)
@@ -36,12 +50,124 @@ namespace TNT.LSD.Objects
 			return base.CanAddPipe(pipeType, out reason);
 		}
 
-		public override void SetPartQuantity(System.Collections.Generic.Dictionary<string, TNT.LSD.Inventory.Part> parts)
+		/// <summary>
+		/// Sets parts associated with the physical disconnect
+		/// </summary>
+		/// <param name="parts"></param>
+		/// <param name="systemType"></param>
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			GetPart(parts, "PD2").Quantity += 1;
-			GetPart(parts, "VBJUMBO").Quantity += 1;
+			var pipeSize = GetMaxPipeSize();
 
-			base.SetPartQuantity(parts);
+			if (systemType == SystemType.PVC)
+			{
+				SetPVCPartQuantities(parts, pipeSize);
+			}
+			else
+			{
+				SetPOLYPartQuantities(parts, pipeSize);
+			}
+		}
+
+		/// <summary>
+		/// Set poly parts from physical disconnect to poly
+		/// </summary>
+		public static void SetPOLYPartQuantities(CodedParts parts, PartSize pipeSize)
+		{
+			SetPhysicalDisconnectParts(parts);
+
+			if (pipeSize == PartSize.SIZE_125)
+			{
+				// Transition ball valves to male threaded
+				parts.Add("NI100X2", 2);
+
+				// 1-1/4" MT to barbed
+				parts.Add("FI125X100TTRB", 3);
+				parts.Add("PF125BTFA", 3);
+			}
+			else if (pipeSize == PartSize.SIZE_100) 
+			{
+				// Inlet
+				parts.Add("PF100BTMA", 2);
+
+				// Outlet
+				parts.Add("PF100BTFA", 1);
+			}
+			else
+			{
+				// Transition ball valves to 3/4" FT
+				parts.Add("FI100X075TTRB", 2);
+
+				// Transition 1" FT to 3/4" FT
+				parts.Add("FI100TTCOUP", 1);
+				parts.Add("FI100X075TTRB", 1);
+
+				// 3/4" FT to barbed
+				parts.Add("PF075BTMA", 3);
+			}
+
+			parts.AddHoseClamp(pipeSize.Code, 3);
+		}
+
+		/// <summary>
+		/// Sets the PVC part quantities
+		/// </summary>
+		public static void SetPVCPartQuantities(CodedParts parts, PartSize pipeSize)
+		{
+			if (pipeSize == PartSize.SIZE_125)
+			{
+				SetPhysicalDisconnectParts(parts);
+				parts.Add("FI100STFA", 1);
+				parts.Add("FI125SSCOUP", 3);
+				parts.Add("FI125X100SSRB", 3);
+				parts.Add("NI100X4TOE", 2);
+			}
+			else if (pipeSize == PartSize.SIZE_150)
+			{
+				parts.Add("PD150HOSE", 2);
+				parts.Add("FI150TSMA", 1);
+				parts.Add("PD150IFCAMLOCK", 1);
+				parts.Add("PD150MMCAMLOCK", 2);
+				parts.Add("PD150CAMCAP", 1);
+				parts.Add("BV150BRONZE", 2);
+				parts.Add("NI150X4TOE", 2);
+				parts.Add("FI150SSCOUP", 2);
+				parts.Add("FI150STFASCH80", 1);
+				parts.Add("VBJUMBO", 1);
+			}
+			else if (pipeSize == PartSize.SIZE_200)
+			{
+				parts.Add("PD200HOSE", 2);
+				parts.Add("PF200BTMA", 1);
+				parts.Add("PD200IFCAMLOCK", 1);
+				parts.Add("PD200MMCAMLOCK", 2);
+				parts.Add("PD200CAMCAP", 1);
+				parts.Add("BV200BRONZE", 2);
+				parts.Add("NI200X4TOE", 2);
+				parts.Add("FI200SSCOUP", 2);
+				parts.Add("FI200STFA", 1);
+				parts.Add("VBGIANT", 1);
+			}
+			else // 075 & 100
+			{
+				SetPhysicalDisconnectParts(parts);
+				parts.Add("FI100TSMA", 2);
+				parts.Add("FI100STFA", 1);
+
+				if (pipeSize == PartSize.SIZE_075) parts.Add("FI100X075SSRB", 3);
+			}
+		}
+
+		/// <summary>
+		/// Set the physical disconnect parts (only for 1-1/4" main and smaller
+		/// </summary>
+		private static void SetPhysicalDisconnectParts(CodedParts parts)
+		{
+			parts.Add("PD2", 1);
+			parts.Add("BV100FT", 2);
+			parts.Add("PD100CTADAPTER", 2);
+			parts.Add("PD100CAMCAP", 1);
+			parts.Add("VBJUMBO", 1);
 		}
 
 		/// <summary>
@@ -54,7 +180,7 @@ namespace TNT.LSD.Objects
 		{
 			if (!Sized)
 			{
-				m_Pipes.ForEach(p =>
+				Pipes.ForEach(p =>
 				{
 					if (upstreamPipe != null && upstreamPipe == p)
 					{

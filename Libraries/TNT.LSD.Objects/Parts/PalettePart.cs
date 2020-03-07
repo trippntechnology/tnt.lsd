@@ -182,7 +182,7 @@ namespace TNT.LSD.Objects
 
 		virtual protected void DrawBackground(Graphics graphics)
 		{
-			Color? backgroundColor = this is Valve ? this.Color : m_Pipes.Count>0 ? (Color?)m_Pipes[0].PipeColor : null;
+			Color? backgroundColor = this is Valve ? this.Color : Pipes.Count>0 ? (Color?)Pipes[0].PipeColor : null;
 			
 			if (backgroundColor != null && backgroundColor?.ToArgb() != Color.Black.ToArgb())
 			{

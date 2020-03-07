@@ -20,6 +20,11 @@ namespace TNT.LSD.Inventory
 		public string Description { get; set; }
 
 		/// <summary>
+		/// Indicates if the part requires cement
+		/// </summary>
+		public bool Glueable { get; set; }
+
+		/// <summary>
 		/// Part's Quantity
 		/// </summary>
 		public double Quantity { get; set; }
@@ -49,15 +54,12 @@ namespace TNT.LSD.Inventory
 		{
 			Code = obj.Code;
 			Description = obj.Description;
+			Glueable = obj.Glueable;
 			Quantity = obj.Quantity;
 
 			if (obj.ExternalPart != null)
 			{
-				ExternalPart = new Part()
-				{
-					Code = obj.ExternalPart.Code,
-					Description = obj.ExternalPart.Description
-				};
+				ExternalPart = new Part(obj.ExternalPart);
 			}
 		}
 
@@ -67,9 +69,6 @@ namespace TNT.LSD.Inventory
 		/// Returns the code and description
 		/// </summary>
 		/// <returns>Code and description</returns>
-		public override string ToString()
-		{
-			return string.Concat(this.Code, ": ", this.Description);
-		}
+		public override string ToString() => $"({Quantity}) {Code}: {Description}";
 	}
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects.Extensions;
+using TNT.LSD.Settings;
 using TNT.LSD.Settings.TypeConverters;
 using TNT.Math;
 
@@ -119,6 +120,8 @@ namespace TNT.LSD.Objects
 			}
 		}
 
+		public int PipeSizeIndex => m_PipeSizeList.IndexOf(PipeSize);
+
 		#endregion
 
 		#region Constructors
@@ -209,11 +212,10 @@ namespace TNT.LSD.Objects
 		{
 			using (Pen p = new Pen(Color.FromArgb(Selected ? 100 : 255, PipeColor)))
 			{
-				int pipeSizeIndex = m_PipeSizeList.IndexOf(PipeSize);
 				p.DashStyle = LineStyle;
 				graphics.DrawLine(p, Part1.Position, Part2.Position);
 
-				if (pipeSizeIndex > 1)
+				if (PipeSizeIndex > 1)
 				{
 					var solidBrush = new SolidBrush(Color.FromArgb(255, this.PipeColor));
 					var pipeVector = new Vector(Part1.Position, Part2.Position);
@@ -229,7 +231,7 @@ namespace TNT.LSD.Objects
 					graphics.TranslateTransform(midPoint.X, midPoint.Y);
 					graphics.RotateTransform(angle);
 
-					if (pipeSizeIndex == 2)
+					if (PipeSizeIndex == 2)
 					{
 						// Diamond
 						var p0 = new Vector(0, 1).Unit * PIPE_SIZE_INDICATOR_PIXELS;
@@ -239,17 +241,17 @@ namespace TNT.LSD.Objects
 						var points = new PointF[] { (PointF)p0, (PointF)p1, (PointF)p2, (PointF)p3 };
 						graphics.FillPolygon(solidBrush, points);
 					}
-					else if (pipeSizeIndex == 3)
+					else if (PipeSizeIndex == 3)
 					{
 						// Rectangle
 						graphics.FillRectangle(solidBrush, rect);
 					}
-					else if (pipeSizeIndex == 4)
+					else if (PipeSizeIndex == 4)
 					{
 						// Circle
 						graphics.FillEllipse(solidBrush, rect);
 					}
-					else if (pipeSizeIndex == 5)
+					else if (PipeSizeIndex == 5)
 					{
 						// Triangle
 						var p0 = new Vector(0, 0);
@@ -348,9 +350,20 @@ namespace TNT.LSD.Objects
 		/// Add pipe quantities
 		/// </summary>
 		/// <param name="parts">List of parts who's quantities should be updated</param>
-		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		/// <param name="systemType">Indicates the type of system</param>
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			List<string> codes = new List<string>(new string[] { "", "PI075", "PI100", "PI125", "PI150", "PI200" });
+			List<string> codes;
+			switch (systemType)
+			{
+				case SystemType.PVC:
+					codes = new List<string>(new string[] { "", "PI075", "PI100", "PI125", "PI150", "PI200" });
+					break;
+				default:
+					codes = new List<string>(new string[] { "", "POLY075", "POLY100", "POLY125", "POLY150", "POLY200" });
+					break;
+			}
+
 			int index = m_PipeSizeList.IndexOf(PipeSize);
 
 			Part part = parts[codes[index]];

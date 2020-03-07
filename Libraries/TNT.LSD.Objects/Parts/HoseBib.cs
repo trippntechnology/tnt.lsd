@@ -1,31 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using TNT.LSD.Inventory;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a hose connection
+	/// </summary>
 	public class HoseBib : IndirectMainlinePart
 	{
 		#region Constructors
 
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="obj"></param>
 		public HoseBib(HoseBib obj)
 			: base(obj)
 		{
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public HoseBib()
 			: base()
 		{
-			// To maintain backward compatibility for hose bibs in previous layouts, set the fitting thread size to 3/4"
-			FittingThreadSize = "3/4\"";
 		}
 
 		#endregion
 
+		/// <summary>
+		/// Indicates if a pipe connection can be added
+		/// </summary>
 		#region Overrides
 		public override bool CanAddPipe(Type pipeType, out string reason)
 		{
-			Pipe pipe = m_Pipes.Find(p => p.GetType() != pipeType);
+			Pipe pipe = Pipes.Find(p => p.GetType() != pipeType);
 
 			if (pipe != null)
 			{
@@ -43,10 +52,11 @@ namespace TNT.LSD.Objects
 			return true;
 		}
 
-		public override TNTObject Clone()
-		{
-			return new HoseBib(this);
-		}
+		/// <summary>
+		/// Clones this <see cref="HoseBib"/>
+		/// </summary>
+		/// <returns></returns>
+		public override TNTObject Clone() => new HoseBib(this);
 
 		#endregion
 	}

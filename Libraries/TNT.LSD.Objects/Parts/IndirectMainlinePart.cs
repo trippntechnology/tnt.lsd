@@ -3,17 +3,27 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
+	/// <summary>
+	/// Represents a generic mainline part
+	/// </summary>
 	public class IndirectMainlinePart : MainlinePart
 	{
 		#region Properties
 
 		#region Model
 
+		/// <summary>
+		/// Backing property for <see cref="Model"/>
+		/// </summary>
 		protected string m_Model;
 
+		/// <summary>
+		/// Specifies the model of the part
+		/// </summary>
 		[Description("Specifies the model to use")]
 		[TypeConverter(typeof(TypeConverters.PartDescriptionList))]
 		virtual public string Model
@@ -27,33 +37,43 @@ namespace TNT.LSD.Objects
 				{
 					int descriptionIndex = ModelDescriptions.IndexOf(m_Model);
 
-					if (descriptionIndex > -1 && m_ModelCodes.Count > descriptionIndex)
-						ModelCode = m_ModelCodes[descriptionIndex];
+					if (descriptionIndex > -1 && ModelCodes.Count > descriptionIndex)
+						ModelCode = ModelCodes[descriptionIndex];
 				}
 			}
 		}
 
+		/// <summary>
+		/// The description of the part
+		/// </summary>
 		[XmlIgnore()]
 		[Browsable(false)]
 		virtual public List<string> ModelDescriptions { get; set; }
 
+		/// <summary>
+		/// Code associated with this part
+		/// </summary>
 		[Description("Internal code associated with this part")]
 		[DisplayName("Model Code")]
 		[ReadOnly(true)]
 		virtual public string ModelCode { get; set; }
 
-		protected List<string> m_ModelCodes = new List<string>();
-
+		/// <summary>
+		/// Available model codes
+		/// </summary>
 		[Editor(@"System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
 #if !PALETTE_PROPERTIES
 		[Browsable(false)]
 #endif
-		virtual public List<string> ModelCodes { get { return m_ModelCodes; } set { m_ModelCodes = value; } }
+		virtual public List<string> ModelCodes { get; set; }
 
 		#endregion
 
 		#region Fitting Thread Size
 
+		/// <summary>
+		/// Indicates the inlet thread size
+		/// </summary>
 		[Description("Specifies the thread size on the fitting coming off the mainline")]
 		[DisplayName("Fitting Thread Size")]
 		[TypeConverter(typeof(TypeConverters.SizeList))]
@@ -68,6 +88,9 @@ namespace TNT.LSD.Objects
 
 		#region Constructors
 
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
 		public IndirectMainlinePart(IndirectMainlinePart obj)
 			: base(obj)
 		{
@@ -78,6 +101,9 @@ namespace TNT.LSD.Objects
 			FittingThreadSize = obj.FittingThreadSize;
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public IndirectMainlinePart()
 			: base()
 		{
@@ -87,48 +113,132 @@ namespace TNT.LSD.Objects
 
 		#region Overrides
 
-		public override TNTObject Clone()
-		{
-			return new IndirectMainlinePart(this);
-		}
+		/// <summary>
+		/// Clones this <see cref="IndirectMainlinePart"/>
+		/// </summary>
+		/// <returns></returns>
+		public override TNTObject Clone() => new IndirectMainlinePart(this);
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		/// <summary>
+		/// Sets the part quantities for this part
+		/// </summary>
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			string[] codes = ModelCode.Split(';');
 
 			foreach (string code in codes)
 			{
-				GetPart(parts, code).Quantity += 1;
+				// Add each code
+				parts.Add(code, 1);
 			}
 
+			// Add fittings
 			if (Pipes != null && Pipes.Count > 0)
 			{
-				int pipeSizeIndex = m_PipeSizeList.IndexOf(Pipes[0].PipeSize);
-				string pipeSizeCode = SIZE_CODE[pipeSizeIndex];
-				int fittingThreadIndex = (new TypeConverters.SizeList()).IndexOf(FittingThreadSize);
-				string ftSizeCode = SIZE_CODE[fittingThreadIndex];
-				string fittingCode = Pipes.Count == 1 ? "ST90" : "SSTTEE";
+				var pipeSize = GetMaxPipeSize();
+				var fittingSize = pipeSize;
+				var outletThreadSize = PartSize.GetSizeByReadable(FittingThreadSize);
 
-				if (pipeSizeIndex == fittingThreadIndex)
+				if (systemType == SystemType.PVC)
 				{
-					GetPart(parts, string.Format("FI{0}{1}", pipeSizeCode, fittingCode)).Quantity += 1;
+					AddPVCParts(parts, fittingSize, outletThreadSize);
 				}
-				else //if (pipeSizeIndex - fittingThreadIndex == 1)
+				else
 				{
-					string partKey = string.Format("FI{0}X{1}{2}", pipeSizeCode, ftSizeCode, fittingCode);
+					AddPOLYParts(parts, fittingSize, outletThreadSize);
+				}
+			}
+		}
 
-					if (parts.ContainsKey(partKey))
+		private void AddPOLYParts(CodedParts parts, PartSize fittingSize, PartSize outletThreadSize)
+		{
+			if (Pipes.Count == 1)
+			{
+				// Add 90
+				if (fittingSize == outletThreadSize)
+				{
+					parts.Add($"PF{fittingSize}BT90", 1);
+				}
+				else
+				{
+					if (parts.ContainsKey($"PF{fittingSize}X{outletThreadSize}BT90"))
 					{
-						// Part key exists so increment count
-						GetPart(parts, partKey).Quantity += 1;
+						parts.Add($"PF{fittingSize}X{outletThreadSize}BT90", 1);
 					}
 					else
 					{
-						// Couldn't find part key. Create the part using a ST reducer
-						GetPart(parts, string.Format("FI{0}{1}", pipeSizeCode, Pipes.Count == 1 ? "SS90" : "SSSTEE")).Quantity += 1;
-						GetPart(parts, string.Format("FI{0}X{1}STRB", pipeSizeCode, ftSizeCode)).Quantity += 1;
+						parts.Add($"PF{fittingSize}BT90", 1);
+						parts.Add($"FI{fittingSize}X{outletThreadSize}TTRB", 1);
+					}
+				}
+				parts.AddHoseClamp(fittingSize.Code, 1);
+			}
+			else
+			{
+				// Add Tee
+				if (fittingSize == outletThreadSize)
+				{
+					parts.Add($"PF{fittingSize}BBTTEE", 1);
+				}
+				else
+				{
+					if (parts.ContainsKey($"PF{fittingSize}X{outletThreadSize}BBTTEE"))
+					{
+						parts.Add($"PF{fittingSize}X{outletThreadSize}BBTTEE", 1);
+					}
+					else
+					{
+						parts.Add($"PF{fittingSize}BBTTEE", 1);
+						parts.Add($"FI{fittingSize}X{outletThreadSize}TTRB", 1);
+					}
+				}
+				parts.AddHoseClamp(fittingSize.Code, 2);
+			}
+		}
+
+		private void AddPVCParts(CodedParts parts, PartSize fittingSize, PartSize outletThreadSize)
+		{
+			if (Pipes.Count == 1)
+			{
+				// Add 90
+				if (fittingSize == outletThreadSize)
+				{
+					parts.Add($"FI{fittingSize}ST90", 1);
+				}
+				else
+				{
+					if (parts.ContainsKey($"FI{fittingSize}X{outletThreadSize}ST90"))
+					{
+						parts.Add($"FI{fittingSize}X{outletThreadSize}ST90", 1);
+					}
+					else
+					{
+						// Bushing to size outlet
+						parts.Add($"FI{fittingSize}SS90", 1);
+						parts.Add($"FI{fittingSize}X{outletThreadSize}STRB", 1);
+					}
+				}
+			}
+			else
+			{
+				// Add Tee
+				if (fittingSize == outletThreadSize)
+				{
+					parts.Add($"FI{fittingSize}SSTTEE", 1);
+				}
+				else
+				{
+					if (parts.ContainsKey($"FI{fittingSize}X{outletThreadSize}SSTTEE"))
+					{
+						parts.Add($"FI{fittingSize}X{outletThreadSize}SSTTEE", 1);
+					}
+					else
+					{
+						// Bushing to size outlet
+						parts.Add($"FI{fittingSize}SSSTEE", 1);
+						parts.Add($"FI{fittingSize}X{outletThreadSize}STRB", 1);
 					}
 				}
 			}

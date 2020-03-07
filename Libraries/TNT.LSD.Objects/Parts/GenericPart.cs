@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
 {
@@ -11,6 +12,8 @@ namespace TNT.LSD.Objects
 		#region Properties
 
 		#region Model
+
+		protected virtual void onModelIndexChanged(int index) { }
 
 		protected string m_Model;
 
@@ -28,7 +31,10 @@ namespace TNT.LSD.Objects
 					int descriptionIndex = ModelDescriptions.IndexOf(m_Model);
 
 					if (descriptionIndex > -1 && m_ModelCodes.Count > descriptionIndex)
+					{
 						ModelCode = m_ModelCodes[descriptionIndex];
+						onModelIndexChanged(descriptionIndex);
+					}
 				}
 			}
 		}
@@ -103,9 +109,9 @@ namespace TNT.LSD.Objects
 			base.Assign(obj);
 		}
 
-		public override void SetPartQuantity(Dictionary<string, Part> parts)
+		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
-			base.SetPartQuantity(parts);
+			base.SetPartQuantity(parts, systemType);
 
 			string[] modelCodes = ModelCode.Split(';');
 

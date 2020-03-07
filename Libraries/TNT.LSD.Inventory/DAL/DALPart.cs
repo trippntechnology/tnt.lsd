@@ -104,7 +104,7 @@ namespace TNT.LSD.Inventory.DAL
 				{
 					StringBuilder sql = new StringBuilder();
 
-					sql.AppendLine("SELECT ii.InternalID Code, ii.Description, ei.ExternalID ExternalCode, ei.Description ExternalDescription");
+					sql.AppendLine("SELECT ii.InternalID Code, ii.Description, ii.Glueable, ei.ExternalID ExternalCode, ei.Description ExternalDescription");
 					sql.AppendLine("  FROM InternalInventory ii");
 					sql.AppendLine("    LEFT JOIN ExternalInventory ei ON ii.InternalID = ei.InternalID");
 					sql.AppendLine("    Order by ii.InternalID");
@@ -189,6 +189,7 @@ namespace TNT.LSD.Inventory.DAL
 			{
 				Code = dr["Code"].ToString(),
 				Description = dr["Description"].ToString(),
+				Glueable = dr.GetBoolean(2),
 				ExternalPart = new Part()
 				{
 					Code = dr["ExternalCode"].ToString(),
@@ -196,6 +197,5 @@ namespace TNT.LSD.Inventory.DAL
 				}
 			};
 		}
-
 	}
 }
