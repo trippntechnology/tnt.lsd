@@ -69,47 +69,58 @@ namespace TNT.LSD.Objects
 			}
 		}
 
-		private void SetPOLYPartQuantities(CodedParts parts, PartSize pipeSize)
+		/// <summary>
+		/// Set poly parts from physical disconnect to poly
+		/// </summary>
+		public static void SetPOLYPartQuantities(CodedParts parts, PartSize pipeSize)
 		{
+			SetPhysicalDisconnectParts(parts);
+
 			if (pipeSize == PartSize.SIZE_125)
 			{
-				parts.Add("PD2", 1);
-				parts.Add("FI100STFA", 1);
-				parts.Add("BV100FT", 2);
-				parts.Add("PD100CTADAPTER", 2);
-				parts.Add("PD100CAMCAP", 1);
-				parts.Add("FI125SSCOUP", 3);
-				parts.Add("FI125X100SSRB", 3);
-				parts.Add("NI100X4TOE", 2);
-				parts.Add("VBJUMBO", 1);
-			}
-			else // 075 & 100
-			{
-				parts.Add("PD2", 1);
-				parts.Add("FI100TSMA", 2);
-				parts.Add("FI100STFA", 1);
-				parts.Add("BV100FT", 2);
-				parts.Add("PD100CTADAPTER", 2);
-				parts.Add("PD100CAMCAP", 1);
-				parts.Add("VBJUMBO", 1);
+				// Transition ball valves to male threaded
+				parts.Add("NI100X2", 2);
 
-				if (pipeSize == PartSize.SIZE_075) parts.Add("FI100X075SSRB", 1);
+				// 1-1/4" MT to barbed
+				parts.Add("FI125X100TTRB", 3);
+				parts.Add("PF125BTFA", 3);
 			}
+			else if (pipeSize == PartSize.SIZE_100) 
+			{
+				// Inlet
+				parts.Add("PF100BTMA", 2);
+
+				// Outlet
+				parts.Add("PF100BTFA", 1);
+			}
+			else
+			{
+				// Transition ball valves to 3/4" FT
+				parts.Add("FI100X075TTRB", 2);
+
+				// Transition 1" FT to 3/4" FT
+				parts.Add("FI100TTCOUP", 1);
+				parts.Add("FI100X075TTRB", 1);
+
+				// 3/4" FT to barbed
+				parts.Add("PF075BTMA", 3);
+			}
+
+			parts.AddHoseClamp(pipeSize.Code, 3);
 		}
 
-		private void SetPVCPartQuantities(CodedParts parts, PartSize pipeSize)
+		/// <summary>
+		/// Sets the PVC part quantities
+		/// </summary>
+		public static void SetPVCPartQuantities(CodedParts parts, PartSize pipeSize)
 		{
 			if (pipeSize == PartSize.SIZE_125)
 			{
-				parts.Add("PD2", 1);
+				SetPhysicalDisconnectParts(parts);
 				parts.Add("FI100STFA", 1);
-				parts.Add("BV100FT", 2);
-				parts.Add("PD100CTADAPTER", 2);
-				parts.Add("PD100CAMCAP", 1);
 				parts.Add("FI125SSCOUP", 3);
 				parts.Add("FI125X100SSRB", 3);
 				parts.Add("NI100X4TOE", 2);
-				parts.Add("VBJUMBO", 1);
 			}
 			else if (pipeSize == PartSize.SIZE_150)
 			{
@@ -139,16 +150,24 @@ namespace TNT.LSD.Objects
 			}
 			else // 075 & 100
 			{
-				parts.Add("PD2", 1);
+				SetPhysicalDisconnectParts(parts);
 				parts.Add("FI100TSMA", 2);
 				parts.Add("FI100STFA", 1);
-				parts.Add("BV100FT", 2);
-				parts.Add("PD100CTADAPTER", 2);
-				parts.Add("PD100CAMCAP", 1);
-				parts.Add("VBJUMBO", 1);
 
 				if (pipeSize == PartSize.SIZE_075) parts.Add("FI100X075SSRB", 3);
 			}
+		}
+
+		/// <summary>
+		/// Set the physical disconnect parts (only for 1-1/4" main and smaller
+		/// </summary>
+		private static void SetPhysicalDisconnectParts(CodedParts parts)
+		{
+			parts.Add("PD2", 1);
+			parts.Add("BV100FT", 2);
+			parts.Add("PD100CTADAPTER", 2);
+			parts.Add("PD100CAMCAP", 1);
+			parts.Add("VBJUMBO", 1);
 		}
 
 		/// <summary>
