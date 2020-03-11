@@ -184,25 +184,23 @@ namespace TNT.LSD.Objects
 				var nintyCode = $"FI{fittingSize}SS90";
 				var fortyFiveCode = $"FI{fittingSize}SS45";
 
-				if (pairs.Count == 3)
+				if (Pipes.Count > 2)
 				{
-					parts.Add($"FI{fittingSize}SSSTEE", 1);
+					parts.Add($"FI{fittingSize}SSSTEE", Pipes.Count - 2);
 
 					// Find inline and perpendicular pipes pairs
 					var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
-					var perpPair = pairs.Find(p => p.Item2 == inlinePair.Item1);
+					var perpPairs = pairs.FindAll(p => p.Item1 == inlinePair.Item1 && p.Item2 != inlinePair.Item1);
 
-					if (inlinePair.Angle < 158)
+					perpPairs.ForEach(p =>
 					{
-						parts.Add(fortyFiveCode, 1);
-					}
-
-					if (perpPair.Angle < 68 || perpPair.Angle > 112)
-					{
-						parts.Add(fortyFiveCode, 1);
-					}
+						if (p.Angle < 68 || (p.Angle > 112 && p.Angle < 158))
+						{
+							parts.Add(fortyFiveCode, 1);
+						}
+					});
 				}
-				else if (pairs.Count == 1)
+				else if (Pipes.Count == 2)
 				{
 					var angle = pairs[0].Angle;
 
@@ -277,13 +275,10 @@ namespace TNT.LSD.Objects
 			{
 				return new List<PipePair>() { new PipePair(Pipes[0], Pipes[1], this.Position, this) };
 			}
-			else if (Pipes.Count == 3)
+			else if (Pipes.Count > 2)
 			{
-				return new List<PipePair>() {
-					new PipePair(Pipes[0], Pipes[1], this.Position, this),
-					new PipePair(Pipes[1], Pipes[2], this.Position, this),
-					new PipePair(Pipes[2], Pipes[0], this.Position, this)
-				};
+				// Get all combinations
+				return (from a in Pipes from b in Pipes select new PipePair(a, b, this.Position, this)).ToList();
 			}
 			else
 			{
@@ -306,9 +301,9 @@ namespace TNT.LSD.Objects
 				reason = "Part must be connected to same pipe types";
 				return false;
 			}
-			else if (Pipes.Count > 2)
+			else if (Pipes.Count > 3)
 			{
-				reason = "Only three connections are allowed";
+				reason = "Only four connections are allowed";
 				return false;
 			}
 
@@ -438,7 +433,7 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		internal class PipePair : Tuple<Pipe, Pipe>
 		{
-			private readonly Point position;
+			private readonly Point origin;
 			private readonly TNTPart part;
 
 			/// <summary>
@@ -448,8 +443,8 @@ namespace TNT.LSD.Objects
 			{
 				get
 				{
-					var pipeDirection1 = new Vector(this.position, Item1.GetOtherPart(this.part).Position);
-					var pipeDirection2 = new Vector(this.position, Item2.GetOtherPart(this.part).Position);
+					var pipeDirection1 = new Vector(this.origin, Item1.GetOtherPart(this.part).Position);
+					var pipeDirection2 = new Vector(this.origin, Item2.GetOtherPart(this.part).Position);
 					return pipeDirection1.Angle(pipeDirection2).InDegrees;
 				}
 			}
@@ -459,7 +454,7 @@ namespace TNT.LSD.Objects
 			/// </summary>
 			public PipePair(Pipe item1, Pipe item2, Point Position, TNTPart part) : base(item1, item2)
 			{
-				position = Position;
+				origin = Position;
 				this.part = part;
 			}
 		}
