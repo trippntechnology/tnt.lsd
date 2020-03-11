@@ -234,16 +234,13 @@ namespace TNT.LSD.Objects
 			{
 				var nintyCode = $"PF{fittingSize}BB90";
 
-				if (pairs.Count == 3)
+				if (Pipes.Count > 2)
 				{
-					parts.Add($"PF{fittingSize}TEE", 1);
-					parts.AddHoseClamp(fittingSize.Code, 3);
-
-					// Find inline and perpendicular pipes pairs
-					var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
-					var perpPair = pairs.Find(p => p.Item2 == inlinePair.Item1);
+					int teeCount = Pipes.Count - 2;
+					parts.Add($"PF{fittingSize}TEE", teeCount);
+					parts.AddHoseClamp(fittingSize.Code, teeCount * 3);
 				}
-				else if (pairs.Count == 1)
+				else if (Pipes.Count == 2)
 				{
 					var angle = pairs[0].Angle;
 

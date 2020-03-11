@@ -1264,8 +1264,11 @@ namespace LSDComponents
 				var size = PartSize.GetSize(match.Groups[1].Value);
 				var couplerCount = (int)(p.Quantity / 100) - 1;
 
-				inventoryParts.Add($"PF{size}BBCOUP", couplerCount);
-				inventoryParts.AddHoseClamp(size.Code, couplerCount * 2);
+				if (couplerCount > 0)
+				{
+					inventoryParts.Add($"PF{size}BBCOUP", couplerCount);
+					inventoryParts.AddHoseClamp(size.Code, couplerCount * 2);
+				}
 			});
 
 			// Keep only those parts that have a quantity
