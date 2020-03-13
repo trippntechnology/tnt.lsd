@@ -286,11 +286,6 @@ namespace TNT.LSD.Objects
 		/// <param name="modifierKeys">Modifier keys</param>
 		public void Move(Point currentPos, Point lastPosition, bool alignToGrid, bool alignPoints, Keys modifierKeys)
 		{
-			var adjCurrent = alignToGrid ? currentPos.SnapToGrid() : currentPos;
-			var adjLast = alignToGrid ? lastPosition.SnapToGrid() : lastPosition;
-			var deltaX = adjCurrent.X - adjLast.X;
-			var deltaY = adjCurrent.Y - adjLast.Y;
-
 			if (m_SelectedControlPoint != null)
 			{
 				TNTBezierControlPoint bezierPoint = m_SelectedControlPoint as TNTBezierControlPoint;
@@ -315,13 +310,20 @@ namespace TNT.LSD.Objects
 					}
 					else
 					{
+						// Don't snap to grid if CTRL key is pressed
+						var adj = modifierKeys.HasFlag(Keys.Control) ? currentPos : currentPos.SnapToGrid();
+
 						// We're over control point. Move control point
-						m_SelectedControlPoint.MoveTo(adjCurrent.X, adjCurrent.Y, true);
+						m_SelectedControlPoint.MoveTo(adj.X, adj.Y, true);
 					}
 				}
 			}
 			else
 			{
+				var adjCurrent = alignToGrid ? currentPos.SnapToGrid() : currentPos;
+				var adjLast = alignToGrid ? lastPosition.SnapToGrid() : lastPosition;
+				var deltaX = adjCurrent.X - adjLast.X;
+				var deltaY = adjCurrent.Y - adjLast.Y;
 				this.MoveBy(deltaX, deltaY, alignPoints);
 			}
 		}
