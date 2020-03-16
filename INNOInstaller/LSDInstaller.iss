@@ -32,7 +32,7 @@ AppVersion={#MY_VERSION}
 UninstallDisplayName={#MY_PRODUCT_NAME}
 
 [Files]
-Source: "dotNetFx45_Full_setup.exe"; DestDir: "{tmp}"; Flags: ignoreversion; Check: NeedsDotNETFramework
+//Source: "dotNetFx45_Full_setup.exe"; DestDir: "{tmp}"; Flags: ignoreversion; Check: NeedsDotNETFramework
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe.config"; DestDir: "{app}"; Flags: ignoreversion
@@ -41,6 +41,7 @@ Source: "..\LandscapeSprinklerDesigner\bin\Debug\lsd.palette"; DestDir: "{app}";
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\Transforms\*.xsl"; DestDir: "{app}\Transforms"; Flags: ignoreversion
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\plugins\*.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion
+Source: "..\LandscapeSprinklerDesigner\bin\Debug\updater\*.*"; DestDir: "{app}\updater"; Flags: ignoreversion
 
 [Dirs]
 Name: {app}\; Permissions: everyone-modify
