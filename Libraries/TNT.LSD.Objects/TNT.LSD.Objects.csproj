@@ -128,6 +128,7 @@
     <Compile Include="Parts\HoseBib.cs" />
     <Compile Include="Parts\LateralPart.cs" />
     <Compile Include="Parts\MainlinePart.cs" />
+    <Compile Include="Manifold.cs" />
     <Compile Include="Parts\PalettePart.cs" />
     <Compile Include="Parts\Fitting.cs" />
     <Compile Include="Parts\BasePart.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Pipe\LateralPipe.cs" />
     <Compile Include="Pipe\Pipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PartSize.cs" />
     <Compile Include="TNTPolyLine.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="StateInfo.cs" />

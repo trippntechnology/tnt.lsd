@@ -56,7 +56,7 @@ namespace TNT.LSD.Objects
 
 		public override bool TerminatePipe()
 		{
-			if (m_Pipes.Count > 1)
+			if (Pipes.Count > 1)
 			{
 				return true;
 			}

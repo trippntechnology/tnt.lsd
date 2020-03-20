@@ -6,7 +6,7 @@ using System.Data.SQLite;
 
 namespace TNT.LSD.Inventory.Tests
 {
-	[TestClass]
+	//[TestClass]
 	public class DALPartTests
 	{
 		[TestMethod]

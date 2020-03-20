@@ -51,7 +51,7 @@ namespace LSDComponents.DrawingModes
 				canAddPipe = objUnderMouse.CanAddPipe(typeof(T), out reason);
 			}
 
-			if (m_PipeSegment !=null && objUnderMouse != null && m_PipeSegment.Part1 == objUnderMouse)
+			if (m_PipeSegment != null && objUnderMouse != null && m_PipeSegment.Part1 == objUnderMouse)
 			{
 				cad.Cursor = NoPipeCursor;
 				cad.Text = "Cannot connect head to itself";
@@ -134,14 +134,7 @@ namespace LSDComponents.DrawingModes
 						// Get Part2 (the fitting)
 						Fitting fitting = m_PipeSegment.Part2 as Fitting;
 
-						// Find all parts that are along the pipe path
-						List<TNTObject> partsAlongPath = cad.ActiveObjects.FindAll(o =>
-						{
-							return o is LateralPart && o != objUnderMouse && o != part1 && m_PipeSegment.MouseOver(o.ControlPoints.First().Position, new Keys()) == m_PipeSegment;
-						});
-
-						// Order closest to farthest from part1
-						partsAlongPath = (from cp in partsAlongPath orderby (cp as TNTPart).Position.Distance(part1.Position) select cp).ToList();
+						var partsAlongPath = GetPartsUnderPipeSegment(cad, m_PipeSegment, objUnderMouse);
 
 						// This is done to restore the parts to the previous state so that an uaModify event can be created
 						m_PipeSegment.RemovePartsPipeRelationship();
@@ -231,14 +224,7 @@ namespace LSDComponents.DrawingModes
 					// Get Part2 (the fitting)
 					Fitting fitting = m_PipeSegment.Part2 as Fitting;
 
-					// Find all parts that are along the pipe path
-					List<TNTObject> partsAlongPath = cad.ActiveObjects.FindAll(o =>
-					{
-						return o is LateralPart && o != objUnderMouse && o != part1 && m_PipeSegment.MouseOver(o.ControlPoints.First().Position, new Keys()) == m_PipeSegment;
-					});
-
-					// Order closest to farthest from part1
-					partsAlongPath = (from cp in partsAlongPath orderby (cp as TNTPart).Position.Distance(part1.Position) select cp).ToList();
+					var partsAlongPath = GetPartsUnderPipeSegment(cad, m_PipeSegment, objUnderMouse);
 
 					// This is done to restore the parts to the previous state so that an uaModify event can be created
 					m_PipeSegment.RemovePartsPipeRelationship();
@@ -280,10 +266,31 @@ namespace LSDComponents.DrawingModes
 			cad.DrawLayers(2);
 		}
 
-		private TNTPart AddPartsToPath(TNTCAD cad, TNTPart part1, List<TNTObject> partsAlongPath)
+		/// <summary>
+		/// Returns a list of <see cref="PalettePart"/> that are under <paramref name="pipeSegment"/> excluding the first and last part
+		/// </summary>
+		private List<PalettePart> GetPartsUnderPipeSegment(TNTCAD cad, Pipe pipeSegment, BasePart endOfSegment)
+		{
+			var startOfSegment = pipeSegment.Part1;
+
+			// Find all parts that are along the pipe path
+			List<PalettePart> partsUnderSegment = cad.ActiveObjects.FindAll(o =>
+			{
+				// see if part can be placed on this pipeSegment
+				var canAddToSegment = pipeSegment is MainlinePipe ? o is Valve || o is MainlinePart : o is LateralPart;
+				// Return parts that are under this segment, but not already accounted for
+				return canAddToSegment && o != endOfSegment && o != startOfSegment && pipeSegment.MouseOver(o.ControlPoints.First().Position, new Keys()) == pipeSegment;
+			}).Cast<PalettePart>().ToList<PalettePart>();
+
+			// Order closest to farthest from startOfSegment
+			partsUnderSegment = (from p in partsUnderSegment orderby (p as TNTPart).Position.Distance(startOfSegment.Position) select p).ToList();
+			return partsUnderSegment;
+		}
+
+		private TNTPart AddPartsToPath(TNTCAD cad, TNTPart part1, List<PalettePart> partsAlongPath)
 		{
 			// Add all the parts along the path
-			foreach (LateralPart part2 in partsAlongPath)
+			foreach (PalettePart part2 in partsAlongPath)
 			{
 				m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaModify, part2, cad.ActiveObjects));
 				m_UndoActionList.Add(new UndoAction(UndoAction.UndoActionType.uaDelete, m_PipeSegment, cad.ActiveObjects));

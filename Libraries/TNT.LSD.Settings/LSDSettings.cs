@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 
@@ -138,6 +134,11 @@ namespace TNT.LSD.Settings
 		[DisplayName("Round Pipe Length")]
 		[Description("If true, the calculated length of pipe will be round up to the nearest 20'.")]
 		virtual public bool RoundPipe { get; set; }
+
+		[Category("Part Options")]
+		[DisplayName("System Type")]
+		[Description("Indicates the type of parts to use.")]
+		virtual public SystemType SystemType { get; set; }
 
 		#endregion
 

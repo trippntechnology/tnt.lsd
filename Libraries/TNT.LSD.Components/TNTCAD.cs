@@ -3,6 +3,7 @@ using LSDComponents.DrawingModes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -1157,7 +1158,7 @@ namespace LSDComponents
 		public List<Part> GetPartsList()
 		{
 			List<TNTObject> partsObjects = m_State.ObjectLayers[2];
-			Dictionary<string, Part> inventoryParts = DALPart.GetParts();
+			var inventoryParts = DALPart.GetParts();
 			List<BasePart> parts = (from p in partsObjects where p is BasePart select p as BasePart).ToList();
 
 			// When calculating parts, deterimine if valves are within a valve box and create the association
@@ -1186,21 +1187,37 @@ namespace LSDComponents
 			}
 
 			// Set part quantities
-			parts.ForEach(p => p.SetPartQuantity(inventoryParts));
+			parts.ForEach(p => p.SetPartQuantity(inventoryParts, Settings.SystemType));
 
 			TNTSource source = parts.Find(p => p is TNTSource) as TNTSource;
 
 			// Mainline drains
 			if (source != null && source.Pipes.Count > 0)
 			{
-				inventoryParts["AUTOLD"].Quantity += State.MainlineDrains;
-				string pipeCode = m_PipeSizeList.SizeToCode(source.Pipes[0].PipeSize);
-				inventoryParts[string.Format("FI{0}X050SSTTEE", pipeCode)].Quantity += State.MainlineDrains;
+				inventoryParts.Add("KD22", State.MainlineDrains);
+				var mainSize = PartSize.GetSize(source.Pipes[0].PipeSizeIndex);
+				if (Settings.SystemType == SystemType.PVC)
+				{
+					inventoryParts.Add($"FI{mainSize.Code}X050SSTTEE", State.MainlineDrains);
+				}
+				else
+				{
+					inventoryParts.Add($"PF{mainSize.Code}X050BBTTEE", State.MainlineDrains);
+					inventoryParts.AddHoseClamp(mainSize.Code, State.MainlineDrains * 2);
+				}
 			}
 
 			// Lateral drains
-			inventoryParts["AUTOLD"].Quantity += valves.Count * State.LateralDrains;
-			inventoryParts["FI075X050SSTTEE"].Quantity += valves.Count * State.LateralDrains;
+			inventoryParts["KD22"].Quantity += valves.Count * State.LateralDrains;
+			if (Settings.SystemType == SystemType.PVC)
+			{
+				inventoryParts["FI075X050SSTTEE"].Quantity += valves.Count * State.LateralDrains;
+			}
+			else
+			{
+				inventoryParts.Add($"PF{PartSize.SIZE_075}X050BBTTEE", valves.Count * State.LateralDrains);
+				inventoryParts.AddHoseClamp(PartSize.SIZE_075.Code, valves.Count * State.LateralDrains * 2);
+			}
 
 			// Add static parts
 			foreach (Part part in State.StaticParts)
@@ -1211,6 +1228,49 @@ namespace LSDComponents
 				}
 			}
 
+			// Add cement/primer if needed
+			var glueableCount = inventoryParts
+				.Where(p => p.Value.Quantity > 0 && p.Value.Glueable)
+				.Select(p => p.Value.Quantity).ToList()
+				.Sum();
+
+			var oz = glueableCount * 0.2;
+			var quarts = oz / 32;
+			var rem = oz % 32;
+
+			inventoryParts.Add("CEBCQT", (int)quarts);
+			inventoryParts.Add("CEPPPT", glueableCount > 1 ? 1 : 0);
+
+			if (rem > 0)
+			{
+				if (rem > 16)
+				{
+					inventoryParts.Add("CEBCQT", 1);
+				}
+				else
+				{
+					inventoryParts.Add("CEBCPT", 1);
+				}
+			}
+
+			// Add poly couplers (1 for every 100' over 100' of poly)
+			inventoryParts
+				.Where(p => p.Value.Code.StartsWith("POLY"))
+				.Select(p => p.Value)
+				.ToList()
+				.ForEach(p =>
+			{
+				var match = Regex.Match(p.Code, "POLY([0-9]{3})");
+				var size = PartSize.GetSize(match.Groups[1].Value);
+				var couplerCount = (int)(p.Quantity / 100) - 1;
+
+				if (couplerCount > 0)
+				{
+					inventoryParts.Add($"PF{size}BBCOUP", couplerCount);
+					inventoryParts.AddHoseClamp(size.Code, couplerCount * 2);
+				}
+			});
+
 			// Keep only those parts that have a quantity
 			List<Part> neededParts = (from p in inventoryParts where p.Value.Quantity > 0 select p.Value).ToList();
 
@@ -1219,7 +1279,7 @@ namespace LSDComponents
 				// Round pipe to nearest 20' length
 				neededParts.ForEach(p =>
 				{
-					if ((Regex.IsMatch(p.Code, "^PI") && !Regex.IsMatch(p.Code, "200C")) || Regex.IsMatch(p.Code, "FUNNYPIPE"))
+					if ((Regex.IsMatch(p.Code, "^(PI|POLY)") && !Regex.IsMatch(p.Code, "200C")) || Regex.IsMatch(p.Code, "FUNNYPIPE"))
 					{
 						p.Quantity = TNT.Math.Extensions.RoundUpToNearest(p.Quantity, 20);
 					}
