@@ -117,6 +117,7 @@ namespace TNT.LSD.Objects
 			OutletThread = obj.OutletThread;
 			ColorRadius = obj.ColorRadius;
 			SizeCodes = obj.SizeCodes;
+			SizeCode = obj.SizeCode;
 		}
 
 		#endregion
@@ -199,7 +200,14 @@ namespace TNT.LSD.Objects
 		{
 			var latPipe = Pipes.Find(p => p is LateralPipe) as LateralPipe;
 			var mainPipes = Pipes.FindAll(p => p is MainlinePipe).ConvertAll(p => p as MainlinePipe);
-			var valveSize = PartSize.GetSize(this.SizeCode);
+			var sizes = this.SizeCode.ToUpper().Split('X');
+			var inletSize = PartSize.GetSize(sizes[0]);
+			var outletSize = inletSize;
+
+			if (sizes.Length > 1)
+			{
+				outletSize = PartSize.GetSize(sizes[1]);
+			}
 
 			// Add valve
 			parts.Add(ModelCode, 1);
@@ -210,23 +218,23 @@ namespace TNT.LSD.Objects
 			if (manifold != null)
 			{
 				// Add parts from manifold to valve
-				AddInletParts(parts, InletThreads, valveSize, manifold);
+				AddInletParts(parts, InletThreads, inletSize, manifold);
 
 				// Add manifold fitting out of valve to lateral
 				if (latPipe != null)
 				{
-					AddOutletManifoldParts(parts, OutletThread, PartSize.GetSize(latPipe.PipeSizeIndex), valveSize, systemType);
+					AddOutletManifoldParts(parts, OutletThread, PartSize.GetSize(latPipe.PipeSizeIndex), outletSize, systemType);
 				}
 			}
 			else if (mainPipes.Count > 0)
 			{
 				var mainSize = GetMaxPipeSize(typeof(MainlinePipe));
 
-				AddInletParts(parts, InletThreads, mainSize, mainPipes.Count, valveSize, systemType);
+				AddInletParts(parts, InletThreads, mainSize, mainPipes.Count, inletSize, systemType);
 
 				if (latPipe != null)
 				{
-					AddOutletParts(parts, OutletThread, valveSize, PartSize.GetSize(latPipe.PipeSizeIndex), systemType);
+					AddOutletParts(parts, OutletThread, outletSize, PartSize.GetSize(latPipe.PipeSizeIndex), systemType);
 				}
 			}
 		}
@@ -341,7 +349,7 @@ namespace TNT.LSD.Objects
 			else // Poly
 			{
 				if (valveSize != PartSize.SIZE_100) throw new NotSupportedException("Only 1\" valves supported with poly");
-				if (mainSize> PartSize.SIZE_125) throw new NotSupportedException("Only pipe under 150 supported");
+				if (mainSize > PartSize.SIZE_125) throw new NotSupportedException("Only pipe under 150 supported");
 
 				if (mainSize == PartSize.SIZE_075)
 				{
@@ -382,7 +390,8 @@ namespace TNT.LSD.Objects
 				if (systemType == SystemType.PVC)
 				{
 					// Add female manifold to glue adapter
-					var slipAdapterCode = valveSize == PartSize.SIZE_100 && pipeSize == PartSize.SIZE_075 ? 3 : 2;
+					transitionSize = valveSize > PartSize.SIZE_100 ? valveSize.Code : string.Empty;
+					var slipAdapterCode = valveSize <= PartSize.SIZE_100 && pipeSize == PartSize.SIZE_075 ? 3 : 2;
 					parts.Add($"AF1801{slipAdapterCode}{transitionSize}", 1);
 
 					// Add coupler and bushing if needed
