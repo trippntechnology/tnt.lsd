@@ -128,7 +128,7 @@ namespace TNT.LSD.Objects
 		/// <param name="index">Index of the model</param>
 		protected override void onModelIndexChanged(int index)
 		{
-			if (SizeCodes.Count > index)
+			if (SizeCodes?.Count > index)
 			{
 				this.SizeCode = SizeCodes[index];
 			}

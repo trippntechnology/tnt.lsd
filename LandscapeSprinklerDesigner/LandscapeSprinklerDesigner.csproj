@@ -23,7 +23,7 @@
   <PropertyGroup>
     <AssemblyInfo_MajorVersion>3</AssemblyInfo_MajorVersion>
     <AssemblyInfo_MinorVersion>8</AssemblyInfo_MinorVersion>
-    <AssemblyInfo_PatchVersion>3</AssemblyInfo_PatchVersion>
+    <AssemblyInfo_PatchVersion>4</AssemblyInfo_PatchVersion>
     <AssemblyInfo_Title>Landscape Sprinkler Designer</AssemblyInfo_Title>
     <AssemblyInfo_GUID>5fd3560a-0efd-4e48-9df9-c4fa3f44ba15</AssemblyInfo_GUID>
   </PropertyGroup>
