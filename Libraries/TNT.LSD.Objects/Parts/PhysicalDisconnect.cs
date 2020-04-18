@@ -85,7 +85,7 @@ namespace TNT.LSD.Objects
 				parts.Add("FI125X100TTRB", 3);
 				parts.Add("PF125BTFA", 3);
 			}
-			else if (pipeSize == PartSize.SIZE_100) 
+			else if (pipeSize == PartSize.SIZE_100)
 			{
 				// Inlet
 				parts.Add("PF100BTMA", 2);
@@ -176,7 +176,7 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		/// <param name="upstreamPipe">Origination pipe segment</param>
 		/// <returns>GPM required for this pipe onward</returns>
-		public override double SizePipe(Pipe upstreamPipe)
+		public override double SizePipe(Type pipeType, Pipe upstreamPipe)
 		{
 			if (!Sized)
 			{
@@ -201,7 +201,7 @@ namespace TNT.LSD.Objects
 					// Get the downstream part for this pipe segment
 					TNTPart other = p.GetOtherPart(this);
 
-					RequiredFlow = System.Math.Max(other.SizePipe(p), RequiredFlow);
+					RequiredFlow = System.Math.Max(other.SizePipe(pipeType, p), RequiredFlow);
 				});
 			}
 

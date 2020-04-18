@@ -44,12 +44,22 @@ namespace TNT.LSD.Objects
 			set { Color = Color.FromArgb(value); }
 		}
 
+		private bool _Sized = false;
+		
 		/// <summary>
 		/// Indicates whether this part has been sized
 		/// </summary>
 		[Browsable(false)]
 		[XmlIgnore()]
-		public bool Sized { get; set; }
+		public bool Sized
+		{
+			get { return _Sized; }
+			set
+			{
+				if (!value) RequiredFlow = 0;
+				_Sized = value;
+			}
+		}
 
 		/// <summary>
 		/// Value indicating the required flow for this part
@@ -366,30 +376,24 @@ namespace TNT.LSD.Objects
 		/// Sizes the pipe from this to the pipe's connection if not already sized
 		/// </summary>
 		/// <returns>GPM required from this part onward</returns>
-		public virtual double SizePipe(Pipe upstreamPipe)
+		public virtual double SizePipe(Type pipeType, Pipe upstreamPipe)
 		{
 			if (!Sized)
 			{
 				Sized = true;
 
-				Pipes.ForEach(p =>
+				Pipes.FindAll(pipe => pipe.GetType() == pipeType && pipe != upstreamPipe).ForEach(pipe =>
 				{
-					if (upstreamPipe != null && upstreamPipe == p)
-					{
-						// Ignore this pipe
-						return;
-					}
-
 					// Get the downstream part for this pipe segment
-					TNTPart other = p.GetOtherPart(this);
+					TNTPart other = pipe.GetOtherPart(this);
 
-					if (p is LateralPipe)
+					if (pipe is LateralPipe)
 					{
-						RequiredFlow += other.SizePipe(p);
+						RequiredFlow += other.SizePipe(pipeType, pipe);
 					}
 					else
 					{
-						RequiredFlow = System.Math.Max(other.SizePipe(p), RequiredFlow);
+						RequiredFlow = System.Math.Max(other.SizePipe(pipeType, pipe), RequiredFlow);
 					}
 				});
 			}

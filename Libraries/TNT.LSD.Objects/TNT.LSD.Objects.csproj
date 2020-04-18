@@ -76,7 +76,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyInfo_PatchVersion>3</AssemblyInfo_PatchVersion>
+    <AssemblyInfo_PatchVersion>4</AssemblyInfo_PatchVersion>
     <AssemblyInfo_Title>TNT LSD Objects</AssemblyInfo_Title>
     <AssemblyInfo_GUID>dbc5f5a0-b9bd-404a-91ef-a8dc34795844</AssemblyInfo_GUID>
   </PropertyGroup>

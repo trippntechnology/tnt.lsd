@@ -430,21 +430,21 @@ namespace LSDComponents
 
 				if (layerBitmap == m_DrawingLayers.Last() && DrawingOptions.AutoSizePipes)
 				{
+					// Reset pipe sizing to smallest size
+					m_State.ObjectLayers.Last().FindAll(o => o is Pipe).ForEach(p => (p as Pipe).SizeFor(0));
+
 					// Mark each part as unsized
-					m_State.ObjectLayers.Last().ForEach(o =>
-					{
-						if (o is TNTPart)
-						{
-							(o as TNTPart).Sized = false;
-						}
-					});
+					m_State.ObjectLayers.Last().FindAll(o => o is TNTPart).ForEach(o => (o as TNTPart).Sized = false);
 
 					// Size from valves first
-					valves.ForEach(v => v.SizePipe(null));
+					valves.ForEach(v => v.SizePipe(typeof(LateralPipe), null));
+					
+					// Mark valves unsized so that they participate is sizing the mainline
+					valves.ForEach(v => v.Sized = false);
 
 					// Size from source down
 					var sources = (from o in m_State.ObjectLayers.Last() where o is TNTSource select (o as TNTSource)).ToList();
-					sources.ForEach(s => s.SizePipe(null));
+					sources.ForEach(s => s.SizePipe(typeof(MainlinePipe), null));
 				}
 
 				#endregion

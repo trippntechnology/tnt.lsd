@@ -82,10 +82,10 @@ namespace TNT.LSD.Objects
 			return result;
 		}
 
-		public override double SizePipe(Pipe upstreamPipe)
+		public override double SizePipe(Type pipeType, Pipe upstreamPipe)
 		{
 			RequiredFlow = Convert.ToDouble(GPM);
-			return base.SizePipe(upstreamPipe);
+			return base.SizePipe(pipeType, upstreamPipe);
 		}
 
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)

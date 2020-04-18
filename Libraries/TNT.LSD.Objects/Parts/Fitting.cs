@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
@@ -110,10 +111,10 @@ namespace TNT.LSD.Objects
 		/// Sizes the pipe
 		/// </summary>
 		/// <returns>The required flow at this point</returns>
-		public override double SizePipe(Pipe upstreamPipe)
+		public override double SizePipe(Type pipeType, Pipe upstreamPipe)
 		{
 			RequiredFlow = 0;
-			return base.SizePipe(upstreamPipe);
+			return base.SizePipe(pipeType, upstreamPipe);
 		}
 
 		/// <summary>

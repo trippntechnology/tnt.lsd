@@ -23,6 +23,15 @@ namespace TNT.LSD.Objects
 		#region Properties
 
 		/// <summary>
+		/// Value indicating the required flow for this part
+		/// </summary>
+		//[DisplayName("Required Flow")]
+		[Description("Flow required by this part and the lateral parts")]
+		[ReadOnly(true)]
+		[XmlIgnore()]
+		public double RequiredLateralFlow { get; set; }
+
+		/// <summary>
 		/// Radius of color circle
 		/// </summary>
 		[Description("Radius of the background color")]
@@ -565,22 +574,28 @@ namespace TNT.LSD.Objects
 		/// </summary>
 		/// <param name="upstreamPipe"></param>
 		/// <returns>The required flow from this point on downstream</returns>
-		public override double SizePipe(Pipe upstreamPipe)
+		public override double SizePipe(Type pipeType, Pipe upstreamPipe)
 		{
 			if (!Sized)
 			{
-				// Only size downstream pipe from valve. Find mainline pipe if exists
-				if (upstreamPipe == null)
-				{
-					upstreamPipe = Pipes.Find(p => p is MainlinePipe);
-				}
-
 				RequiredFlow = 0;
-				RequiredFlow = base.SizePipe(upstreamPipe);
+				
+				// If sizing lateral lines, reset RequiredLateralFlow
+				if (pipeType == typeof(LateralPipe)) RequiredLateralFlow = 0;
+				
+				RequiredFlow = System.Math.Max( base.SizePipe(pipeType, upstreamPipe), RequiredLateralFlow);
+				if (pipeType == typeof(LateralPipe))
+				{
+					// Persist lateral flow
+					RequiredLateralFlow = RequiredFlow;
+				}
 			}
 
-			Sized = true;
+			// Size the upstream pipe to handle the required flow. This is done in the base SizePipe, but
+			// needs to be redone here so that it also included the RequiredLateralFlow
+			upstreamPipe?.SizeFor(RequiredFlow);
 
+			Sized = true;
 			return RequiredFlow;
 		}
 
