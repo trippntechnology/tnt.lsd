@@ -72,7 +72,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyInfo_PatchVersion>1</AssemblyInfo_PatchVersion>
+    <AssemblyInfo_PatchVersion>2</AssemblyInfo_PatchVersion>
     <AssemblyInfo_Title>Landscape Sprinkler Designer Components</AssemblyInfo_Title>
     <AssemblyInfo_GUID>34a0198b-a28b-4161-9af7-b9ba2256e0a8</AssemblyInfo_GUID>
   </PropertyGroup>

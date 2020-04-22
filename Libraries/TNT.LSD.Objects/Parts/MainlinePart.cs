@@ -47,10 +47,10 @@ namespace TNT.LSD.Objects
 			return base.CanAddPipe(pipeType, out reason);
 		}
 
-		public override double SizePipe(Pipe upstreamPipe)
+		public override double SizePipe(Type pipeType, Pipe upstreamPipe)
 		{
 			RequiredFlow = 0;
-			RequiredFlow = base.SizePipe(upstreamPipe);
+			RequiredFlow = base.SizePipe(pipeType, upstreamPipe);
 			return RequiredFlow;
 		}
 
