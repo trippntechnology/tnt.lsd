@@ -162,8 +162,8 @@ namespace TNT.LSD.Objects
 			}
 			else
 			{
-				parts[$"FI{filterSize}STFA"].Quantity += 1;
-				parts[$"FI{filterSize}TSMA"].Quantity += 1;
+				parts.Add($"FI{filterSize}STFA", 1);
+				parts.Add($"FI{filterSize}TSMA", 1);
 			}
 		}
 
