@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DripAdapterTests.cs" />
+    <Compile Include="FilterTests.cs" />
     <Compile Include="PhysicalDisconnectTests.cs" />
     <Compile Include="PointExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
