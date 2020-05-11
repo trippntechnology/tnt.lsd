@@ -438,7 +438,7 @@ namespace LSDComponents
 
 					// Size from valves first
 					valves.ForEach(v => v.SizePipe(typeof(LateralPipe), null));
-					
+
 					// Mark valves unsized so that they participate is sizing the mainline
 					valves.ForEach(v => v.Sized = false);
 
@@ -1208,10 +1208,10 @@ namespace LSDComponents
 			}
 
 			// Lateral drains
-			inventoryParts["KD22"].Quantity += valves.Count * State.LateralDrains;
+			inventoryParts.Add("KD22", valves.Count * State.LateralDrains);
 			if (Settings.SystemType == SystemType.PVC)
 			{
-				inventoryParts["FI075X050SSTTEE"].Quantity += valves.Count * State.LateralDrains;
+				inventoryParts.Add("FI075X050SSTTEE", valves.Count * State.LateralDrains);
 			}
 			else
 			{
@@ -1224,7 +1224,7 @@ namespace LSDComponents
 			{
 				if (part != null && inventoryParts.ContainsKey(part.Code))
 				{
-					inventoryParts[part.Code].Quantity += part.Quantity;
+					inventoryParts.Add(part.Code, (int)part.Quantity);
 				}
 			}
 
