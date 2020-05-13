@@ -13,7 +13,7 @@ namespace TNT.LSD.Inventory
 		/// </summary>
 		/// <param name="code">Code assocated with part</param>
 		/// <param name="quantity">Amount to increase</param>
-		public void Add(string code, int quantity)
+		public void Add(string code, double quantity)
 		{
 			if (!ContainsKey(code))
 			{
