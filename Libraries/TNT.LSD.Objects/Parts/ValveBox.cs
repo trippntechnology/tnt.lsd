@@ -175,18 +175,18 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Adds manifold cap
 		/// </summary>
-		private void AddManifoldCap(Dictionary<string, Part> parts, PartSize mainlineSize, Manifold manifold)
+		public static void AddManifoldCap(CodedParts parts, PartSize mainlineSize, Manifold manifold)
 		{
 			if (manifold.Size == PartSize.SIZE_100)
 			{
 				// Manifold cap
-				parts[$"AF18000"].Quantity += 1;
+				parts.Add($"AF18000", 1);
 			}
 			else
 			{
 				// Adapter with cap
-				parts[$"AF18012{manifold.Size.Code}"].Quantity += 1;
-				parts[$"FI{mainlineSize.Code}SCAP"].Quantity += 1;
+				parts.Add($"AF18012{manifold.Size.Code}", 1);
+				parts.Add($"FI{mainlineSize.Code}SCAP", 1);
 			}
 		}
 
@@ -197,7 +197,7 @@ namespace TNT.LSD.Objects
 		{
 			base.SetPartQuantity(parts, systemType);
 
-			parts["GRAVEL"].Quantity += BagsOfGravel;
+			parts.Add("GRAVEL", BagsOfGravel);
 
 			var manifold = GetManifold();
 
@@ -211,7 +211,7 @@ namespace TNT.LSD.Objects
 				Debug.WriteLine($"mainlineMinSize: {mainlineMinSize}");
 
 				// Add manifold
-				parts[$"AF1800{manifold.Count}{code}"].Quantity += 1;
+				parts.Add($"AF1800{manifold.Count}{code}", 1);
 
 				//Inlet
 				if (systemType == SystemType.PVC)

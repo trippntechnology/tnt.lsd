@@ -91,7 +91,7 @@ namespace TNT.LSD.Objects
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
-			parts["FLAG"].Quantity += 1;
+			parts.Add("FLAG", 1);
 		}
 		#endregion
 	}
