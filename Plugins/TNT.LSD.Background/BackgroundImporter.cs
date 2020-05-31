@@ -33,7 +33,10 @@ namespace TNT.LSD.Background
 				if (dialogResult == System.Windows.Forms.DialogResult.OK)
 				{
 					double pixelsPerFoot = Convert.ToDouble(PixelPerFootTextBox.Text);
-					state.BackgroundImage = new Bitmap(FileNameTextBox.Text);
+					using (var bmp = new Bitmap(FileNameTextBox.Text))
+					{
+						state.BackgroundImage = new Bitmap(bmp);
+					}
 					state.WidthInFeet = (int)(state.BackgroundImage.Width / pixelsPerFoot);
 					state.HeightInFeet = (int)(state.BackgroundImage.Height / pixelsPerFoot);
 				}
