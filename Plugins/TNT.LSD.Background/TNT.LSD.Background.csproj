@@ -34,7 +34,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyInfo_Title>Background Importer</AssemblyInfo_Title>
-  </PropertyGroup>
+		<AssemblyInfo_MajorVersion>1</AssemblyInfo_MajorVersion>
+		<AssemblyInfo_MinorVersion>0</AssemblyInfo_MinorVersion>
+		<AssemblyInfo_PatchVersion>1</AssemblyInfo_PatchVersion>
+	</PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
