@@ -6,6 +6,7 @@ using System.Drawing.Design;
 using System.Linq;
 using System.Xml.Serialization;
 using TNT.LSD.Inventory;
+using TNT.LSD.Objects.Interfaces;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
@@ -13,7 +14,7 @@ namespace TNT.LSD.Objects
 	/// <summary>
 	/// Represents a valve
 	/// </summary>
-	public class Valve : GenericPart
+	public class Valve : GenericPart, ISummable
 	{
 		/// <summary>
 		/// Default size of the circle drawn with the valve color
@@ -25,11 +26,11 @@ namespace TNT.LSD.Objects
 		/// <summary>
 		/// Value indicating the required flow for this part
 		/// </summary>
-		//[DisplayName("Required Flow")]
 		[Description("Flow required by this part and the lateral parts")]
+		[DisplayName("Lateral GPM")]
 		[ReadOnly(true)]
 		[XmlIgnore()]
-		public double RequiredLateralFlow { get; set; }
+		public double GPM { get; set; }
 
 		/// <summary>
 		/// Radius of color circle
@@ -92,6 +93,9 @@ namespace TNT.LSD.Objects
 		[Description("Valve Size")]
 		[DefaultValue("100")]
 		[ReadOnly(true)]
+#if !PALETTE_PROPERTIES
+		[Browsable(false)]
+#endif
 		public string SizeCode { get; set; } = "100";
 
 		/// <summary>
@@ -579,15 +583,15 @@ namespace TNT.LSD.Objects
 			if (!Sized)
 			{
 				RequiredFlow = 0;
-				
+
 				// If sizing lateral lines, reset RequiredLateralFlow
-				if (pipeType == typeof(LateralPipe)) RequiredLateralFlow = 0;
-				
-				RequiredFlow = System.Math.Max( base.SizePipe(pipeType, upstreamPipe), RequiredLateralFlow);
+				if (pipeType == typeof(LateralPipe)) GPM = 0;
+
+				RequiredFlow = System.Math.Max(base.SizePipe(pipeType, upstreamPipe), GPM);
 				if (pipeType == typeof(LateralPipe))
 				{
 					// Persist lateral flow
-					RequiredLateralFlow = RequiredFlow;
+					GPM = RequiredFlow;
 				}
 			}
 
