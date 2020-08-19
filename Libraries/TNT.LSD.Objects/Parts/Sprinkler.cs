@@ -267,7 +267,7 @@ namespace TNT.LSD.Objects
 
 				if (GPMList.Count > index)
 				{
-					GPM = GPMList[index];
+					GPM = Convert.ToDouble(GPMList[index]);
 				}
 			}
 		}
