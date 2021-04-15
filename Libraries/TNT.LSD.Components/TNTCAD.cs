@@ -3,7 +3,6 @@ using LSDComponents.DrawingModes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -1191,33 +1190,28 @@ namespace LSDComponents
 
 			TNTSource source = parts.Find(p => p is TNTSource) as TNTSource;
 
-			// Mainline drains
-			if (source != null && source.Pipes.Count > 0)
+			// Add automatic drains
+			var pipeQuantities = inventoryParts.Where(i => (i.Key.StartsWith("PI") || i.Key.StartsWith("POLY")) && i.Value.Quantity > 0);
+			var totalPipeLength = pipeQuantities.Sum(q => q.Value.Quantity);
+			var maxDrainCount = State.MainlineDrains + (valves.Count * State.LateralDrains);
+
+			pipeQuantities.ToList().ForEach(q =>
 			{
-				inventoryParts.Add("KD22", State.MainlineDrains);
-				var mainSize = PartSize.GetSize(source.Pipes[0].PipeSizeIndex);
+				var sizeCode = Regex.Match(q.Key, "(PI|POLY)([0-9]{3})").Groups[2].Value;
+				var fittingCount = Convert.ToInt32((q.Value.Quantity / totalPipeLength) * maxDrainCount);
+
+				inventoryParts.Add("KD22", fittingCount);
+
 				if (Settings.SystemType == SystemType.PVC)
 				{
-					inventoryParts.Add($"FI{mainSize.Code}X050SSTTEE", State.MainlineDrains);
+					inventoryParts.Add($"FI{sizeCode}X050SSTTEE", fittingCount);
 				}
 				else
 				{
-					inventoryParts.Add($"PF{mainSize.Code}X050BBTTEE", State.MainlineDrains);
-					inventoryParts.AddHoseClamp(mainSize.Code, State.MainlineDrains * 2);
+					inventoryParts.Add($"PF{sizeCode}X050BBTTEE", fittingCount);
+					inventoryParts.AddHoseClamp(sizeCode, fittingCount * 2);
 				}
-			}
-
-			// Lateral drains
-			inventoryParts.Add("KD22", valves.Count * State.LateralDrains);
-			if (Settings.SystemType == SystemType.PVC)
-			{
-				inventoryParts.Add("FI075X050SSTTEE", valves.Count * State.LateralDrains);
-			}
-			else
-			{
-				inventoryParts.Add($"PF{PartSize.SIZE_075}X050BBTTEE", valves.Count * State.LateralDrains);
-				inventoryParts.AddHoseClamp(PartSize.SIZE_075.Code, valves.Count * State.LateralDrains * 2);
-			}
+			});
 
 			// Add static parts
 			foreach (Part part in State.StaticParts)
