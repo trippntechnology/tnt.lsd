@@ -1193,7 +1193,8 @@ namespace LSDComponents
 			// Add automatic drains
 			var pipeQuantities = inventoryParts.Where(i => (i.Key.StartsWith("PI") || i.Key.StartsWith("POLY")) && i.Value.Quantity > 0);
 			var totalPipeLength = pipeQuantities.Sum(q => q.Value.Quantity);
-			var maxDrainCount = State.MainlineDrains + (valves.Count * State.LateralDrains);
+			var mainlineDrainCount = parts.Find(p => p is MainlinePipe) != null ? State.MainlineDrains : 0;
+			var maxDrainCount = mainlineDrainCount + (valves.Count * State.LateralDrains);
 
 			pipeQuantities.ToList().ForEach(q =>
 			{
