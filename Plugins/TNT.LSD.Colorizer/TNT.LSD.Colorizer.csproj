@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TNT.LSD.Colorizer</RootNamespace>
     <AssemblyName>TNT.LSD.Colorizer</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -57,9 +57,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValveColorizer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ValveColorizer.cs" />
     <Compile Include="ValveColorizer.Designer.cs">
       <DependentUpon>ValveColorizer.cs</DependentUpon>
     </Compile>

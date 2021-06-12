@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TNT.LSD.Objects</RootNamespace>
     <AssemblyName>TNT.LSD.Objects</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -76,9 +76,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-		<AssemblyInfo_MinorVersion>1</AssemblyInfo_MinorVersion>
-		<AssemblyInfo_PatchVersion>0</AssemblyInfo_PatchVersion>
-		<AssemblyInfo_Title>TNT LSD Objects</AssemblyInfo_Title>
+    <AssemblyInfo_MinorVersion>1</AssemblyInfo_MinorVersion>
+    <AssemblyInfo_PatchVersion>0</AssemblyInfo_PatchVersion>
+    <AssemblyInfo_Title>TNT LSD Objects</AssemblyInfo_Title>
     <AssemblyInfo_GUID>dbc5f5a0-b9bd-404a-91ef-a8dc34795844</AssemblyInfo_GUID>
   </PropertyGroup>
   <ItemGroup>

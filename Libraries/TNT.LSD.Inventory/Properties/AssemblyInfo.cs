@@ -8,15 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Reflection.AssemblyDescription("Landscape Sprinkler Designer Inventory")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2106111948")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright 2020 Tripp\'n Technology, LLC.")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2003051750")]
-[assembly: System.Reflection.AssemblyTitle("Landscape Sprinkler Designer Inventory")]
-[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyDescription("Landscape Sprinkler Designer Inventory")]
 [assembly: System.Reflection.AssemblyProduct("Landscape Sprinkler Designer Inventory")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyTitle("Landscape Sprinkler Designer Inventory")]
 [assembly: System.Runtime.InteropServices.Guid("8f3113a7-e598-4c9a-8427-7e3c6d33c0cb")]
 
 

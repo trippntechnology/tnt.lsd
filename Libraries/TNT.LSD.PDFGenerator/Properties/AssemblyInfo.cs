@@ -8,14 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Reflection.AssemblyDescription("Landscape Sprinkler Designer PDF Generator")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2106111948")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright 2019 Tripp\'n Technology, LLC.")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-1910022106")]
-[assembly: System.Reflection.AssemblyTitle("Landscape Sprinkler Designer PDF Generator")]
-[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyDescription("Landscape Sprinkler Designer PDF Generator")]
 [assembly: System.Reflection.AssemblyProduct("Landscape Sprinkler Designer")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyTitle("Landscape Sprinkler Designer PDF Generator")]
 
 

@@ -8,14 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Reflection.AssemblyDescription("Valve Colorizer")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2106111950")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright Tripp\'n Technology, LLC. 2018")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-1811301708")]
-[assembly: System.Reflection.AssemblyTitle("Valve Colorizer")]
-[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyDescription("Valve Colorizer")]
 [assembly: System.Reflection.AssemblyProduct("Valve Colorizer")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyTitle("Valve Colorizer")]
 
 

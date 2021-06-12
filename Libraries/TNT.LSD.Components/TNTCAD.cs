@@ -1190,29 +1190,10 @@ namespace LSDComponents
 
 			TNTSource source = parts.Find(p => p is TNTSource) as TNTSource;
 
-			// Add automatic drains
-			var pipeQuantities = inventoryParts.Where(i => (i.Key.StartsWith("PI") || i.Key.StartsWith("POLY")) && i.Value.Quantity > 0);
-			var totalPipeLength = pipeQuantities.Sum(q => q.Value.Quantity);
-			var mainlineDrainCount = parts.Find(p => p is MainlinePipe) != null ? State.MainlineDrains : 0;
-			var maxDrainCount = mainlineDrainCount + (valves.Count * State.LateralDrains);
-
-			pipeQuantities.ToList().ForEach(q =>
-			{
-				var sizeCode = Regex.Match(q.Key, "(PI|POLY)([0-9]{3})").Groups[2].Value;
-				var fittingCount = Convert.ToInt32((q.Value.Quantity / totalPipeLength) * maxDrainCount);
-
-				inventoryParts.Add("KD22", fittingCount);
-
-				if (Settings.SystemType == SystemType.PVC)
-				{
-					inventoryParts.Add($"FI{sizeCode}X050SSTTEE", fittingCount);
-				}
-				else
-				{
-					inventoryParts.Add($"PF{sizeCode}X050BBTTEE", fittingCount);
-					inventoryParts.AddHoseClamp(sizeCode, fittingCount * 2);
-				}
-			});
+			// Add Drains
+			var mainCount = parts.Find(p => p is MainlinePipe) != null ? State.MainlineDrains : 0;
+			var systemCount = mainCount + (valves.Count * State.LateralDrains);
+			AddDrains(inventoryParts, systemCount, Settings.SystemType);
 
 			// Add static parts
 			foreach (Part part in State.StaticParts)
@@ -1254,17 +1235,17 @@ namespace LSDComponents
 				.Select(p => p.Value)
 				.ToList()
 				.ForEach(p =>
-			{
-				var match = Regex.Match(p.Code, "POLY([0-9]{3})");
-				var size = PartSize.GetSize(match.Groups[1].Value);
-				var couplerCount = (int)(p.Quantity / 100) - 1;
-
-				if (couplerCount > 0)
 				{
-					inventoryParts.Add($"PF{size}BBCOUP", couplerCount);
-					inventoryParts.AddHoseClamp(size.Code, couplerCount * 2);
-				}
-			});
+					var match = Regex.Match(p.Code, "POLY([0-9]{3})");
+					var size = PartSize.GetSize(match.Groups[1].Value);
+					var couplerCount = (int)(p.Quantity / 100) - 1;
+
+					if (couplerCount > 0)
+					{
+						inventoryParts.Add($"PF{size}BBCOUP", couplerCount);
+						inventoryParts.AddHoseClamp(size.Code, couplerCount * 2);
+					}
+				});
 
 			// Keep only those parts that have a quantity
 			List<Part> neededParts = (from p in inventoryParts where p.Value.Quantity > 0 select p.Value).ToList();
@@ -1311,6 +1292,41 @@ namespace LSDComponents
 			}
 
 			return neededParts;
+		}
+
+		public static void AddDrains(CodedParts inventoryParts, int systemDrainCount, SystemType systemType)
+		{
+			// Add automatic drains
+			IEnumerable<KeyValuePair<string, Part>> pipeQuantities = new Dictionary<string, Part>();
+
+			if (systemType == SystemType.PVC)
+			{
+				pipeQuantities = inventoryParts.Where(i => i.Key.StartsWith("PI") && i.Value.Quantity > 0);
+			}
+			else
+			{
+				pipeQuantities = inventoryParts.Where(i => i.Key.StartsWith("POLY") && i.Value.Quantity > 0);
+			}
+
+			var totalPipeLength = pipeQuantities.Sum(q => q.Value.Quantity);
+
+			pipeQuantities.ToList().ForEach(q =>
+			{
+				var sizeCode = Regex.Match(q.Key, "(PI|POLY)([0-9]{3})").Groups[2].Value;
+				var fittingCount = Convert.ToInt32((q.Value.Quantity / totalPipeLength) * systemDrainCount);
+
+				inventoryParts.Add("KD22", fittingCount);
+
+				if (systemType == SystemType.PVC)
+				{
+					inventoryParts.Add($"FI{sizeCode}X050SSTTEE", fittingCount);
+				}
+				else
+				{
+					inventoryParts.Add($"PF{sizeCode}X050BBTTEE", fittingCount);
+					inventoryParts.AddHoseClamp(sizeCode, fittingCount * 2);
+				}
+			});
 		}
 
 		public double GetArea()
