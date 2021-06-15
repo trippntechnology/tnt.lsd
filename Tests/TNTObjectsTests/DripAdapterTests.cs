@@ -1,10 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects;
 
 namespace TNTObjectsTests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class DripAdapterTests
 	{

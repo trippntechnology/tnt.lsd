@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TNT.LSD.Background</RootNamespace>
     <AssemblyName>TNT.LSD.Background</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -34,10 +34,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyInfo_Title>Background Importer</AssemblyInfo_Title>
-		<AssemblyInfo_MajorVersion>1</AssemblyInfo_MajorVersion>
-		<AssemblyInfo_MinorVersion>0</AssemblyInfo_MinorVersion>
-		<AssemblyInfo_PatchVersion>2</AssemblyInfo_PatchVersion>
-	</PropertyGroup>
+    <AssemblyInfo_MajorVersion>1</AssemblyInfo_MajorVersion>
+    <AssemblyInfo_MinorVersion>0</AssemblyInfo_MinorVersion>
+    <AssemblyInfo_PatchVersion>2</AssemblyInfo_PatchVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

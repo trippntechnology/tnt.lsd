@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects;
 
 namespace TNTObjectsTests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class ValveBoxTests
 	{

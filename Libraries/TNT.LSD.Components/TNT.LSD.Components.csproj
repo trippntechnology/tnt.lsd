@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LSDComponents</RootNamespace>
     <AssemblyName>TNT.LSD.Components</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -129,9 +129,7 @@
     <Compile Include="DrawingModes\PolyLineMode.cs" />
     <Compile Include="PaletteNode.cs" />
     <Compile Include="PaletteProperties.cs" />
-    <Compile Include="TNTPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="TNTPanel.cs" />
     <Compile Include="TypeConverters\DrawingModeConverter.cs" />
     <Compile Include="TypeConverters\DrawingModeListConverter.cs">
       <SubType>Code</SubType>
@@ -145,23 +143,17 @@
     <Compile Include="DrawingModes\RectangleMode.cs" />
     <Compile Include="DrawingModes\TextMode.cs" />
     <Compile Include="Extensions\TreeNodeExtensions.cs" />
-    <Compile Include="PalletNodeTreeView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PalletNodeTreeView.cs" />
     <Compile Include="PalletNodeTreeView.Designer.cs">
       <DependentUpon>PalletNodeTreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="TNTCAD.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="TNTCAD.cs" />
     <Compile Include="TNTCAD.Designer.cs">
       <DependentUpon>TNTCAD.cs</DependentUpon>
     </Compile>
     <Compile Include="TNTCADState.cs" />
     <Compile Include="UndoAction.cs" />
-    <Compile Include="WaterMarkTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WaterMarkTextBox.cs" />
     <Compile Include="WaterMarkTextBox.Designer.cs">
       <DependentUpon>WaterMarkTextBox.cs</DependentUpon>
     </Compile>

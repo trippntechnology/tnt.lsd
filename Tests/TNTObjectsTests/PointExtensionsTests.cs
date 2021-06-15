@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TNT.LSD.Objects;
 using TNT.LSD.Objects.Extensions;
 
 namespace TNTObjectsTests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class PointExtensionsTests
 	{

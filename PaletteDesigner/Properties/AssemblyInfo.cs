@@ -8,15 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Reflection.AssemblyDescription("Palette Designer")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2106111950")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright Tripp\'n Technology, LLC. 2019")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-1902091020")]
-[assembly: System.Reflection.AssemblyTitle("Palette Designer")]
-[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyDescription("Palette Designer")]
 [assembly: System.Reflection.AssemblyProduct("Palette Designer")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyTitle("Palette Designer")]
 [assembly: System.Runtime.InteropServices.Guid("80608b77-d677-4999-b0ce-adf6e9fd5e59")]
 
 

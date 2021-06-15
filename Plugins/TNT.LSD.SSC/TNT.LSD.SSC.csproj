@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TNT.LSD.SSC</RootNamespace>
     <AssemblyName>TNT.LSD.SSC</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -64,9 +64,7 @@
     <Compile Include="AttachmentsPlugin.cs" />
     <Compile Include="PackagePlugin.cs" />
     <Compile Include="PDFPlugin.cs" />
-    <Compile Include="PDFForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="PDFForm.cs" />
     <Compile Include="PDFForm.Designer.cs">
       <DependentUpon>PDFForm.cs</DependentUpon>
     </Compile>
