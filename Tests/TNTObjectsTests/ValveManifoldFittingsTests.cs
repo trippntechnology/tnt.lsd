@@ -1,15 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects;
 using TNT.LSD.Settings;
 
 namespace TNTObjectsTests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class ValveManifoldFittingsTests
 	{

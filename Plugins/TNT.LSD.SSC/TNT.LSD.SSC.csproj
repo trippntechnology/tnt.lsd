@@ -64,9 +64,7 @@
     <Compile Include="AttachmentsPlugin.cs" />
     <Compile Include="PackagePlugin.cs" />
     <Compile Include="PDFPlugin.cs" />
-    <Compile Include="PDFForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="PDFForm.cs" />
     <Compile Include="PDFForm.Designer.cs">
       <DependentUpon>PDFForm.cs</DependentUpon>
     </Compile>
