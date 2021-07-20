@@ -35,7 +35,7 @@ namespace TNT.LSD.Objects
 				{
 					double fullGPM = Convert.ToDouble(GPMList[index]);
 					double fullRatio = Arc == 0 ? 1 : Arc / 360.0;
-					GPM = (fullGPM * fullRatio).ToString();
+					GPM = fullGPM * fullRatio;
 				}
 			}
 		}

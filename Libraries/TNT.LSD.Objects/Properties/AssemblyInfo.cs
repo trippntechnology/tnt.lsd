@@ -8,15 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Reflection.AssemblyDescription("TNT LSD Objects")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.1.0.0-2106111948")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright 2020 Tripp\'n Technology, LLC.")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.5.0")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.5.0-2005060819")]
-[assembly: System.Reflection.AssemblyTitle("TNT LSD Objects")]
-[assembly: System.Reflection.AssemblyVersion("1.0.5.0")]
-[assembly: System.Reflection.AssemblyDescription("TNT LSD Objects")]
 [assembly: System.Reflection.AssemblyProduct("TNT LSD Objects")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyFileVersion("1.1.0.0")]
+[assembly: System.Reflection.AssemblyVersion("1.1.0.0")]
+[assembly: System.Reflection.AssemblyTitle("TNT LSD Objects")]
 [assembly: System.Runtime.InteropServices.Guid("dbc5f5a0-b9bd-404a-91ef-a8dc34795844")]
 
 

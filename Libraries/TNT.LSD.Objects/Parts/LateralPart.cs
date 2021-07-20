@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using TNT.LSD.Inventory;
+using TNT.LSD.Objects.Interfaces;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.Objects
@@ -11,7 +12,7 @@ namespace TNT.LSD.Objects
 	/// <summary>
 	/// Represents a part that can only be on the lateral line
 	/// </summary>
-	public abstract class LateralPart : PalettePart
+	public abstract class LateralPart : PalettePart, ISummable
 	{
 		#region Members
 
@@ -27,7 +28,8 @@ namespace TNT.LSD.Objects
 #if !PALETTE_PROPERTIES
 		[ReadOnly(true)]
 #endif
-		public string GPM { get; set; }
+		public double GPM { get; set; }
+
 
 		[Editor(@"System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
 #if !PALETTE_PROPERTIES
@@ -91,8 +93,9 @@ namespace TNT.LSD.Objects
 		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
 		{
 			base.SetPartQuantity(parts, systemType);
-			parts["FLAG"].Quantity += 1;
+			parts.Add("FLAG", 1);
 		}
+
 		#endregion
 	}
 }

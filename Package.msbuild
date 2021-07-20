@@ -3,7 +3,7 @@
 
 	<PropertyGroup>
 
-		<InnoSetup>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</InnoSetup>
+		<InnoSetup>D:\Program Files (x86)\Inno Setup 5\ISCC.exe</InnoSetup>
 		<InnoSetupScriptFolder>INNOInstaller</InnoSetupScriptFolder>
 		<InnoSetupScript>$(InnoSetupScriptFolder)\LSDInstaller.iss</InnoSetupScript>
 		<ApplicationPath>LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe</ApplicationPath>

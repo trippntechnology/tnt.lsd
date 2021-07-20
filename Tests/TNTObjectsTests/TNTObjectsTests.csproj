@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TNTObjectsTests</RootNamespace>
     <AssemblyName>TNTObjectsTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DripAdapterTests.cs" />
+    <Compile Include="FilterTests.cs" />
     <Compile Include="PhysicalDisconnectTests.cs" />
     <Compile Include="PointExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

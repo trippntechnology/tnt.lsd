@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using TNT.LSD.Objects;
+using TNT.LSD.Objects.Interfaces;
 
 namespace LandscapeSprinklerDesigner.MenuEvents
 {
@@ -19,16 +20,13 @@ namespace LandscapeSprinklerDesigner.MenuEvents
 
 		public override void OnApplicationIdle(object sender, EventArgs e)
 		{
-			this.Enabled = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList().Count > 0;
+			Enabled = (from o in CAD.SelectedObjects where o is ISummable select o as ISummable).ToList().Count > 0;
 		}
 
 		public override void OnMouseClick(object sender, EventArgs e)
 		{
-			var lateralParts = (from o in CAD.SelectedObjects where o is LateralPart select o as LateralPart).ToList();
-			double gpm = 0;
-
-			lateralParts.ForEach(p => gpm += Convert.ToDouble(p.GPM));
-
+			var summableParts = (from o in CAD.SelectedObjects where o is ISummable select o as ISummable).ToList();
+			double gpm = summableParts.Sum(p => p.GPM);
 			MessageBox.Show(this.Owner, string.Format("GPM of selected parts: {0}", gpm), "Selected GPM");
 		}
 	}

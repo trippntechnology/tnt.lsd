@@ -47,6 +47,7 @@ namespace TNT.LSD.Background
 			viewMenu.MergeAction = MergeAction.MatchOnly;
 
 			ToolStripMenuItem showLandscapeMenu = (ToolStripMenuItem)CreateToolStripItem<ToolStripMenuItem>();
+			showLandscapeMenu.ShortcutKeys = Keys.Control | Keys.L;
 			showLandscapeMenu.CheckOnClick = true;
 			viewMenu.DropDownItems.Add(showLandscapeMenu);
 			menuStrip.Items.Add(viewMenu);

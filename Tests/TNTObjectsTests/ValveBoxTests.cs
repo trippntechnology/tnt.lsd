@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects;
 
 namespace TNTObjectsTests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class ValveBoxTests
 	{
@@ -101,6 +103,32 @@ namespace TNTObjectsTests
 
 				Assert.AreEqual(1, parts[$"HC{clamp}"].Quantity);
 			}
+		}
+
+		[TestMethod]
+		public void AddManifoldCap()
+		{
+			var parts = new CodedParts();
+			var pipeSizes = new List<PartSize>() { PartSize.SIZE_075, PartSize.SIZE_100, PartSize.SIZE_125, PartSize.SIZE_150, PartSize.SIZE_200 };
+			var manifolds = new List<Manifold>() { Manifold.DOUBLE_100, Manifold.DOUBLE_150, Manifold.DOUBLE_200 };
+
+			manifolds.ForEach(manSize =>
+			{
+				pipeSizes.ForEach(pipeSize =>
+				{
+					parts.Clear();
+					ValveBox.AddManifoldCap(parts, pipeSize, manSize);
+
+					if (manSize.Size == PartSize.SIZE_100)
+					{
+						Assert.AreEqual(1, parts["AF18000"].Quantity);
+					}else
+					{
+						Assert.AreEqual(1, parts[$"AF18012{manSize.Size}"].Quantity);
+						Assert.AreEqual(1, parts[$"FI{pipeSize.Code}SCAP"].Quantity);
+					}
+				});
+			});
 		}
 	}
 }
