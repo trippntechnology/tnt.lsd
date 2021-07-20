@@ -9,13 +9,13 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Reflection.AssemblyDescription("Landscape Sprinkler Designer")]
-[assembly: System.Reflection.AssemblyInformationalVersion("3.8.6.0-2106111952")]
+[assembly: System.Reflection.AssemblyInformationalVersion("3.8.7.0-2107190856")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
 [assembly: System.Reflection.AssemblyProduct("Landscape Sprinkler Designer")]
 [assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
-[assembly: System.Reflection.AssemblyFileVersion("3.8.6.0")]
-[assembly: System.Reflection.AssemblyVersion("3.8.6.0")]
+[assembly: System.Reflection.AssemblyFileVersion("3.8.7.0")]
+[assembly: System.Reflection.AssemblyVersion("3.8.7.0")]
 [assembly: System.Reflection.AssemblyTitle("Landscape Sprinkler Designer")]
 [assembly: System.Runtime.InteropServices.Guid("5fd3560a-0efd-4e48-9df9-c4fa3f44ba15")]
 
