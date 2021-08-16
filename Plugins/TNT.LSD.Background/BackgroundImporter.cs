@@ -46,7 +46,7 @@ namespace TNT.LSD.Background
 		}
 		private void FindFileButton_Click(object sender, EventArgs e)
 		{
-			MyEventArgs myEventArgs = (e as MyEventArgs) == null ? new MyEventArgs() : (e as MyEventArgs);
+			MyEventArgs myEventArgs = e as MyEventArgs ?? new MyEventArgs();
 			FindFileDialog.InitialDirectory = m_ApplicationRegistry.ReadString("InitialDirectory", string.Empty);
 			myEventArgs.DialogResult = FindFileDialog.ShowDialog();
 
@@ -66,7 +66,7 @@ namespace TNT.LSD.Background
 			}
 		}
 
-		private void Application_Idle(Object sender, EventArgs e)
+		private void Application_Idle(object sender, EventArgs e)
 		{
 			bool isDouble = false;
 

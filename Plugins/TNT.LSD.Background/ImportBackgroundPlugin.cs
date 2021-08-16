@@ -14,11 +14,9 @@ namespace TNT.LSD.Background
 
 		public override Image Image => base.GetImage("TNT.LSD.Background.Images.import_background_image.png");
 
-		public override void Execute(System.Windows.Forms.IWin32Window owner, System.Windows.Forms.ToolStripItem sender, IApplicationData content)
+		public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
 		{
-			ApplicationData appData = content as ApplicationData;
-
-			if (appData != null && appData.TNTCAD != null)
+			if (content is ApplicationData appData && appData.TNTCAD != null)
 			{
 				using (BackgroundImporter bi = new BackgroundImporter())
 				{
@@ -28,16 +26,18 @@ namespace TNT.LSD.Background
 						var plugin = _Manager.GetPlugins(p => p.Text == showBackgroundPlugin.Text);
 						(plugin.FirstOrDefault() as ShowBackgroundPlugin)?.SetChecked(owner, content);
 
-						var button = new ToolStripButton();
-						button.CheckOnClick = true;
-						button.Checked = true;
+						var button = new ToolStripButton
+						{
+							CheckOnClick = true,
+							Checked = true
+						};
 						(new ShowBackgroundPlugin()).Execute(owner, button, content);
 					}
 				}
 			}
 		}
 
-		public override System.Windows.Forms.MenuStrip GetMenuStrip()
+		public override MenuStrip GetMenuStrip()
 		{
 			var menuStrip = base.GetMenuStrip();
 			var landscapeMenu = menuStrip.Items.FindItem("Landscape");
@@ -46,7 +46,7 @@ namespace TNT.LSD.Background
 			return menuStrip;
 		}
 
-		public override System.Windows.Forms.ToolStrip GetToolStrip()
+		public override ToolStrip GetToolStrip()
 		{
 			ToolStrip toolStrip = new ToolStrip();
 

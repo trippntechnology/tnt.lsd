@@ -36,7 +36,7 @@
     <AssemblyInfo_Title>Background Importer</AssemblyInfo_Title>
     <AssemblyInfo_MajorVersion>1</AssemblyInfo_MajorVersion>
     <AssemblyInfo_MinorVersion>0</AssemblyInfo_MinorVersion>
-    <AssemblyInfo_PatchVersion>2</AssemblyInfo_PatchVersion>
+    <AssemblyInfo_PatchVersion>3</AssemblyInfo_PatchVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

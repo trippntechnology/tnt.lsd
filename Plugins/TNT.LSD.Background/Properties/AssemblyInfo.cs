@@ -9,13 +9,13 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Reflection.AssemblyDescription("Background Importer")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.2.0-2106111950")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.3.0-2108160848")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
 [assembly: System.Reflection.AssemblyProduct("Background Importer")]
 [assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.2.0")]
-[assembly: System.Reflection.AssemblyVersion("1.0.2.0")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.3.0")]
+[assembly: System.Reflection.AssemblyVersion("1.0.3.0")]
 [assembly: System.Reflection.AssemblyTitle("Background Importer")]
 
 
