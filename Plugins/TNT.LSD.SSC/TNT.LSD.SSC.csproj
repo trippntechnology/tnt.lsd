@@ -37,10 +37,11 @@
     <AssemblyInfo_PatchVersion>1</AssemblyInfo_PatchVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.13.3.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetZip.1.13.3\lib\net40\DotNetZip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -64,7 +65,9 @@
     <Compile Include="AttachmentsPlugin.cs" />
     <Compile Include="PackagePlugin.cs" />
     <Compile Include="PDFPlugin.cs" />
-    <Compile Include="PDFForm.cs" />
+    <Compile Include="PDFForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PDFForm.Designer.cs">
       <DependentUpon>PDFForm.cs</DependentUpon>
     </Compile>

@@ -77,8 +77,8 @@
     <AssemblyInfo_GUID>34a0198b-a28b-4161-9af7-b9ba2256e0a8</AssemblyInfo_GUID>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.13.3.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetZip.1.13.3\lib\net40\DotNetZip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -129,7 +129,9 @@
     <Compile Include="DrawingModes\PolyLineMode.cs" />
     <Compile Include="PaletteNode.cs" />
     <Compile Include="PaletteProperties.cs" />
-    <Compile Include="TNTPanel.cs" />
+    <Compile Include="TNTPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TypeConverters\DrawingModeConverter.cs" />
     <Compile Include="TypeConverters\DrawingModeListConverter.cs">
       <SubType>Code</SubType>
@@ -143,17 +145,23 @@
     <Compile Include="DrawingModes\RectangleMode.cs" />
     <Compile Include="DrawingModes\TextMode.cs" />
     <Compile Include="Extensions\TreeNodeExtensions.cs" />
-    <Compile Include="PalletNodeTreeView.cs" />
+    <Compile Include="PalletNodeTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PalletNodeTreeView.Designer.cs">
       <DependentUpon>PalletNodeTreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="TNTCAD.cs" />
+    <Compile Include="TNTCAD.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TNTCAD.Designer.cs">
       <DependentUpon>TNTCAD.cs</DependentUpon>
     </Compile>
     <Compile Include="TNTCADState.cs" />
     <Compile Include="UndoAction.cs" />
-    <Compile Include="WaterMarkTextBox.cs" />
+    <Compile Include="WaterMarkTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WaterMarkTextBox.Designer.cs">
       <DependentUpon>WaterMarkTextBox.cs</DependentUpon>
     </Compile>
