@@ -26,7 +26,6 @@ namespace LandscapeSprinklerDesigner
 		{
 			IProgress<List<Part>> doWork = new Progress<List<Part>>(listOfParts =>
 			{
-				Debug.WriteLine("SetParts called");
 				Parts_ListView.BeginUpdate();
 				Parts_ListView.Items.Clear();
 

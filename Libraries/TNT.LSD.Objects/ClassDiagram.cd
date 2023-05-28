@@ -1,235 +1,246 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TNT.LSD.Objects.TNTSource" Collapsed="true">
-    <Position X="49.25" Y="14" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="TNT.LSD.Objects.TNTSource">
+    <Position X="77.75" Y="31" Width="6" />
     <TypeIdentifier>
-      <HashCode>AEAgAAQAAAAAAAAEABCAAAAAQAgBAAAAQAAAiAAQABI=</HashCode>
+      <HashCode>AEAgAAQAAAAAAAAEABCAAAAAQAgBAAAAQAAAiAAQABo=</HashCode>
       <FileName>Parts\TNTSource.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TNT.LSD.Objects.PalettePart">
-    <Position X="37.5" Y="5" Width="2" />
+    <Position X="52.5" Y="21" Width="5" />
     <TypeIdentifier>
-      <HashCode>gAAAgAwAAAAACgAABAAIAAEAAAABCBIAwBBAAMACAAg=</HashCode>
+      <HashCode>gAAAgAwAAAAACgAABAAIAAEAAAABCBIAwBBEAMgCAAg=</HashCode>
       <FileName>Parts\PalettePart.cs</FileName>
       <NewMemberFileName>Parts\TNTPart.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TNT.LSD.Objects.Sprinkler">
-    <Position X="27.5" Y="13" Width="1.5" />
+    <Position X="26.5" Y="32.25" Width="6" />
     <TypeIdentifier>
-      <HashCode>AAAKAAQEAIAIAgAAABABAoIAAgABAAAhAAAAACAAABA=</HashCode>
+      <HashCode>AAEIAAREAIAIAgAAABABAoIAEAABEDAhgAAAACAAABA=</HashCode>
       <FileName>Parts\Sprinkler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Pipe" Collapsed="true">
-    <Position X="55" Y="3.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Pipe">
+    <Position X="90.75" Y="13" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>ABQCkAQACACAEiIgABAAIAAAAgABABAAACAIgIAACAI=</HashCode>
+      <HashCode>ABQCkAQACACAEiIgAhAAIAAAAgABQBAAACAIgIAACAI=</HashCode>
       <FileName>Pipe\Pipe.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Fitting" Collapsed="true">
-    <Position X="51.5" Y="5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Fitting">
+    <Position X="84.5" Y="21" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>BAAAgAAAAAAAAgAAABAAACEAAAAAEBAAAAAAAAAAAgA=</HashCode>
+      <HashCode>BAAAgAAAAAAAAgAAABAAAAEAAAAAEBAAAAAAAAAAAAA=</HashCode>
       <FileName>Parts\Fitting.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTPart" Collapsed="true">
-    <Position X="39" Y="3.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTPart">
+    <Position X="54.75" Y="13" Width="5.25" />
+    <NestedTypes>
+      <Class Name="TNT.LSD.Objects.TNTPart.PipePair" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Parts\TNTPart.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AgAAkAQAIACAAAAAABAAAIEIAAgJAAABQAEIgACAABA=</HashCode>
+      <HashCode>AgBAgAQAIACAAAAAABAAAIMIAAgJAAAAQAEIgABAIBA=</HashCode>
       <FileName>Parts\TNTPart.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Valve" Collapsed="true">
-    <Position X="37.75" Y="13" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Valve">
+    <Position X="50.5" Y="32.75" Width="8.25" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAAAAAAAAAABAAAAEAAAAAAAAAAAAAqAAQABQ=</HashCode>
+      <HashCode>ACAAIIAAgAAAAAAACBBAAAEIAAAAAAQBAAAEqAAAABQ=</HashCode>
       <FileName>Parts\Valve.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TNT.LSD.Objects.BasePart" Collapsed="true">
-    <Position X="41.25" Y="2" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.BasePart">
+    <Position X="59" Y="9.25" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgABAAAAAAAAAAACAAAAAAgAAQIAA=</HashCode>
       <FileName>Parts\BasePart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TNT.LSD.Objects.ArcSprinkler">
-    <Position X="27.5" Y="19.75" Width="1.5" />
+    <Position X="27.5" Y="40" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAgAAAAAAAAAAAAABAIAAAACAAAAACBg=</HashCode>
       <FileName>Parts\ArcSprinkler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.LateralPart" Collapsed="true">
-    <Position X="28.75" Y="11.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.LateralPart">
+    <Position X="30.5" Y="28.25" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAQAAAAAAAAAAAEIAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAACAAAAQAAAAAABAAAAEIAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Parts\LateralPart.cs</FileName>
       <NewMemberFileName>Parts\MainlinePart.cs</NewMemberFileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TNT.LSD.Objects.MainlinePart">
-    <Position X="44.75" Y="11.5" Width="1.5" />
+    <Position X="69.75" Y="28.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgAAQAAA=</HashCode>
       <FileName>Parts\MainlinePart.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.LateralPipe" Collapsed="true">
-    <Position X="53.75" Y="5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.LateralPipe">
+    <Position X="89.5" Y="21.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Pipe\LateralPipe.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.MainlinePipe" Collapsed="true">
-    <Position X="56" Y="5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.MainlinePipe">
+    <Position X="93.25" Y="21.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Pipe\MainlinePipe.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.AdjustableSprinkler" Collapsed="true">
-    <Position X="26.25" Y="21" Width="1.75" />
+  <Class Name="TNT.LSD.Objects.AdjustableSprinkler">
+    <Position X="26.25" Y="44.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAASAAAAAAAAAAAAAAAAAAAABAoIAwAAAAIAAABA=</HashCode>
       <FileName>Parts\AdjustableSprinkler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TNT.LSD.Objects.SpraySprinkler">
-    <Position X="28.75" Y="21" Width="1.5" />
+    <Position X="30.5" Y="44.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Parts\SpraySprinkler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.DripAdapter" Collapsed="true">
-    <Position X="31" Y="13" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.DripAdapter">
+    <Position X="33.75" Y="32.25" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAAAAABAAAAAAAAAAAKAAAAAAAAAAABA=</HashCode>
       <FileName>Parts\DripAdapter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.ValveBox" Collapsed="true">
-    <Position X="33.25" Y="14.25" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.ValveBox">
+    <Position X="40" Y="35.75" Width="6" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAACAAAAABAAAAAAAAABBAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AIAAAoQAAAgCAAACARAAAAAAAAABBAgAAAAhgAEAABA=</HashCode>
       <FileName>Parts\ValveBox.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Legend" Collapsed="true">
-    <Position X="60.5" Y="3.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Legend">
+    <Position X="102.5" Y="16.25" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>ABAAgAAAAACAAgAAEAAAAAAAAAAAAAAIAAAIEAAAABI=</HashCode>
+      <HashCode>ABAAgAAAAACAAgACAAAIAAQIACAoAAAAAAAIEAAAABA=</HashCode>
       <FileName>Legend.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTText" Collapsed="true">
-    <Position X="62.75" Y="5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTText">
+    <Position X="108.75" Y="19.25" Width="4.25" />
     <TypeIdentifier>
       <HashCode>ABAAAAQgAAAAAgAIgAAAAAAAEAABAAAAAAAACAACABI=</HashCode>
       <FileName>TNTText.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTCircle" Collapsed="true">
-    <Position X="65" Y="3.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTCircle">
+    <Position X="113.75" Y="16.25" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAgAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
       <FileName>TNTCircle.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTLine" Collapsed="true">
-    <Position X="58.25" Y="2" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTLine">
+    <Position X="97" Y="9.25" Width="4.75" />
     <TypeIdentifier>
-      <HashCode>ARAAgAQAAACBAgAAADAAAAAgAAABEAAAQAAIAIgCAFA=</HashCode>
+      <HashCode>AxAAgAQAAACBAgAABDAAAAAgAAABEAAAQAAIAIgCAFA=</HashCode>
       <FileName>TNTLine.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTObject" Collapsed="true">
-    <Position X="45.75" Y="0.75" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTObject">
+    <Position X="68.75" Y="0.75" Width="6.5" />
     <TypeIdentifier>
       <HashCode>AhAAgAQAAICBgkAAAiAAAAAgAAAJEBAAgBAIAI0AYFI=</HashCode>
       <FileName>TNTObject.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTPolyLine" Collapsed="true">
-    <Position X="58.25" Y="3.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTPolyLine">
+    <Position X="97" Y="16.75" Width="4.75" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAABAAAAACAAAAAAAAABAAAAAAAAEAAAAFA=</HashCode>
+      <HashCode>AACAgAAAAAABAgAAACAAAAAAABABAAAAAAAAEAgAAFQ=</HashCode>
       <FileName>TNTPolyLine.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTRectangle" Collapsed="true">
-    <Position X="62.75" Y="3.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTRectangle">
+    <Position X="108.75" Y="16.25" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
       <FileName>TNTRectangle.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TNT.LSD.Objects.TNTShape" Collapsed="true">
-    <Position X="62.75" Y="2" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.TNTShape">
+    <Position X="108" Y="9.25" Width="4.25" />
     <TypeIdentifier>
       <HashCode>ARCAgAQAIACAAAAAABAAAAAgABABCAAAQAAIAIgCIBQ=</HashCode>
       <FileName>TNTShape.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.AdjSpraySprinkler" Collapsed="true">
-    <Position X="26.5" Y="22.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.AdjSpraySprinkler">
+    <Position X="26.5" Y="48.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Parts\AdjSpraySprinkler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Backflow" Collapsed="true">
-    <Position X="40" Y="14" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Backflow">
+    <Position X="59.5" Y="31" Width="5.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAgAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAAARAgAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Parts\Backflow.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.PhysicalDisconnect" Collapsed="true">
-    <Position X="44.5" Y="14" Width="1.75" />
+  <Class Name="TNT.LSD.Objects.PhysicalDisconnect">
+    <Position X="65.5" Y="31" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAEAAAAAAAAAAAAAgAAAABA=</HashCode>
+      <HashCode>AAAAAEAAAAEAAAAAABAAIAEAAAAAAAAAAAAAgAAAABA=</HashCode>
       <FileName>Parts\PhysicalDisconnect.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Filter" Collapsed="true">
-    <Position X="47" Y="14" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Filter">
+    <Position X="70.5" Y="31" Width="6.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAACCAAABAAAAAAAAABAAAAAQAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAQAAAAACCQAABAAAAAAAAABAAAAAQAAAAAAABA=</HashCode>
       <FileName>Parts\Filter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.DryPart" Collapsed="true">
-    <Position X="34.5" Y="13" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.DryPart">
+    <Position X="43" Y="32.75" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAAAABA=</HashCode>
       <FileName>Parts\DryPart.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.GenericPart" Collapsed="true">
-    <Position X="35.5" Y="11.5" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.GenericPart">
+    <Position X="47.25" Y="28.25" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AgAAAIQAAAAAAAAAABAAAAAAAAABABAAAAgAAAAAAAg=</HashCode>
+      <HashCode>AgAAAIQAAAAAAAAAABAAAAEAAAABABAAAAgAAAAAAAg=</HashCode>
       <FileName>Parts\GenericPart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TNT.LSD.Objects.HoseBib" Collapsed="true">
-    <Position X="42.25" Y="14" Width="1.5" />
+    <Position X="119" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAIQAAAAAAAAAABAAAAAAAAAAABAAAAgAAAAAABg=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAABA=</HashCode>
       <FileName>Parts\HoseBib.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TNT.LSD.Objects.Controller" Collapsed="true">
-    <Position X="35.5" Y="14.25" Width="1.5" />
+  <Class Name="TNT.LSD.Objects.Controller">
+    <Position X="46.75" Y="35.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAEBQAABAAAAAAAAAAAACAAAABAAAAAAgAAAAAABA=</HashCode>
       <FileName>Parts\Controller.cs</FileName>

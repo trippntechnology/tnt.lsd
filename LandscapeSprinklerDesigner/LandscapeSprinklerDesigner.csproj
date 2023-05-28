@@ -20,13 +20,6 @@
   <PropertyGroup>
     <ApplicationIcon>LandscapeSprinklerDesigner.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyInfo_MajorVersion>3</AssemblyInfo_MajorVersion>
-    <AssemblyInfo_MinorVersion>8</AssemblyInfo_MinorVersion>
-    <AssemblyInfo_PatchVersion>7</AssemblyInfo_PatchVersion>
-    <AssemblyInfo_Title>Landscape Sprinkler Designer</AssemblyInfo_Title>
-    <AssemblyInfo_GUID>5fd3560a-0efd-4e48-9df9-c4fa3f44ba15</AssemblyInfo_GUID>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
@@ -362,10 +355,8 @@ copy "$(SolutionDir)LandscapeSprinklerDesigner\Transforms\*.*" "$(TargetDir)\Tra
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets'))" />
     <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Import Project="..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets" Condition="Exists('..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

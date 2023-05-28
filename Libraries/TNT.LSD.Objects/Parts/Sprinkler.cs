@@ -292,8 +292,11 @@ namespace TNT.LSD.Objects
 			newObj.BodyCodes = BodyCodes;
 			newObj.Body = Body;
 			newObj.NozzleCodes = NozzleCodes;
+			newObj.InletSize = InletSize;
 			newObj.Radii = Radii;
 			newObj.Radius = Radius;
+			newObj.XOffset = XOffset;
+			newObj.YOffset = YOffset;
 
 			return newObj;
 		}
@@ -311,6 +314,7 @@ namespace TNT.LSD.Objects
 				BodyCodes = sprinkler.BodyCodes;
 				Body = sprinkler.Body;
 				NozzleCodes = sprinkler.NozzleCodes;
+				InletSize = sprinkler.InletSize;
 				Radii = sprinkler.Radii;
 				Radius = sprinkler.Radius;
 				XOffset = sprinkler.XOffset;

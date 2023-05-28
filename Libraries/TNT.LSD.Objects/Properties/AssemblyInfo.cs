@@ -9,13 +9,13 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Reflection.AssemblyDescription("TNT LSD Objects")]
-[assembly: System.Reflection.AssemblyInformationalVersion("1.1.0.0-2106111948")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.1.1.0-2305271932")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
 [assembly: System.Reflection.AssemblyProduct("TNT LSD Objects")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
-[assembly: System.Reflection.AssemblyFileVersion("1.1.0.0")]
-[assembly: System.Reflection.AssemblyVersion("1.1.0.0")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2023 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyFileVersion("1.1.1.0")]
+[assembly: System.Reflection.AssemblyVersion("1.1.1.0")]
 [assembly: System.Reflection.AssemblyTitle("TNT LSD Objects")]
 [assembly: System.Runtime.InteropServices.Guid("dbc5f5a0-b9bd-404a-91ef-a8dc34795844")]
 
