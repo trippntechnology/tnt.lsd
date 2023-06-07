@@ -123,8 +123,10 @@ namespace TNT.LSD.PDFGenerator
 			List<PropertyReflector> propReflectors = (from p in reflector.Properties orderby p.Category, p.DisplayName select p).ToList();
 
 			document.Add(new Paragraph(" "));
-			iText.Image image = iText.Image.GetInstance(Resources.ssc, System.Drawing.Imaging.ImageFormat.Jpeg);
-			image.Alignment = iText.Image.ALIGN_MIDDLE;
+			iText.Image image = iText.Image.GetInstance(Resources.ssc, System.Drawing.Imaging.ImageFormat.Png);
+			image.ScalePercent(30F);
+			//image.ScaleAbsoluteHeight(100f);
+      image.Alignment = iText.Image.ALIGN_MIDDLE;
 			document.Add(image);
 
 			document.Add(new Paragraph(" "));
