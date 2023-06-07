@@ -32,7 +32,7 @@ AppVersion={#MY_VERSION}
 UninstallDisplayName={#MY_PRODUCT_NAME}
 
 [Files]
-//Source: "dotNetFx45_Full_setup.exe"; DestDir: "{tmp}"; Flags: ignoreversion; Check: NeedsDotNETFramework
+;Source: "dotNetFx45_Full_setup.exe"; DestDir: "{tmp}"; Flags: ignoreversion; Check: NeedsDotNETFramework
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe.config"; DestDir: "{app}"; Flags: ignoreversion
