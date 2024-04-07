@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31112.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandscapeSprinklerDesigner", "LandscapeSprinklerDesigner\LandscapeSprinklerDesigner.csproj", "{EED253DB-047E-4B92-8C24-4D67ECACBC15}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{85BEDB85-6FC4-49F9-9A2C-5461364555D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNTObjectsTests", "Tests\TNTObjectsTests\TNTObjectsTests.csproj", "{354C4281-3748-47F5-A907-665C22C69091}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaletteDesigner", "PaletteDesigner\PaletteDesigner.csproj", "{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.LSD.Inventory", "Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj", "{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}"
 EndProject
@@ -41,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.LSD.Components", "Libra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.LSD.Components.Tests", "Tests\TNT.LSD.Components.Tests\TNT.LSD.Components.Tests.csproj", "{A52C153E-05ED-4353-9762-83303134BA2F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaletteDesigner", "PaletteDesigner\PaletteDesigner.csproj", "{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug (PALETTE_PROPERTIES)|Any CPU = Debug (PALETTE_PROPERTIES)|Any CPU
@@ -60,12 +60,6 @@ Global
 		{354C4281-3748-47F5-A907-665C22C69091}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{354C4281-3748-47F5-A907-665C22C69091}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{354C4281-3748-47F5-A907-665C22C69091}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}.Debug (PALETTE_PROPERTIES)|Any CPU.ActiveCfg = Debug (PALETTE_PROPERTIES)|Any CPU
-		{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}.Debug (PALETTE_PROPERTIES)|Any CPU.Build.0 = Debug (PALETTE_PROPERTIES)|Any CPU
-		{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}.Debug (PALETTE_PROPERTIES)|Any CPU.ActiveCfg = Debug|Any CPU
 		{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}.Debug (PALETTE_PROPERTIES)|Any CPU.Build.0 = Debug|Any CPU
 		{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -144,6 +138,12 @@ Global
 		{A52C153E-05ED-4353-9762-83303134BA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A52C153E-05ED-4353-9762-83303134BA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A52C153E-05ED-4353-9762-83303134BA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}.Debug (PALETTE_PROPERTIES)|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}.Debug (PALETTE_PROPERTIES)|Any CPU.Build.0 = Debug|Any CPU
+		{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B44A5EE-DAAE-44A4-9F9F-9ABE118E50CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

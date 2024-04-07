@@ -1,134 +1,61 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5CFB2DB9-7BE0-435C-B850-90A89EDBCAA3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PalletDesigner</RootNamespace>
-    <AssemblyName>LSDPaletteDesigner</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyInfo_Title>Palette Designer</AssemblyInfo_Title>
-    <AssemblyInfo_GUID>80608b77-d677-4999-b0ce-adf6e9fd5e59</AssemblyInfo_GUID>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28PALETTE_PROPERTIES%29|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug %28PALETTE_PROPERTIES%29\</OutputPath>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="TNT.ToolStripItemManager, Version=1.5.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.ToolStripItemManager.1.5.2\lib\net472\TNT.ToolStripItemManager.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
-    </Reference>
+    <None Remove="Images\disk.png" />
+    <None Remove="Images\folder.png" />
+    <None Remove="Images\page_copy.png" />
+    <None Remove="Images\page_paste.png" />
+    <None Remove="Resources\child_node_add.png" />
+    <None Remove="Resources\delete.png" />
+    <None Remove="Resources\node_demote.png" />
+    <None Remove="Resources\node_move_down.png" />
+    <None Remove="Resources\node_move_up.png" />
+    <None Remove="Resources\picture_add.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Events\AddChildNode.cs" />
-    <Compile Include="Events\AddImage.cs" />
-    <Compile Include="Events\AddSiblingNode.cs" />
-    <Compile Include="Events\Copy.cs" />
-    <Compile Include="Events\DeleteNode.cs" />
-    <Compile Include="Events\DemoteNode.cs" />
-    <Compile Include="Events\Exit.cs" />
-    <Compile Include="Events\NodeEvents.cs" />
-    <Compile Include="Events\Open.cs" />
-    <Compile Include="Events\Paste.cs" />
-    <Compile Include="Events\Save.cs" />
-    <Compile Include="Events\SaveAs.cs" />
-    <Compile Include="Events\ExportImage.cs" />
-    <Compile Include="Events\ShiftNodeDown.cs" />
-    <Compile Include="Events\ShiftNodeUp.cs" />
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
-      <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
-      <Name>TNT.LSD.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
-      <Project>{D4B61895-B09B-4419-8E7E-BAFFE837BCF3}</Project>
-      <Name>TNT.LSD.Objects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\page_copy.png" />
-    <EmbeddedResource Include="Images\page_paste.png" />
     <EmbeddedResource Include="Images\disk.png" />
     <EmbeddedResource Include="Images\folder.png" />
+    <EmbeddedResource Include="Images\page_copy.png" />
+    <EmbeddedResource Include="Images\page_paste.png" />
+    <EmbeddedResource Include="Resources\child_node_add.png" />
+    <EmbeddedResource Include="Resources\delete.png" />
+    <EmbeddedResource Include="Resources\node_demote.png" />
+    <EmbeddedResource Include="Resources\node_move_down.png" />
+    <EmbeddedResource Include="Resources\node_move_up.png" />
+    <EmbeddedResource Include="Resources\picture_add.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets'))" />
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
-  </Target>
-  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Import Project="..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets" Condition="Exists('..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" />
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+
+  <ItemGroup>
+    <PackageReference Include="TNT.ToolStripItemManager" Version="2.0.1" />
+    <PackageReference Include="Tnt.Utilities" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -1,24 +1,22 @@
-﻿using System;
-using System.Windows.Forms;
+﻿namespace PaletteDesigner.Events
 
-namespace PalletDesigner.Events
 {
-	class ExportImage : NodeEvents
-	{
-		public override string Text => "Export Image";
+  class ExportImage : NodeEvents
+  {
+    public override string Text => "Export Image";
 
-		public override string ToolTipText => "Export image associated with node";
+    public override string ToolTipText => "Export image associated with node";
 
-		public override void OnMouseClick(object sender, EventArgs e)
-		{
-			base.OnMouseClick(sender, e);
-			using (var sfd = new SaveFileDialog())
-			{
-				if (sfd.ShowDialog() == DialogResult.OK)
-				{
-					PalletNodeTreeView.ExportImage(sfd.FileName);
-				}
-			}
-		}
-	}
+    public override void OnMouseClick(object sender, EventArgs e)
+    {
+      base.OnMouseClick(sender, e);
+      using (var sfd = new SaveFileDialog())
+      {
+        if (sfd.ShowDialog() == DialogResult.OK)
+        {
+          PalletNodeTreeView.ExportImage(sfd.FileName);
+        }
+      }
+    }
+  }
 }

@@ -1,20 +1,18 @@
 ﻿using LSDComponents;
-using System;
 
-namespace PalletDesigner.Events
+namespace PaletteDesigner.Events;
+
+class AddSiblingNode : NodeEvents
 {
-	class AddSiblingNode : NodeEvents
-	{
-		public override string Text => "Add Sibling Node";
+  public override string Text => "Add Sibling Node";
 
-		public override string ToolTipText => "Add a sibling node";
+  public override string ToolTipText => "Add a sibling node";
 
-		public override void OnMouseClick(object sender, EventArgs e)
-		{
-			base.OnMouseClick(sender, e);
+  public override void OnMouseClick(object sender, EventArgs e)
+  {
+    base.OnMouseClick(sender, e);
 
-			PaletteNode newNode = this.PalletNodeTreeView.AddSiblingNode();
-			this.PropertyGrid.SelectedObject = newNode.Properties;
-		}
-	}
+    PaletteNode newNode = PalletNodeTreeView.AddSiblingNode();
+    PropertyGrid.SelectedObject = newNode.Properties;
+  }
 }

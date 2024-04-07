@@ -1,27 +1,25 @@
 ﻿using LSDComponents;
-using System;
 using TNT.ToolStripItemManager;
 
-namespace PalletDesigner.Events
+namespace PaletteDesigner.Events;
+
+class Paste : ToolStripItemGroup
 {
-	class Paste : ToolStripItemGroup
-	{
-		private PalletNodeTreeView PalletNodeTreeView => base.ExternalObject as PalletNodeTreeView;
+  private PalletNodeTreeView PalletNodeTreeView => ExternalObject as PalletNodeTreeView;
 
-		public override string Text => "Paste";
+  public override string Text => "Paste";
 
-		public override string ToolTipText => "Paste Node";
+  public override string ToolTipText => "Paste Node";
 
-		public override void OnApplicationIdle(object sender, EventArgs e)
-		{
-			base.OnApplicationIdle(sender, e);
-			Enabled = this.PalletNodeTreeView.SelectedNode != null;
-		}
+  public override void OnApplicationIdle(object sender, EventArgs e)
+  {
+    base.OnApplicationIdle(sender, e);
+    Enabled = PalletNodeTreeView.SelectedNode != null;
+  }
 
-		public override void OnMouseClick(object sender, EventArgs e)
-		{
-			base.OnMouseClick(sender, e);
-			this.PalletNodeTreeView.Paste();
-		}
-	}
+  public override void OnMouseClick(object sender, EventArgs e)
+  {
+    base.OnMouseClick(sender, e);
+    PalletNodeTreeView.Paste();
+  }
 }
