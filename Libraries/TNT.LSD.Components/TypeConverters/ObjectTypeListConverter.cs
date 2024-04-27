@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using TNT.LSD.Components.DrawingModes;
 
-namespace LSDComponents.TypeConverters
+namespace TNT.LSD.Components.TypeConverters;
+
+public class ObjectTypeListConverter : TypeConverter
 {
-	public class ObjectTypeListConverter: TypeConverter
-	{
-		public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-		{
-			return true;
-		}
+  public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+  {
+    return true;
+  }
 
-		public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
-		{
-			DrawingModes.DrawingMode drawingMode = context.Instance as DrawingModes.DrawingMode;
+  public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+  {
+    DrawingMode drawingMode = context.Instance as DrawingMode;
 
-			if (drawingMode != null)
-			{
-				return new StandardValuesCollection(drawingMode.DefaultObjects());
-			}
-			else
-			{
-				return new StandardValuesCollection(null);
-			}
-		}
+    if (drawingMode != null)
+    {
+      return new StandardValuesCollection(drawingMode.DefaultObjects());
+    }
+    else
+    {
+      return new StandardValuesCollection(null);
+    }
+  }
 
-	}
 }

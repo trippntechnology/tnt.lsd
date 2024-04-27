@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace LSDComponents
+namespace TNT.LSD.Components;
+
+public class TNTPanel : Panel
 {
-	public class TNTPanel : Panel
-	{
-		protected override System.Drawing.Point ScrollToControl(Control activeControl)
-		{
-			return this.DisplayRectangle.Location;
-		}
-	}
+  protected override System.Drawing.Point ScrollToControl(Control activeControl)
+  {
+    return DisplayRectangle.Location;
+  }
 }

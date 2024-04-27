@@ -1,76 +1,74 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace LSDComponents
+namespace TNT.LSD.Components;
+
+public class PaletteNode : TreeNode
 {
-	public class PaletteNode : TreeNode
-	{
-		#region Members
-		#endregion
+  #region Members
+  #endregion
 
-		#region Constructors
+  #region Constructors
 
-		public PaletteNode()
-		{
-		}
+  public PaletteNode()
+  {
+  }
 
-		public PaletteNode(string text)
-			: base(text)
-		{
-		}
+  public PaletteNode(string text)
+    : base(text)
+  {
+  }
 
-		public PaletteNode(PaletteNode obj)
-			: base(obj.Text, obj.ImageIndex, obj.SelectedImageIndex)
-		{
-			StateImageIndex = obj.StateImageIndex;
-			Properties = new PaletteProperties(obj.Properties);
+  public PaletteNode(PaletteNode obj)
+    : base(obj.Text, obj.ImageIndex, obj.SelectedImageIndex)
+  {
+    StateImageIndex = obj.StateImageIndex;
+    Properties = new PaletteProperties(obj.Properties);
 
-			foreach (TreeNode node in obj.Nodes)
-			{
-				Nodes.Add((TreeNode)node.Clone());
-			}
-		}
+    foreach (TreeNode node in obj.Nodes)
+    {
+      Nodes.Add((TreeNode)node.Clone());
+    }
+  }
 
-		#endregion
+  #endregion
 
-		#region Properties
+  #region Properties
 
-		public PaletteProperties Properties { get; set; }
+  public PaletteProperties Properties { get; set; }
 
-		#endregion
+  #endregion
 
-		public override object Clone()
-		{
-			return new PaletteNode(this);
-		}
+  public override object Clone()
+  {
+    return new PaletteNode(this);
+  }
 
-		public static explicit operator SerializableNode(PaletteNode node)
-		{
-			SerializableNode sNode = new SerializableNode();
+  public static explicit operator SerializableNode(PaletteNode node)
+  {
+    SerializableNode sNode = new SerializableNode();
 
-			if (node != null)
-			{
-				sNode.Text = node.Text;
-				sNode.StateImageIndex = node.StateImageIndex > 1 ? 1 : node.StateImageIndex;
-				sNode.Properties = node.Properties;
+    if (node != null)
+    {
+      sNode.Text = node.Text;
+      sNode.StateImageIndex = node.StateImageIndex > 1 ? 1 : node.StateImageIndex;
+      sNode.Properties = node.Properties;
 
-				if (node.ImageIndex > -1)
-				{
-					sNode.Image = node.TreeView.ImageList.Images[node.ImageIndex];
-				}
+      if (node.ImageIndex > -1)
+      {
+        sNode.Image = node.TreeView.ImageList.Images[node.ImageIndex];
+      }
 
-				foreach (PaletteNode childNode in node.Nodes)
-				{
-					if (sNode.Nodes == null)
-					{
-						sNode.Nodes = new List<SerializableNode>();
-					}
+      foreach (PaletteNode childNode in node.Nodes)
+      {
+        if (sNode.Nodes == null)
+        {
+          sNode.Nodes = new List<SerializableNode>();
+        }
 
-					sNode.Nodes.Add((SerializableNode)childNode);
-				}
-			}
+        sNode.Nodes.Add((SerializableNode)childNode);
+      }
+    }
 
-			return sNode;
-		}
-	}
+    return sNode;
+  }
 }
