@@ -79,7 +79,7 @@
 			this.AssignImageButton = new System.Windows.Forms.ToolStripButton();
 			this.CopyButton = new System.Windows.Forms.ToolStripButton();
 			this.PasteButton = new System.Windows.Forms.ToolStripButton();
-			this.Pallet = new LSDComponents.PalletNodeTreeView(this.components);
+			this.Pallet = new TNT.LSD.Components.PalletNodeTreeView(this.components);
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.StatusToolTip = new System.Windows.Forms.ToolStripStatusLabel();
 			this.exportImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -581,7 +581,7 @@
 		private System.Windows.Forms.ToolStripButton CopyButton;
 		private System.Windows.Forms.ToolStripButton PasteButton;
 		public System.Windows.Forms.OpenFileDialog OpenDialog;
-		public LSDComponents.PalletNodeTreeView Pallet;
+		public TNT.LSD.Components.PalletNodeTreeView Pallet;
 		private System.Windows.Forms.ToolStripMenuItem exportImageToolStripMenuItem;
 	}
 }

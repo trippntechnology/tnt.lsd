@@ -1,4 +1,4 @@
-﻿using LSDComponents;
+﻿using TNT.LSD.Components;
 using TNT.ToolStripItemManager;
 
 namespace PaletteDesigner.Events;

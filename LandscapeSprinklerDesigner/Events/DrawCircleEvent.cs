@@ -1,8 +1,6 @@
-﻿using LSDComponents.DrawingModes;
-
-namespace LandscapeSprinklerDesigner.Events
+﻿namespace LandscapeSprinklerDesigner.Events
 {
-	class DrawCircleEvent : DrawEvent
+  class DrawCircleEvent : DrawEvent
 	{
 		private CircleMode circleMode = new CircleMode() { Layer = 1 };
 

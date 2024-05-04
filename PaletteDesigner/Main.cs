@@ -1,7 +1,7 @@
-﻿using LSDComponents;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using PaletteDesigner.Events;
 using System.Reflection;
+using TNT.LSD.Components;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
 

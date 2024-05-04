@@ -4,7 +4,22 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
+		<Version>2.0.0</Version>
+		<AssemblyVersion>$(PackageVersion)</AssemblyVersion>
+		<FileVersion>$(PackageVersion)</FileVersion>
+		<Authors>Tripp'n Technology, LLC.</Authors>
+		<Copyright>Copyright 2024 $(Authors)</Copyright>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<Description>TNT LSD Components</Description>
+		<Company>$(Authors)</Company>
+		<Title>TNT LSD Components</Title>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TNTCADTest\**" />
+    <EmbeddedResource Remove="TNTCADTest\**" />
+    <None Remove="TNTCADTest\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DockPanelSuite" Version="3.1.0" />
