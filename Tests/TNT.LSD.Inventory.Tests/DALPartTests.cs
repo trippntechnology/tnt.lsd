@@ -1,83 +1,82 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SQLite;
+﻿using Microsoft.Data.Sqlite;
+using TNT.LSD.Inventory.DAL;
 
-namespace TNT.LSD.Inventory.Tests
+namespace TNT.LSD.Inventory.Tests;
+
+public class DALPartTests
 {
-	//[TestClass]
-	public class DALPartTests
-	{
-		[TestMethod]
-		public void GetPartsFromCodesTests()
-		{
-			List<string> codes = new List<string>();
+  private const string SQLITE_CONNECTION_STRING = @"data source=Inventory.sqlite";
 
-			for (int i = 4; i > -1; i--)
-			{
-				codes.Add(string.Concat("AF1800", i));
-			}
+  private DALPart dalPart = new DALPart(SQLITE_CONNECTION_STRING);
 
-			codes.Add("bogus");
+  [Test]
+  public void GetPartsFromCodesTests()
+  {
+    List<string> codes = new List<string>();
 
-			Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(null).Count);
-			Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(new List<string>()).Count);
+    for (int i = 4; i > -1; i--)
+    {
+      codes.Add(string.Concat("AF1800", i));
+    }
 
-			List<Part> parts = DAL.DALPart.GetPartsFromCodes(codes);
+    codes.Add("bogus");
 
-			Assert.AreEqual(5, parts.Count);
+    Assert.AreEqual(0, dalPart.GetPartsFromCodes(null).Count);
+    Assert.AreEqual(0, dalPart.GetPartsFromCodes(new List<string>()).Count);
 
-			Part part = parts.Find(p => p.Code == "AF18004");
+    List<Part> parts = dalPart.GetPartsFromCodes(codes);
 
-			Assert.IsNotNull(part);
-			Assert.AreEqual("AF18004", part.Code);
-			Assert.AreEqual("1\" QUAD. MANIFOLD", part.Description);
-			Assert.AreEqual("AF-18004", part.ExternalPart.Code);
-			Assert.AreEqual("QUAD. MANIFOLD", part.ExternalPart.Description);
-		}
+    Assert.AreEqual(5, parts.Count);
 
-		[TestMethod]
-		public void GetPartsTests()
-		{
-			int currentRecordCount = GetPartsCount();
-			Dictionary<string, Part> parts = DAL.DALPart.GetParts();
+    Part part = parts.Find(p => p.Code == "AF18004");
 
-			Assert.AreEqual(currentRecordCount, parts.Count);
+    Assert.IsNotNull(part);
+    Assert.AreEqual("AF18004", part.Code);
+    Assert.AreEqual("1\" QUAD. MANIFOLD", part.Description);
+    Assert.AreEqual("AF-18004", part.ExternalPart.Code);
+    Assert.AreEqual("QUAD. MANIFOLD", part.ExternalPart.Description);
+  }
 
-			foreach (string key in parts.Keys)
-			{
-				Assert.AreEqual(key, parts[key].Code);
-			}
-		}
+  [Test]
+  public void GetPartsTests()
+  {
+    int currentRecordCount = GetPartsCount();
+    Dictionary<string, Part> parts = dalPart.GetParts();
 
-		[TestMethod]
-		public void GetDescriptionsTest()
-		{
-			string[] codes = { "NI050X12;HUPROS00", "NI050X24;HUPROS00", "RA1804" };
+    Assert.AreEqual(currentRecordCount, parts.Count);
 
-			List<string> descriptions = DAL.DALPart.GetDescriptions(new List<string>(codes));
+    foreach (string key in parts.Keys)
+    {
+      Assert.AreEqual(key, parts[key].Code);
+    }
+  }
 
-			Assert.AreEqual("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[0]);
-			Assert.AreEqual("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[1]);
-			Assert.AreEqual("4\" RAINBIRD 1800 POP-UP", descriptions[2]);
-		}
+  [Test]
+  public void GetDescriptionsTest()
+  {
+    string[] codes = { "NI050X12;HUPROS00", "NI050X24;HUPROS00", "RA1804" };
 
-		#region Private
+    List<string> descriptions = dalPart.GetDescriptions(new List<string>(codes));
 
-		private int GetPartsCount()
-		{
-			using (SQLiteConnection conn = new SQLiteConnection(ConfigurationManager.ConnectionStrings["SQLite"].ConnectionString))
-			using (SQLiteCommand cmd = conn.CreateCommand())
-			{
-				conn.Open();
-				cmd.CommandText = "select count(*) from InternalInventory";
+    Assert.AreEqual("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[0]);
+    Assert.AreEqual("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[1]);
+    Assert.AreEqual("4\" RAINBIRD 1800 POP-UP", descriptions[2]);
+  }
 
-				int count = Convert.ToInt32(cmd.ExecuteScalar());
+  #region Private
 
-				return count;
-			}
-		}
-		#endregion
-	}
+  private int GetPartsCount()
+  {
+    using (SqliteConnection conn = new SqliteConnection(SQLITE_CONNECTION_STRING))
+    using (SqliteCommand cmd = conn.CreateCommand())
+    {
+      conn.Open();
+      cmd.CommandText = "select count(*) from InternalInventory";
+
+      int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+      return count;
+    }
+  }
+  #endregion
 }

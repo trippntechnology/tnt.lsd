@@ -1,46 +1,21 @@
-﻿using System.Configuration;
-using System.Data.SQLite;
+﻿using Microsoft.Data.Sqlite;
 
-namespace TNT.LSD.Inventory.DAL
+namespace TNT.LSD.Inventory.DAL;
+
+/// <summary>
+/// Base class for all DAL classes. Implements methods for accessing SQLite database
+/// </summary>
+public class DALBase(string connectionString)
 {
-	/// <summary>
-	/// Base class for all DAL classes. Implements methods for accessing SQLite database
-	/// </summary>
-	public class DALBase
-	{
-		/// <summary>
-		/// Connection string
-		/// </summary>
-		protected static string m_ConnectionString = string.Empty;
+  protected string connectionString = connectionString;
 
-		/// <summary>
-		/// Initializes the connection string if empty and returns it
-		/// </summary>
-		public static string ConnectionString 
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(m_ConnectionString))
-				{
-					m_ConnectionString = ConfigurationManager.ConnectionStrings["SQLite"].ConnectionString;
-				}
-
-				return m_ConnectionString;
-			}
-		}
-
-		/// <summary>
-		/// Returns a SQLite Connection associated with the connection string
-		/// </summary>
-		public static SQLiteConnection Connection
-		{
-			get
-			{
-				SQLiteConnection conn = new SQLiteConnection(ConnectionString);
-				conn.Open();
-
-				return conn;
-			}
-		}
-	}
+  /// <summary>
+  /// Returns a SQLite Connection associated with the connection string
+  /// </summary>
+  public SqliteConnection GetConnection()
+  {
+    SqliteConnection connection = new SqliteConnection(connectionString);
+    connection.Open();
+    return connection;
+  }
 }
