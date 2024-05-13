@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+    <ProjectReference Include="..\TNT.LSD.Settings\TNT.LSD.Settings.csproj" />
   </ItemGroup>
 
 </Project>

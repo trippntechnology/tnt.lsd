@@ -1,14 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
-using TNT.LSD.Inventory.DAL;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TNT.LSD.Inventory.Tests;
 
+[ExcludeFromCodeCoverage]
 public class DALPartTests
 {
-  private const string SQLITE_CONNECTION_STRING = @"data source=Inventory.sqlite";
-
-  private DALPart dalPart = new DALPart(SQLITE_CONNECTION_STRING);
-
   [Test]
   public void GetPartsFromCodesTests()
   {
@@ -21,10 +18,10 @@ public class DALPartTests
 
     codes.Add("bogus");
 
-    Assert.AreEqual(0, dalPart.GetPartsFromCodes(null).Count);
-    Assert.AreEqual(0, dalPart.GetPartsFromCodes(new List<string>()).Count);
+    Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(null).Count);
+    Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(new List<string>()).Count);
 
-    List<Part> parts = dalPart.GetPartsFromCodes(codes);
+    List<Part> parts = DAL.DALPart.GetPartsFromCodes(codes);
 
     Assert.AreEqual(5, parts.Count);
 
@@ -41,7 +38,7 @@ public class DALPartTests
   public void GetPartsTests()
   {
     int currentRecordCount = GetPartsCount();
-    Dictionary<string, Part> parts = dalPart.GetParts();
+    Dictionary<string, Part> parts = DAL.DALPart.GetParts();
 
     Assert.AreEqual(currentRecordCount, parts.Count);
 
@@ -56,7 +53,7 @@ public class DALPartTests
   {
     string[] codes = { "NI050X12;HUPROS00", "NI050X24;HUPROS00", "RA1804" };
 
-    List<string> descriptions = dalPart.GetDescriptions(new List<string>(codes));
+    List<string> descriptions = DAL.DALPart.GetDescriptions(new List<string>(codes));
 
     Assert.AreEqual("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[0]);
     Assert.AreEqual("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[1]);
@@ -67,7 +64,10 @@ public class DALPartTests
 
   private int GetPartsCount()
   {
-    using (SqliteConnection conn = new SqliteConnection(SQLITE_CONNECTION_STRING))
+    var connectionString = DAL.DALBase.ConnectionString;
+    if (connectionString == null) return -1;
+
+    using (SqliteConnection conn = new SqliteConnection(DAL.DALBase.ConnectionString))
     using (SqliteCommand cmd = conn.CreateCommand())
     {
       conn.Open();

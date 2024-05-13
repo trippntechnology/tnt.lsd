@@ -7,9 +7,9 @@ namespace TNT.LSD.Inventory.DAL;
 /// <summary>
 /// DAL methods for getting parts
 /// </summary>
-public class DALPart(string connectionString) : DALBase(connectionString)
+public class DALPart : DALBase
 {
-  private CodedParts Parts { get; set; }
+  private static CodedParts Parts { get; set; }
 
   /// <summary>
   /// Gets the descriptions associated with those listed in codes
@@ -17,7 +17,7 @@ public class DALPart(string connectionString) : DALBase(connectionString)
   /// <param name="codes">List of codes. Codes that exist together may be listed in the same string
   /// separated by a semicolon</param>
   /// <returns>List of description associated to the codes</returns>
-  public List<string> GetDescriptions(List<string> codes)
+  public static List<string> GetDescriptions(List<string> codes)
   {
     List<string> descriptions = new List<string>();
 
@@ -53,7 +53,7 @@ public class DALPart(string connectionString) : DALBase(connectionString)
   /// </summary>
   /// <param name="code">Part code</param>
   /// <returns>Description associated with a part code</returns>
-  public string GetDescription(string code)
+  public static string GetDescription(string code)
   {
     Dictionary<string, Part> parts = GetParts();
 
@@ -70,7 +70,7 @@ public class DALPart(string connectionString) : DALBase(connectionString)
   /// </summary>
   /// <param name="codes">List of codes</param>
   /// <returns>List of descriptions associated with the codes</returns>
-  public List<Part> GetPartsFromCodes(List<string> codes)
+  public static List<Part> GetPartsFromCodes(List<string> codes)
   {
     List<Part> parts = new List<Part>();
 
@@ -90,14 +90,14 @@ public class DALPart(string connectionString) : DALBase(connectionString)
   /// Gets a listing of all parts
   /// </summary>
   /// <returns>Dictionary of of all parts with the key being the part code</returns>
-  public CodedParts GetParts()
+  public static CodedParts GetParts()
   {
     if (Parts == null)
     {
       Parts = new CodedParts();
       Part part = null;
 
-      using (SqliteConnection conn = GetConnection())
+      using (SqliteConnection conn = Connection)
       using (SqliteCommand cmd = conn.CreateCommand())
       {
         StringBuilder sql = new StringBuilder();
@@ -135,11 +135,11 @@ public class DALPart(string connectionString) : DALBase(connectionString)
     return copyOfParts;
   }
 
-  public BindingList<Part> GetPartBindingList(string orderby = null)
+  public static BindingList<Part> GetPartBindingList(string orderby = null)
   {
     BindingList<Part> parts = new BindingList<Part>();
 
-    using (SqliteConnection conn = GetConnection())
+    using (SqliteConnection conn = Connection)
     using (SqliteCommand cmd = conn.CreateCommand())
     {
       StringBuilder sql = new StringBuilder();
@@ -176,7 +176,7 @@ public class DALPart(string connectionString) : DALBase(connectionString)
   /// </summary>
   /// <param name="dr">Data reader</param>
   /// <returns>Part containing the contents of the data reader</returns>
-  protected Part FillPart(SqliteDataReader dr)
+  protected static Part FillPart(SqliteDataReader dr)
   {
     if (dr.IsDBNull(0))
     {
