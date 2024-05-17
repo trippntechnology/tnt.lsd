@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using TNT.LSD.Inventory;
-using TNT.LSD.PDFGenerator;
+using TNT.LSD.Settings;
 
 namespace TNT.LSD.PDFGenerator.Tests
 {
@@ -12,7 +12,7 @@ namespace TNT.LSD.PDFGenerator.Tests
 
       string fileName = "PDFGeneratorTest.pdf";
       //PDFGenerator pdfGenerator = new GenericPDFGenerator();
-      PDFGenerator pdfGenerator = new  SSCPDFGenerator();
+      PDFGenerator pdfGenerator = new SSCPDFGenerator();
 
       SSCSettings settings = new SSCSettings()
       {
@@ -37,7 +37,6 @@ namespace TNT.LSD.PDFGenerator.Tests
         SecondarySize = "NA",
         SecondaryType = "NA",
         ShowExternalCodes = true,
-        ShowLegend = true,
         TelephoneNumber = "808-888-8888",
         WidthInFeet = 150,
         StaticParts = new List<Part>()
