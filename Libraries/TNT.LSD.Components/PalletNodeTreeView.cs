@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Extensions.Configuration;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using System.Xml;
-using TNT.Configuration;
+using TNT.Commons;
+using TNT.LSD.Components.AppSettings;
 using TNT.LSD.Components.DrawingModes;
 using TNT.LSD.Objects;
 using TNT.Utilities;
@@ -62,8 +64,13 @@ public partial class PalletNodeTreeView : TreeView
 
     try
     {
-      PaletteNodeConfigurationSection pnConfigSec = PaletteNodeConfigurationSection.Create();
-      Load(pnConfigSec.PaletteFile.Value);
+      // Build a config object, using env vars and JSON providers.
+      IConfigurationRoot config = new ConfigurationBuilder()
+          .AddJsonFile("appsettings.json")
+          .Build();
+
+      PaletteNodeSection? paletteNodeSection = config.GetRequiredSection("PaletteNodeSection").Get<PaletteNodeSection>();
+      paletteNodeSection?.PaletteFile?.also(filename => Load(filename));
     }
     catch
     {

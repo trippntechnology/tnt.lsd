@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Reflection;
 using System.Xml.Serialization;
-using TNT.Configuration;
+using TNT.Commons;
 using TNT.LSD.Inventory;
 using TNT.LSD.Inventory.DAL;
 using TNT.LSD.Objects;
@@ -64,9 +64,9 @@ public class TNTCADState
     }
   }
 
-  private LSDSettings _Settings;
+  private LSDSettings? _Settings = null;
   [TypeConverter(typeof(ExpandableObjectConverter))]
-  public virtual LSDSettings Settings //{ get; set; }
+  public virtual LSDSettings? Settings 
   {
     get
     {
@@ -75,9 +75,12 @@ public class TNTCADState
     set
     {
       _Settings = value;
-      _Settings.OnDrawLayers = DrawLayers;
-      _Settings.OnSetHeightInFeet = SetHeightInFeet;
-      _Settings.OnSetWidthInFeet = SetWidthInFeet;
+      _Settings?.also(s =>
+      {
+        s.OnDrawLayers = DrawLayers;
+        s.OnSetHeightInFeet = SetHeightInFeet;
+        s.OnSetWidthInFeet = SetWidthInFeet;
+      });
     }
   }
 
@@ -147,7 +150,7 @@ public class TNTCADState
     CAD = parent;
     ObjectLayers = new ObjectListList();
 
-    Settings = XmlSection<LSDSettings>.Deserialize("CAD");
+    Settings = AppSettingsUtils.DeserializeSection<LSDSettings>("appsettings.json", "CAD");
 
     if (Settings != null)
     {
