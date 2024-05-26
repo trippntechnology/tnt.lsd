@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2106111950")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0-2405251255")]
 [assembly: System.Reflection.AssemblyCompany("Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyConfiguration("Debug")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright 2021 Tripp\'n Technology, LLC.")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright 2024 Tripp\'n Technology, LLC.")]
 [assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
 [assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
 

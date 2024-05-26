@@ -1,5 +1,13 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using iText.Kernel.Events;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Layout;
+using iText.Layout.Borders;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iTextColors = iText.Kernel.Colors;
+using iTextProperties = iText.Layout.Properties;
 
 namespace TNT.LSD.PDFGenerator
 {
@@ -8,6 +16,75 @@ namespace TNT.LSD.PDFGenerator
   /// </summary>
   public class GenericPDFGenerator : PDFGenerator
   {
+    class StartEventHandler(Document document, Content content) : BaseEventHandler(document)
+    {
+      protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument)
+      {
+        PageSize pageSize = pdfDocument.GetDefaultPageSize();
+        Table headerTbl = new Table(2);
+        var bottomBorder = new SolidBorder(iTextColors.ColorConstants.RED, 2f);
+
+        Cell ownerNameCell = new Cell().Add(new Paragraph(content.OwnerName))
+          .SetBorder(Border.NO_BORDER)
+          .SetBorderBottom(bottomBorder)
+          .SetTextAlignment(TextAlignment.LEFT);
+        headerTbl.AddCell(ownerNameCell);
+
+        Cell dateTimeCell = new Cell().Add(new Paragraph(DateTime.Now.ToShortDateString()))
+           .SetBorder(Border.NO_BORDER)
+           .SetBorderBottom(bottomBorder)
+           .SetTextAlignment(TextAlignment.RIGHT);
+        headerTbl.AddCell(dateTimeCell);
+
+        // Add the table to the page
+        var rect = getHeaderRect();
+
+        System.Diagnostics.Debug.WriteLine(rect.ToString());
+        headerTbl.SetFixedPosition(rect.GetLeft(), rect.GetBottom(), rect.GetWidth());
+
+        getCanvas(pdfPage, rect).Add(headerTbl);
+      }
+    }
+
+    class EndEventHandler(Document document, string applicationName, string copyright) : BaseEventHandler(document)
+    {
+      protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument)
+      {
+        PageSize pageSize = pdfDocument.GetDefaultPageSize();
+        Table footerTbl = new Table(new float[] { 6f, 1, 6f });
+        var topBorder = new SolidBorder(iTextColors.ColorConstants.BLUE, 2f);
+
+        Cell cell = new Cell().Add(new Paragraph(applicationName).SetFontSize(FOOTER_FONT_SIZE))
+          .SetBorder(Border.NO_BORDER)
+          .SetBorderTop(topBorder);
+        footerTbl.AddCell(cell);
+
+        cell.Add(new Paragraph("").SetFontSize(FOOTER_FONT_SIZE))
+          .SetBorder(Border.NO_BORDER)
+          .SetBorderTop(topBorder)
+          .SetHorizontalAlignment(iTextProperties.HorizontalAlignment.CENTER)
+          .SetVerticalAlignment(VerticalAlignment.MIDDLE);
+        footerTbl.AddCell(cell);
+
+        cell.Add(new Paragraph(copyright).SetFontSize(FOOTER_FONT_SIZE))
+          .SetBorder(Border.NO_BORDER)
+          .SetBorderTop(topBorder)
+          .SetHorizontalAlignment(iTextProperties.HorizontalAlignment.RIGHT);
+        footerTbl.AddCell(cell);
+
+        // Add the table to the page
+        float x = document.GetLeftMargin();
+        float y = document.GetBottomMargin();
+        footerTbl.SetFixedPosition(x, y, pageSize.GetWidth() - document.GetLeftMargin() - document.GetRightMargin());
+
+        PdfCanvas canvas = new PdfCanvas(pdfPage.NewContentStreamBefore(), pdfPage.GetResources(), pdfDocument);
+        new Canvas(canvas, new iText.Kernel.Geom.Rectangle(0, 0, x, y)).Add(footerTbl);
+      }
+    }
+
+
+
+
     /// <summary>
     /// Creates a PDF file using the content
     /// </summary>
@@ -15,78 +92,15 @@ namespace TNT.LSD.PDFGenerator
     /// <param name="content">Content to place in the PDF</param>
     public override void Generate(string fileName, Content content)
     {
-      PageEventHelper peh = new PageEventHelper((headerTbl, footerTbl) =>
+      Generate(fileName, (pdfDocument, document) =>
       {
-        // Create a table with two columns
-        headerTbl.ResetColumnCount(2);
+        pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new StartEventHandler(document, content));
+        pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, new EndEventHandler(document, GetApplicationName(), GetCopyright()));
 
-        // Write the design number in two columns
-        PdfPCell cell = new PdfPCell(new Phrase(content.OwnerName));
-        cell.Phrase.Font.Size = HEADER_FONT_SIZE;
-        cell.MinimumHeight = 18;
-        cell.Border = PdfPCell.BOTTOM_BORDER;
-        cell.BorderWidth = 2f;
-        cell.BorderColor = BaseColor.RED;
-        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
-        headerTbl.AddCell(cell);
-
-        // Write the owner's name in the second column
-        cell.Phrase = new Phrase(DateTime.Now.ToShortDateString());
-        cell.Phrase.Font.Size = HEADER_FONT_SIZE;
-        cell.MinimumHeight = 18;
-        cell.Border = PdfPCell.BOTTOM_BORDER;
-        cell.BorderWidth = 2f;
-        cell.BorderColor = BaseColor.RED;
-        cell.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
-        headerTbl.AddCell(cell);
-
-        // Create a table with three columns
-        footerTbl.ResetColumnCount(3);
-        footerTbl.SetTotalWidth(new float[] { 6f, 1, 6f });
-
-        // Put the application name in the first column
-        cell = new PdfPCell(new Phrase(GetApplicationName()));
-        cell.Phrase.Font.Size = FOOTER_FONT_SIZE;
-        cell.Border = PdfPCell.TOP_BORDER;
-        cell.BorderWidth = 2f;
-        cell.BorderColor = BaseColor.BLUE;
-        footerTbl.AddCell(cell);
-
-        // Add a cell for the page number
-        cell.Phrase = new Phrase("");
-        cell.Phrase.Font.Size = FOOTER_FONT_SIZE;
-        cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-        cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
-        footerTbl.AddCell(cell);
-
-        // Add copyright info
-        cell.Phrase = new Phrase(GetCopyright());
-        cell.Phrase.Font.Size = FOOTER_FONT_SIZE;
-        cell.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
-        footerTbl.AddCell(cell);
+        CreatePartsListing(document, content.Parts);
+        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        CreateImagePage(document, content.Design);
       });
-
-      peh.OnBeforeWriteFooter = BeforeWriteFooter;
-
-      Document document = CreateDocument(fileName, peh);
-
-      CreatePartsListing(document, content.Parts);
-
-      CreateImagePage(document, content.Design);
-
-      document.Close();
-    }
-
-    /// <summary>
-    /// Event to set the page number in the second column of the footer
-    /// </summary>
-    /// <param name="footer">Footer</param>
-    /// <param name="document">Document</param>
-    protected void BeforeWriteFooter(PdfPTable footer, Document document)
-    {
-      Phrase phrase = new Phrase(document.PageNumber.ToString());
-      phrase.Font.Size = FOOTER_FONT_SIZE;
-      footer.Rows[0].GetCells()[1].Phrase = phrase;
     }
   }
 }

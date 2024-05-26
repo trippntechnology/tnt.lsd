@@ -1,8 +1,16 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using iText.IO.Image;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using System.Drawing.Imaging;
 using System.Reflection;
 using TNT.LSD.Inventory;
-using iText = iTextSharp.text;
+using iTextBorder = iText.Layout.Borders.Border;
+using iTextColors = iText.Kernel.Colors;
+using iTextFontConstants = iText.IO.Font.Constants;
+using iTextImage = iText.Layout.Element.Image;
 
 namespace TNT.LSD.PDFGenerator
 {
@@ -11,12 +19,12 @@ namespace TNT.LSD.PDFGenerator
   /// </summary>
   public abstract class PDFGenerator
   {
-    #region Constants
+    #region public constants
 
-    const int POINTS_PER_INCH = 72;
-    const int SECTION_FONT_SIZE = 14;
-    const int ROW_FONT_SIZE = SECTION_FONT_SIZE - 5;
-    const int TABLE_ROW_HEIGHT = 14;
+    public const int POINTS_PER_INCH = 72;
+    public const int SECTION_FONT_SIZE = 14;
+    public const int ROW_FONT_SIZE = SECTION_FONT_SIZE - 5;
+    public const int TABLE_ROW_HEIGHT = 14;
 
     /// <summary>
     /// Footer font size
@@ -35,22 +43,22 @@ namespace TNT.LSD.PDFGenerator
     /// <summary>
     /// Font to use for the sections
     /// </summary>
-    protected iText.Font m_SectionFont = null;
+    protected PdfFont? m_SectionFont = null;
 
     /// <summary>
     /// Font to use for the header row in a table
     /// </summary>
-    protected iText.Font m_HeaderRowFont = null;
+    protected PdfFont? m_HeaderRowFont = null;
 
     /// <summary>
     /// Font to use for other table rows
     /// </summary>
-    protected iText.Font m_RowFont = null;
+    protected PdfFont? m_RowFont = null;
 
     /// <summary>
     /// Font to use for bolded table rows
     /// </summary>
-    protected iText.Font m_BoldRowFont = null;
+    protected PdfFont? m_BoldRowFont = null;
 
     #endregion
 
@@ -79,76 +87,80 @@ namespace TNT.LSD.PDFGenerator
     /// <summary>
     /// Writer associated with the document
     /// </summary>
-    protected PdfWriter Writer { get; set; }
+    protected PdfWriter? pdfWriter { get; set; }
+
+
+    public virtual PdfFont BoldFont => PdfFontFactory.CreateFont(iTextFontConstants.StandardFonts.HELVETICA_BOLD);
+    public virtual PdfFont DefaultFont => PdfFontFactory.CreateFont(iTextFontConstants.StandardFonts.HELVETICA);
 
     /// <summary>
     /// Section font
     /// </summary>
-    protected virtual iText.Font SectionFont
-    {
-      get
-      {
-        if (m_SectionFont == null)
-        {
-          m_SectionFont = new iText.Font(iText.Font.FontFamily.HELVETICA, SECTION_FONT_SIZE, iText.Font.BOLD);
-        }
+    //protected virtual iText.Font SectionFont
+    //{
+    //  get
+    //  {
+    //    if (m_SectionFont == null)
+    //    {
+    //      m_SectionFont = new iText.Font(iText.Font.FontFamily.HELVETICA, SECTION_FONT_SIZE, iText.Font.BOLD);
+    //    }
 
-        return m_SectionFont;
-      }
-    }
+    //    return m_SectionFont;
+    //  }
+    //}
 
     /// <summary>
     /// Header row font
     /// </summary>
-    protected virtual iText.Font HeaderRowFont
-    {
-      get
-      {
-        if (m_HeaderRowFont == null)
-        {
-          m_HeaderRowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE, iText.Font.BOLD);
-        }
+    //protected virtual iText.Font HeaderRowFont
+    //{
+    //  get
+    //  {
+    //    if (m_HeaderRowFont == null)
+    //    {
+    //      m_HeaderRowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE, iText.Font.BOLD);
+    //    }
 
-        return m_HeaderRowFont;
-      }
-    }
+    //    return m_HeaderRowFont;
+    //  }
+    //}
 
     /// <summary>
     /// Row font
     /// </summary>
-    protected virtual iText.Font RowFont
-    {
-      get
-      {
-        if (m_RowFont == null)
-        {
-          m_RowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE);
-        }
+    //protected virtual iText.Font RowFont
+    //{
+    //  get
+    //  {
+    //    if (m_RowFont == null)
+    //    {
+    //      m_RowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE);
+    //    }
 
-        return m_RowFont;
-      }
-    }
+    //    return m_RowFont;
+    //  }
+    //}
 
     /// <summary>
     /// Bolded row font
     /// </summary>
-    protected virtual iText.Font BoldRowFont
-    {
-      get
-      {
-        if (m_BoldRowFont == null)
-        {
-          m_BoldRowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE, iText.Font.BOLD);
-        }
+    //protected virtual iText.Font BoldRowFont
+    //{
+    //  get
+    //  {
+    //    if (m_BoldRowFont == null)
+    //    {
+    //      m_BoldRowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE, iText.Font.BOLD);
+    //    }
 
-        return m_BoldRowFont;
-      }
+    //    return m_BoldRowFont;
+    //  }
 
-    }
+    //}
 
     #endregion
 
-    #region Constructors
+    #region public constructors
 
     /// <summary>
     /// Initializes all properties to string.Empty.
@@ -170,6 +182,32 @@ namespace TNT.LSD.PDFGenerator
     /// <param name="content">Content to place in the PDF</param>
     public abstract void Generate(string fileName, Content content);
 
+    public virtual void Generate(string filename, Action<PdfDocument, Document> onGenerate)
+    {
+      using (PdfWriter pdfWriter = new PdfWriter(filename))
+      {
+        using (PdfDocument pdfDocument = new PdfDocument(pdfWriter))
+        {
+          pdfDocument.SetDefaultPageSize(iText.Kernel.Geom.PageSize.LETTER);
+
+          using (Document document = new Document(pdfDocument))
+          {
+
+            pdfDocument.GetDocumentInfo()
+              .SetAuthor(Author)
+              .AddCreationDate()
+              .SetCreator(Creator)
+              .SetSubject(Subject)
+              .SetTitle(Title);
+
+            document.SetMargins(InchesToPoints(.5), InchesToPoints(.5), InchesToPoints(.5), InchesToPoints(.5));
+
+            onGenerate(pdfDocument, document);
+          }
+        }
+      }
+    }
+
     /// <summary>
     /// Converts inches to points
     /// </summary>
@@ -181,66 +219,36 @@ namespace TNT.LSD.PDFGenerator
     }
 
     /// <summary>
-    /// Creates a document with the metadata at the location specified by fileName
-    /// </summary>
-    /// <param name="fileName">Location to create document</param>
-    /// <returns>Open document (caller must close document)</returns>
-    protected virtual Document CreateDocument(string fileName)
-    {
-      return CreateDocument(fileName, null);
-    }
-
-    /// <summary>
-    /// Creates a document with the metadata at the location specified by fileName
-    /// </summary>
-    /// <param name="fileName">Location to create document</param>
-    /// <param name="pageEventHelper">Page event helper</param>
-    /// <returns>Open document (caller must close document)</returns>
-    protected virtual Document CreateDocument(string fileName, PdfPageEventHelper pageEventHelper)
-    {
-      Document document = new Document(PageSize.LETTER);
-
-      Writer = PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
-      Writer.ViewerPreferences = PdfWriter.PageLayoutSinglePage;
-      Writer.PageEvent = pageEventHelper;
-
-      document.AddAuthor(Author);
-      document.AddCreationDate();
-      document.AddCreator(Creator);
-      document.AddSubject(Subject);
-      document.AddTitle(Title);
-
-      document.SetMargins(InchesToPoints(.5), InchesToPoints(.5), InchesToPoints(.75), InchesToPoints(.75));
-
-      document.Open();
-
-      return document;
-    }
-
-    /// <summary>
     /// Creates the parts listing
     /// </summary>
     /// <param name="document">Current document</param>
     /// <param name="parts">List of parts</param>
-    protected virtual void CreatePartsListing(Document document, List<Part> parts)
+    protected virtual void CreatePartsListing(Document document, List<Part>? parts)
     {
-      document.Add(new Paragraph("Parts List", SectionFont));
-      document.Add(new Paragraph(" "));
+      document.Add(new Paragraph("Parts List").SetFont(BoldFont).SetFontSize(SECTION_FONT_SIZE));
+      document.Add(new Paragraph());
 
-      PdfPTable table = new PdfPTable(new float[] { .4f, 1, .2f });
-      table.WidthPercentage = 100;
-      table.HeaderRows = 1;
-      AddTableRow(table, new string[] { "Code", "Description", "Quantity" }, HeaderRowFont, new BaseColor(Color.Gray));
+      Table table = new Table(UnitValue.CreatePercentArray(new float[] { .4f, 1, .2f })).UseAllAvailableWidth();
+      List<string> columnNames = new List<String> { "Code", "Description", "Quantity" };
 
-      BaseColor oddColor = new BaseColor(Color.LightGray);
-      BaseColor evenColor = BaseColor.WHITE;
+      columnNames.ForEach(name =>
+      {
+        var cell = new Cell()
+          .Add(new Paragraph(name)
+            .SetFont(BoldFont))
+          .SetFontSize(ROW_FONT_SIZE)
+          .SetBorder(iTextBorder.NO_BORDER)
+          .SetBackgroundColor(iTextColors.ColorConstants.GRAY);
+
+        table.AddHeaderCell(cell);
+      });
 
       if (parts != null)
       {
-        for (int index = 0; index < parts.Count; index++)
+        for (int row = 0; row < parts.Count; row++)
         {
-          Part part = parts[index];
-          AddTableRow(table, new string[] { part.Code, part.Description, part.Quantity.ToString() }, RowFont, index % 2 == 0 ? evenColor : oddColor);
+          Part part = parts[row];
+          AddTableRow(table, new List<string>() { part.Code, part.Description, part.Quantity.ToString() }, row % 2 == 0 ? iTextColors.ColorConstants.LIGHT_GRAY : iTextColors.ColorConstants.WHITE);
         }
       }
 
@@ -254,32 +262,75 @@ namespace TNT.LSD.PDFGenerator
     /// <param name="design">Design image</param>
     protected virtual void CreateImagePage(Document document, System.Drawing.Image design)
     {
-      if (design.Width > design.Height)
+      // Convert System.Drawing.Image to byte array
+      byte[] imageBytes;
+      using (MemoryStream ms = new MemoryStream())
       {
-        design.RotateFlip(RotateFlipType.Rotate90FlipNone);
+        design.Save(ms, ImageFormat.Jpeg); // Use the appropriate format
+        imageBytes = ms.ToArray();
       }
 
-      iText.Rectangle newPageSize;
-      float adjWidth = design.Width + document.LeftMargin + document.RightMargin;
-      float adjHeight = design.Height + document.TopMargin + document.BottomMargin + 10;
+      // Create ImageData object from byte array
+      ImageData imageData = ImageDataFactory.Create(imageBytes);
 
-      if (adjWidth / adjHeight > 8.5 / 11)
+      // Create iText Image element
+      iTextImage image = new iTextImage(imageData);
+
+
+      if (image.GetImageWidth() > image.GetImageHeight())
       {
-        // This means the width is what decides the height
-        adjHeight = (float)(adjWidth / (8.5 / 11));
-        newPageSize = new iText.Rectangle(adjWidth, (float)(adjWidth / (8.5 / 11)));
-      }
-      else
-      {
-        // Height decides width
-        adjWidth = (float)(adjHeight * (8.5 / 11));
-        newPageSize = new iText.Rectangle((float)(adjHeight * (8.5 / 11)), adjHeight);
+        image.SetRotationAngle(Math.PI / 2);
       }
 
-      iText.Image image = iText.Image.GetInstance(design, System.Drawing.Imaging.ImageFormat.Jpeg);
-      image.Alignment = iText.Image.ALIGN_MIDDLE;
-      document.SetPageSize(newPageSize);
-      document.Add(image);
+      document.Add(new Paragraph().Add(image));
+    }
+
+    protected virtual void CreateImagePage(Document document, string imagePath)
+    {
+      // Load image
+      ImageData imageData = ImageDataFactory.Create(imagePath);
+      iTextImage image = new iTextImage(imageData);
+
+      //image.SetWidth(200 * image.GetImageWidth() / image.GetImageHeight());
+      //image.SetHeight(200);
+
+      //// Create a paragraph and add text and image inline
+      //Paragraph paragraph = new Paragraph()
+      //    .Add(beforeImageText)
+      //    .Add(image)
+      //    .Add(afterImageText);
+
+      //// Add paragraph to the document
+      //document.Add(paragraph);
+
+      if (image.GetImageWidth() > image.GetImageHeight())
+      {
+        image.SetRotationAngle(Math.PI / 2);
+      }
+
+      document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+      //iTextSharp.text.Rectangle newPageSize;
+      //float adjWidth = design.Width + document.LeftMargin + document.RightMargin;
+      //float adjHeight = design.Height + document.TopMargin + document.BottomMargin + 10;
+
+      //if (adjWidth / adjHeight > 8.5 / 11)
+      //{
+      //  // This means the width is what decides the height
+      //  adjHeight = (float)(adjWidth / (8.5 / 11));
+      //  newPageSize = new iTextSharp.text.Rectangle(adjWidth, (float)(adjWidth / (8.5 / 11)));
+      //}
+      //else
+      //{
+      //  // Height decides width
+      //  adjWidth = (float)(adjHeight * (8.5 / 11));
+      //  newPageSize = new iTextSharp.text.Rectangle((float)(adjHeight * (8.5 / 11)), adjHeight);
+      //}
+
+      //iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(design, System.Drawing.Imaging.ImageFormat.Jpeg);
+      //image.Alignment = iTextSharp.text.Image.ALIGN_MIDDLE;
+      //document.SetPageSize(newPageSize);
+      document.Add(new Paragraph().Add(image));
     }
 
     /// <summary>
@@ -289,39 +340,43 @@ namespace TNT.LSD.PDFGenerator
     /// <param name="values">Array of strings that are to be placed in each column of the row</param>
     /// <param name="font">Font to apply</param>
     /// <param name="backgroundColor">Background color to use</param>
-    protected void AddTableRow(PdfPTable table, string[] values, iText.Font font, BaseColor backgroundColor)
+    //protected void AddTableRow(Table table, Part part, iTextColors.Color backgroundColor)
+    //{
+    //  new List<string>() { part.Code, part.Description, part.Quantity.ToString() }.ForEach(value =>
+    //  {
+    //    var cell = new Cell()
+    //      .Add(new Paragraph(value))
+    //      .SetFontSize(ROW_FONT_SIZE)
+    //      .SetBorder(iTextBorder.NO_BORDER)
+    //      .SetBackgroundColor(backgroundColor);
+    //    table.AddCell(cell);
+    //  });
+    //}
+
+    protected void AddTableRow(Table table, List<string> values, int fontSize = ROW_FONT_SIZE)
     {
-      for (int col = 0; col < table.NumberOfColumns; col++)
+      AddTableRow(table, values, iTextColors.ColorConstants.WHITE, fontSize);
+    }
+
+    protected void AddTableRow(Table table, List<string> values, iTextColors.Color backgroundColor, int fontSize = ROW_FONT_SIZE)
+    {
+      AddTableRow(table, values, backgroundColor, DefaultFont, fontSize);
+    }
+
+    protected void AddTableRow(Table table, List<string> values, iTextColors.Color backgroundColor, PdfFont font, int fontSize = ROW_FONT_SIZE)
+    {
+      values.ForEach(value =>
       {
-        if (col < values.Length)
-        {
-          AddRowCell(table, values[col], font, backgroundColor);
-        }
-        else
-        {
-          AddRowCell(table, string.Empty, font, backgroundColor);
-        }
-      }
+        var cell = new Cell()
+          .Add(new Paragraph(value))
+          .SetFont(font)
+          .SetFontSize(fontSize)
+          .SetBorder(iTextBorder.NO_BORDER)
+          .SetBackgroundColor(backgroundColor);
+        table.AddCell(cell);
+      });
     }
 
-    /// <summary>
-    /// Adds a row cell to the table
-    /// </summary>
-    /// <param name="table">Table</param>
-    /// <param name="value">Value to place in the cell</param>
-    /// <param name="font">Font to use</param>
-    /// <param name="backgroundColor">Background color to use</param>
-    /// <returns>The pdfPCell that was created</returns>
-    protected PdfPCell AddRowCell(PdfPTable table, string value, iText.Font font, BaseColor backgroundColor)
-    {
-      PdfPCell cell = new PdfPCell(new Phrase(value, font));
-      cell.FixedHeight = TABLE_ROW_HEIGHT;
-      cell.Border = PdfPCell.NO_BORDER;
-      cell.BackgroundColor = backgroundColor;
-      table.AddCell(cell);
-
-      return cell;
-    }
 
     /// <summary>
     /// Gets the application's name
@@ -329,10 +384,12 @@ namespace TNT.LSD.PDFGenerator
     /// <returns>The application's description</returns>
     protected string GetApplicationName()
     {
-      Assembly asm = Assembly.GetEntryAssembly();
-      AssemblyDescriptionAttribute ada = ((AssemblyDescriptionAttribute)asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]);
-
-      return string.Concat("https://www.landscapesprinklerdesigner.com ", "(", asm.GetName().Version.ToString(), ")");
+      Assembly? asm = Assembly.GetEntryAssembly();
+      if (asm == null) return string.Empty;
+      AssemblyDescriptionAttribute? ada = ((AssemblyDescriptionAttribute)asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]);
+      var title = ada.Description;
+      var version = asm.GetName().Version;
+      return version != null ? $"{title} ({version.ToString()})" : String.Empty;
     }
 
     /// <summary>
@@ -341,7 +398,8 @@ namespace TNT.LSD.PDFGenerator
     /// <returns>Application's copyright info</returns>
     protected string GetCopyright()
     {
-      Assembly asm = Assembly.GetEntryAssembly();
+      Assembly? asm = Assembly.GetEntryAssembly();
+      if (asm == null) return string.Empty;
       AssemblyCopyrightAttribute acra = ((AssemblyCopyrightAttribute)asm.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]);
 
       return acra.Copyright;

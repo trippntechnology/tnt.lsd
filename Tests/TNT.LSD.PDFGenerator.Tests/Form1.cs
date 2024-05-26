@@ -11,8 +11,8 @@ namespace TNT.LSD.PDFGenerator.Tests
       InitializeComponent();
 
       string fileName = "PDFGeneratorTest.pdf";
-      //PDFGenerator pdfGenerator = new GenericPDFGenerator();
-      PDFGenerator pdfGenerator = new SSCPDFGenerator();
+      PDFGenerator pdfGenerator = new GenericPDFGenerator();
+      pdfGenerator = new SSCPDFGenerator();
 
       SSCSettings settings = new SSCSettings()
       {
@@ -65,8 +65,7 @@ namespace TNT.LSD.PDFGenerator.Tests
 
       pdfGenerator.Generate(fileName, content);
 
-      string appPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-      Browser.Navigate(Path.Combine(appPath, fileName));
+      Browser.Navigate(Path.Combine(AppContext.BaseDirectory, fileName));
     }
   }
 }
