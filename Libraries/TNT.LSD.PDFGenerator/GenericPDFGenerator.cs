@@ -1,13 +1,11 @@
 ﻿using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iTextColors = iText.Kernel.Colors;
-using iTextProperties = iText.Layout.Properties;
 
 namespace TNT.LSD.PDFGenerator
 {
@@ -20,7 +18,6 @@ namespace TNT.LSD.PDFGenerator
     {
       protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument)
       {
-        PageSize pageSize = pdfDocument.GetDefaultPageSize();
         Table headerTbl = new Table(2);
         var bottomBorder = new SolidBorder(iTextColors.ColorConstants.RED, 2f);
 
@@ -37,12 +34,9 @@ namespace TNT.LSD.PDFGenerator
         headerTbl.AddCell(dateTimeCell);
 
         // Add the table to the page
-        var rect = getHeaderRect();
-
-        System.Diagnostics.Debug.WriteLine(rect.ToString());
-        headerTbl.SetFixedPosition(rect.GetLeft(), rect.GetBottom(), rect.GetWidth());
-
-        getCanvas(pdfPage, rect).Add(headerTbl);
+        var headerRect = getHeaderRect();
+        headerTbl.SetFixedPosition(headerRect.GetLeft(), headerRect.GetBottom(), headerRect.GetWidth());
+        getCanvas(pdfPage, headerRect).Add(headerTbl);
       }
     }
 
@@ -54,36 +48,29 @@ namespace TNT.LSD.PDFGenerator
         Table footerTbl = new Table(new float[] { 6f, 1, 6f });
         var topBorder = new SolidBorder(iTextColors.ColorConstants.BLUE, 2f);
 
-        Cell cell = new Cell().Add(new Paragraph(applicationName).SetFontSize(FOOTER_FONT_SIZE))
+        Cell appNameCell = new Cell().Add(new Paragraph(applicationName).SetFontSize(FOOTER_FONT_SIZE))
           .SetBorder(Border.NO_BORDER)
           .SetBorderTop(topBorder);
-        footerTbl.AddCell(cell);
+        footerTbl.AddCell(appNameCell);
 
-        cell.Add(new Paragraph("").SetFontSize(FOOTER_FONT_SIZE))
+        Cell pageNumberCell = new Cell().Add(new Paragraph("<page number here>").SetFontSize(FOOTER_FONT_SIZE))
           .SetBorder(Border.NO_BORDER)
           .SetBorderTop(topBorder)
-          .SetHorizontalAlignment(iTextProperties.HorizontalAlignment.CENTER)
-          .SetVerticalAlignment(VerticalAlignment.MIDDLE);
-        footerTbl.AddCell(cell);
+          .SetTextAlignment(TextAlignment.CENTER);
+        footerTbl.AddCell(pageNumberCell);
 
-        cell.Add(new Paragraph(copyright).SetFontSize(FOOTER_FONT_SIZE))
-          .SetBorder(Border.NO_BORDER)
-          .SetBorderTop(topBorder)
-          .SetHorizontalAlignment(iTextProperties.HorizontalAlignment.RIGHT);
-        footerTbl.AddCell(cell);
+        Cell copyrightCell = new Cell().Add(new Paragraph(copyright).SetFontSize(FOOTER_FONT_SIZE))
+           .SetBorder(Border.NO_BORDER)
+           .SetBorderTop(topBorder)
+           .SetTextAlignment(TextAlignment.RIGHT);
+        footerTbl.AddCell(copyrightCell);
 
         // Add the table to the page
-        float x = document.GetLeftMargin();
-        float y = document.GetBottomMargin();
-        footerTbl.SetFixedPosition(x, y, pageSize.GetWidth() - document.GetLeftMargin() - document.GetRightMargin());
-
-        PdfCanvas canvas = new PdfCanvas(pdfPage.NewContentStreamBefore(), pdfPage.GetResources(), pdfDocument);
-        new Canvas(canvas, new iText.Kernel.Geom.Rectangle(0, 0, x, y)).Add(footerTbl);
+        var footerRect = getFooterRect();
+        footerTbl.SetFixedPosition(footerRect.GetLeft(), footerRect.GetTop() - getTableHeight(footerTbl, pageSize), footerRect.GetWidth());
+        getCanvas(pdfPage, footerRect).Add(footerTbl);
       }
     }
-
-
-
 
     /// <summary>
     /// Creates a PDF file using the content

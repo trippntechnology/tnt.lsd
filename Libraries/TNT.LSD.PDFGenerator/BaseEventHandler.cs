@@ -4,6 +4,8 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Layout;
+using iText.Layout.Renderer;
 
 namespace TNT.LSD.PDFGenerator;
 
@@ -23,7 +25,7 @@ public abstract class BaseEventHandler(Document document) : IEventHandler
   {
     PageSize pageSize = document.GetPdfDocument().GetDefaultPageSize();
     float left = document.GetLeftMargin();
-    float bottom = pageSize.GetHeight() - document.GetTopMargin();
+    float bottom = pageSize.GetHeight() - document.GetTopMargin() + PDFGenerator.InchesToPoints(.125);
     float width = pageSize.GetWidth() - document.GetLeftMargin() - document.GetRightMargin();
     float height = document.GetTopMargin();
     return new iText.Kernel.Geom.Rectangle(left, bottom, width, height);
@@ -46,21 +48,26 @@ public abstract class BaseEventHandler(Document document) : IEventHandler
     return new Canvas(canvas, rect);
   }
 
-  protected float getTableHeight(Table table)
+  protected float getTableHeight(Table table, PageSize pageSize)
   {
     // Create a temporary PDF document to measure the table height
     using (MemoryStream ms = new MemoryStream())
     {
-      PdfWriter writer = new PdfWriter(ms);
-      PdfDocument pdfDoc = new PdfDocument(writer);
-      Document doc = new Document(pdfDoc);
+      using PdfWriter writer = new PdfWriter(ms);
+      using PdfDocument pdfDoc = new PdfDocument(writer);
+      using Document doc = new Document(pdfDoc, pageSize);
 
-      // Create a new page and add the table to the temporary document
-      pdfDoc.AddNewPage();
-      doc.Add(table);
+      // Create a renderer for the table
+      TableRenderer tableRenderer = (TableRenderer)table.CreateRendererSubTree()
+          .SetParent(new DocumentRenderer(doc));
 
-      // Get the table height
-      float height = table.GetHeight().GetValue();
+      // Layout the table and get the occupied area
+      LayoutResult result = tableRenderer.Layout(new LayoutContext(
+          new LayoutArea(1, new iText.Kernel.Geom.Rectangle(0, 0, pageSize.GetWidth(), pageSize.GetHeight()))
+      ));
+
+      // Get the height of the table
+      float height = result.GetOccupiedArea().GetBBox().GetHeight();
 
       // Close the temporary document
       doc.Close();

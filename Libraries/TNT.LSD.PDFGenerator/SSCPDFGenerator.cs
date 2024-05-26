@@ -23,7 +23,6 @@ namespace TNT.LSD.PDFGenerator
       protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument)
       {
         // Create a table with two columns
-        PageSize pageSize = pdfDocument.GetDefaultPageSize();
         Table headerTbl = new Table(2);
         var bottomBorder = new SolidBorder(iTextColors.ColorConstants.RED, 2f);
 
@@ -84,10 +83,7 @@ namespace TNT.LSD.PDFGenerator
 
         // Add the table to the page
         var rect = getFooterRect();
-        float x = document.GetLeftMargin();
-        float y = document.GetBottomMargin();
-        footerTbl.SetFixedPosition(rect.GetLeft(), rect.GetBottom()/* - getTableHeight(footerTbl)*/, rect.GetWidth());
-
+        footerTbl.SetFixedPosition(rect.GetLeft(), rect.GetTop() - getTableHeight(footerTbl, pageSize), rect.GetWidth());
         getCanvas(pdfPage, rect).Add(footerTbl);
       }
     }
@@ -110,7 +106,9 @@ namespace TNT.LSD.PDFGenerator
 
         CreatePartsListing(document, content.Parts);
 
-        System.Drawing.Font font = new System.Drawing.Font("Arial", 8);
+        if (content.Design == null) return;
+
+        Font font = new System.Drawing.Font("Arial", 8);
         Graphics graphics = Graphics.FromImage(content.Design);
 
         string disclaimer = Resources.Disclaimer;
@@ -148,6 +146,8 @@ namespace TNT.LSD.PDFGenerator
     /// <param name="content">Content that should be used</param>
     protected void CreateCoverPage(Document document, Content content)
     {
+      if (content.DynamicProperties == null) return;
+
       Reflector<object> reflector = new Reflector<object>(content.DynamicProperties);
       var categories = (from p in reflector.Properties orderby p.Category select p.Category).Distinct();
       List<PropertyReflector> propReflectors = (from p in reflector.Properties orderby p.Category, p.DisplayName select p).ToList();
@@ -172,7 +172,6 @@ namespace TNT.LSD.PDFGenerator
       document.Add(new Paragraph(" "));
 
       Table table = new Table(2).UseAllAvailableWidth();
-      //table.DefaultCell.Border = PdfPCell.NO_BORDER;
 
       var cats = reflector.GetCategoriesByPriority();
 
@@ -241,17 +240,5 @@ namespace TNT.LSD.PDFGenerator
         AddTableRow(table, data[row], row % 2 == 0 ? iTextColors.ColorConstants.LIGHT_GRAY : iTextColors.ColorConstants.WHITE);
       }
     }
-
-    /// <summary>
-    /// Event to set the page number in the second column of the footer
-    /// </summary>
-    /// <param name="footer">Footer</param>
-    /// <param name="document">Document</param>
-    //protected void BeforeWriteFooter(PdfPTable footer, Document document)
-    //{
-    //  Phrase phrase = new Phrase(document.PageNumber.ToString());
-    //  phrase.Font.Size = FOOTER_FONT_SIZE;
-    //  footer.Rows[0].GetCells()[1].Phrase = phrase;
-    //}
   }
 }

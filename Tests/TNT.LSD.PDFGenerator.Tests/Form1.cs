@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using TNT.LSD.Inventory;
+﻿using TNT.LSD.Inventory;
 using TNT.LSD.Settings;
 
 namespace TNT.LSD.PDFGenerator.Tests
@@ -12,7 +11,7 @@ namespace TNT.LSD.PDFGenerator.Tests
 
       string fileName = "PDFGeneratorTest.pdf";
       PDFGenerator pdfGenerator = new GenericPDFGenerator();
-      pdfGenerator = new SSCPDFGenerator();
+      pdfGenerator = new SSCPDFGenerator() { Title = "Title", Author = "Author", Creator = "Creator", Subject = "Subject" };
 
       SSCSettings settings = new SSCSettings()
       {
