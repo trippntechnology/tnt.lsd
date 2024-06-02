@@ -24,7 +24,7 @@ public class Plugin : TNT.Plugin.Manager.Plugin
 
   public override bool LicenseRequired => true;
 
-  public override void Execute(System.Windows.Forms.IWin32Window owner, ToolStripItem sender, IApplicationData content)
+  public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
   {
     ApplicationData appData = content as ApplicationData;
 

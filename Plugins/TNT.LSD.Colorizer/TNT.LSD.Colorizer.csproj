@@ -23,15 +23,15 @@
 	</Target>
 
 	<ItemGroup>
-		<None Remove="Images\paintbrush.png" />
+	  <None Remove="Images\paintbrush.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Images\paintbrush.png" />
+	  <EmbeddedResource Include="Images\paintbrush.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
 	</ItemGroup>
 
 </Project>
