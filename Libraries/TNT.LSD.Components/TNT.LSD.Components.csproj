@@ -1,38 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-		<Version>2.0.0</Version>
-		<AssemblyVersion>$(PackageVersion)</AssemblyVersion>
-		<FileVersion>$(PackageVersion)</FileVersion>
+	<PropertyGroup>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<TargetFramework>net8.0-windows</TargetFramework>
+
+		<!-- File Description -->
+		<AssemblyTitle>Landscape Sprinkler Designer Components</AssemblyTitle>
 		<Authors>Tripp'n Technology, LLC.</Authors>
-		<Copyright>Copyright 2024 $(Authors)</Copyright>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<Description>TNT LSD Components</Description>
 		<Company>$(Authors)</Company>
-		<Title>TNT LSD Components</Title>
+		<Copyright>Copyright 2024 $(Authors)</Copyright>
+		<FileVersion>$(PackageVersion)</FileVersion>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<!-- Product Name -->
+		<Product>$(AssemblyTitle)</Product>
+		<Version>2.0.0</Version>
+
 	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="TNTCADTest\**" />
-    <EmbeddedResource Remove="TNTCADTest\**" />
-    <None Remove="TNTCADTest\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="TNTCADTest\**" />
+		<EmbeddedResource Remove="TNTCADTest\**" />
+		<None Remove="TNTCADTest\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DockPanelSuite" Version="3.1.0" />
-    <PackageReference Include="DotNetZip" Version="1.16.0" />
-    <PackageReference Include="TNT.Commons" Version="1.0.1" />
-    <PackageReference Include="TNT.Math" Version="2.0.0" />
-    <PackageReference Include="TNT.Plugin.Manager" Version="2.0.0" />
-    <PackageReference Include="TNT.Utilities" Version="2.1.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DockPanelSuite" Version="3.1.0" />
+		<PackageReference Include="DotNetZip" Version="1.16.0" />
+		<PackageReference Include="TNT.Commons" Version="1.0.1" />
+		<PackageReference Include="TNT.Math" Version="2.0.0" />
+		<PackageReference Include="TNT.Plugin.Manager" Version="2.0.0" />
+		<PackageReference Include="TNT.Utilities" Version="2.1.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
-    <ProjectReference Include="..\TNT.LSD.Settings\TNT.LSD.Settings.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+		<ProjectReference Include="..\TNT.LSD.Settings\TNT.LSD.Settings.csproj" />
+	</ItemGroup>
 
 </Project>

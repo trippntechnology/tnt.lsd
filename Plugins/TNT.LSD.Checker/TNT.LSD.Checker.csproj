@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<TargetFramework>net8.0-windows</TargetFramework>
 
-		<AssemblyVersion>$(PackageVersion)</AssemblyVersion>
+		<!-- File Description -->
+		<AssemblyTitle>Landscape Sprinkler Designer Checker Plugin</AssemblyTitle>
 		<Authors>Tripp'n Technology, LLC.</Authors>
 		<Company>$(Authors)</Company>
 		<Copyright>Copyright 2024 $(Authors)</Copyright>
-		<Description>Checker</Description>
 		<FileVersion>$(PackageVersion)</FileVersion>
-		<Title>Checker</Title>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<!-- Product Name -->
+		<Product>$(AssemblyTitle)</Product>
 		<Version>0.0.1</Version>
 
 	</PropertyGroup>
