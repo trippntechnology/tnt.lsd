@@ -1,21 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<TargetFramework>net8.0-windows</TargetFramework>
-
 		<!-- File Description -->
 		<AssemblyTitle>Landscape Sprinkler Designer Checker Plugin</AssemblyTitle>
 		<Authors>Tripp'n Technology, LLC.</Authors>
 		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
 		<Copyright>Copyright 2024 $(Authors)</Copyright>
 		<FileVersion>$(PackageVersion)</FileVersion>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<!-- Product Name -->
 		<Product>$(AssemblyTitle)</Product>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<Version>0.0.1</Version>
-
 	</PropertyGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

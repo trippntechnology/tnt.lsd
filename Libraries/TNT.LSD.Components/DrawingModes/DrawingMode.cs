@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using TNT.LSD.Objects;
 using TNT.LSD.Objects.ControlPoints;
 
@@ -69,7 +69,7 @@ public abstract class DrawingMode
   [Description("Layer where the action occurs")]
   public int Layer { get; set; }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   [Browsable(false)]
   public virtual bool UndoEnabled { get; protected set; }
 

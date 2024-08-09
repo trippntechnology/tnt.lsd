@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
+		<Nullable>enable</Nullable>
+		<TargetFramework>net8.0-windows</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,10 +15,26 @@
 		<PackageReference Include="NUnit" Version="3.14.0" />
 		<PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+		<PackageReference Include="TNT.Plugin.Manager" Version="2.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
 	</ItemGroup>
 
 	<ItemGroup>

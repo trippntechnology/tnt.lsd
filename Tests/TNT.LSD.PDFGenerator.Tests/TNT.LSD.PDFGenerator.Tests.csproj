@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+		<Authors>Tripp'n Technology, LLC.</Authors>
+		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+		<Copyright>Copyright 2024 $(Authors)</Copyright>
+    <Description>TNT LSD PDFGenerator Tests</Description>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Description>TNT LSD PDFGenerator Tests</Description>
-		<Authors>Tripp'n Technology, LLC.</Authors>
-		<Copyright>Copyright 2024 $(Authors)</Copyright>
-		<Company>$(Authors)</Company>
 		<Title>$(Description)</Title>
-
+    <UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 
   <ItemGroup>

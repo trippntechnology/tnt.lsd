@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Serialization;
 using TNT.LSD.Inventory;
 using TNT.LSD.Objects.ControlPoints;
 using TNT.LSD.Objects.Extensions;
@@ -13,451 +8,451 @@ using TNT.Math;
 
 namespace TNT.LSD.Objects
 {
-	/// <summary>
-	/// Base class for a TNT part
-	/// </summary>
-	public class TNTPart : BasePart
-	{
-		#region Properties
+  /// <summary>
+  /// Base class for a TNT part
+  /// </summary>
+  public class TNTPart : BasePart
+  {
+    #region Properties
 
-		/// <summary>
-		/// <see cref="List{T}"/> of <see cref="Pipe"/>
-		/// </summary>
-		[Browsable(false)]
-		[XmlIgnore()]
-		virtual public List<Pipe> Pipes { get; set; } = new List<Pipe>();
+    /// <summary>
+    /// <see cref="List{T}"/> of <see cref="Pipe"/>
+    /// </summary>
+    [Browsable(false)]
+    [JsonIgnore]
+    virtual public List<Pipe> Pipes { get; set; } = new List<Pipe>();
 
-		/// <summary>
-		/// <see cref="Color "/> associated with this part
-		/// </summary>
-		[XmlIgnore()]
-		[Browsable(false)]
-		virtual public Color Color { get; set; }
+    /// <summary>
+    /// <see cref="Color "/> associated with this part
+    /// </summary>
+    [JsonIgnore]
+    [Browsable(false)]
+    virtual public Color Color { get; set; }
 
-		/// <summary>
-		/// Serializes <see cref="Color"/> from/to ARGB
-		/// </summary>
-		[Browsable(false)]
-		public int _Color
-		{
-			get { return Color.ToArgb(); }
-			set { Color = Color.FromArgb(value); }
-		}
+    /// <summary>
+    /// Serializes <see cref="Color"/> from/to ARGB
+    /// </summary>
+    [Browsable(false)]
+    public int _Color
+    {
+      get { return Color.ToArgb(); }
+      set { Color = Color.FromArgb(value); }
+    }
 
-		private bool _Sized = false;
-		
-		/// <summary>
-		/// Indicates whether this part has been sized
-		/// </summary>
-		[Browsable(false)]
-		[XmlIgnore()]
-		public bool Sized
-		{
-			get { return _Sized; }
-			set
-			{
-				if (!value) RequiredFlow = 0;
-				_Sized = value;
-			}
-		}
+    private bool _Sized = false;
 
-		/// <summary>
-		/// Value indicating the required flow for this part
-		/// </summary>
-		[DisplayName("Required Flow")]
-		[Description("Flow required by this part and parts down stream")]
-		[ReadOnly(true)]
-		[XmlIgnore()]
-		virtual public double RequiredFlow { get; set; }
+    /// <summary>
+    /// Indicates whether this part has been sized
+    /// </summary>
+    [Browsable(false)]
+    [JsonIgnore]
+    public bool Sized
+    {
+      get { return _Sized; }
+      set
+      {
+        if (!value) RequiredFlow = 0;
+        _Sized = value;
+      }
+    }
 
-		#endregion
+    /// <summary>
+    /// Value indicating the required flow for this part
+    /// </summary>
+    [DisplayName("Required Flow")]
+    [Description("Flow required by this part and parts down stream")]
+    [ReadOnly(true)]
+    [JsonIgnore]
+    virtual public double RequiredFlow { get; set; }
 
-		#region Constructors
+    #endregion
 
-		/// <summary>
-		/// Creates a part at a specified <paramref name="position"/>
-		/// </summary>
-		public TNTPart(Point position)
-			: base()
-		{
-			Color = Color.Black;
-			CreateControlPoints(position);
-		}
+    #region Constructors
 
-		/// <summary>
-		/// Copy constructor
-		/// </summary>
-		public TNTPart(TNTPart obj)
-			: base(obj)
-		{
-			Color = obj.Color;
-		}
+    /// <summary>
+    /// Creates a part at a specified <paramref name="position"/>
+    /// </summary>
+    public TNTPart(Point position)
+      : base()
+    {
+      Color = Color.Black;
+      CreateControlPoints(position);
+    }
 
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public TNTPart()
-			: base()
-		{
-			Color = Color.Black;
-		}
+    /// <summary>
+    /// Copy constructor
+    /// </summary>
+    public TNTPart(TNTPart obj)
+      : base(obj)
+    {
+      Color = obj.Color;
+    }
 
-		#endregion
+    /// <summary>
+    /// Default constructor
+    /// </summary>
+    public TNTPart()
+      : base()
+    {
+      Color = Color.Black;
+    }
 
-		#region Overrides
+    #endregion
 
-		/// <summary>
-		/// Not implemented
-		/// </summary>
-		public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys) => throw new NotImplementedException();
+    #region Overrides
 
-		/// <summary>
-		/// Added to prevent call from subclass to base class
-		/// </summary>
-		public override void DrawDistance(Graphics graphics, TNTControlPoint p1, TNTControlPoint p2)
-		{
-			// Added so that distance between points isn't drawn.
-		}
+    /// <summary>
+    /// Not implemented
+    /// </summary>
+    public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys) => throw new NotImplementedException();
 
-		/// <summary>
-		/// Clones this part
-		/// </summary>
-		public override TNTObject Clone() => new TNTPart(this);
+    /// <summary>
+    /// Added to prevent call from subclass to base class
+    /// </summary>
+    public override void DrawDistance(Graphics graphics, TNTControlPoint p1, TNTControlPoint p2)
+    {
+      // Added so that distance between points isn't drawn.
+    }
 
-		/// <summary>
-		/// Create a <see cref="TNTControlPoint"/>
-		/// </summary>
-		virtual protected void CreateControlPoints(Point position) => ControlPoints.Add(new TNTControlPoint(this, position));
+    /// <summary>
+    /// Clones this part
+    /// </summary>
+    public override TNTObject Clone() => new TNTPart(this);
 
-		/// <summary>
-		/// Indicates if this <see cref="TNTPart"/> is within <paramref name="rectangle"/>
-		/// </summary>
-		public override bool InRectangle(Rectangle rectangle)
-		{
-			bool inRect = rectangle.Contains(ControlPoints[0].Position);
-			return inRect;
-		}
+    /// <summary>
+    /// Create a <see cref="TNTControlPoint"/>
+    /// </summary>
+    virtual protected void CreateControlPoints(Point position) => ControlPoints.Add(new TNTControlPoint(this, position));
 
-		/// <summary>
-		/// Moves this <see cref="TNTPart"/> from it's current position to the position indicated by <paramref name="x"/> and <paramref name="y"/>
-		/// </summary>
-		public override void MoveTo(int x, int y)
-		{
-			base.MoveTo(x, y);
+    /// <summary>
+    /// Indicates if this <see cref="TNTPart"/> is within <paramref name="rectangle"/>
+    /// </summary>
+    public override bool InRectangle(Rectangle rectangle)
+    {
+      bool inRect = rectangle.Contains(ControlPoints[0].Position);
+      return inRect;
+    }
 
-			if (ControlPoints.Count == 0)
-			{
-				// This is needed for parts that are moved from the palette to the canvas. When the mouse 
-				// begins to move, there isn't control points.
-				CreateControlPoints(new Point(x, y));
-			}
-			else
-			{
-				ControlPoints.First().MoveTo(x, y);
-			}
-		}
+    /// <summary>
+    /// Moves this <see cref="TNTPart"/> from it's current position to the position indicated by <paramref name="x"/> and <paramref name="y"/>
+    /// </summary>
+    public override void MoveTo(int x, int y)
+    {
+      base.MoveTo(x, y);
 
-		/// <summary>
-		/// Moves this <see cref="TNTPart"/> from it's current position to the position indicated by <paramref name="x"/> and <paramref name="y"/>
-		/// and aligns the points if <paramref name="alignPoints"/> is true
-		/// </summary>
-		public override void MoveTo(int x, int y, bool alignPoints)
-		{
-			base.MoveTo(x, y, alignPoints);
-			if (ControlPoints != null && ControlPoints.Count > 0)
-			{
-				ControlPoints.First().MoveTo(x, y, alignPoints);
-			}
-		}
+      if (ControlPoints.Count == 0)
+      {
+        // This is needed for parts that are moved from the palette to the canvas. When the mouse 
+        // begins to move, there isn't control points.
+        CreateControlPoints(new Point(x, y));
+      }
+      else
+      {
+        ControlPoints.First().MoveTo(x, y);
+      }
+    }
 
-		/// <summary>
-		/// Aligns the <see cref="ControlPoints"/> to the grid
-		/// </summary>
-		public override void AlignToGrid()
-		{
-			Point p = ControlPoints.First().Position.SnapToGrid(true);
-			ControlPoints.First().MoveTo(p.X, p.Y, true);
-		}
+    /// <summary>
+    /// Moves this <see cref="TNTPart"/> from it's current position to the position indicated by <paramref name="x"/> and <paramref name="y"/>
+    /// and aligns the points if <paramref name="alignPoints"/> is true
+    /// </summary>
+    public override void MoveTo(int x, int y, bool alignPoints)
+    {
+      base.MoveTo(x, y, alignPoints);
+      if (ControlPoints != null && ControlPoints.Count > 0)
+      {
+        ControlPoints.First().MoveTo(x, y, alignPoints);
+      }
+    }
 
-		/// <summary>
-		/// Determines the parts needed at the pipe level when two pipes are connected
-		/// </summary>
-		public override void SetPartQuantity(CodedParts parts, SystemType systemType)
-		{
-			if (Pipes == null || Pipes.Count < 2) return; // This case will be handed by subclasses implementation
+    /// <summary>
+    /// Aligns the <see cref="ControlPoints"/> to the grid
+    /// </summary>
+    public override void AlignToGrid()
+    {
+      Point p = ControlPoints.First().Position.SnapToGrid(true);
+      ControlPoints.First().MoveTo(p.X, p.Y, true);
+    }
 
-			var fittingSize = GetMaxPipeSize();
-			var pairs = GetPipePairs();
+    /// <summary>
+    /// Determines the parts needed at the pipe level when two pipes are connected
+    /// </summary>
+    public override void SetPartQuantity(CodedParts parts, SystemType systemType)
+    {
+      if (Pipes == null || Pipes.Count < 2) return; // This case will be handed by subclasses implementation
 
-			if (systemType == SystemType.PVC)
-			{
-				var nintyCode = $"FI{fittingSize}SS90";
-				var fortyFiveCode = $"FI{fittingSize}SS45";
+      var fittingSize = GetMaxPipeSize();
+      var pairs = GetPipePairs();
 
-				if (Pipes.Count > 2)
-				{
-					parts.Add($"FI{fittingSize}SSSTEE", Pipes.Count - 2);
+      if (systemType == SystemType.PVC)
+      {
+        var nintyCode = $"FI{fittingSize}SS90";
+        var fortyFiveCode = $"FI{fittingSize}SS45";
 
-					// Find inline and perpendicular pipes pairs
-					var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
-					var perpPairs = pairs.FindAll(p => p.Item1 == inlinePair.Item1 && p.Item2 != inlinePair.Item1);
+        if (Pipes.Count > 2)
+        {
+          parts.Add($"FI{fittingSize}SSSTEE", Pipes.Count - 2);
 
-					perpPairs.ForEach(p =>
-					{
-						if (p.Angle < 68 || (p.Angle > 112 && p.Angle < 158))
-						{
-							parts.Add(fortyFiveCode, 1);
-						}
-					});
-				}
-				else if (Pipes.Count == 2)
-				{
-					var angle = pairs[0].Angle;
+          // Find inline and perpendicular pipes pairs
+          var inlinePair = pairs.Find(p2 => p2.Angle == pairs.Max(p1 => p1.Angle));
+          var perpPairs = pairs.FindAll(p => p.Item1 == inlinePair.Item1 && p.Item2 != inlinePair.Item1);
 
-					if (angle < 68)
-					{
-						parts.Add(nintyCode, 1);
-						parts.Add(fortyFiveCode, 1);
-					}
-					else if (angle < 112)
-					{
-						parts.Add(nintyCode, 1);
-					}
-					else if (angle < 158)
-					{
-						parts.Add(fortyFiveCode, 1);
-					}
-				}
+          perpPairs.ForEach(p =>
+          {
+            if (p.Angle < 68 || (p.Angle > 112 && p.Angle < 158))
+            {
+              parts.Add(fortyFiveCode, 1);
+            }
+          });
+        }
+        else if (Pipes.Count == 2)
+        {
+          var angle = pairs[0].Angle;
 
-				// Add bushings
-				foreach (Pipe pipe in Pipes)
-				{
-					var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
+          if (angle < 68)
+          {
+            parts.Add(nintyCode, 1);
+            parts.Add(fortyFiveCode, 1);
+          }
+          else if (angle < 112)
+          {
+            parts.Add(nintyCode, 1);
+          }
+          else if (angle < 158)
+          {
+            parts.Add(fortyFiveCode, 1);
+          }
+        }
 
-					if (pipeSize < fittingSize)
-					{
-						parts.Add($"FI{fittingSize}X{pipeSize}SSRB", 1);
-					}
-				}
-			}
-			else
-			{
-				var nintyCode = $"PF{fittingSize}BB90";
+        // Add bushings
+        foreach (Pipe pipe in Pipes)
+        {
+          var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
 
-				if (Pipes.Count > 2)
-				{
-					int teeCount = Pipes.Count - 2;
-					parts.Add($"PF{fittingSize}TEE", teeCount);
-					parts.AddHoseClamp(fittingSize.Code, teeCount * 3);
-				}
-				else if (Pipes.Count == 2)
-				{
-					var angle = pairs[0].Angle;
+          if (pipeSize < fittingSize)
+          {
+            parts.Add($"FI{fittingSize}X{pipeSize}SSRB", 1);
+          }
+        }
+      }
+      else
+      {
+        var nintyCode = $"PF{fittingSize}BB90";
 
-					if (angle < 112)
-					{
-						parts.Add(nintyCode, 1);
-						parts.AddHoseClamp(fittingSize.Code, 2);
-					}
-				}
+        if (Pipes.Count > 2)
+        {
+          int teeCount = Pipes.Count - 2;
+          parts.Add($"PF{fittingSize}TEE", teeCount);
+          parts.AddHoseClamp(fittingSize.Code, teeCount * 3);
+        }
+        else if (Pipes.Count == 2)
+        {
+          var angle = pairs[0].Angle;
 
-				// Add bushings
-				foreach (Pipe pipe in Pipes)
-				{
-					var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
+          if (angle < 112)
+          {
+            parts.Add(nintyCode, 1);
+            parts.AddHoseClamp(fittingSize.Code, 2);
+          }
+        }
 
-					if (pipeSize < fittingSize)
-					{
-						parts.Add($"PF{fittingSize}X{pipeSize}BBRB", 1);
-						parts.AddHoseClamp(fittingSize.Code, 1);
-						parts.AddHoseClamp(pipeSize.Code, 1);
-					}
-				}
-			}
-		}
+        // Add bushings
+        foreach (Pipe pipe in Pipes)
+        {
+          var pipeSize = PartSize.GetSize(pipe.PipeSizeIndex);
 
-		private List<PipePair> GetPipePairs()
-		{
-			if (Pipes.Count == 2)
-			{
-				return new List<PipePair>() { new PipePair(Pipes[0], Pipes[1], this.Position, this) };
-			}
-			else if (Pipes.Count > 2)
-			{
-				// Get all combinations
-				return (from a in Pipes from b in Pipes select new PipePair(a, b, this.Position, this)).ToList();
-			}
-			else
-			{
-				return new List<PipePair>();
-			}
-		}
+          if (pipeSize < fittingSize)
+          {
+            parts.Add($"PF{fittingSize}X{pipeSize}BBRB", 1);
+            parts.AddHoseClamp(fittingSize.Code, 1);
+            parts.AddHoseClamp(pipeSize.Code, 1);
+          }
+        }
+      }
+    }
 
-		/// <summary>
-		/// Checks to see if the <paramref name="pipeType"/> is the same as an existing part connected. 
-		/// </summary>
-		/// <returns>True if pipe are same, false otherwise </returns>
-		public override bool CanAddPipe(Type pipeType, out string reason)
-		{
-			base.CanAddPipe(pipeType, out reason);
+    private List<PipePair> GetPipePairs()
+    {
+      if (Pipes.Count == 2)
+      {
+        return new List<PipePair>() { new PipePair(Pipes[0], Pipes[1], this.Position, this) };
+      }
+      else if (Pipes.Count > 2)
+      {
+        // Get all combinations
+        return (from a in Pipes from b in Pipes select new PipePair(a, b, this.Position, this)).ToList();
+      }
+      else
+      {
+        return new List<PipePair>();
+      }
+    }
 
-			Pipe pipe = Pipes.Find(p => p.GetType() != pipeType);
+    /// <summary>
+    /// Checks to see if the <paramref name="pipeType"/> is the same as an existing part connected. 
+    /// </summary>
+    /// <returns>True if pipe are same, false otherwise </returns>
+    public override bool CanAddPipe(Type pipeType, out string reason)
+    {
+      base.CanAddPipe(pipeType, out reason);
 
-			if (pipe != null)
-			{
-				reason = "Part must be connected to same pipe types";
-				return false;
-			}
-			else if (Pipes.Count > 3)
-			{
-				reason = "Only four connections are allowed";
-				return false;
-			}
+      Pipe pipe = Pipes.Find(p => p.GetType() != pipeType);
 
-			return true;
-		}
+      if (pipe != null)
+      {
+        reason = "Part must be connected to same pipe types";
+        return false;
+      }
+      else if (Pipes.Count > 3)
+      {
+        reason = "Only four connections are allowed";
+        return false;
+      }
 
-		/// <summary>
-		/// Creates undo object
-		/// </summary>
-		/// <returns>Undo object</returns>
-		public override TNTObject CreateUndoCopy()
-		{
-			TNTPart newObj = base.CreateUndoCopy() as TNTPart;
+      return true;
+    }
 
-			newObj.Color = Color;
-			newObj.Pipes = new List<Pipe>(Pipes);
+    /// <summary>
+    /// Creates undo object
+    /// </summary>
+    /// <returns>Undo object</returns>
+    public override TNTObject CreateUndoCopy()
+    {
+      TNTPart newObj = base.CreateUndoCopy() as TNTPart;
 
-			return newObj;
-		}
+      newObj.Color = Color;
+      newObj.Pipes = new List<Pipe>(Pipes);
 
-		/// <summary>
-		/// Assigns obj's properties to this object
-		/// </summary>
-		/// <param name="obj">Source object</param>
-		public override void Assign(TNT.LSD.Objects.TNTObject obj)
-		{
-			base.Assign(obj);
+      return newObj;
+    }
 
-			TNTPart part = obj as TNTPart;
+    /// <summary>
+    /// Assigns obj's properties to this object
+    /// </summary>
+    /// <param name="obj">Source object</param>
+    public override void Assign(TNT.LSD.Objects.TNTObject obj)
+    {
+      base.Assign(obj);
 
-			if (part != null)
-			{
-				Color = part.Color;
-				Pipes = part.Pipes;
-			}
-		}
+      TNTPart part = obj as TNTPart;
 
-		#endregion
+      if (part != null)
+      {
+        Color = part.Color;
+        Pipes = part.Pipes;
+      }
+    }
 
-		/// <summary>
-		/// Adds a <see cref="Pipe"/> if it hasn't already been added
-		/// </summary>
-		/// <param name="pipe"></param>
-		virtual public void AddPipe(Pipe pipe)
-		{
-			// Only add if it doesn't already exist
-			if (!Pipes.Contains(pipe))
-			{
-				Pipes.Add(pipe);
-			}
-		}
+    #endregion
 
-		/// <summary>
-		/// Removes a <see cref="Pipe"/>
-		/// </summary>
-		/// <param name="pipe"></param>
-		virtual public void RemovePipe(Pipe pipe)
-		{
-			Pipes.Remove(pipe);
-		}
+    /// <summary>
+    /// Adds a <see cref="Pipe"/> if it hasn't already been added
+    /// </summary>
+    /// <param name="pipe"></param>
+    virtual public void AddPipe(Pipe pipe)
+    {
+      // Only add if it doesn't already exist
+      if (!Pipes.Contains(pipe))
+      {
+        Pipes.Add(pipe);
+      }
+    }
 
-		/// <summary>
-		/// Sizes the pipe from this to the pipe's connection if not already sized
-		/// </summary>
-		/// <returns>GPM required from this part onward</returns>
-		public virtual double SizePipe(Type pipeType, Pipe upstreamPipe)
-		{
-			if (!Sized)
-			{
-				Sized = true;
+    /// <summary>
+    /// Removes a <see cref="Pipe"/>
+    /// </summary>
+    /// <param name="pipe"></param>
+    virtual public void RemovePipe(Pipe pipe)
+    {
+      Pipes.Remove(pipe);
+    }
 
-				Pipes.FindAll(pipe => pipe.GetType() == pipeType && pipe != upstreamPipe).ForEach(pipe =>
-				{
-					// Get the downstream part for this pipe segment
-					TNTPart other = pipe.GetOtherPart(this);
+    /// <summary>
+    /// Sizes the pipe from this to the pipe's connection if not already sized
+    /// </summary>
+    /// <returns>GPM required from this part onward</returns>
+    public virtual double SizePipe(Type pipeType, Pipe upstreamPipe)
+    {
+      if (!Sized)
+      {
+        Sized = true;
 
-					if (pipe is LateralPipe)
-					{
-						RequiredFlow += other.SizePipe(pipeType, pipe);
-					}
-					else
-					{
-						RequiredFlow = System.Math.Max(other.SizePipe(pipeType, pipe), RequiredFlow);
-					}
-				});
-			}
+        Pipes.FindAll(pipe => pipe.GetType() == pipeType && pipe != upstreamPipe).ForEach(pipe =>
+        {
+          // Get the downstream part for this pipe segment
+          TNTPart other = pipe.GetOtherPart(this);
 
-			// Size the upstream pipe to handle the required flow
-			if (upstreamPipe != null)
-			{
-				upstreamPipe.SizeFor(RequiredFlow);
-			}
+          if (pipe is LateralPipe)
+          {
+            RequiredFlow += other.SizePipe(pipeType, pipe);
+          }
+          else
+          {
+            RequiredFlow = System.Math.Max(other.SizePipe(pipeType, pipe), RequiredFlow);
+          }
+        });
+      }
 
-			return RequiredFlow;
-		}
+      // Size the upstream pipe to handle the required flow
+      if (upstreamPipe != null)
+      {
+        upstreamPipe.SizeFor(RequiredFlow);
+      }
 
-		/// <summary>
-		/// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
-		/// </summary>
-		/// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
-		virtual protected PartSize GetMaxPipeSize(System.Type pipeType = null)
-		{
-			int index = PartSize.SIZE_050.Index - 1;
-			Pipes.FindAll(p => pipeType == null || p.GetType() == pipeType).ForEach(p => index = System.Math.Max(index, p.PipeSizeIndex));
-			return PartSize.GetSize(index);
-		}
+      return RequiredFlow;
+    }
 
-		/// <summary>
-		/// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
-		/// </summary>
-		/// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
-		virtual protected PartSize GetMinPipeSize(System.Type pipeType = null)
-		{
-			int index = PartSize.SIZE_200.Index + 1;
-			Pipes.FindAll(p => pipeType == null || p.GetType() == pipeType).ForEach(p => index = System.Math.Min(index, p.PipeSizeIndex));
-			return PartSize.GetSize(index);
-		}
+    /// <summary>
+    /// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
+    /// </summary>
+    /// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
+    virtual protected PartSize GetMaxPipeSize(System.Type pipeType = null)
+    {
+      int index = PartSize.SIZE_050.Index - 1;
+      Pipes.FindAll(p => pipeType == null || p.GetType() == pipeType).ForEach(p => index = System.Math.Max(index, p.PipeSizeIndex));
+      return PartSize.GetSize(index);
+    }
 
-		/// <summary>
-		/// Used to determine the angles between two <see cref="Pipe"/>
-		/// </summary>
-		internal class PipePair : Tuple<Pipe, Pipe>
-		{
-			private readonly Point origin;
-			private readonly TNTPart part;
+    /// <summary>
+    /// Get the <see cref="PartSize"/> that represents the largest pipe size connecting this part
+    /// </summary>
+    /// <param name="pipeType"><see cref="System.Type"/> representing the type of pipe that is of interest</param>
+    virtual protected PartSize GetMinPipeSize(System.Type pipeType = null)
+    {
+      int index = PartSize.SIZE_200.Index + 1;
+      Pipes.FindAll(p => pipeType == null || p.GetType() == pipeType).ForEach(p => index = System.Math.Min(index, p.PipeSizeIndex));
+      return PartSize.GetSize(index);
+    }
 
-			/// <summary>
-			/// Returns the angle between the two <see cref="Pipe"/>
-			/// </summary>
-			public double Angle
-			{
-				get
-				{
-					var pipeDirection1 = new Vector(this.origin, Item1.GetOtherPart(this.part).Position);
-					var pipeDirection2 = new Vector(this.origin, Item2.GetOtherPart(this.part).Position);
-					return pipeDirection1.Angle(pipeDirection2).InDegrees;
-				}
-			}
+    /// <summary>
+    /// Used to determine the angles between two <see cref="Pipe"/>
+    /// </summary>
+    internal class PipePair : Tuple<Pipe, Pipe>
+    {
+      private readonly Point origin;
+      private readonly TNTPart part;
 
-			/// <summary>
-			/// Constructor
-			/// </summary>
-			public PipePair(Pipe item1, Pipe item2, Point Position, TNTPart part) : base(item1, item2)
-			{
-				origin = Position;
-				this.part = part;
-			}
-		}
-	}
+      /// <summary>
+      /// Returns the angle between the two <see cref="Pipe"/>
+      /// </summary>
+      public double Angle
+      {
+        get
+        {
+          var pipeDirection1 = new Vector(this.origin, Item1.GetOtherPart(this.part).Position);
+          var pipeDirection2 = new Vector(this.origin, Item2.GetOtherPart(this.part).Position);
+          return pipeDirection1.Angle(pipeDirection2).InDegrees;
+        }
+      }
+
+      /// <summary>
+      /// Constructor
+      /// </summary>
+      public PipePair(Pipe item1, Pipe item2, Point Position, TNTPart part) : base(item1, item2)
+      {
+        origin = Position;
+        this.part = part;
+      }
+    }
+  }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Xml.Serialization;
 using System.Windows.Forms;
 
 namespace TNT.LSD.Components;
@@ -19,7 +16,7 @@ public class SerializableNode
   public int StateImageIndex { get; set; }
   public PaletteProperties Properties { get; set; }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public Image Image { get; set; }
 
   public string _Image

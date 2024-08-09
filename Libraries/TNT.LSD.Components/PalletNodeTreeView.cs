@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Reflection;
 using System.Windows.Forms;
-using System.Xml;
 using TNT.Commons;
 using TNT.LSD.Components.AppSettings;
 using TNT.LSD.Components.DrawingModes;
@@ -14,10 +15,10 @@ namespace TNT.LSD.Components;
 
 public partial class PalletNodeTreeView : TreeView
 {
-  private PaletteNode m_NodeToCopy = null;
-  private TreeNode m_LastDrawingModeNode = null;
-  private TreeNode m_SourceNode = null;
-  private Type[] m_ExpectedTypes = null;
+  private PaletteNode? m_NodeToCopy = null;
+  private TreeNode? m_LastDrawingModeNode = null;
+  private TreeNode? m_SourceNode = null;
+  private Type[]? m_ExpectedTypes = null;
 
   private Type[] ExpectedTypes
   {
@@ -26,16 +27,21 @@ public partial class PalletNodeTreeView : TreeView
       if (m_ExpectedTypes == null)
       {
         List<Type> types = new List<Type>();
+        Assembly componentsAss = Assembly.LoadFile(string.Concat(Application.StartupPath, "\\", "TNT.LSD.Components.dll"));
+        Assembly objectsAss = Assembly.LoadFile(string.Concat(Application.StartupPath, "\\", "TNT.LSD.Objects.dll"));
 
-        types.AddRange(Utilities.Utilities.GetTypes(string.Concat(Application.StartupPath, "\\", "TNT.LSD.Components.dll"), t =>
+        Type[] componentTypes = Utilities.Utilities.GetTypes(componentsAss, t =>
         {
-          return t.Namespace == "LSDComponents.DrawingModes" && !t.IsAbstract && !t.IsGenericType && t.IsVisible;
-        }));
+          return t.Namespace == "TNT.LSD.Components.DrawingModes" && !t.IsAbstract && !t.IsGenericType && t.IsVisible;
+        });
 
-        types.AddRange(Utilities.Utilities.GetTypes(string.Concat(Application.StartupPath, "\\", "TNT.LSD.Objects.dll"), t =>
+        Type[] objectTypes = Utilities.Utilities.GetTypes(objectsAss, t =>
         {
           return t.Namespace == "TNT.LSD.Objects" && !t.IsAbstract && t.InheritsFrom(typeof(TNTObject));
-        }));
+        });
+
+        //types.AddRange(componentTypes);
+        //types.AddRange(objectTypes);
 
         m_ExpectedTypes = types.ToArray();
       }
@@ -147,25 +153,35 @@ public partial class PalletNodeTreeView : TreeView
 
   public void Save(string fileName)
   {
-    string serialData = Serialize();
+    List<SerializableNode> sNodes = new List<SerializableNode>();
 
-    XmlDocument xmlDoc = new XmlDocument();
-    xmlDoc.LoadXml(serialData);
-    xmlDoc.Save(fileName);
+    foreach (PaletteNode pn in Nodes)
+    {
+      sNodes.Add((SerializableNode)pn);
+    }
+    var settings = new JsonSerializerSettings()
+    {
+      DefaultValueHandling = DefaultValueHandling.Ignore,
+      TypeNameHandling = TypeNameHandling.All,
+      Formatting = Formatting.Indented,
+    };
+
+    var json = Json.serializeObject(sNodes, settings);
+    File.WriteAllText(fileName, json);
   }
 
   public void Load(string fileName)
   {
-    try
-    {
-      XmlDocument xmlDoc = new XmlDocument();
-      xmlDoc.Load(fileName);
+    SerializableNode.TreeView = this;
+    var json = File.ReadAllText(fileName);
+    var nodes = Json.deserializeJson<List<SerializableNode>>(json);
+    if (nodes == null) return;
 
-      Deserialize(xmlDoc.InnerXml);
-    }
-    catch (Exception ex)
+    Nodes.Clear();
+
+    foreach (SerializableNode sNode in nodes)
     {
-      MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      Nodes.Add((PaletteNode)sNode);
     }
   }
 
@@ -391,7 +407,8 @@ public partial class PalletNodeTreeView : TreeView
   private void Deserialize(string serialData)
   {
     SerializableNode.TreeView = this;
-    List<SerializableNode> nodes = Utilities.Utilities.Deserialize<List<SerializableNode>>(serialData, ExpectedTypes);
+    List<SerializableNode>? nodes = Utilities.Utilities.Deserialize<List<SerializableNode>>(serialData, ExpectedTypes);
+    if (nodes == null) return;
 
     Nodes.Clear();
 

@@ -1,4 +1,5 @@
 ﻿using Ionic.Zip;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,7 +9,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Serialization;
 using System.Xml.Xsl;
 using TNT.LSD.Components.DrawingModes;
 using TNT.LSD.Inventory;
@@ -265,10 +265,10 @@ public partial class TNTCAD : Control
     }
   }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public bool ShowPartsToolTip { get; set; }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public Image Design { get { return m_DrawingLayers.Last(); } }
 
   public bool AreaAvailable { get { return (from s in Selected<TNTObject>() where s is IShape select s).ToList().Count > 0; } }

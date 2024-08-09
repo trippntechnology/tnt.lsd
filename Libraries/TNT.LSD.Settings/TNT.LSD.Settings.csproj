@@ -1,22 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<UseWindowsForms>true</UseWindowsForms>
-
 		<!-- File Description -->
 		<AssemblyTitle>Landscape Sprinkler Designer Settings</AssemblyTitle>
 		<Authors>Tripp'n Technology, LLC.</Authors>
 		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
 		<Copyright>Copyright 2024 $(Authors)</Copyright>
 		<FileVersion>$(PackageVersion)</FileVersion>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<!-- Product Name -->
 		<Product>$(AssemblyTitle)</Product>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
 		<Version>2.0.0</Version>
-
 	</PropertyGroup>
 
 	<ItemGroup>

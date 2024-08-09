@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Reflection;
-using System.Xml.Serialization;
 using TNT.Commons;
 using TNT.LSD.Inventory;
 using TNT.LSD.Inventory.DAL;
@@ -32,7 +32,7 @@ public class TNTCADState
   }
 
   [Browsable(false)]
-  [XmlIgnore()]
+  [JsonIgnore]
   public virtual Image BackgroundImage { get; set; }
 
   public string _BackgroundImage
@@ -66,7 +66,7 @@ public class TNTCADState
 
   private LSDSettings? _Settings = null;
   [TypeConverter(typeof(ExpandableObjectConverter))]
-  public virtual LSDSettings? Settings 
+  public virtual LSDSettings? Settings
   {
     get
     {
@@ -87,29 +87,29 @@ public class TNTCADState
   [Browsable(false)]
   public virtual ObjectListList ObjectLayers { get; set; }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public TNTCAD CAD { get; set; }
 
   #region Layout
 
   public bool DrawGrid { get { return Settings.DrawGrid; } set { Settings.DrawGrid = value; } }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public int GridColorAlphaValue { get { return Settings.GridColorAlphaValue; } set { Settings.GridColorAlphaValue = value; } }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public Color GridColor { get { return Settings.GridColor; } set { Settings.GridColor = value; } }
 
   public bool DrawUnits { get { return Settings.DrawUnits; } }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public int HeightInFeet
   {
     get { return Settings.HeightInFeet; }
     set { Settings.HeightInFeet = value; }
   }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public int WidthInFeet
   {
     get { return Settings.WidthInFeet; }
@@ -124,7 +124,7 @@ public class TNTCADState
 
   public bool ShowExternalCodes { get { return Settings is SSCSettings ? (Settings as SSCSettings).ShowExternalCodes : false; } }
 
-  [XmlIgnore()]
+  [JsonIgnore]
   public List<Part> StaticParts { get { return Settings.StaticParts; } }
 
   public SystemType SystemType

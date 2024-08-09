@@ -1,33 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <TargetFramework>net8.0-windows</TargetFramework>
-		<UseWindowsForms>true</UseWindowsForms>
-
+	<PropertyGroup>
 		<!-- File Description -->
 		<AssemblyTitle>Landscape Sprinkler Designer Objects</AssemblyTitle>
 		<Authors>Tripp'n Technology, LLC.</Authors>
 		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
 		<Copyright>Copyright 2024 $(Authors)</Copyright>
 		<FileVersion>$(PackageVersion)</FileVersion>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<!-- Product Name -->
 		<Product>$(AssemblyTitle)</Product>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
 		<Version>2.0.0</Version>
-
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="TNT.Math" Version="2.0.0" />
-    <PackageReference Include="tnt.reflection" Version="2.0.0" />
-    <PackageReference Include="TNT.Utilities" Version="2.1.1" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug (PALETTE_PROPERTIES)|AnyCPU'">
+		<DefineConstants>$(DefineConstants);PALETTE_PROPERTIES</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj" />
-    <ProjectReference Include="..\TNT.LSD.Settings\TNT.LSD.Settings.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="TNT.Math" Version="2.0.0" />
+		<PackageReference Include="tnt.reflection" Version="2.0.0" />
+		<PackageReference Include="TNT.Utilities" Version="2.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj" />
+		<ProjectReference Include="..\TNT.LSD.Settings\TNT.LSD.Settings.csproj" />
+	</ItemGroup>
 
 </Project>

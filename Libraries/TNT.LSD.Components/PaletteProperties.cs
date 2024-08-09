@@ -17,7 +17,7 @@ public class PaletteProperties
 
   public PaletteProperties()
   {
-    m_ModeList = Utilities.Utilities.GetNameSpaceClasses("LSDComponents.DrawingModes", "TNT.LSD.Components.dll");
+    m_ModeList = Utilities.Utilities.GetNameSpaceClasses("TNT.LSD.Components.DrawingModes", "TNT.LSD.Components.dll");
     DrawingMode = new DrawingModes.NullMode();
   }
 

@@ -1,47 +1,46 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Xml.Serialization;
 
 namespace TNT.LSD.Objects
 {
-	public class DryPart : GenericPart
-	{
-		#region Properties
+  public class DryPart : GenericPart
+  {
+    #region Properties
 
-		[Browsable(false)]
-		[XmlIgnore()]
-		public override double RequiredFlow { get { return base.RequiredFlow; } set { base.RequiredFlow = value; } }
+    [Browsable(false)]
+    [JsonIgnore]
+    public override double RequiredFlow { get { return base.RequiredFlow; } set { base.RequiredFlow = value; } }
 
-		#endregion
+    #endregion
 
-		#region Constructors
+    #region Constructors
 
-		// Copy constructor
-		public DryPart(DryPart obj)
-			: base(obj)
-		{
-		}
+    // Copy constructor
+    public DryPart(DryPart obj)
+      : base(obj)
+    {
+    }
 
-		public DryPart()
-			: base()
-		{
-		}
+    public DryPart()
+      : base()
+    {
+    }
 
-		#endregion
+    #endregion
 
-		#region Overrides
+    #region Overrides
 
-		public override bool CanAddPipe(Type pipeType, out string reason)
-		{
-			reason = "Does not connect to pipe";
-			return false;
-		}
+    public override bool CanAddPipe(Type pipeType, out string reason)
+    {
+      reason = "Does not connect to pipe";
+      return false;
+    }
 
-		public override TNTObject Clone()
-		{
-			return new DryPart(this);
-		}
+    public override TNTObject Clone()
+    {
+      return new DryPart(this);
+    }
 
-		#endregion
-	}
+    #endregion
+  }
 }
