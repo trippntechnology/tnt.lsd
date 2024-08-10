@@ -12,12 +12,12 @@ namespace TNT.LSD.Inventory
     /// <summary>
     /// Part's Code
     /// </summary>
-    public string Code { get; set; }
+    public string? Code { get; set; }
 
     /// <summary>
     /// Part's Description
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// Indicates if the part requires cement
@@ -33,7 +33,7 @@ namespace TNT.LSD.Inventory
     /// External part that is equivolent to this part
     /// </summary>
     [JsonIgnore]
-    public Part ExternalPart { get; set; }
+    public Part? ExternalPart { get; set; }
 
     #endregion
 

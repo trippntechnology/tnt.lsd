@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.ComponentModel;
 using System.Text;
+using TNT.Commons;
 
 namespace TNT.LSD.Inventory.DAL;
 
@@ -9,7 +10,7 @@ namespace TNT.LSD.Inventory.DAL;
 /// </summary>
 public class DALPart : DALBase
 {
-  private static CodedParts Parts { get; set; }
+  private static CodedParts? Parts { get; set; }
 
   /// <summary>
   /// Gets the descriptions associated with those listed in codes
@@ -59,7 +60,7 @@ public class DALPart : DALBase
 
     if (parts.ContainsKey(code))
     {
-      return parts[code].Description;
+      return parts[code].Description ?? string.Empty;
     }
 
     return string.Empty;
@@ -92,10 +93,10 @@ public class DALPart : DALBase
   /// <returns>Dictionary of of all parts with the key being the part code</returns>
   public static CodedParts GetParts()
   {
-    if (Parts == null)
+    if (Parts == null && Connection != null)
     {
       Parts = new CodedParts();
-      Part part = null;
+      Part? part = null;
 
       using (SqliteConnection conn = Connection)
       using (SqliteCommand cmd = conn.CreateCommand())
@@ -115,7 +116,7 @@ public class DALPart : DALBase
           {
             part = FillPart(dr);
 
-            if (part != null)
+            if (part?.Code != null)
             {
               Parts.Add(part.Code, part);
             }
@@ -127,17 +128,21 @@ public class DALPart : DALBase
     // Return a copy
     CodedParts copyOfParts = new CodedParts();
 
-    foreach (string key in Parts.Keys)
+    if (Parts != null)
     {
-      copyOfParts.Add(key, new Part(Parts[key]));
+      foreach (string key in Parts.Keys)
+      {
+        copyOfParts.Add(key, new Part(Parts[key]));
+      }
     }
 
     return copyOfParts;
   }
 
-  public static BindingList<Part> GetPartBindingList(string orderby = null)
+  public static BindingList<Part> GetPartBindingList(string? orderby = null)
   {
     BindingList<Part> parts = new BindingList<Part>();
+    if (Connection == null) return parts;
 
     using (SqliteConnection conn = Connection)
     using (SqliteCommand cmd = conn.CreateCommand())
@@ -163,7 +168,7 @@ public class DALPart : DALBase
       {
         while (dr.Read())
         {
-          parts.Add(FillPart(dr));
+          FillPart(dr)?.also(it => parts.Add(it));
         }
       }
     }
@@ -176,7 +181,7 @@ public class DALPart : DALBase
   /// </summary>
   /// <param name="dr">Data reader</param>
   /// <returns>Part containing the contents of the data reader</returns>
-  protected static Part FillPart(SqliteDataReader dr)
+  protected static Part? FillPart(SqliteDataReader dr)
   {
     if (dr.IsDBNull(0))
     {
@@ -185,13 +190,13 @@ public class DALPart : DALBase
 
     return new Part()
     {
-      Code = dr["Code"].ToString(),
-      Description = dr["Description"].ToString(),
+      Code = dr["Code"]?.let(it => it.ToString()) ?? string.Empty,
+      Description = dr["Description"]?.let(it => it.ToString()) ?? string.Empty,
       Glueable = dr.GetBoolean(2),
       ExternalPart = new Part()
       {
-        Code = dr["ExternalCode"].ToString(),
-        Description = dr["ExternalDescription"].ToString()
+        Code = dr["ExternalCode"]?.let(it => it.ToString()) ?? string.Empty,
+        Description = dr["ExternalDescription"]?.let(it => it.ToString()) ?? string.Empty,
       }
     };
   }
