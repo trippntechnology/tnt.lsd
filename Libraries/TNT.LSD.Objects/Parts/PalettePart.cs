@@ -95,6 +95,7 @@ namespace TNT.LSD.Objects
       }
     }
 
+    [JsonIgnore]
     public override bool OverControlPoint
     {
       get

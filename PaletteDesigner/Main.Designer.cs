@@ -309,14 +309,14 @@
       // SaveDialog
       // 
       SaveDialog.DefaultExt = "pallet";
-      SaveDialog.Filter = "LSD Palette|*.palette";
+      SaveDialog.Filter = "Palette|*.json|LSD Palette|*.palette|All files|*.*";
       SaveDialog.RestoreDirectory = true;
       SaveDialog.Title = "Save LSD Palette";
       // 
       // OpenDialog
       // 
       OpenDialog.DefaultExt = "palette";
-      OpenDialog.Filter = "LSD Palette|*.palette";
+      OpenDialog.Filter = "Palette|*.json|LSD Palette|*.palette|All files|*.*";
       OpenDialog.RestoreDirectory = true;
       OpenDialog.Title = "Open LSD Palette";
       // 
@@ -539,7 +539,7 @@
 		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
 		private System.Windows.Forms.PropertyGrid PropertyEditor;
 		private System.Windows.Forms.Splitter splitter1;
-		private System.Windows.Forms.SaveFileDialog SaveDialog;
+		public System.Windows.Forms.SaveFileDialog SaveDialog;
 		private System.Windows.Forms.ImageList NodeImages;
 		private System.Windows.Forms.OpenFileDialog AddImageDialog;
 		private System.Windows.Forms.ToolStripMenuItem menuNode;
@@ -583,6 +583,6 @@
 		public System.Windows.Forms.OpenFileDialog OpenDialog;
 		public TNT.LSD.Components.PalletNodeTreeView Pallet;
 		private System.Windows.Forms.ToolStripMenuItem exportImageToolStripMenuItem;
-	}
+  }
 }
 

@@ -20,13 +20,11 @@ class SaveAs : ToolStripItemGroup
 
     if (ExternalObject is Main main)
     {
-      using (SaveFileDialog SaveDialog = new SaveFileDialog())
+      SaveFileDialog SaveDialog = main.SaveDialog;
+      if (SaveDialog.ShowDialog() == DialogResult.OK)
       {
-        if (SaveDialog.ShowDialog() == DialogResult.OK)
-        {
-          main.Pallet.Save(SaveDialog.FileName);
-          main.CurrentFileName = SaveDialog.FileName;
-        }
+        main.Pallet.Save(SaveDialog.FileName);
+        main.CurrentFileName = SaveDialog.FileName;
       }
     }
   }

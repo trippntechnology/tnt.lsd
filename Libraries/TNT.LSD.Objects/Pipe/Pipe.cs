@@ -107,6 +107,7 @@ namespace TNT.LSD.Objects
 
     public override bool CanClone { get { return false; } }
 
+    [JsonIgnore]
     public override Point Position
     {
       get
@@ -267,9 +268,9 @@ namespace TNT.LSD.Objects
       base.Draw(graphics, drawingOptions);
     }
 
-    public override TNTObject MouseOver(System.Drawing.Point mousePosition, System.Windows.Forms.Keys modifierKeys)
+    public override TNTObject? MouseOver(System.Drawing.Point mousePosition, System.Windows.Forms.Keys modifierKeys)
     {
-      TNTObject isOver = null;
+      TNTObject? isOver = null;
 
       // On check to see if mouse is over the pipe segment when the segment has some length, otherwise ignore.
       if (Part1.Position != Part2.Position)
