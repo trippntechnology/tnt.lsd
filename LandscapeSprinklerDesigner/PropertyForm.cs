@@ -1,58 +1,54 @@
-﻿using System.Windows.Forms;
-using LSDComponents;
+﻿namespace LandscapeSprinklerDesigner;
 
-namespace LandscapeSprinklerDesigner
+public delegate void PropertyEditorChangedDelegate();
+
+public partial class PropertyForm : DockableForm
 {
-	public delegate void PropertyEditorChangedDelegate();
-	
-	public partial class PropertyForm : DockableForm
-	{
-		#region Properties
+  #region Properties
 
-		public object SelectedObject 
-		{
-			set
-			{
-				if (value != null)
-				{
-					object[] obj = new object[1];
-					obj[0] = value;
-					SelectedObjects = obj;
-				}
-				else
-				{
-					SelectedObjects = null;
-				}
-			}
-		}
+  public object SelectedObject
+  {
+    set
+    {
+      if (value != null)
+      {
+        object[] obj = new object[1];
+        obj[0] = value;
+        SelectedObjects = obj;
+      }
+      else
+      {
+        SelectedObjects = null;
+      }
+    }
+  }
 
-		public object[] SelectedObjects 
-		{ 
-			set 
-			{ 
-				PropertyEditor.SelectedObjects = value;
-			} 
-		}
+  public object[] SelectedObjects
+  {
+    set
+    {
+      PropertyEditor.SelectedObjects = value;
+    }
+  }
 
-		#endregion
+  #endregion
 
-		#region Events
+  #region Events
 
-		public event PropertyEditorChangedDelegate OnPropertyEditorChanged;
+  public event PropertyEditorChangedDelegate OnPropertyEditorChanged;
 
-		#endregion
+  #endregion
 
-		public PropertyForm()
-		{
-			InitializeComponent();
-		}
+  public PropertyForm()
+  {
+    InitializeComponent();
+  }
 
-		private void PropertyEditor_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-		{
-			if (OnPropertyEditorChanged != null)
-			{
-				OnPropertyEditorChanged();
-			}
-		}
-	}
+  private void PropertyEditor_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+  {
+    if (OnPropertyEditorChanged != null)
+    {
+      OnPropertyEditorChanged();
+    }
+  }
 }

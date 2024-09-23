@@ -30,10 +30,10 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrationForm));
 			this.RegisterButton = new System.Windows.Forms.Button();
-			this.LicenseText = new LSDComponents.WaterMarkTextBox();
+			this.LicenseText = new TNT.LSD.Components.WaterMarkTextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.panelDetail = new LSDComponents.TNTPanel();
+			this.panelDetail = new TNT.LSD.Components.TNTPanel();
 			this.labelValidUntil = new System.Windows.Forms.Label();
 			this.labelIssuedTo = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -157,10 +157,10 @@
 
 		#endregion
 		private System.Windows.Forms.Button RegisterButton;
-		private LSDComponents.WaterMarkTextBox LicenseText;
+		private TNT.LSD.Components.WaterMarkTextBox LicenseText;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
-		private LSDComponents.TNTPanel panelDetail;
+		private TNT.LSD.Components.TNTPanel panelDetail;
 		private System.Windows.Forms.Label labelValidUntil;
 		private System.Windows.Forms.Label labelIssuedTo;
 		private System.Windows.Forms.Label label4;

@@ -32,7 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PalletTreeForm));
 			this.NodeImages = new System.Windows.Forms.ImageList(this.components);
 			this.NodeStateImages = new System.Windows.Forms.ImageList(this.components);
-			this.PaletteTreeView = new LSDComponents.PalletNodeTreeView(this.components);
+			this.PaletteTreeView = new TNT.LSD.Components.PalletNodeTreeView(this.components);
 			this.TreeViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.ExpandAllMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,7 +165,7 @@
 
 		#endregion
 
-		private LSDComponents.PalletNodeTreeView PaletteTreeView;
+		private TNT.LSD.Components.PalletNodeTreeView PaletteTreeView;
 		private System.Windows.Forms.ImageList NodeImages;
 		private System.Windows.Forms.ImageList NodeStateImages;
 		private System.Windows.Forms.Splitter splitter1;

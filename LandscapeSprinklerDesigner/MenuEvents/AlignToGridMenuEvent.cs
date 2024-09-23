@@ -1,26 +1,22 @@
-﻿using LandscapeSprinklerDesigner.Properties;
-using System;
+﻿namespace LandscapeSprinklerDesigner.MenuEvents;
 
-namespace LandscapeSprinklerDesigner.MenuEvents
+class AlignToGridMenuEvent : MenuEvent
 {
-	class AlignToGridMenuEvent : MenuEvent
-	{
-		public override string Text => Resources.menu_align_to_grid;
+  public override string Text => Resource.menu_align_to_grid;
 
-		public override string ToolTipText => Resources.menu_align_to_grid_tooltip;
+  public override string ToolTipText => Resource.menu_align_to_grid_tooltip;
 
-		public AlignToGridMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.align_to_grid.png"))
-		{
-		}
+  public AlignToGridMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.align_to_grid.png"))
+  {
+  }
 
-		public override void OnApplicationIdle(object sender, EventArgs e)
-		{
-			this.Enabled = CAD.SelectedObjects.Count > 0;
-		}
+  public override void OnApplicationIdle(object sender, EventArgs e)
+  {
+    this.Enabled = CAD.SelectedObjects.Count > 0;
+  }
 
-		public override void OnMouseClick(object sender, EventArgs e)
-		{
-			CAD.AlignToGrid();
-		}
-	}
+  public override void OnMouseClick(object sender, EventArgs e)
+  {
+    CAD.AlignToGrid();
+  }
 }

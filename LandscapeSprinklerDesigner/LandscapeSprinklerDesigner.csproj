@@ -1,362 +1,145 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EED253DB-047E-4B92-8C24-4D67ECACBC15}</ProjectGuid>
+		<!-- File Description -->
+		<ApplicationIcon>LandscapeSprinklerDesigner.ico</ApplicationIcon>
+		<AssemblyTitle>Landscape Sprinkler Designer</AssemblyTitle>
+		<Authors>Tripp'n Technology, LLC.</Authors>
+		<Company>$(Authors)</Company>
+		<Copyright>Copyright 2019 $(Authors)</Copyright>
+		<Description>$(AssemblyTitle)</Description>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LandscapeSprinklerDesigner</RootNamespace>
-    <AssemblyName>LandscapeSprinklerDesigner</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>LandscapeSprinklerDesigner.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;_DISABLE_SPLASH</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28PALETTE_PROPERTIES%29|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug %28PALETTE_PROPERTIES%29\</OutputPath>
-  </PropertyGroup>
+		<!-- Product Name -->
+		<Product>$(AssemblyTitle)</Product>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Title>$(AssemblyTitle)</Title>
+    <UseWindowsForms>true</UseWindowsForms>
+		<Version>4.0.0</Version>
+	</PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="TNT.Configuration, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Configuration.1.3.2\lib\net461\TNT.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Cryptography, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Cryptography.2.1.0\lib\netstandard2.0\TNT.Cryptography.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.LiveData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.LiveData.1.0.1\lib\netstandard2.0\TNT.LiveData.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Plugin.Manager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Plugin.Manager.1.1.0\lib\net462\TNT.Plugin.Manager.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.ToolStripItemManager, Version=1.5.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.ToolStripItemManager.1.5.2\lib\net472\TNT.ToolStripItemManager.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
-      <HintPath>..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
+    <None Remove="Images\align_to_grid.png" />
+    <None Remove="Images\application_key.png" />
+    <None Remove="Images\auto_size.png" />
+    <None Remove="Images\calculate_area.png" />
+    <None Remove="Images\calculate_distance.png" />
+    <None Remove="Images\circle.png" />
+    <None Remove="Images\clone.png" />
+    <None Remove="Images\curve.png" />
+    <None Remove="Images\delete.png" />
+    <None Remove="Images\hand.png" />
+    <None Remove="Images\label_heads.png" />
+    <None Remove="Images\layout_settings.png" />
+    <None Remove="Images\legend.png" />
+    <None Remove="Images\line.png" />
+    <None Remove="Images\move_to_back.png" />
+    <None Remove="Images\move_to_front.png" />
+    <None Remove="Images\new.png" />
+    <None Remove="Images\open.png" />
+    <None Remove="Images\parts_list.png" />
+    <None Remove="Images\parts_palette.png" />
+    <None Remove="Images\polyline.png" />
+    <None Remove="Images\properties.png" />
+    <None Remove="Images\rectangle.png" />
+    <None Remove="Images\rotate_180.png" />
+    <None Remove="Images\rotate_left.png" />
+    <None Remove="Images\rotate_right.png" />
+    <None Remove="Images\save.png" />
+    <None Remove="Images\show_coverage.png" />
+    <None Remove="Images\show_distance.png" />
+    <None Remove="Images\show_grid.png" />
+    <None Remove="Images\show_landscape.png" />
+    <None Remove="Images\show_parts.png" />
+    <None Remove="Images\snap_to_grid.png" />
+    <None Remove="Images\space_equally.png" />
+    <None Remove="Images\sum_gpm.png" />
+    <None Remove="Images\text.png" />
+    <None Remove="Images\undo.png" />
+    <None Remove="splash.png" />
   </ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
+    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
+    <PackageReference Include="TNT.Cryptography" Version="3.0.0" />
+    <PackageReference Include="TNT.LiveData" Version="2.0.0" />
+    <PackageReference Include="TNT.ToolStripItemManager" Version="2.0.2" />
+    <PackageReference Include="TNT.Utilities" Version="2.1.1" />
+  </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Debouncer.cs" />
-    <Compile Include="DockableForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DockableForm.Designer.cs">
-      <DependentUpon>DockableForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Comparer\ListViewColumnSorter.cs" />
-    <Compile Include="Events\DrawCircleEvent.cs" />
-    <Compile Include="Events\DrawCurveEvent.cs" />
-    <Compile Include="Events\DrawEvent.cs" />
-    <Compile Include="Events\DrawLegendEvent.cs" />
-    <Compile Include="Events\DrawPolyEvent.cs" />
-    <Compile Include="Events\DrawRectangleEvent.cs" />
-    <Compile Include="Events\DrawLineEvent.cs" />
-    <Compile Include="Events\DrawSelectEvent.cs" />
-    <Compile Include="Events\DrawTextEvent.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Global.cs" />
-    <Compile Include="LayoutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LayoutForm.Designer.cs">
-      <DependentUpon>LayoutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LayoutSettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LayoutSettingsForm.Designer.cs">
-      <DependentUpon>LayoutSettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="License.cs" />
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MenuEvents\AlignToGridMenuEvent.cs" />
-    <Compile Include="MenuEvents\AutoSizeMenuEvent.cs" />
-    <Compile Include="MenuEvents\CalculateAreaMenuEvent.cs" />
-    <Compile Include="MenuEvents\CalculateDistanceMenuEvent.cs" />
-    <Compile Include="MenuEvents\CheckForUpdateMenuItem.cs" />
-    <Compile Include="MenuEvents\MoveToFrontMenuEvent.cs" />
-    <Compile Include="MenuEvents\DockMenuEvent.cs" />
-    <Compile Include="MenuEvents\CloneMenuEvent.cs" />
-    <Compile Include="MenuEvents\DeleteMenuEvent.cs" />
-    <Compile Include="MenuEvents\ExitMenuEvent.cs" />
-    <Compile Include="MenuEvents\LayoutSettingsEvent.cs" />
-    <Compile Include="MenuEvents\MenuEvent.cs" />
-    <Compile Include="MenuEvents\NewMenuEvent.cs" />
-    <Compile Include="MenuEvents\OpenMenuEvent.cs" />
-    <Compile Include="MenuEvents\PartsListMenuEvent.cs" />
-    <Compile Include="MenuEvents\PartsPaletteEvent.cs" />
-    <Compile Include="MenuEvents\PersistedMenuEvent.cs" />
-    <Compile Include="MenuEvents\PropertiesMenuEvent.cs" />
-    <Compile Include="MenuEvents\RegisterMenuEvent.cs" />
-    <Compile Include="MenuEvents\Rotate180MenuEvent.cs" />
-    <Compile Include="MenuEvents\RotateRightMenuEvent.cs" />
-    <Compile Include="MenuEvents\RotateLeftMenuEvent.cs" />
-    <Compile Include="MenuEvents\RotateMenuEvent.cs" />
-    <Compile Include="MenuEvents\SaveAsMenuEvent.cs" />
-    <Compile Include="MenuEvents\SaveMenuEvent.cs" />
-    <Compile Include="MenuEvents\SelectAllMenuEvent.cs" />
-    <Compile Include="MenuEvents\LabelHeadsMenuEvent.cs" />
-    <Compile Include="MenuEvents\MoveToBackMenuEvent.cs" />
-    <Compile Include="MenuEvents\ShowLandscapeMenuEvent.cs" />
-    <Compile Include="MenuEvents\ShowCoverageMenuEvent.cs" />
-    <Compile Include="MenuEvents\ShowDistanceMenuEvent.cs" />
-    <Compile Include="MenuEvents\ShowGridMenuEvent.cs" />
-    <Compile Include="MenuEvents\ShowPartsMenuEvent.cs" />
-    <Compile Include="MenuEvents\SnapToGridMenuEvent.cs" />
-    <Compile Include="MenuEvents\SpaceEquallyMenuEvent.cs" />
-    <Compile Include="MenuEvents\SumGPMMenuEvent.cs" />
-    <Compile Include="MenuEvents\UndoMenuEvent.cs" />
-    <Compile Include="NewLayoutDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NewLayoutDialog.Designer.cs">
-      <DependentUpon>NewLayoutDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PalletTreeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PalletTreeForm.Designer.cs">
-      <DependentUpon>PalletTreeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PartsListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PartsListForm.Designer.cs">
-      <DependentUpon>PartsListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PDFForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PDFForm.Designer.cs">
-      <DependentUpon>PDFForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+    <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+		<EmbeddedResource Include="Images\align_to_grid.png" />
+		<EmbeddedResource Include="Images\application_key.png" />
+		<EmbeddedResource Include="Images\auto_size.png" />
+		<EmbeddedResource Include="Images\calculate_area.png" />
+		<EmbeddedResource Include="Images\calculate_distance.png" />
+		<EmbeddedResource Include="Images\circle.png" />
+		<EmbeddedResource Include="Images\clone.png" />
+		<EmbeddedResource Include="Images\curve.png" />
+		<EmbeddedResource Include="Images\delete.png" />
+		<EmbeddedResource Include="Images\hand.png" />
+		<EmbeddedResource Include="Images\label_heads.png" />
+		<EmbeddedResource Include="Images\layout_settings.png" />
+		<EmbeddedResource Include="Images\legend.png" />
+		<EmbeddedResource Include="Images\line.png" />
+		<EmbeddedResource Include="Images\move_to_back.png" />
+		<EmbeddedResource Include="Images\move_to_front.png" />
+		<EmbeddedResource Include="Images\new.png" />
+		<EmbeddedResource Include="Images\open.png" />
+		<EmbeddedResource Include="Images\parts_list.png" />
+		<EmbeddedResource Include="Images\parts_palette.png" />
+		<EmbeddedResource Include="Images\polyline.png" />
+		<EmbeddedResource Include="Images\properties.png" />
+		<EmbeddedResource Include="Images\rectangle.png" />
+		<EmbeddedResource Include="Images\rotate_180.png" />
+		<EmbeddedResource Include="Images\rotate_left.png" />
+		<EmbeddedResource Include="Images\rotate_right.png" />
+		<EmbeddedResource Include="Images\save.png" />
+		<EmbeddedResource Include="Images\show_coverage.png" />
+		<EmbeddedResource Include="Images\show_distance.png" />
+		<EmbeddedResource Include="Images\show_grid.png" />
+		<EmbeddedResource Include="Images\show_landscape.png" />
+		<EmbeddedResource Include="Images\show_parts.png" />
+		<EmbeddedResource Include="Images\snap_to_grid.png" />
+		<EmbeddedResource Include="Images\space_equally.png" />
+		<EmbeddedResource Include="Images\sum_gpm.png" />
+		<EmbeddedResource Include="Images\text.png" />
+		<EmbeddedResource Include="Images\undo.png" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PropertyForm.Designer.cs">
-      <DependentUpon>PropertyForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RegistrationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RegistrationForm.Designer.cs">
-      <DependentUpon>RegistrationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Splash.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Splash.Designer.cs">
-      <DependentUpon>Splash.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tags\DrawingModeTag.cs" />
-    <Compile Include="Tags\Tag.cs" />
-    <Compile Include="UpdateInformation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UpdateInformation.Designer.cs">
-      <DependentUpon>UpdateInformation.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DockableForm.resx">
-      <DependentUpon>DockableForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Images\legend.png" />
-    <EmbeddedResource Include="LayoutForm.resx">
-      <DependentUpon>LayoutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LayoutSettingsForm.resx">
-      <DependentUpon>LayoutSettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NewLayoutDialog.resx">
-      <DependentUpon>NewLayoutDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PalletTreeForm.resx">
-      <DependentUpon>PalletTreeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PartsListForm.resx">
-      <DependentUpon>PartsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PDFForm.resx">
-      <DependentUpon>PDFForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertyForm.resx">
-      <DependentUpon>PropertyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RegistrationForm.resx">
-      <DependentUpon>RegistrationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Splash.resx">
-      <DependentUpon>Splash.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdateInformation.resx">
-      <DependentUpon>UpdateInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Lite.palette">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="lsd.palette">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
-      <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
-      <Name>TNT.LSD.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
-      <Project>{B263EC43-E5C1-45A3-80F0-AD5D07074CA2}</Project>
-      <Name>TNT.LSD.Inventory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
-      <Project>{d4b61895-b09b-4419-8e7e-baffe837bcf3}</Project>
-      <Name>TNT.LSD.Objects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj">
-      <Project>{961D2654-5B63-4867-92A3-934A16324F66}</Project>
-      <Name>TNT.LSD.PDFGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
-      <Project>{71f545a4-cfba-4307-8371-3d3de3b71750}</Project>
-      <Name>TNT.LSD.Settings</Name>
-    </ProjectReference>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Images\circle.png" />
-    <EmbeddedResource Include="Images\curve.png" />
-    <EmbeddedResource Include="Images\hand.png" />
-    <EmbeddedResource Include="Images\line.png" />
-    <EmbeddedResource Include="Images\polyline.png" />
-    <EmbeddedResource Include="Images\rectangle.png" />
-    <EmbeddedResource Include="Images\text.png" />
-    <EmbeddedResource Include="Images\new.png" />
-    <EmbeddedResource Include="Images\show_grid.png" />
-    <EmbeddedResource Include="Images\open.png" />
-    <EmbeddedResource Include="Images\save.png" />
-    <EmbeddedResource Include="Images\undo.png" />
-    <EmbeddedResource Include="Images\delete.png" />
-    <EmbeddedResource Include="Images\clone.png" />
-    <EmbeddedResource Include="Images\properties.png" />
-    <EmbeddedResource Include="Images\parts_list.png" />
-    <EmbeddedResource Include="Images\parts_palette.png" />
-    <EmbeddedResource Include="Images\layout_settings.png" />
-    <EmbeddedResource Include="Images\label_heads.png" />
-    <EmbeddedResource Include="Images\show_distance.png" />
-    <EmbeddedResource Include="Images\show_coverage.png" />
-    <EmbeddedResource Include="Images\show_parts.png" />
-    <EmbeddedResource Include="Images\snap_to_grid.png" />
-    <EmbeddedResource Include="Images\move_to_back.png" />
-    <EmbeddedResource Include="Images\move_to_front.png" />
-    <EmbeddedResource Include="Images\align_to_grid.png" />
-    <EmbeddedResource Include="Images\auto_size.png" />
-    <EmbeddedResource Include="Images\space_equally.png" />
-    <EmbeddedResource Include="Images\calculate_area.png" />
-    <EmbeddedResource Include="Images\calculate_distance.png" />
-    <EmbeddedResource Include="Images\rotate_180.png" />
-    <EmbeddedResource Include="Images\rotate_left.png" />
-    <EmbeddedResource Include="Images\rotate_right.png" />
-    <EmbeddedResource Include="Images\sum_gpm.png" />
-    <EmbeddedResource Include="Images\show_landscape.png" />
-    <EmbeddedResource Include="Images\application_key.png" />
-    <Content Include="LandscapeSprinklerDesigner.ico" />
-    <EmbeddedResource Include="splash.png" />
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="palette.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)Database\Inventory.sqlite" "$(TargetDir)"
-mkdir "$(TargetDir)\Transforms"
-copy "$(SolutionDir)LandscapeSprinklerDesigner\Transforms\*.*" "$(TargetDir)\Transforms\"
-		</PostBuildEvent>
-  </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(SolutionDir)Database\Inventory.sqlite&quot; &quot;$(TargetDir)&quot;" />
   </Target>
-  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+
 </Project>

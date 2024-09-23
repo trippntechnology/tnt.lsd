@@ -1,4 +1,6 @@
-﻿namespace LandscapeSprinklerDesigner.Events
+﻿using TNT.LSD.Components.DrawingModes;
+
+namespace LandscapeSprinklerDesigner.Events
 {
   class DrawCircleEvent : DrawEvent
 	{

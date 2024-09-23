@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LSDComponents.DrawingModes;
+﻿using TNT.LSD.Components.DrawingModes;
 
-namespace LandscapeSprinklerDesigner.Tags
+namespace LandscapeSprinklerDesigner.Tags;
+
+public class DrawingModeTag : Tag
 {
-	public class DrawingModeTag : Tag
-	{
-		public DrawingMode DrawingMode { get; set; }
-	}
+  public DrawingMode DrawingMode { get; set; }
 }

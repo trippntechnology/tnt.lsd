@@ -29,10 +29,10 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			LSDComponents.DrawingModes.SelectMode selectMode1 = new LSDComponents.DrawingModes.SelectMode();
+			TNT.LSD.Components.DrawingModes.SelectMode selectMode1 = new TNT.LSD.Components.DrawingModes.SelectMode();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LayoutForm));
-			this.tntPanel1 = new LSDComponents.TNTPanel();
-			this.CAD = new LSDComponents.TNTCAD();
+			this.tntPanel1 = new TNT.LSD.Components.TNTPanel();
+			this.CAD = new TNT.LSD.Components.TNTCAD();
 			this.CADContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.snaptogrid = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -72,7 +72,7 @@
 			this.CAD.SnapToGrid = true;
 			this.CAD.TabIndex = 4;
 			this.CAD.Text = "tntcad1";
-			this.CAD.OnObjectsSelected += new LSDComponents.ObjectsSelectedDelegate(this.CAD_OnObjectsSelected);
+			this.CAD.OnObjectsSelected += new TNT.LSD.Components.ObjectsSelectedDelegate(this.CAD_OnObjectsSelected);
 			this.CAD.TextChanged += new System.EventHandler(this.CAD_TextChanged);
 			// 
 			// CADContextMenu
@@ -184,8 +184,8 @@
 
 		#endregion
 
-		private LSDComponents.TNTPanel tntPanel1;
-		public LSDComponents.TNTCAD CAD;
+		private TNT.LSD.Components.TNTPanel tntPanel1;
+		public TNT.LSD.Components.TNTCAD CAD;
 		public System.Windows.Forms.ToolStripMenuItem aligntogrid;
 		public System.Windows.Forms.ToolStripMenuItem space;
 		public System.Windows.Forms.ContextMenuStrip CADContextMenu;

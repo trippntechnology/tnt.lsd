@@ -1,21 +1,20 @@
-﻿using LSDComponents.DrawingModes;
+﻿using TNT.LSD.Components.DrawingModes;
 
-namespace LandscapeSprinklerDesigner.Events
+namespace LandscapeSprinklerDesigner.Events;
+
+class DrawLegendEvent : DrawEvent
 {
-	class DrawLegendEvent : DrawEvent
-	{
-		private LegendMode legendMode = new LegendMode() { Layer = 1 };
+  private LegendMode legendMode = new LegendMode() { Layer = 1 };
 
-		public override DrawingMode DrawingMode => legendMode;
+  public override DrawingMode DrawingMode => legendMode;
 
-		public override string Text => "Draw legend";
+  public override string Text => "Draw legend";
 
-		public override string ToolTipText => "Draw a legend";
+  public override string ToolTipText => "Draw a legend";
 
-		public DrawLegendEvent()
-			: base(ResourceToImage("LandscapeSprinklerDesigner.Images.legend.png"))
-		{
+  public DrawLegendEvent()
+    : base(ResourceToImage("LandscapeSprinklerDesigner.Images.legend.png"))
+  {
 
-		}
-	}
+  }
 }

@@ -18,20 +18,20 @@ public class DALPartTests
 
     codes.Add("bogus");
 
-    Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(null).Count);
-    Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(new List<string>()).Count);
+    Assert.That(DAL.DALPart.GetPartsFromCodes(null).Count, Is.EqualTo(0));
+    Assert.That(DAL.DALPart.GetPartsFromCodes(new List<string>()).Count, Is.EqualTo(0));
 
     List<Part> parts = DAL.DALPart.GetPartsFromCodes(codes);
 
-    Assert.AreEqual(5, parts.Count);
+    Assert.That(parts.Count, Is.EqualTo(5));
 
     Part part = parts.Find(p => p.Code == "AF18004");
 
     Assert.IsNotNull(part);
-    Assert.AreEqual("AF18004", part.Code);
-    Assert.AreEqual("1\" QUAD. MANIFOLD", part.Description);
-    Assert.AreEqual("AF-18004", part.ExternalPart.Code);
-    Assert.AreEqual("QUAD. MANIFOLD", part.ExternalPart.Description);
+    Assert.That(part.Code, Is.EqualTo("AF18004"));
+    Assert.That(part.Description, Is.EqualTo("1\" QUAD. MANIFOLD"));
+    Assert.That(part.ExternalPart.Code, Is.EqualTo("AF-18004"));
+    Assert.That(part.ExternalPart.Description, Is.EqualTo("QUAD. MANIFOLD"));
   }
 
   [Test]
@@ -40,11 +40,11 @@ public class DALPartTests
     int currentRecordCount = GetPartsCount();
     Dictionary<string, Part> parts = DAL.DALPart.GetParts();
 
-    Assert.AreEqual(currentRecordCount, parts.Count);
+    Assert.That(parts.Count, Is.EqualTo(currentRecordCount));
 
     foreach (string key in parts.Keys)
     {
-      Assert.AreEqual(key, parts[key].Code);
+      Assert.That(parts[key].Code, Is.EqualTo(key));
     }
   }
 
@@ -55,9 +55,9 @@ public class DALPartTests
 
     List<string> descriptions = DAL.DALPart.GetDescriptions(new List<string>(codes));
 
-    Assert.AreEqual("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[0]);
-    Assert.AreEqual("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[1]);
-    Assert.AreEqual("4\" RAINBIRD 1800 POP-UP", descriptions[2]);
+    Assert.That(descriptions[0], Is.EqualTo("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER"));
+    Assert.That(descriptions[1], Is.EqualTo("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER"));
+    Assert.That(descriptions[2], Is.EqualTo("4\" RAINBIRD 1800 POP-UP"));
   }
 
   #region Private

@@ -141,7 +141,7 @@ namespace TNT.LSD.Settings
     #endregion
 
     [Browsable(false)]
-    virtual public List<Part> StaticParts { get; set; }
+    virtual public List<Part> StaticParts { get; set; } = new List<Part>();
 
     virtual protected void DrawLayers(int startLayer)
     {
