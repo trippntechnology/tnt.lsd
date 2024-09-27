@@ -150,7 +150,7 @@ public class TNTCADState
     CAD = parent;
     ObjectLayers = new ObjectListList();
 
-    Settings = AppSettingsUtils.DeserializeSection<LSDSettings>("appsettings.json", "CAD");
+    Settings = AppSettingsUtils.DeserializeSection<LSDSettings>("appsettings.json", "LSDSettings");
 
     if (Settings != null)
     {
