@@ -249,9 +249,9 @@ namespace TNT.LSD.Objects
       }
     }
 
-    public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys)
+    public override TNTObject? MouseOver(Point mousePosition, Keys modifierKeys)
     {
-      TNTObject isOver = null;
+      TNTObject? isOver = null;
 
       GraphicsPath path = new GraphicsPath();
       Rectangle rect = new Rectangle(ControlPoints[0].XPos - m_Image.Width / 2, ControlPoints[0].YPos - m_Image.Height / 2, m_Image.Width, m_Image.Height);

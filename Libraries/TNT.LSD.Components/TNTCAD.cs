@@ -992,12 +992,13 @@ public partial class TNTCAD : Control
   public string Serialize()
   {
     Repaint();
-    return Utilities.Utilities.Serialize<TNTCADState>(m_State, ExpectedTypes);
+    return JsonUtilities.serializeObject(m_State);
   }
 
   public void Deserialize(string content)
   {
-    TNTCADState cadState = Utilities.Utilities.Deserialize<TNTCADState>(content, ExpectedTypes);
+    TNTCADState? cadState = JsonUtilities.deserializeJson<TNTCADState>(content);
+    if (cadState == null) return;
     cadState.CAD = this;
 
     // Reconcile object/events that weren't serialized.
@@ -1363,9 +1364,6 @@ public partial class TNTCAD : Control
 
     string content = Serialize();
 
-    XmlDocument doc = new XmlDocument();
-    doc.LoadXml(content);
-
     try
     {
       if ((showSaveFileDialog || string.IsNullOrEmpty(CurrentFileName)) && m_SaveFileDialog.ShowDialog() == DialogResult.OK)
@@ -1377,18 +1375,18 @@ public partial class TNTCAD : Control
       {
         if (Path.GetExtension(CurrentFileName) == ".lsd")
         {
-          doc.Save(CurrentFileName);
+          File.WriteAllText(CurrentFileName, content);
           wasSaved = true;
         }
         else if (Path.GetExtension(CurrentFileName) == ".lsdx")
         {
           using (ZipFile zipFile = new ZipFile(CurrentFileName))
           {
-            if (zipFile["LSD.xml"] != null)
+            if (zipFile["LSD.json"] != null)
             {
-              zipFile.RemoveEntry("LSD.xml");
+              zipFile.RemoveEntry("LSD.json");
             }
-            zipFile.AddEntry("LSD.xml", doc.InnerXml);
+            zipFile.AddEntry("LSD.json", content);
             zipFile.Save();
           }
           wasSaved = true;
@@ -1420,19 +1418,18 @@ public partial class TNTCAD : Control
       return;
     }
 
-    XmlDocument doc = new XmlDocument();
-
+    string content = "";
     CurrentFileName = fileName;
 
     if (Path.GetExtension(CurrentFileName) == ".lsd")
     {
-      doc.Load(CurrentFileName);
+      content = File.ReadAllText(CurrentFileName);
     }
     else if (Path.GetExtension(CurrentFileName) == ".lsdx")
     {
       using (ZipFile zipFile = ZipFile.Read(CurrentFileName))
       {
-        ZipEntry zipEntry = zipFile["LSD.xml"];
+        ZipEntry zipEntry = zipFile["LSD.json"];
 
         using (var ms = new MemoryStream())
         using (var sr = new StreamReader(ms))
@@ -1440,13 +1437,12 @@ public partial class TNTCAD : Control
           zipEntry.Extract(ms);
           ms.Position = 0;
           var myStr = sr.ReadToEnd();
-          doc.LoadXml(myStr);
+          content = myStr;
         }
       }
     }
 
-    doc = ApplyTransformations(doc);
-    Deserialize(doc.InnerXml);
+    Deserialize(content);
   }
 
   #endregion

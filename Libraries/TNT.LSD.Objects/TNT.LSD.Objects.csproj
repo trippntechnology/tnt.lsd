@@ -23,6 +23,29 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Cursors\AddCurve.cur" />
+	  <EmbeddedResource Include="Cursors\AddPoint.cur" />
+	  <EmbeddedResource Include="Cursors\Circle.cur" />
+	  <EmbeddedResource Include="Cursors\Cursors.icl" />
+	  <EmbeddedResource Include="Cursors\Curve.cur" />
+	  <EmbeddedResource Include="Cursors\LatPipe.cur" />
+	  <EmbeddedResource Include="Cursors\Line.cur" />
+	  <EmbeddedResource Include="Cursors\MainPipe.cur" />
+	  <EmbeddedResource Include="Cursors\MovePoint.cur" />
+	  <EmbeddedResource Include="Cursors\No_LatPipe.cur" />
+	  <EmbeddedResource Include="Cursors\No_MainPipe.cur" />
+	  <EmbeddedResource Include="Cursors\PolyLine.cur" />
+	  <EmbeddedResource Include="Cursors\Rectangle.cur" />
+	  <EmbeddedResource Include="Cursors\RemovePoint.cur" />
+	  <EmbeddedResource Include="Cursors\Rotate.cur" />
+	  <EmbeddedResource Include="Cursors\Select.cur" />
+	  <EmbeddedResource Include="Cursors\Text.cur" />
+	  <EmbeddedResource Include="Images\BezierControlPoint.png" />
+	  <EmbeddedResource Include="Images\CornerControlPoint.png" />
+	  <EmbeddedResource Include="Images\SideControlPoint.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="TNT.Math" Version="2.0.0" />
 		<PackageReference Include="tnt.reflection" Version="2.0.0" />
 		<PackageReference Include="TNT.Utilities" Version="2.1.1" />

@@ -14,12 +14,12 @@ namespace TNT.LSD.Settings
     [Category("\t\t\tOwner")]
     [DisplayName("Design Number")]
     [Description("Indicates the design number.")]
-    public virtual string Number { get; set; }
+    public virtual string Number { get; set; } = string.Empty;
 
     [PropertyReflectorAttribute()]
     [Category("\t\t\tOwner")]
     [Description("Name of the property owner.")]
-    public virtual string Name { get; set; }
+    public virtual string Name { get; set; } = string.Empty;
 
     [PropertyReflectorAttribute()]
     [Category("\t\t\tOwner")]
@@ -51,7 +51,7 @@ namespace TNT.LSD.Settings
     [Category("\t\t\tOwner")]
     [DisplayName("eMail Address")]
     [Description("Owner's email address.")]
-    public virtual string EmailAddress { get; set; }
+    public virtual string EmailAddress { get; set; } = string.Empty;
 
     #endregion
 
@@ -122,7 +122,7 @@ namespace TNT.LSD.Settings
     [Category("\tMisc")]
     [Description("Additional comments")]
     [Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(UITypeEditor))]
-    public virtual string Comment { get; set; }
+    public virtual string Comment { get; set; } = string.Empty;
 
     [Category("Part Options")]
     [DisplayName("Show External Codes")]

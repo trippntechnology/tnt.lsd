@@ -90,9 +90,9 @@ namespace TNT.LSD.Objects
     /// <param name="mousePosition">Position of mouse</param>
     /// <param name="modifierKeys">Modifier keys</param>
     /// <returns>Control point that is under the mouse position if exists</returns>
-    virtual protected TNTControlPoint GetControlPoint(Point mousePosition, Keys modifierKeys)
+    virtual protected TNTControlPoint? GetControlPoint(Point mousePosition, Keys modifierKeys)
     {
-      TNTControlPoint cp = null;
+      TNTControlPoint? cp = null;
 
       foreach (TNTControlPoint tmpCP in ControlPoints)
       {
@@ -430,7 +430,7 @@ namespace TNT.LSD.Objects
     /// <param name="mousePosition">Mouse position</param>
     /// <param name="modifierKeys">Modifier keys</param>
     /// <returns>Object under mouse if exists, null otherwise</returns>
-    abstract public TNTObject MouseOver(Point mousePosition, Keys modifierKeys);
+    abstract public TNTObject? MouseOver(Point mousePosition, Keys modifierKeys);
     abstract public TNTObject Clone();
     /// <summary>
     /// Imlement to check whether object is with rectangle

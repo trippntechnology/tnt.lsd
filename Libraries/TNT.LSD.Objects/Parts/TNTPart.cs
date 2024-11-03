@@ -104,7 +104,7 @@ namespace TNT.LSD.Objects
     /// <summary>
     /// Not implemented
     /// </summary>
-    public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys) => throw new NotImplementedException();
+    public override TNTObject? MouseOver(Point mousePosition, Keys modifierKeys) => throw new NotImplementedException();
 
     /// <summary>
     /// Added to prevent call from subclass to base class
