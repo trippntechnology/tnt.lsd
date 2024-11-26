@@ -1,6 +1,6 @@
-﻿using iText.Kernel.Events;
-using iText.Kernel.Geom;
+﻿using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Event;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
@@ -38,6 +38,10 @@ namespace TNT.LSD.PDFGenerator
         headerTbl.SetFixedPosition(headerRect.GetLeft(), headerRect.GetBottom(), headerRect.GetWidth());
         getCanvas(pdfPage, headerRect).Add(headerTbl);
       }
+
+      protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event)
+      {
+      }
     }
 
     class EndEventHandler(Document document, string applicationName, string copyright) : BaseEventHandler(document)
@@ -69,6 +73,10 @@ namespace TNT.LSD.PDFGenerator
         var footerRect = getFooterRect();
         footerTbl.SetFixedPosition(footerRect.GetLeft(), footerRect.GetTop() - getTableHeight(footerTbl, pageSize), footerRect.GetWidth());
         getCanvas(pdfPage, footerRect).Add(footerTbl);
+      }
+
+      protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event)
+      {
       }
     }
 

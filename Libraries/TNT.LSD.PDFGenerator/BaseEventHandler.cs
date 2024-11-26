@@ -1,7 +1,8 @@
-﻿using iText.Kernel.Events;
+﻿using iText.Commons.Actions;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Event;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -9,11 +10,12 @@ using iText.Layout.Renderer;
 
 namespace TNT.LSD.PDFGenerator;
 
-public abstract class BaseEventHandler(Document document) : IEventHandler
+public abstract class BaseEventHandler(Document document) : AbstractPdfDocumentEventHandler
 {
   protected readonly Document document = document;
 
-  public virtual void HandleEvent(Event @event)
+
+  public void onEvent(IEvent @event)
   {
     PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
     HandleEvent(docEvent, docEvent.GetPage(), docEvent.GetDocument());

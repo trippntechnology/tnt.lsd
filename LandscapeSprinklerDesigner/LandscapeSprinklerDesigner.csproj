@@ -72,6 +72,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
     <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+    <ProjectReference Include="..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

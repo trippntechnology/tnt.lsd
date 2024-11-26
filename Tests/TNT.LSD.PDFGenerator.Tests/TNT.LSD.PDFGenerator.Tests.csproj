@@ -15,10 +15,6 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj" />
     <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
     <ProjectReference Include="..\..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
