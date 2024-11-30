@@ -16,8 +16,10 @@ namespace TNT.LSD.PDFGenerator
   {
     class StartEventHandler(Document document, Content content) : BaseEventHandler(document)
     {
-      protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument)
+      protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage? pdfPage, PdfDocument pdfDocument)
       {
+        if (pdfPage == null) return;
+
         Table headerTbl = new Table(2);
         var bottomBorder = new SolidBorder(iTextColors.ColorConstants.RED, 2f);
 
@@ -46,8 +48,10 @@ namespace TNT.LSD.PDFGenerator
 
     class EndEventHandler(Document document, string applicationName, string copyright) : BaseEventHandler(document)
     {
-      protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument)
+      protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage? pdfPage, PdfDocument pdfDocument)
       {
+        if (pdfPage == null) return;
+
         PageSize pageSize = pdfDocument.GetDefaultPageSize();
         Table footerTbl = new Table(new float[] { 6f, 1, 6f });
         var topBorder = new SolidBorder(iTextColors.ColorConstants.BLUE, 2f);

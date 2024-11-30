@@ -14,14 +14,13 @@ public abstract class BaseEventHandler(Document document) : AbstractPdfDocumentE
 {
   protected readonly Document document = document;
 
-
-  public void onEvent(IEvent @event)
+  override public void OnEvent(IEvent @event)
   {
     PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
     HandleEvent(docEvent, docEvent.GetPage(), docEvent.GetDocument());
   }
 
-  protected abstract void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage pdfPage, PdfDocument pdfDocument);
+  protected abstract void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage? pdfPage, PdfDocument pdfDocument);
 
   protected iText.Kernel.Geom.Rectangle getHeaderRect()
   {
