@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using TNT.Commons;
 using TNT.Cryptography;
 using TNT.LiveData;
 using TNT.Utilities;
@@ -81,5 +82,14 @@ public static class Global
       Debug.WriteLine(ex.Message);
       MessageBox.Show(owner, "The update server is unavailable. Please verify you're connected to the internet and try again.", "Update Server Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
     }
+  }
+
+  public static string getVersion()
+  {
+    return Assembly.GetExecutingAssembly().GetName().Version?.let(version =>
+    {
+      var values = version.ToString().Split('.').Take(3);
+      return String.Join(".", values);
+    }) ?? "0.0.0";
   }
 }

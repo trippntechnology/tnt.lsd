@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using TNT.Commons;
 
 namespace LandscapeSprinklerDesigner;
 
@@ -14,7 +14,7 @@ public partial class Splash : Form
     Width = BackgroundImage?.Width ?? 100;
     Height = BackgroundImage?.Height ?? 100;
 
-    m_Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
+    m_Version = Global.getVersion();
   }
 
   public void ShowAsSplash()
@@ -104,13 +104,13 @@ public partial class Splash : Form
 
   private void Splash_Load(object sender, EventArgs e)
   {
-    UpdateFormDisplay(this.BackgroundImage);
+    this.BackgroundImage?.also(image => UpdateFormDisplay(image));
   }
 
   private void Splash_Paint(object sender, PaintEventArgs e)
   {
     //Call our drawing function
-    UpdateFormDisplay(this.BackgroundImage);
+    this.BackgroundImage?.also(image => UpdateFormDisplay(image));
   }
 
   private void Splash_MouseDown(object sender, MouseEventArgs e)
