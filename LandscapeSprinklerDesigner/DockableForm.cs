@@ -12,7 +12,8 @@ namespace LandscapeSprinklerDesigner
 {
 	public partial class DockableForm : DockContent
 	{
-		public ToolStripMenuItem ViewMenuItem { get; set; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public ToolStripMenuItem ViewMenuItem { get; set; }
 
 		public DockableForm()
 		{

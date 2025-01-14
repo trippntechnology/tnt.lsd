@@ -1,6 +1,7 @@
 ﻿using LandscapeSprinklerDesigner.Events;
 using LandscapeSprinklerDesigner.MenuEvents;
 using Microsoft.Win32;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using TNT.LSD.Components;
@@ -43,6 +44,7 @@ public partial class Main : Form
 
   #endregion
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public Splash SplashForm { get; set; }
 
   public Main()

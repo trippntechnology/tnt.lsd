@@ -1,4 +1,5 @@
-﻿using TNT.LSD.Components;
+﻿using System.ComponentModel;
+using TNT.LSD.Components;
 
 namespace LandscapeSprinklerDesigner;
 
@@ -10,6 +11,7 @@ public partial class PalletTreeForm : DockableForm
 
   #region Events
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public PalletNodeTagSelectedEvent PalletNodeTagSelected { get; set; }
 
   #endregion

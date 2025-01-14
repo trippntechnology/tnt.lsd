@@ -1,4 +1,6 @@
-﻿namespace LandscapeSprinklerDesigner;
+﻿using System.ComponentModel;
+
+namespace LandscapeSprinklerDesigner;
 
 public delegate void PropertyEditorChangedDelegate();
 
@@ -6,6 +8,7 @@ public partial class PropertyForm : DockableForm
 {
   #region Properties
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public object SelectedObject
   {
     set
@@ -23,6 +26,7 @@ public partial class PropertyForm : DockableForm
     }
   }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public object[] SelectedObjects
   {
     set

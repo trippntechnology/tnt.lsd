@@ -12,12 +12,12 @@
 		<Nullable>enable</Nullable>
 		<!-- Product Name -->
 		<Product>$(AssemblyTitle)</Product>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<Version>2.0.0</Version>
 	</PropertyGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="mkdir $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\net8.0-windows\plugins;&#xD;&#xA;copy $(TargetPath) $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\net8.0-windows\plugins;" />
+		<Exec Command="call $(SolutionDir)Plugins\CopyPlugin.bat TNT.LSD.SSC.dll $(TargetDir) $(SolutionDir)LandscapeSprinklerDesigner\bin\$(ConfigurationName)\net9.0-windows\plugins" />
 	</Target>
 
 	<ItemGroup>

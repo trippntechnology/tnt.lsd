@@ -1,4 +1,5 @@
-﻿using TNT.LSD.Components.DrawingModes;
+﻿using System.ComponentModel;
+using TNT.LSD.Components.DrawingModes;
 using TNT.LSD.Objects;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -18,8 +19,10 @@ public partial class LayoutForm : DockContent
 
   #region Properties
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public new LayoutOnKeyUpEventHandler OnKeyUp { get; set; }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public PropertyForm PropertyForm
   {
     get { return m_PropertyForm; }
@@ -30,6 +33,7 @@ public partial class LayoutForm : DockContent
     }
   }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public LayoutSettingsForm LayoutSettingsForm
   {
     get { return m_LayoutSettingsForm; }
@@ -41,6 +45,7 @@ public partial class LayoutForm : DockContent
     }
   }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public ToolStripStatusLabel StatusLabel
   {
     set
