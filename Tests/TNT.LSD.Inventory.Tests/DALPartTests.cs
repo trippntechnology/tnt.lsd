@@ -27,7 +27,7 @@ public class DALPartTests
 
     Part part = parts.Find(p => p.Code == "AF18004");
 
-    Assert.IsNotNull(part);
+    Assert.That(part, Is.Not.Null);
     Assert.That(part.Code, Is.EqualTo("AF18004"));
     Assert.That(part.Description, Is.EqualTo("1\" QUAD. MANIFOLD"));
     Assert.That(part.ExternalPart.Code, Is.EqualTo("AF-18004"));

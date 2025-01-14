@@ -201,6 +201,7 @@ public partial class TNTCAD : Control
     }
   }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public DrawingMode DrawingMode
   {
     get { return m_DrawingMode; }
@@ -266,6 +267,7 @@ public partial class TNTCAD : Control
   }
 
   [JsonIgnore]
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public bool ShowPartsToolTip { get; set; }
 
   [JsonIgnore]
@@ -277,6 +279,7 @@ public partial class TNTCAD : Control
 
   internal UndoActionStack UndoActions { get { return m_UndoActions; } }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public string CurrentFileName
   {
     get { return m_CurrentFileName; }
@@ -291,6 +294,7 @@ public partial class TNTCAD : Control
     }
   }
 
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public bool DrawBackground
   {
     get { return _DrawBackground; }

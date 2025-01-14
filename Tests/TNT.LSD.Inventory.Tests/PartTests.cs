@@ -9,11 +9,11 @@ public class PartTests
   public void Constructor()
   {
     var part = new Part();
-    Assert.IsNull(part.Code);
-    Assert.IsNull(part.Description);
-    Assert.AreEqual(0, part.Quantity);
-    Assert.AreEqual(false, part.Glueable);
-    Assert.IsNull(part.ExternalPart);
+    Assert.That(part.Code, Is.Null);
+    Assert.That(part.Description, Is.Null);
+    Assert.That(part.Quantity, Is.EqualTo(0));
+    Assert.That(part.Glueable, Is.False);
+    Assert.That(part.ExternalPart, Is.Null);
   }
 
   [Test]
@@ -34,13 +34,13 @@ public class PartTests
 
     var sut = new Part(part);
 
-    Assert.AreEqual("code", part.Code);
-    Assert.AreEqual("description", part.Description);
-    Assert.AreEqual(7, part.Quantity);
-    Assert.AreEqual(true, part.Glueable);
-    Assert.IsNotNull(part.ExternalPart);
-    Assert.AreEqual("excode", part.ExternalPart.Code);
-    Assert.AreEqual("exdescription", part.ExternalPart.Description);
+    Assert.That(part.Code, Is.EqualTo("code"));
+    Assert.That(part.Description, Is.EqualTo("description"));
+    Assert.That(part.Quantity, Is.EqualTo(7));
+    Assert.That(part.Glueable, Is.True);
+    Assert.That(part.ExternalPart, Is.Not.Null);
+    Assert.That(part.ExternalPart.Code, Is.EqualTo("excode"));
+    Assert.That(part.ExternalPart.Description, Is.EqualTo("exdescription"));
   }
 
   [Test]
@@ -58,6 +58,6 @@ public class PartTests
       }
     };
 
-    Assert.AreEqual("(7) code: description", part.ToString());
+    Assert.That(part.ToString(), Is.EqualTo("(7) code: description"));
   }
 }

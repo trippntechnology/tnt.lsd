@@ -10,6 +10,7 @@ public partial class WaterMarkTextBox : TextBox
   private string _WaterMarkText { get; set; }
 
   [Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(UITypeEditor))]
+  [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
   public string WaterMarkText
   {
     get { return _WaterMarkText; }

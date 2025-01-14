@@ -4,6 +4,7 @@ using System.Reflection;
 using TNT.LSD.Components;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
+using System.ComponentModel;
 
 namespace PalletDesigner
 {
@@ -19,6 +20,7 @@ namespace PalletDesigner
 
     #region Properties
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string CurrentFileName
     {
       get

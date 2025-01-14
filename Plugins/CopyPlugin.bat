@@ -15,6 +15,3 @@ set destinationPath=%destinationDir%\%library%
 REM Copy the source file to the destination
 echo Copying %sourcePath% %destinationPath%
 copy %sourcePath% %destinationPath% >nul
-
-
-echo File copied successfully.

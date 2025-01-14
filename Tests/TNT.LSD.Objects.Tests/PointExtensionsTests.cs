@@ -207,7 +207,7 @@ namespace TNTObjectsTests
       }
       catch (ArgumentException ae)
       {
-        Assert.IsTrue(ae is ArgumentException);
+        Assert.That(ae is ArgumentException, Is.True);
         Assert.That(ae.Message, Is.EqualTo("Points array must contain at least one point."));
       }
 
