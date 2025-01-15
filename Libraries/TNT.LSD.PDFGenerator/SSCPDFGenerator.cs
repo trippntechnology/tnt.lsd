@@ -118,6 +118,8 @@ public class SSCPDFGenerator : PDFGenerator
 
       CreatePartsListing(document, content.Parts);
 
+      document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
       if (content.Design == null) return;
 
       Font font = new System.Drawing.Font("Arial", 8);
@@ -135,6 +137,8 @@ public class SSCPDFGenerator : PDFGenerator
       graphics.DrawString(disclaimer, font, new SolidBrush(Color.Black), new RectangleF(new PointF(0, content.Design.Height), size));
 
       CreateImagePage(document, image);
+
+      document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
       if (content.Coverage != null)
       {

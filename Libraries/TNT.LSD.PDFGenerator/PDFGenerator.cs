@@ -6,6 +6,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Drawing.Imaging;
 using System.Reflection;
+using TNT.Commons;
 using TNT.LSD.Inventory;
 using iTextBorder = iText.Layout.Borders.Border;
 using iTextColors = iText.Kernel.Colors;
@@ -166,7 +167,7 @@ public abstract class PDFGenerator
       image.SetRotationAngle(Math.PI / 2);
     }
 
-    document.Add(image);
+    document.Add(image.SetAutoScale(true));
   }
 
   protected void AddTableRow(Table table, List<string> values, int fontSize = ROW_FONT_SIZE) => AddTableRow(table, values, iTextColors.ColorConstants.WHITE, fontSize);
@@ -198,8 +199,17 @@ public abstract class PDFGenerator
     if (asm == null) return string.Empty;
     AssemblyDescriptionAttribute? ada = (AssemblyDescriptionAttribute)asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0];
     var title = ada.Description;
-    var version = asm.GetName().Version;
-    return version != null ? $"{title} ({version?.ToString()})" : string.Empty;
+    var version = getVersion();
+    return version != null ? $"{title} ({version})" : string.Empty;
+  }
+
+  private string getVersion()
+  {
+    return Assembly.GetEntryAssembly()?.GetName().Version?.let(version =>
+    {
+      var values = version.ToString().Split('.').Take(3);
+      return String.Join(".", values);
+    }) ?? "0.0.0";
   }
 
   /// <summary>

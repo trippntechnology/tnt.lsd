@@ -60,7 +60,7 @@ namespace TNT.LSD.PDFGenerator.Tests
         });
       }
 
-      content.Design = Image.FromFile("70_80.jpg");
+      content.Design = Image.FromFile("Test.jpg");
 
       pdfGenerator.Generate(fileName, content);
 
