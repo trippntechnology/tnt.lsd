@@ -1,5 +1,4 @@
-﻿using Ionic.Zip;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -10,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Xsl;
+using TNT.Commons;
 using TNT.LSD.Components.DrawingModes;
 using TNT.LSD.Inventory;
 using TNT.LSD.Inventory.DAL;
@@ -34,6 +34,8 @@ public delegate void FileNameChanged(string fileName);
 
 public partial class TNTCAD : Control
 {
+  private const string ARCHIVE_ENTRY_NAME = "LSD.json";
+
   #region Members
 
   Type[] m_ExpectedTypes = null;
@@ -1384,15 +1386,7 @@ public partial class TNTCAD : Control
         }
         else if (Path.GetExtension(CurrentFileName) == ".lsdx")
         {
-          using (ZipFile zipFile = new ZipFile(CurrentFileName))
-          {
-            if (zipFile["LSD.json"] != null)
-            {
-              zipFile.RemoveEntry("LSD.json");
-            }
-            zipFile.AddEntry("LSD.json", content);
-            zipFile.Save();
-          }
+          ZipUtils.ArchiveString(content, ARCHIVE_ENTRY_NAME, CurrentFileName);
           wasSaved = true;
         }
         else
@@ -1431,19 +1425,7 @@ public partial class TNTCAD : Control
     }
     else if (Path.GetExtension(CurrentFileName) == ".lsdx")
     {
-      using (ZipFile zipFile = ZipFile.Read(CurrentFileName))
-      {
-        ZipEntry zipEntry = zipFile["LSD.json"];
-
-        using (var ms = new MemoryStream())
-        using (var sr = new StreamReader(ms))
-        {
-          zipEntry.Extract(ms);
-          ms.Position = 0;
-          var myStr = sr.ReadToEnd();
-          content = myStr;
-        }
-      }
+      content = ZipUtils.ExtractString(ARCHIVE_ENTRY_NAME, CurrentFileName) ?? string.Empty;
     }
 
     Deserialize(content);
