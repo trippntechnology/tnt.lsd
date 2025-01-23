@@ -1,9 +1,11 @@
 ﻿using LandscapeSprinklerDesigner.Events;
 using LandscapeSprinklerDesigner.MenuEvents;
+using LandscapeSprinklerDesigner.Utils;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using TNT.Commons;
 using TNT.LSD.Components;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
@@ -24,8 +26,8 @@ public partial class Main : Form
   private PartsListForm m_PartsListForm = new PartsListForm();
   private PalletTreeForm m_PalletForm = new PalletTreeForm();
   private LayoutSettingsForm m_LayoutSettingsForm = new LayoutSettingsForm();
-  private PDFForm m_PDFForm = null;
-  private List<DockContent> dockables = null;
+  private PDFForm? m_PDFForm = null;
+  private List<DockContent>? dockables = null;
 
   #endregion
 
@@ -35,7 +37,7 @@ public partial class Main : Form
   {
     get
     {
-      AssemblyTitleAttribute ata = Utilities.GetAssemblyAttribute<AssemblyTitleAttribute>(Assembly.GetExecutingAssembly());
+      AssemblyTitleAttribute? ata = Utilities.GetAssemblyAttribute<AssemblyTitleAttribute>(Assembly.GetExecutingAssembly());
       return ata != null ? ata.Title : string.Empty;
     }
   }
@@ -76,7 +78,7 @@ public partial class Main : Form
         }
         else
         {
-          DrawingGroupManager.Toggle();
+          DrawingGroupManager?.Toggle();
         }
       }
     };
@@ -92,7 +94,7 @@ public partial class Main : Form
 
     manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
 
-    Global.LicenseLive.Observe(license => LicensedMenuGroupManager.LicensedChanged(license?.ExpiresOn >= DateTime.Now));
+    LicenseUtil.saveLicense();
   }
 
   private void SetupLicenseGroupManager()
@@ -103,6 +105,15 @@ public partial class Main : Form
     LicensedMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
     LicensedMenuGroupManager.Create<CalculateAreaMenuEvent>(ToToolStripItemArray(AreaMenu, AreaButton, m_LayoutForm.area), externalObject: exObj);
     LicensedMenuGroupManager.Create<CalculateDistanceMenuEvent>(ToToolStripItemArray(LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance), externalObject: exObj);
+
+    LicenseUtil.getLicenseFlow().collect(license =>
+    {
+      var isLicensed = DateTimeOffset.Now < license?.ValidUntil;
+      System.Diagnostics.Debug.WriteLine($@"license: {license}
+isLicensed: {isLicensed}");
+
+      LicensedMenuGroupManager.LicensedChanged(false);
+    });
   }
 
   private void SetupMenuGroupManager()
@@ -141,26 +152,27 @@ public partial class Main : Form
 
   private bool IsLicensed(bool allowMessageBox, ToolStripItemGroup itemGroup)
   {
-    var license = Global.GetLicense();
-    var isLicensed = false;
+    var license = LicenseUtil.licenceFlow.value;
+    bool? isLicensed = license?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil);
+    Debug.WriteLine($"IsLicensed: {isLicensed}");
 
-    if (license != null && license.ExpiresOn > DateTime.Now)
+    if (isLicensed == true)
     {
       isLicensed = true;
     }
     else if (allowMessageBox)
     {
-      if (license == null)
+      if (isLicensed == null)
       {
         MessageBox.Show(this, "This feature is not licensed", "License Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
       }
-      else if (license.ExpiresOn < DateTime.Now)
+      else if (isLicensed == false)
       {
         MessageBox.Show(this, "The license for this feature has expired.", "License Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
       }
     }
 
-    return isLicensed;
+    return isLicensed ?? false;
   }
 
   private ToolStripItem[] ToToolStripItemArray(params ToolStripItem[] args) => args;
@@ -181,11 +193,12 @@ public partial class Main : Form
 
   private void pluginOnClickHandler(object sender, EventArgs e)
   {
-    ToolStripItem tsi = sender as ToolStripItem;
-    TNT.Plugin.Manager.Plugin p = tsi.Tag as TNT.Plugin.Manager.Plugin;
+    var isLicensed = LicenseUtil.licenceFlow.value?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil);
+    ToolStripItem? tsi = sender as ToolStripItem;
+    TNT.Plugin.Manager.Plugin? p = tsi?.Tag as TNT.Plugin.Manager.Plugin;
 
     //ApplicationData data = new ApplicationData("This is the name field in the app data");
-    p.Execute(this, sender as ToolStripItem, new ApplicationData(CAD, this.DockPanel), Global.LicenseLive.Value?.ExpiresOn >= DateTime.Now);
+    p?.Execute(this, sender as ToolStripItem, new ApplicationData(CAD, this.DockPanel), isLicensed == isLicensed);
 
     CAD.Repaint(0);
   }

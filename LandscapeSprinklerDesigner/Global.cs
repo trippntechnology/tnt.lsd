@@ -3,41 +3,45 @@ using System.Reflection;
 using System.Text;
 using TNT.Commons;
 using TNT.Cryptography;
-using TNT.LiveData;
+using TNT.LSD.Settings;
+using TNT.Reactive;
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner;
 
 public static class Global
 {
-  private static string _license_path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "license.txt");
-  public static LiveData<License> LicenseLive = new LiveData<License>();
+  private static string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+  private static string? licensePath = assemblyPath?.let(path => Path.Combine(assemblyPath, "license.txt"));
+  public static MutableStateFlow<License?> licenseFlow = new MutableStateFlow<License?>(null);
 
-  public static ApplicationRegistry userRegistry = null; // Initialized in Main()
+  public static ApplicationRegistry? userRegistry = null; // Initialized in Main()
 
   public static License GetLicense(bool swallowException = true)
   {
-    if (LicenseLive.Value == null && File.Exists(_license_path))
-    {
-      var lines = File.ReadAllLines(_license_path).ToList();
-      try
-      {
-        LicenseLive.Value = Decrypt(lines);
-      }
-      catch (Exception)
-      {
-        if (!swallowException) throw;
-      }
-    }
+    //if (LicenseLive.Value == null && File.Exists(licensePath))
+    //{
+    //  var lines = File.ReadAllLines(licensePath).ToList();
+    //  try
+    //  {
+    //    LicenseLive.Value = Decrypt(lines);
+    //  }
+    //  catch (Exception)
+    //  {
+    //    if (!swallowException) throw;
+    //  }
+    //}
 
-    return LicenseLive.Value;
+    //return LicenseLive.Value;
+    return new License();
   }
 
   public static License SetLicense(List<string> lines)
   {
-    LicenseLive.Value = Decrypt(lines);
-    File.WriteAllLines(_license_path, lines);
-    return LicenseLive.Value;
+    //LicenseLive.Value = Decrypt(lines);
+    //File.WriteAllLines(licensePath, lines);
+    //return LicenseLive.Value;
+    return new License();
   }
 
   public static License Decrypt(List<string> lines)

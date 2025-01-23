@@ -12,7 +12,7 @@ class ShowPartsMenuEvent : MenuEvent
   {
   }
 
-  public override void OnMouseClick(object sender, EventArgs e)
+  public override void OnMouseClick(object? sender, EventArgs e)
   {
     CAD.ShowPartsToolTip = this.Checked;
   }

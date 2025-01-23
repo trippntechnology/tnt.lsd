@@ -70,6 +70,15 @@ namespace LandscapeSprinklerDesigner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {&quot;Key&quot;:&quot;Jzk9veqSO9ZhYte+2C8erHTrSJNg0Wh0BqRtcJBxRtQ=&quot;,&quot;IV&quot;:&quot;DD7J27KHMiEDUnJD&quot;}.
+        /// </summary>
+        internal static string cipher_attributes {
+            get {
+                return ResourceManager.GetString("cipher_attributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tripp&apos;n Technology.
         /// </summary>
         internal static string Company {

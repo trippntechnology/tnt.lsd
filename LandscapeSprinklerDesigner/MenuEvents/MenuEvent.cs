@@ -15,7 +15,7 @@ abstract class MenuEvent : ToolStripItemGroup
 
   public bool HasSelectedObjects => CAD.SelectedObjects.Count > 0;
 
-  public MenuEvent(Image image = null) : base(image)
+  public MenuEvent(Image? image = null) : base(image)
   {
   }
 
@@ -23,7 +23,7 @@ abstract class MenuEvent : ToolStripItemGroup
   {
     get
     {
-      AssemblyTitleAttribute ata = Utilities.GetAssemblyAttribute<AssemblyTitleAttribute>(Assembly.GetExecutingAssembly());
+      AssemblyTitleAttribute? ata = Utilities.GetAssemblyAttribute<AssemblyTitleAttribute>(Assembly.GetExecutingAssembly());
       return ata != null ? ata.Title : string.Empty;
     }
   }
