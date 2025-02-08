@@ -1,9 +1,12 @@
 ﻿using LandscapeSprinklerDesigner.Events;
 using LandscapeSprinklerDesigner.MenuEvents;
+using LandscapeSprinklerDesigner.Service;
+using LandscapeSprinklerDesigner.Utils;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using TNT.Commons;
 using TNT.LSD.Components;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
@@ -15,9 +18,9 @@ public partial class Main : Form
 {
   #region Members
 
-  private ToolStripItemCheckboxGroupManager DrawingGroupManager;
-  private ToolStripItemGroupManager MenuGroupManager;
-  private ToolStripItemGroupManager LicensedMenuGroupManager;
+  private ToolStripItemCheckboxGroupManager DrawingGroupManager = new ToolStripItemCheckboxGroupManager(new ToolStripStatusLabel());
+  private ToolStripItemGroupManager MenuGroupManager = new ToolStripItemGroupManager(new ToolStripStatusLabel());
+  private ToolStripItemGroupManager LicensedMenuGroupManager = new ToolStripItemGroupManager(new ToolStripStatusLabel());
 
   private PropertyForm m_PropertyForm = new PropertyForm();
   private LayoutForm m_LayoutForm = new LayoutForm();
@@ -45,7 +48,7 @@ public partial class Main : Form
   #endregion
 
   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-  public Splash SplashForm { get; set; }
+  public Splash? SplashForm { get; set; }
 
   public Main()
   {
@@ -90,9 +93,8 @@ public partial class Main : Form
 
     var manager = new TNT.Plugin.Manager.Manager(Controls, pluginOnClickHandler, StatusBarHintChanged);
 
-    manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
-
-    //LicenseUtil.saveLicense();
+    var assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+    manager.Register(Path.Combine(assemblyDirectory, "plugins"));
   }
 
   private void SetupLicenseGroupManager()
@@ -103,15 +105,6 @@ public partial class Main : Form
     LicensedMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
     LicensedMenuGroupManager.Create<CalculateAreaMenuEvent>(ToToolStripItemArray(AreaMenu, AreaButton, m_LayoutForm.area), externalObject: exObj);
     LicensedMenuGroupManager.Create<CalculateDistanceMenuEvent>(ToToolStripItemArray(LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance), externalObject: exObj);
-
-    //    LicenseUtil.getLicenseFlow().collect(license =>
-    //    {
-    //      var isLicensed = DateTimeOffset.Now < license?.ValidUntil;
-    //      System.Diagnostics.Debug.WriteLine($@"license: {license}
-    //isLicensed: {isLicensed}");
-
-    //      //LicensedMenuGroupManager.LicensedChanged(false);
-    //    });
   }
 
   private void SetupMenuGroupManager()
@@ -150,9 +143,8 @@ public partial class Main : Form
 
   private bool IsLicensed(bool allowMessageBox, ToolStripItemGroup itemGroup)
   {
-    //LicenseeResponse? license = LicenseUtil.getLicenseFlow().value;
-    bool? isLicensed = true;// license?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil);
-    Debug.WriteLine($"IsLicensed: {isLicensed}");
+    var licenseeInfo = FileUtil.GetLicenseeInfo();
+    bool? isLicensed = DateTime.Now < licenseeInfo?.ValidUntil.DateTime;
 
     if (allowMessageBox)
     {
@@ -185,9 +177,9 @@ public partial class Main : Form
     DrawingGroupManager.Create<DrawLegendEvent>(new ToolStripItem[] { legendButton }, null, externalObj);
   }
 
-  private void pluginOnClickHandler(object sender, EventArgs e)
+  private void pluginOnClickHandler(object? sender, EventArgs e)
   {
-    bool isLicensed = true;// LicenseUtil.getLicenseFlow().value?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil) ?? false;
+    bool isLicensed = FileUtil.HasValidLicense();
     var tsi = sender as ToolStripItem;
     var p = tsi?.Tag as TNT.Plugin.Manager.Plugin;
     var toolStripItem = sender as ToolStripItem;
@@ -203,12 +195,15 @@ public partial class Main : Form
   {
     #region Restore state from Registry
 
-    Global.userRegistry.ReadToolStripItems("MRU", OpenButton.DropDownItems);
-    tbScale.Value = Global.userRegistry.ReadInteger("Scale", tbScale.Value);
+    Global.userRegistry?.also(userRegistry =>
+    {
+      userRegistry?.ReadToolStripItems("MRU", OpenButton.DropDownItems);
+      tbScale.Value = userRegistry?.ReadInteger("Scale", tbScale.Value) ?? 100;
+    });
 
     #endregion
 
-    string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
+    string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty, "DockPanel.config");
 
     if (File.Exists(configFile))
     {
@@ -218,6 +213,15 @@ public partial class Main : Form
     m_LayoutForm.Show(DockPanel);
 
     statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
+
+    TntService.GetLicenseeInfoFlow().collect(licenseeInfo =>
+    {
+      if (licenseeInfo == null) return;
+
+      FileUtil.SaveLicenseInfo(licenseeInfo);
+      var isLicensed = DateTime.Now < licenseeInfo.ValidUntil.DateTime;
+      LicensedMenuGroupManager.LicensedChanged(isLicensed);
+    });
   }
 
   private bool HandleUnsavedChanges()
@@ -255,35 +259,38 @@ public partial class Main : Form
       return;
     }
 
-    string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
+    string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty, "DockPanel.config");
     DockPanel.SaveAsXml(configFile);
 
     #region Save state to Registry
 
     var persistedMenuEvent = (from p in MenuGroupManager.Values where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
-    persistedMenuEvent.ForEach(p => p.SaveState(Global.userRegistry));
-
-    Global.userRegistry.WriteInteger("Scale", tbScale.Value);
-    Global.userRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
+    Global.userRegistry?.also(userRegistry =>
+    {
+      persistedMenuEvent.ForEach(p => p.SaveState(userRegistry));
+      userRegistry.WriteInteger("Scale", tbScale.Value);
+      userRegistry.WriteToolStripItems("MRU", OpenButton.DropDownItems);
+    });
 
     #endregion
   }
 
-  private IDockContent GetContentFromPersistString(string persistString) => dockables.Find(d => d.GetType().ToString() == persistString);
+  private IDockContent? GetContentFromPersistString(string persistString) => dockables?.Find(d => d.GetType().ToString() == persistString);
 
   private void tbScale_ValueChanged(object sender, EventArgs e)
   {
-    TrackBar tb = sender as TrackBar;
-
-    ScaleButton.Text = string.Format("{0}%", tb.Value);
-    CAD.DisplayScale = tb.Value;
+    (sender as TrackBar)?.Value.also(value =>
+       {
+         ScaleButton.Text = string.Format("{0}%", value);
+         CAD.DisplayScale = value;
+       });
   }
 
   private void OpenMRU_Click(object sender, ToolStripItemClickedEventArgs e)
   {
     if (HandleUnsavedChanges())
     {
-      LoadLayout(e.ClickedItem.Text);
+      e.ClickedItem?.Text?.also(layout => LoadLayout(layout));
     }
   }
 
@@ -310,13 +317,11 @@ public partial class Main : Form
 
   private void Scale_Click(object sender, EventArgs e)
   {
-    ToolStripMenuItem mi = sender as ToolStripMenuItem;
-
-    if (mi != null)
+    (sender as ToolStripMenuItem)?.also(mi =>
     {
       int scale = Convert.ToInt32(mi.Tag);
       tbScale.Value = scale;
-    }
+    });
   }
 
   private void PalletNodeTagSelected(PaletteProperties paletteProperties)
@@ -325,7 +330,7 @@ public partial class Main : Form
     var checkedItem = DrawingGroupManager.FirstOrDefault(i => i.Value.Checked).Value;
     if (checkedItem != null) { checkedItem.Checked = false; }
     CAD.SetPalletNodeTag(paletteProperties);
-    m_PropertyForm.SelectedObject = paletteProperties.DrawingMode.DefaultObject;
+    m_PropertyForm.SelectedObject = paletteProperties.DrawingMode.DefaultObject ?? new object();
   }
 
   private void StatusBarHintChanged(string hint)
@@ -342,8 +347,7 @@ public partial class Main : Form
 
   private void UpgradeAvailableStatusLink_Click(object sender, EventArgs e)
   {
-    ToolStripStatusLabel upgradeLabel = sender as ToolStripStatusLabel;
-    Process.Start(upgradeLabel.ToolTipText);
+    (sender as ToolStripStatusLabel)?.ToolTipText?.also(toolTipText => Process.Start(toolTipText));
   }
 
   private void OnTheWebToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start("https://www.LandscapeSprinklerDesigner.com");

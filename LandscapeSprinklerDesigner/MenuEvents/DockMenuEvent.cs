@@ -27,12 +27,19 @@ abstract class DockMenuEvent : ToolStripItemGroup
     base.OnLicenseChanged(isLicensed);
     if (!isLicensed)
     {
-      base.Checked = false;
-      if (dockContent != null)
+      try
       {
-        dockContent.IsHidden = true;
-        dockContent.Hide();
+        base.Checked = false;
+        if (dockContent != null)
+        {
+          dockContent.BeginInvoke(delegate
+          {
+            dockContent.IsHidden = true;
+            dockContent.Hide();
+          });
+        }
       }
+      catch { }
     }
   }
 
