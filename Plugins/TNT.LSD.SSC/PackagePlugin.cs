@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using TNT.Commons;
 using TNT.LSD.Components;
 using TNT.Plugin.Manager;
 using WeifenLuo.WinFormsUI.Docking;
@@ -17,7 +18,7 @@ public class PackagePlugin : Plugin
 
   public override void Execute(IWin32Window owner, ToolStripItem sender, IApplicationData content)
   {
-    ApplicationData appData = content as ApplicationData;
+    ApplicationData? appData = content as ApplicationData;
 
     if (appData != null && appData.TNTCAD != null)
     {
@@ -38,7 +39,7 @@ public class PackagePlugin : Plugin
 
         if (sfd.ShowDialog(owner) == DialogResult.OK)
         {
-          string path = Path.GetDirectoryName(sfd.FileName);
+          string? path = Path.GetDirectoryName(sfd.FileName) ?? string.Empty;
           string name = Path.GetFileNameWithoutExtension(sfd.FileName);
           string pdfFileName = Path.Combine(path, $"{name}.pdf");
           string jpgFileName = Path.Combine(path, $"{name}.jpg");
@@ -55,11 +56,7 @@ public class PackagePlugin : Plugin
           File.Delete(sfd.FileName);
 
           // Zip up files
-          using (Ionic.Zip.ZipFile zipFile = new Ionic.Zip.ZipFile(sfd.FileName))
-          {
-            zipFile.AddFiles(new string[] { appData.TNTCAD.CurrentFileName, pdfFileName, jpgFileName }, string.Empty);
-            zipFile.Save();
-          }
+          ZipUtils.ArchiveFiles(new string[] { appData.TNTCAD.CurrentFileName, pdfFileName, jpgFileName }, sfd.FileName);
         }
       }
     }
@@ -85,14 +82,7 @@ public class PackagePlugin : Plugin
     return menuStrip;
   }
 
+#pragma warning disable CS8603 // Possible null reference return.
   public override ToolStrip GetToolStrip() => null;
-  //{
-  //	ToolStrip toolStrip = new ToolStrip();
-
-  //	ToolStripButton toolStripButton = (ToolStripButton)CreateToolStripItem<ToolStripButton>();
-  //	toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-  //	toolStrip.Items.Add(toolStripButton);
-
-  //	return toolStrip;
-  //}
+#pragma warning restore CS8603 // Possible null reference return.
 }

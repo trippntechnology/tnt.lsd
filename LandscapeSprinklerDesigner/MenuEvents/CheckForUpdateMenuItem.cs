@@ -1,4 +1,7 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿
+using LandscapeSprinklerDesigner.Utils;
+
+namespace LandscapeSprinklerDesigner.MenuEvents;
 
 class CheckForUpdateMenuItem : MenuEvent
 {
@@ -6,12 +9,12 @@ class CheckForUpdateMenuItem : MenuEvent
 
   public override string ToolTipText => Resource.menu_check_for_update_tooltip;
 
-  public override void OnApplicationIdle(object sender, EventArgs e)
+  public override void OnApplicationIdle(object? sender, EventArgs e)
   {
-    this.Enabled = Global.GetLicense() != null;
+    this.Enabled = FileUtil.HasValidLicense();
   }
 
-  public override void OnMouseClick(object sender, EventArgs e)
+  public override void OnMouseClick(object? sender, EventArgs e)
   {
     Global.CheckForUpdate(base.Owner, false);
   }

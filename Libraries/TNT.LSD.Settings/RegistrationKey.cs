@@ -2,7 +2,7 @@
 
 namespace TNT.LSD.Settings;
 
-public class License
+public class RegistrationKey
 {
   [DisplayName("Application ID")]
   public Guid ApplicationID { get; set; } = Guid.Empty;
@@ -15,5 +15,5 @@ public class License
   [DisplayName("Service Endpoint")]
   public string ServiceEndpoint { get; set; } = string.Empty;
 
-  public License() { }
+  public RegistrationKey() { }
 }

@@ -1,11 +1,9 @@
 ﻿using LandscapeSprinklerDesigner.Events;
 using LandscapeSprinklerDesigner.MenuEvents;
-using LandscapeSprinklerDesigner.Utils;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
-using TNT.Commons;
 using TNT.LSD.Components;
 using TNT.ToolStripItemManager;
 using TNT.Utilities;
@@ -94,7 +92,7 @@ public partial class Main : Form
 
     manager.Register(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins"));
 
-    LicenseUtil.saveLicense();
+    //LicenseUtil.saveLicense();
   }
 
   private void SetupLicenseGroupManager()
@@ -106,14 +104,14 @@ public partial class Main : Form
     LicensedMenuGroupManager.Create<CalculateAreaMenuEvent>(ToToolStripItemArray(AreaMenu, AreaButton, m_LayoutForm.area), externalObject: exObj);
     LicensedMenuGroupManager.Create<CalculateDistanceMenuEvent>(ToToolStripItemArray(LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance), externalObject: exObj);
 
-    LicenseUtil.getLicenseFlow().collect(license =>
-    {
-      var isLicensed = DateTimeOffset.Now < license?.ValidUntil;
-      System.Diagnostics.Debug.WriteLine($@"license: {license}
-isLicensed: {isLicensed}");
+    //    LicenseUtil.getLicenseFlow().collect(license =>
+    //    {
+    //      var isLicensed = DateTimeOffset.Now < license?.ValidUntil;
+    //      System.Diagnostics.Debug.WriteLine($@"license: {license}
+    //isLicensed: {isLicensed}");
 
-      LicensedMenuGroupManager.LicensedChanged(false);
-    });
+    //      //LicensedMenuGroupManager.LicensedChanged(false);
+    //    });
   }
 
   private void SetupMenuGroupManager()
@@ -133,14 +131,14 @@ isLicensed: {isLicensed}");
     MenuGroupManager.Create<PropertiesMenuEvent>(ToToolStripItemArray(PropertiesButton, PropertiesMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PropertyForm, DockPanel));
     MenuGroupManager.Create<PartsPaletteEvent>(ToToolStripItemArray(PaletteTreeButton, PaletteTreeMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PalletForm, DockPanel));
     MenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
-    MenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(Global.userRegistry);
-    MenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(Global.userRegistry);
+    MenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(Global.userRegistry!);
+    MenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(Global.userRegistry!);
     MenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
-    MenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(Global.userRegistry);
+    MenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(Global.userRegistry!);
     MenuGroupManager.Create<MoveToBackMenuEvent>(ToToolStripItemArray(SendToBackButton, SendToBackMenu), externalObject: exObj);
     MenuGroupManager.Create<MoveToFrontMenuEvent>(ToToolStripItemArray(BringToFrontMenu, BringToFrontButton), externalObject: exObj);
     MenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.space), externalObject: exObj);
-    MenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(Global.userRegistry);
+    MenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(Global.userRegistry!);
     MenuGroupManager.Create<SpaceEquallyMenuEvent>(ToToolStripItemArray(SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.aligntogrid), externalObject: exObj);
     MenuGroupManager.Create<RotateLeftMenuEvent>(ToToolStripItemArray(Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter), externalObject: exObj);
     MenuGroupManager.Create<RotateRightMenuEvent>(ToToolStripItemArray(Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock), externalObject: exObj);
@@ -152,15 +150,11 @@ isLicensed: {isLicensed}");
 
   private bool IsLicensed(bool allowMessageBox, ToolStripItemGroup itemGroup)
   {
-    var license = LicenseUtil.licenceFlow.value;
-    bool? isLicensed = license?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil);
+    //LicenseeResponse? license = LicenseUtil.getLicenseFlow().value;
+    bool? isLicensed = true;// license?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil);
     Debug.WriteLine($"IsLicensed: {isLicensed}");
 
-    if (isLicensed == true)
-    {
-      isLicensed = true;
-    }
-    else if (allowMessageBox)
+    if (allowMessageBox)
     {
       if (isLicensed == null)
       {
@@ -193,12 +187,14 @@ isLicensed: {isLicensed}");
 
   private void pluginOnClickHandler(object sender, EventArgs e)
   {
-    var isLicensed = LicenseUtil.licenceFlow.value?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil);
-    ToolStripItem? tsi = sender as ToolStripItem;
-    TNT.Plugin.Manager.Plugin? p = tsi?.Tag as TNT.Plugin.Manager.Plugin;
+    bool isLicensed = true;// LicenseUtil.getLicenseFlow().value?.ValidUntil.let(validUntil => DateTimeOffset.Now < validUntil) ?? false;
+    var tsi = sender as ToolStripItem;
+    var p = tsi?.Tag as TNT.Plugin.Manager.Plugin;
+    var toolStripItem = sender as ToolStripItem;
 
-    //ApplicationData data = new ApplicationData("This is the name field in the app data");
-    p?.Execute(this, sender as ToolStripItem, new ApplicationData(CAD, this.DockPanel), isLicensed == isLicensed);
+    if (toolStripItem == null) return;
+
+    p?.Execute(this, toolStripItem, new ApplicationData(CAD, this.DockPanel), hasLicense: isLicensed);
 
     CAD.Repaint(0);
   }

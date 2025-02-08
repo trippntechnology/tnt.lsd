@@ -70,7 +70,7 @@ namespace LandscapeSprinklerDesigner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {&quot;Key&quot;:&quot;Jzk9veqSO9ZhYte+2C8erHTrSJNg0Wh0BqRtcJBxRtQ=&quot;,&quot;IV&quot;:&quot;DD7J27KHMiEDUnJD&quot;}.
+        ///   Looks up a localized string similar to {&quot;Key&quot;:{&quot;EncodedValue&quot;:&quot;Jzk9veqSO9ZhYte\u002B2C8erHTrSJNg0Wh0BqRtcJBxRtQ=&quot;},&quot;IV&quot;:{&quot;Value&quot;:&quot;DD7J27KHMiEDUnJD&quot;}}.
         /// </summary>
         internal static string cipher_attributes {
             get {
