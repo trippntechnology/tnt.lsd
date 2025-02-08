@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace LandscapeSprinklerDesigner
 {
@@ -6,9 +7,10 @@ namespace LandscapeSprinklerDesigner
 	
 	public partial class LayoutSettingsForm : DockableForm
 	{
-		#region Properties
+    #region Properties
 
-		public object Settings
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public object Settings
 		{
 			set
 			{

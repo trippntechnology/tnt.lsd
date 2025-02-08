@@ -1,26 +1,22 @@
-﻿using LandscapeSprinklerDesigner.Properties;
-using System;
+﻿namespace LandscapeSprinklerDesigner.MenuEvents;
 
-namespace LandscapeSprinklerDesigner.MenuEvents
+class MoveToFrontMenuEvent : MenuEvent
 {
-	class MoveToFrontMenuEvent : MenuEvent
-	{
-		public override string Text => Resources.menu_move_to_front;
+  public override string Text => Resource.menu_move_to_front;
 
-		public override string ToolTipText => Resources.menu_move_to_front_tooltip;
+  public override string ToolTipText => Resource.menu_move_to_front_tooltip;
 
-		public MoveToFrontMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.move_to_front.png"))
-		{
-		}
+  public MoveToFrontMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.move_to_front.png"))
+  {
+  }
 
-		public override void OnApplicationIdle(object sender, EventArgs e)
-		{
-			this.Enabled = CAD.SelectedObjects.Count > 0;
-		}
+  public override void OnApplicationIdle(object sender, EventArgs e)
+  {
+    this.Enabled = CAD.SelectedObjects.Count > 0;
+  }
 
-		public override void OnMouseClick(object sender, EventArgs e)
-		{
-			CAD.BringToFront();
-		}
-	}
+  public override void OnMouseClick(object sender, EventArgs e)
+  {
+    CAD.BringToFront();
+  }
 }

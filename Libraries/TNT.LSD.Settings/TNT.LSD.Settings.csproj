@@ -1,73 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71F545A4-CFBA-4307-8371-3D3DE3B71750}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TNT.LSD.Settings</RootNamespace>
-    <AssemblyName>TNT.LSD.Settings</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Serialization" />
-    <Reference Include="TNT.Reflection, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Reflection.1.0.1\lib\net462\TNT.Reflection.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="SystemType.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="LSDSettings.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SSCSettings.cs" />
-    <Compile Include="TypeConverters\PipeSizeList.cs" />
-    <Compile Include="TypeConverters\PipeTypeList.cs" />
-    <Compile Include="TypeConverters\PSIList.cs" />
-    <Compile Include="TypeConverters\YesNoNAList.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
-      <Project>{b263ec43-e5c1-45a3-80f0-ad5d07074ca2}</Project>
-      <Name>TNT.LSD.Inventory</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- File Description -->
+		<AssemblyTitle>Landscape Sprinkler Designer Settings</AssemblyTitle>
+		<Authors>Tripp'n Technology, LLC.</Authors>
+		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+		<Copyright>Copyright 2024 $(Authors)</Copyright>
+		<FileVersion>$(PackageVersion)</FileVersion>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<!-- Product Name -->
+		<Product>$(AssemblyTitle)</Product>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<Version>2.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="tnt.reflection" Version="2.0.0" />
+		<PackageReference Include="TNT.Utilities" Version="2.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj" />
+	</ItemGroup>
+
 </Project>

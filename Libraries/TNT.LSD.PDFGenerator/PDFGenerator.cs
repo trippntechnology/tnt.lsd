@@ -1,353 +1,227 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
+﻿using iText.IO.Image;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using System.Drawing.Imaging;
 using System.Reflection;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using TNT.Commons;
 using TNT.LSD.Inventory;
-using iText = iTextSharp.text;
+using iTextBorder = iText.Layout.Borders.Border;
+using iTextColors = iText.Kernel.Colors;
+using iTextFontConstants = iText.IO.Font.Constants;
+using iTextImage = iText.Layout.Element.Image;
 
-namespace TNT.LSD.PDFGenerator
+namespace TNT.LSD.PDFGenerator;
+
+/// <summary>
+/// The abstract class that represents a PDF generators
+/// </summary>
+public abstract class PDFGenerator
 {
-	/// <summary>
-	/// The abstract class that represents all PDF generators
-	/// </summary>
-	public abstract class PDFGenerator
-	{
-		#region Constants
+  #region public constants
 
-		const int POINTS_PER_INCH = 72;
-		const int SECTION_FONT_SIZE = 14;
-		const int ROW_FONT_SIZE = SECTION_FONT_SIZE - 5;
-		const int TABLE_ROW_HEIGHT = 14;
+  public const int POINTS_PER_INCH = 72;
+  public const int SECTION_FONT_SIZE = 14;
+  public const int ROW_FONT_SIZE = SECTION_FONT_SIZE - 5;
 
-		/// <summary>
-		/// Footer font size
-		/// </summary>
-		protected const float FOOTER_FONT_SIZE = ROW_FONT_SIZE; // -1 uses default size
+  /// <summary>
+  /// Footer font size
+  /// </summary>
+  protected const float FOOTER_FONT_SIZE = ROW_FONT_SIZE; // -1 uses default size
 
-		/// <summary>
-		/// Header font size
-		/// </summary>
-		protected const float HEADER_FONT_SIZE = -1; // -1 uses default size
+  #endregion
 
-		#endregion
+  #region Properties
 
-		#region Members
+  /// <summary>
+  /// Title of the PDF
+  /// </summary>
+  public string Title { get; set; } = string.Empty;
 
-		/// <summary>
-		/// Font to use for the sections
-		/// </summary>
-		protected iText.Font m_SectionFont = null;
+  /// <summary>
+  /// Subject associated with the PDF
+  /// </summary>
+  public string Subject { get; set; } = string.Empty;
 
-		/// <summary>
-		/// Font to use for the header row in a table
-		/// </summary>
-		protected iText.Font m_HeaderRowFont = null;
+  /// <summary>
+  /// Creator of the PDF
+  /// </summary>
+  public string Creator { get; set; } = string.Empty;
 
-		/// <summary>
-		/// Font to use for other table rows
-		/// </summary>
-		protected iText.Font m_RowFont = null;
+  /// <summary>
+  /// Author of the PDF
+  /// </summary>
+  public string Author { get; set; } = string.Empty;
 
-		/// <summary>
-		/// Font to use for bolded table rows
-		/// </summary>
-		protected iText.Font m_BoldRowFont = null;
+  protected virtual PdfFont BoldFont => PdfFontFactory.CreateFont(iTextFontConstants.StandardFonts.HELVETICA_BOLD);
 
-		#endregion
+  protected virtual PdfFont DefaultFont => PdfFontFactory.CreateFont(iTextFontConstants.StandardFonts.HELVETICA);
 
-		#region Properties
+  #endregion
 
-		/// <summary>
-		/// Title of the PDF
-		/// </summary>
-		public string Title { get; set; }
+  /// <summary>
+  /// Creates a PDF file using the content
+  /// </summary>
+  /// <param name="fileName">Location of file</param>
+  /// <param name="content">Content to place in the PDF</param>
+  public abstract void Generate(string fileName, Content content);
 
-		/// <summary>
-		/// Subject associated with the PDF
-		/// </summary>
-		public string Subject { get; set; }
+  /// <summary>
+  /// This should be called by the subclass within <see cref="Generate(string, Content)"/>
+  /// </summary>
+  /// <param name="fileName">Location of file</param>
+  /// <param name="onGenerate">Lambda providing <see cref="PdfDocument"/> and <see cref="Document"/> used to generate PDF</param>
+  public virtual void Generate(string filename, Action<PdfDocument, Document> onGenerate)
+  {
+    using PdfWriter pdfWriter = new PdfWriter(filename);
+    using PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+    using Document document = new Document(pdfDocument);
 
-		/// <summary>
-		/// Creator of the PDF
-		/// </summary>
-		public string Creator { get; set; }
+    pdfDocument.SetDefaultPageSize(iText.Kernel.Geom.PageSize.LETTER);
+    pdfDocument.GetDocumentInfo()
+      .SetAuthor(Author)
+      .AddCreationDate()
+      .SetCreator(Creator)
+      .SetSubject(Subject)
+      .SetTitle(Title);
 
-		/// <summary>
-		/// Author of the PDF
-		/// </summary>
-		public string Author { get; set; }
+    // Display one page at a time rather than continuous scrolling.
+    pdfDocument.GetCatalog().SetPageLayout(PdfName.SinglePage);
 
-		/// <summary>
-		/// Writer associated with the document
-		/// </summary>
-		protected PdfWriter Writer { get; set; }
+    document.SetMargins(InchesToPoints(.625), InchesToPoints(.5), InchesToPoints(.5), InchesToPoints(.5));
 
-		/// <summary>
-		/// Section font
-		/// </summary>
-		virtual protected iText.Font SectionFont
-		{
-			get
-			{
-				if (m_SectionFont == null)
-				{
-					m_SectionFont = new iText.Font(iText.Font.FontFamily.HELVETICA, SECTION_FONT_SIZE, iText.Font.BOLD);
-				}
+    onGenerate(pdfDocument, document);
+  }
 
-				return m_SectionFont;
-			}
-		}
+  /// <summary>
+  /// Converts inches to points
+  /// </summary>
+  /// <param name="inches">Inches to convert</param>
+  /// <returns>Points that represent the inches</returns>
+  static public float InchesToPoints(double inches) => (float)(inches * POINTS_PER_INCH);
 
-		/// <summary>
-		/// Header row font
-		/// </summary>
-		virtual protected iText.Font HeaderRowFont
-		{
-			get
-			{
-				if (m_HeaderRowFont == null)
-				{
-					m_HeaderRowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE, iText.Font.BOLD);
-				}
+  /// <summary>
+  /// Creates the parts listing
+  /// </summary>
+  /// <param name="document">Current document</param>
+  /// <param name="parts">List of parts</param>
+  protected virtual void CreatePartsListing(Document document, List<Part>? parts)
+  {
+    document.Add(new Paragraph("Parts List").SetFont(BoldFont).SetFontSize(SECTION_FONT_SIZE));
+    document.Add(new Paragraph());
 
-				return m_HeaderRowFont;
-			}
-		}
+    Table table = new Table(UnitValue.CreatePercentArray(new float[] { .4f, 1, .2f })).UseAllAvailableWidth();
+    List<string> columnNames = new List<string> { "Code", "Description", "Quantity" };
 
-		/// <summary>
-		/// Row font
-		/// </summary>
-		virtual protected iText.Font RowFont
-		{
-			get
-			{
-				if (m_RowFont == null)
-				{
-					m_RowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE);
-				}
+    columnNames.ForEach(name =>
+    {
+      var cell = new Cell()
+        .Add(new Paragraph(name)
+          .SetFont(BoldFont))
+        .SetFontSize(ROW_FONT_SIZE)
+        .SetBorder(iTextBorder.NO_BORDER)
+        .SetBackgroundColor(iTextColors.ColorConstants.GRAY);
 
-				return m_RowFont;
-			}
-		}
+      table.AddHeaderCell(cell);
+    });
 
-		/// <summary>
-		/// Bolded row font
-		/// </summary>
-		virtual protected iText.Font BoldRowFont
-		{
-			get
-			{
-				if (m_BoldRowFont == null)
-				{
-					m_BoldRowFont = new iText.Font(iText.Font.FontFamily.HELVETICA, ROW_FONT_SIZE, iText.Font.BOLD);
-				}
+    if (parts != null)
+    {
+      for (int row = 0; row < parts.Count; row++)
+      {
+        Part part = parts[row];
+        AddTableRow(table, new List<string>() { part.Code, part.Description, part.Quantity.ToString() }, row % 2 == 0 ? iTextColors.ColorConstants.LIGHT_GRAY : iTextColors.ColorConstants.WHITE);
+      }
+    }
 
-				return m_BoldRowFont;
-			}
+    document.Add(table);
+  }
 
-		}
+  /// <summary>
+  /// Creates a page with the design image
+  /// </summary>
+  /// <param name="document">Current document</param>
+  /// <param name="design">Design image</param>
+  protected virtual void CreateImagePage(Document document, System.Drawing.Image? design)
+  {
+    if (design == null) return;
 
-		#endregion
+    // Convert System.Drawing.Image to byte array
+    byte[] imageBytes;
+    using (MemoryStream ms = new MemoryStream())
+    {
+      design.Save(ms, ImageFormat.Jpeg); // Use the appropriate format
+      imageBytes = ms.ToArray();
+    }
 
-		#region Constructors
+    // Create ImageData object from byte array
+    ImageData imageData = ImageDataFactory.Create(imageBytes);
 
-		/// <summary>
-		/// Initializes all properties to string.Empty.
-		/// </summary>
-		public PDFGenerator()
-		{
-			Title = string.Empty;
-			Subject = string.Empty;
-			Creator = string.Empty;
-			Author = string.Empty;
-		}
+    // Create iText Image element
+    iTextImage image = new iTextImage(imageData);
 
-		#endregion
+    if (image.GetImageWidth() > image.GetImageHeight())
+    {
+      image.SetRotationAngle(Math.PI / 2);
+    }
 
-		/// <summary>
-		/// Creates a PDF file using the content
-		/// </summary>
-		/// <param name="fileName">Location of file</param>
-		/// <param name="content">Content to place in the PDF</param>
-		public abstract void Generate(string fileName, Content content);
+    document.Add(image.SetAutoScale(true));
+  }
 
-		/// <summary>
-		/// Converts inches to points
-		/// </summary>
-		/// <param name="inches">Inches to convert</param>
-		/// <returns>Points that represent the inches</returns>
-		virtual protected float InchesToPoints(double inches)
-		{
-			return (float)(inches * POINTS_PER_INCH);
-		}
+  protected void AddTableRow(Table table, List<string> values, int fontSize = ROW_FONT_SIZE) => AddTableRow(table, values, iTextColors.ColorConstants.WHITE, fontSize);
 
-		/// <summary>
-		/// Creates a document with the metadata at the location specified by fileName
-		/// </summary>
-		/// <param name="fileName">Location to create document</param>
-		/// <returns>Open document (caller must close document)</returns>
-		virtual protected Document CreateDocument(string fileName)
-		{
-			return CreateDocument(fileName, null);
-		}
+  protected void AddTableRow(Table table, List<string> values, iTextColors.Color backgroundColor, int fontSize = ROW_FONT_SIZE) => AddTableRow(table, values, backgroundColor, DefaultFont, fontSize);
 
-		/// <summary>
-		/// Creates a document with the metadata at the location specified by fileName
-		/// </summary>
-		/// <param name="fileName">Location to create document</param>
-		/// <param name="pageEventHelper">Page event helper</param>
-		/// <returns>Open document (caller must close document)</returns>
-		virtual protected Document CreateDocument(string fileName, PdfPageEventHelper pageEventHelper)
-		{
-			Document document = new Document(PageSize.LETTER);
+  protected void AddTableRow(Table table, List<string> values, iTextColors.Color backgroundColor, PdfFont font, int fontSize = ROW_FONT_SIZE)
+  {
+    values.ForEach(value =>
+    {
+      var cell = new Cell()
+        .Add(new Paragraph(value))
+        .SetFont(font)
+        .SetFontSize(fontSize)
+        .SetBorder(iTextBorder.NO_BORDER)
+        .SetBackgroundColor(backgroundColor);
+      table.AddCell(cell);
+    });
+  }
 
-			Writer = PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
-			Writer.ViewerPreferences = PdfWriter.PageLayoutSinglePage;
-			Writer.PageEvent = pageEventHelper;
 
-			document.AddAuthor(Author);
-			document.AddCreationDate();
-			document.AddCreator(Creator);
-			document.AddSubject(Subject);
-			document.AddTitle(Title);
+  /// <summary>
+  /// Gets the application's name
+  /// </summary>
+  /// <returns>The application's description</returns>
+  protected string GetApplicationName()
+  {
+    Assembly? asm = Assembly.GetEntryAssembly();
+    if (asm == null) return string.Empty;
+    AssemblyDescriptionAttribute? ada = (AssemblyDescriptionAttribute)asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0];
+    var title = ada.Description;
+    var version = getVersion();
+    return version != null ? $"{title} ({version})" : string.Empty;
+  }
 
-			document.SetMargins(InchesToPoints(.5), InchesToPoints(.5), InchesToPoints(.75), InchesToPoints(.75));
+  private string getVersion()
+  {
+    return Assembly.GetEntryAssembly()?.GetName().Version?.let(version =>
+    {
+      var values = version.ToString().Split('.').Take(3);
+      return String.Join(".", values);
+    }) ?? "0.0.0";
+  }
 
-			document.Open();
+  /// <summary>
+  /// Gets the application's copyright info
+  /// </summary>
+  /// <returns>Application's copyright info</returns>
+  protected string GetCopyright()
+  {
+    Assembly? asm = Assembly.GetEntryAssembly();
+    if (asm == null) return string.Empty;
+    AssemblyCopyrightAttribute acra = (AssemblyCopyrightAttribute)asm.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0];
 
-			return document;
-		}
-
-		/// <summary>
-		/// Creates the parts listing
-		/// </summary>
-		/// <param name="document">Current document</param>
-		/// <param name="parts">List of parts</param>
-		virtual protected void CreatePartsListing(Document document, List<Part> parts)
-		{
-			document.Add(new Paragraph("Parts List", SectionFont));
-			document.Add(new Paragraph(" "));
-
-			PdfPTable table = new PdfPTable(new float[] { .4f, 1, .2f });
-			table.WidthPercentage = 100;
-			table.HeaderRows = 1;
-			AddTableRow(table, new string[] { "Code", "Description", "Quantity" }, HeaderRowFont, new BaseColor(Color.Gray));
-
-			BaseColor oddColor = new BaseColor(Color.LightGray);
-			BaseColor evenColor = BaseColor.WHITE;
-
-			if (parts != null)
-			{
-				for (int index = 0; index < parts.Count; index++)
-				{
-					Part part = parts[index];
-					AddTableRow(table, new string[] { part.Code, part.Description, part.Quantity.ToString() }, RowFont, index % 2 == 0 ? evenColor : oddColor);
-				}
-			}
-
-			document.Add(table);
-		}
-
-		/// <summary>
-		/// Creates a page with the design image
-		/// </summary>
-		/// <param name="document">Current document</param>
-		/// <param name="design">Design image</param>
-		virtual protected void CreateImagePage(Document document, System.Drawing.Image design)
-		{
-			if (design.Width > design.Height)
-			{
-				design.RotateFlip(RotateFlipType.Rotate90FlipNone);
-			}
-
-			iText.Rectangle newPageSize;
-			float adjWidth = design.Width + document.LeftMargin + document.RightMargin;
-			float adjHeight = design.Height + document.TopMargin + document.BottomMargin + 10;
-
-			if (adjWidth / adjHeight > 8.5 / 11)
-			{
-				// This means the width is what decides the height
-				adjHeight = (float)(adjWidth / (8.5 / 11));
-				newPageSize = new iText.Rectangle(adjWidth, (float)(adjWidth / (8.5 / 11)));
-			}
-			else
-			{
-				// Height decides width
-				adjWidth = (float)(adjHeight * (8.5 / 11));
-				newPageSize = new iText.Rectangle((float)(adjHeight * (8.5 / 11)), adjHeight);
-			}
-
-			iText.Image image = iText.Image.GetInstance(design, System.Drawing.Imaging.ImageFormat.Jpeg);
-			image.Alignment = iText.Image.ALIGN_MIDDLE;
-			document.SetPageSize(newPageSize);
-			document.Add(image);
-		}
-
-		/// <summary>
-		/// Adds a row to table using the font and backgroundColor
-		/// </summary>
-		/// <param name="table">Table where row should be added</param>
-		/// <param name="values">Array of strings that are to be placed in each column of the row</param>
-		/// <param name="font">Font to apply</param>
-		/// <param name="backgroundColor">Background color to use</param>
-		protected void AddTableRow(PdfPTable table, string[] values, iText.Font font, BaseColor backgroundColor)
-		{
-			for (int col = 0; col < table.NumberOfColumns; col++)
-			{
-				if (col < values.Length)
-				{
-					AddRowCell(table, values[col], font, backgroundColor);
-				}
-				else
-				{
-					AddRowCell(table, string.Empty, font, backgroundColor);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Adds a row cell to the table
-		/// </summary>
-		/// <param name="table">Table</param>
-		/// <param name="value">Value to place in the cell</param>
-		/// <param name="font">Font to use</param>
-		/// <param name="backgroundColor">Background color to use</param>
-		/// <returns>The pdfPCell that was created</returns>
-		protected PdfPCell AddRowCell(PdfPTable table, string value, iText.Font font, BaseColor backgroundColor)
-		{
-			PdfPCell cell = new PdfPCell(new Phrase(value, font));
-			cell.FixedHeight = TABLE_ROW_HEIGHT;
-			cell.Border = PdfPCell.NO_BORDER;
-			cell.BackgroundColor = backgroundColor;
-			table.AddCell(cell);
-
-			return cell;
-		}
-
-		/// <summary>
-		/// Gets the application's name
-		/// </summary>
-		/// <returns>The application's description</returns>
-		protected string GetApplicationName()
-		{
-			Assembly asm = Assembly.GetEntryAssembly();
-			AssemblyDescriptionAttribute ada = ((AssemblyDescriptionAttribute)asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]);
-
-			return string.Concat("https://www.landscapesprinklerdesigner.com ", "(", asm.GetName().Version.ToString(), ")");
-		}
-
-		/// <summary>
-		/// Gets the application's copyright info
-		/// </summary>
-		/// <returns>Application's copyright info</returns>
-		protected string GetCopyright()
-		{
-			Assembly asm = Assembly.GetEntryAssembly();
-			AssemblyCopyrightAttribute acra = ((AssemblyCopyrightAttribute)asm.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]);
-
-			return acra.Copyright;
-		}
-	}
+    return acra.Copyright;
+  }
 }

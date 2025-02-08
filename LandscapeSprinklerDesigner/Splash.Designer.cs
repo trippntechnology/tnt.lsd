@@ -50,7 +50,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 32F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackgroundImage = global::LandscapeSprinklerDesigner.Properties.Resources.splash;
+			this.BackgroundImage = global::LandscapeSprinklerDesigner.Resource.splash;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.ClientSize = new System.Drawing.Size(709, 558);
 			this.Controls.Add(this.versionPlaceholder);

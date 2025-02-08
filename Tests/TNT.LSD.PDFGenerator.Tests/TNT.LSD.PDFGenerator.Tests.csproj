@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<Authors>Tripp'n Technology, LLC.</Authors>
+		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+		<Copyright>Copyright 2024 $(Authors)</Copyright>
+    <Description>TNT LSD PDFGenerator Tests</Description>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+		<Title>$(Description)</Title>
+    <UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj" />
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
+    <ProjectReference Include="..\..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="70_80.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Test.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

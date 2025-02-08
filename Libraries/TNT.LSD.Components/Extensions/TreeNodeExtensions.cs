@@ -1,38 +1,37 @@
 ﻿using System.Windows.Forms;
 
-namespace LSDComponents
+namespace TNT.LSD.Components.Extensions;
+
+public static class TreeNodeExtensions
 {
-	public static class TreeNodeExtensions
-	{
-		public static bool IsParent(this TreeNode parent, TreeNode node)
-		{
-			bool rtnValue = false;
+  public static bool IsParent(this TreeNode parent, TreeNode node)
+  {
+    bool rtnValue = false;
 
-			if (parent.Nodes.Count > 0)
-			{
-				// Check if node is immediate child of parent
-				rtnValue = parent.Nodes.Contains(node);
+    if (parent.Nodes.Count > 0)
+    {
+      // Check if node is immediate child of parent
+      rtnValue = parent.Nodes.Contains(node);
 
-				// If node is not immediate child check if node is further down
-				for (int index = 0; index < parent.Nodes.Count && !rtnValue; index++)
-				{
-					rtnValue = IsParent(parent.Nodes[index], node);
-				}
-			}
+      // If node is not immediate child check if node is further down
+      for (int index = 0; index < parent.Nodes.Count && !rtnValue; index++)
+      {
+        rtnValue = parent.Nodes[index].IsParent(node);
+      }
+    }
 
-			return rtnValue;
-		}
+    return rtnValue;
+  }
 
-		public static TreeNode GetFirstParent(this TreeNode node)
-		{
-			TreeNode firstParent = node;
+  public static TreeNode GetFirstParent(this TreeNode node)
+  {
+    TreeNode firstParent = node;
 
-			while (firstParent.Parent != null)
-			{
-				firstParent = firstParent.Parent;
-			}
+    while (firstParent.Parent != null)
+    {
+      firstParent = firstParent.Parent;
+    }
 
-			return firstParent;
-		}
-	}
+    return firstParent;
+  }
 }

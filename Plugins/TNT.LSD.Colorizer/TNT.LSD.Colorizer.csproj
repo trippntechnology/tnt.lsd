@@ -1,99 +1,37 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{46919031-1E21-434A-9C44-CF5735E01976}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TNT.LSD.Colorizer</RootNamespace>
-    <AssemblyName>TNT.LSD.Colorizer</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyInfo_Title>Valve Colorizer</AssemblyInfo_Title>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="TNT.Plugin.Manager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Plugin.Manager.1.1.0\lib\net462\TNT.Plugin.Manager.dll</HintPath>
-    </Reference>
-    <Reference Include="TNT.Utilities, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TNT.Utilities.1.8.1\lib\net462\TNT.Utilities.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Constants.cs" />
-    <Compile Include="Plugin.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValveColorizer.cs" />
-    <Compile Include="ValveColorizer.Designer.cs">
-      <DependentUpon>ValveColorizer.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\paintbrush.png" />
-    <EmbeddedResource Include="ValveColorizer.resx">
-      <DependentUpon>ValveColorizer.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
-      <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
-      <Name>TNT.LSD.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
-      <Project>{d4b61895-b09b-4419-8e7e-baffe837bcf3}</Project>
-      <Name>TNT.LSD.Objects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins
-copy $(TargetPath) $(SolutionDir)LandscapeSprinklerDesigner\bin\Debug\plugins</PostBuildEvent>
-  </PropertyGroup>
-  <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets" Condition="Exists('..\..\packages\TNT.AssemblyInfo.1.4.1\build\TNT.AssemblyInfo.targets')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- File Description -->
+		<AssemblyTitle>Landscape Sprinkler Designer Colorizer Plugin</AssemblyTitle>
+		<Authors>Tripp'n Technology, LLC.</Authors>
+		<Company>$(Authors)</Company>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+		<Copyright>Copyright 2024 $(Authors)</Copyright>
+		<FileVersion>$(PackageVersion)</FileVersion>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<!-- Product Name -->
+		<Product>$(AssemblyTitle)</Product>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<Version>2.0.0</Version>
+	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="call $(SolutionDir)Plugins\CopyPlugin.bat TNT.LSD.Colorizer.dll $(TargetDir) $(SolutionDir)LandscapeSprinklerDesigner\bin\$(ConfigurationName)\net9.0-windows\plugins" />
+	</Target>
+
+	<ItemGroup>
+	  <None Remove="Images\paintbrush.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Images\paintbrush.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+	</ItemGroup>
+
 </Project>

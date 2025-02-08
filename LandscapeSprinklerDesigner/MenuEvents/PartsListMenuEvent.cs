@@ -1,15 +1,12 @@
-﻿using LandscapeSprinklerDesigner.Properties;
+﻿namespace LandscapeSprinklerDesigner.MenuEvents;
 
-namespace LandscapeSprinklerDesigner.MenuEvents
+class PartsListMenuEvent : DockMenuEvent
 {
-	class PartsListMenuEvent : DockMenuEvent
-	{
-		public override string Text => Resources.menu_parts_listing;
+  public override string Text => Resource.menu_parts_listing;
 
-		public override string ToolTipText => Resources.menu_parts_listing_tooltip;
+  public override string ToolTipText => Resource.menu_parts_listing_tooltip;
 
-		public PartsListMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.parts_list.png"))
-		{
-		}
-	}
+  public PartsListMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.parts_list.png"))
+  {
+  }
 }

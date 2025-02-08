@@ -9,3 +9,4 @@
 **/*.csproj.user
 /packages/
 /TestResults
+**/*.exe

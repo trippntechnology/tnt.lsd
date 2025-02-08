@@ -6,132 +6,132 @@ using TNT.Utilities.CustomAttributes;
 
 namespace TNT.LSD.Settings
 {
-	public class SSCSettings: LSDSettings
-	{
-		#region Owner
+  public class SSCSettings : LSDSettings
+  {
+    #region Owner
 
-		[PropertyReflectorAttribute()]
-		[Category("\t\t\tOwner")]
-		[DisplayName("Design Number")]
-		[Description("Indicates the design number.")]
-		virtual public string Number { get; set; }
+    [PropertyReflectorAttribute()]
+    [Category("\t\t\tOwner")]
+    [DisplayName("Design Number")]
+    [Description("Indicates the design number.")]
+    public virtual string Number { get; set; } = string.Empty;
 
-		[PropertyReflectorAttribute()]
-		[Category("\t\t\tOwner")]
-		[Description("Name of the property owner.")]
-		virtual public string Name { get; set; }
+    [PropertyReflectorAttribute()]
+    [Category("\t\t\tOwner")]
+    [Description("Name of the property owner.")]
+    public virtual string Name { get; set; } = string.Empty;
 
-		[PropertyReflectorAttribute()]
-		[Category("\t\t\tOwner")]
-		[DisplayName("Telephone Number")]
-		[Description("Telephone number where owner can be reached.")]
-		virtual public string TelephoneNumber
-		{
-			get { return m_TelephoneNumber; }
-			set
-			{
-				string tmp = Regex.Replace(value, "[^0-9]*", "");
+    [PropertyReflectorAttribute()]
+    [Category("\t\t\tOwner")]
+    [DisplayName("Telephone Number")]
+    [Description("Telephone number where owner can be reached.")]
+    public virtual string TelephoneNumber
+    {
+      get { return m_TelephoneNumber; }
+      set
+      {
+        string tmp = Regex.Replace(value, "[^0-9]*", "");
 
-				if (tmp.Length == 7)
-				{
-					m_TelephoneNumber = string.Format("{0}-{1}", tmp.Substring(0, 3), tmp.Substring(3, 4));
-				}
-				else if (tmp.Length == 10)
-				{
-					m_TelephoneNumber = string.Format("({0}) {1}-{2}", tmp.Substring(0, 3), tmp.Substring(3, 3), tmp.Substring(6, 4));
-				}
-				else
-				{
-					m_TelephoneNumber = value;
-				}
-			}
-		}
+        if (tmp.Length == 7)
+        {
+          m_TelephoneNumber = string.Format("{0}-{1}", tmp.Substring(0, 3), tmp.Substring(3, 4));
+        }
+        else if (tmp.Length == 10)
+        {
+          m_TelephoneNumber = string.Format("({0}) {1}-{2}", tmp.Substring(0, 3), tmp.Substring(3, 3), tmp.Substring(6, 4));
+        }
+        else
+        {
+          m_TelephoneNumber = value;
+        }
+      }
+    }
 
-		[PropertyReflectorAttribute()]
-		[Category("\t\t\tOwner")]
-		[DisplayName("eMail Address")]
-		[Description("Owner's email address.")]
-		virtual public string EmailAddress { get; set; }
+    [PropertyReflectorAttribute()]
+    [Category("\t\t\tOwner")]
+    [DisplayName("eMail Address")]
+    [Description("Owner's email address.")]
+    public virtual string EmailAddress { get; set; } = string.Empty;
 
-		#endregion
+    #endregion
 
-		#region Culinary properties
+    #region Culinary properties
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(YesNoNAList))]
-		[Category("\t\tCulinary Source")]
-		[DisplayName("Include Culinary Stop and Waste")]
-		[Description("Stop and Waste values provide a way to turn the water on and off to the sprinkler system.")]
-		virtual public string IncludeCulinarySW { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(YesNoNAList))]
+    [Category("\t\tCulinary Source")]
+    [DisplayName("Include Culinary Stop and Waste")]
+    [Description("Stop and Waste values provide a way to turn the water on and off to the sprinkler system.")]
+    public virtual string IncludeCulinarySW { get; set; }
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(PSIList))]
-		[Category("\t\tCulinary Source")]
-		[DisplayName("Working Culinary PSI")]
-		[Description("Working (dynamic) water pressure.")]
-		virtual public string CulinaryPSI { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(PSIList))]
+    [Category("\t\tCulinary Source")]
+    [DisplayName("Working Culinary PSI")]
+    [Description("Working (dynamic) water pressure.")]
+    public virtual string CulinaryPSI { get; set; }
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(PipeSizeList))]
-		[Category("\t\tCulinary Source")]
-		[DisplayName("Culinary Supply Size")]
-		[Description("Size of pipe that provides the water supply.")]
-		virtual public string CulinarySize { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(PipeSizeList))]
+    [Category("\t\tCulinary Source")]
+    [DisplayName("Culinary Supply Size")]
+    [Description("Size of pipe that provides the water supply.")]
+    public virtual string CulinarySize { get; set; }
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(PipeTypeList))]
-		[Category("\t\tCulinary Source")]
-		[DisplayName("Culinary Supply Type")]
-		[Description("Type of pipe that provides the water supply.")]
-		virtual public string CulinaryType { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(PipeTypeList))]
+    [Category("\t\tCulinary Source")]
+    [DisplayName("Culinary Supply Type")]
+    [Description("Type of pipe that provides the water supply.")]
+    public virtual string CulinaryType { get; set; }
 
-		#endregion
+    #endregion
 
-		#region Secondary properties
+    #region Secondary properties
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(YesNoNAList))]
-		[Category("\t\tSecondary Source")]
-		[DisplayName("Include Secondary Stop and Waste")]
-		[Description("Stop and Waste values provide a way to turn the water on and off to the sprinkler system.")]
-		virtual public string IncludeSecondarySW { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(YesNoNAList))]
+    [Category("\t\tSecondary Source")]
+    [DisplayName("Include Secondary Stop and Waste")]
+    [Description("Stop and Waste values provide a way to turn the water on and off to the sprinkler system.")]
+    public virtual string IncludeSecondarySW { get; set; }
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(PSIList))]
-		[Category("\t\tSecondary Source")]
-		[DisplayName("Working Secondary PSI")]
-		[Description("Working (dynamic) water pressure.")]
-		virtual public string SecondaryPSI { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(PSIList))]
+    [Category("\t\tSecondary Source")]
+    [DisplayName("Working Secondary PSI")]
+    [Description("Working (dynamic) water pressure.")]
+    public virtual string SecondaryPSI { get; set; }
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(PipeSizeList))]
-		[Category("\t\tSecondary Source")]
-		[DisplayName("Secondary Supply Size")]
-		[Description("Size of pipe that provides the water supply.")]
-		virtual public string SecondarySize { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(PipeSizeList))]
+    [Category("\t\tSecondary Source")]
+    [DisplayName("Secondary Supply Size")]
+    [Description("Size of pipe that provides the water supply.")]
+    public virtual string SecondarySize { get; set; }
 
-		[PropertyReflectorAttribute()]
-		[TypeConverter(typeof(PipeTypeList))]
-		[Category("\t\tSecondary Source")]
-		[DisplayName("Secondary Supply Type")]
-		[Description("Type of pipe that provides the water supply.")]
-		virtual public string SecondaryType { get; set; }
+    [PropertyReflectorAttribute()]
+    [TypeConverter(typeof(PipeTypeList))]
+    [Category("\t\tSecondary Source")]
+    [DisplayName("Secondary Supply Type")]
+    [Description("Type of pipe that provides the water supply.")]
+    public virtual string SecondaryType { get; set; }
 
-		#endregion
+    #endregion
 
-		[Category("\tMisc")]
-		[Description("Additional comments")]
-		[Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(UITypeEditor))]
-		virtual public string Comment { get; set; }
+    [Category("\tMisc")]
+    [Description("Additional comments")]
+    [Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(UITypeEditor))]
+    public virtual string Comment { get; set; } = string.Empty;
 
-		[Category("Part Options")]
-		[DisplayName("Show External Codes")]
-		[Description("If true, codes displayed in the parts listing will be those mapped to internal codes.")]
-		virtual public bool ShowExternalCodes { get; set; }
+    [Category("Part Options")]
+    [DisplayName("Show External Codes")]
+    [Description("If true, codes displayed in the parts listing will be those mapped to internal codes.")]
+    public virtual bool ShowExternalCodes { get; set; }
 
-		public override string ToString()
-		{
-			return string.Format("{0}{1}", Name, string.IsNullOrEmpty(Number) ? "" : string.Format(" ({0})", Number));
-		}
-	}
+    public override string ToString()
+    {
+      return string.Format("{0}{1}", Name, string.IsNullOrEmpty(Number) ? "" : string.Format(" ({0})", Number));
+    }
+  }
 }

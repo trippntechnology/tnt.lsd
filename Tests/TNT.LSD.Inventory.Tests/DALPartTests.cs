@@ -1,83 +1,82 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SQLite;
+﻿using Microsoft.Data.Sqlite;
+using System.Diagnostics.CodeAnalysis;
 
-namespace TNT.LSD.Inventory.Tests
+namespace TNT.LSD.Inventory.Tests;
+
+[ExcludeFromCodeCoverage]
+public class DALPartTests
 {
-	//[TestClass]
-	public class DALPartTests
-	{
-		[TestMethod]
-		public void GetPartsFromCodesTests()
-		{
-			List<string> codes = new List<string>();
+  [Test]
+  public void GetPartsFromCodesTests()
+  {
+    List<string> codes = new List<string>();
 
-			for (int i = 4; i > -1; i--)
-			{
-				codes.Add(string.Concat("AF1800", i));
-			}
+    for (int i = 4; i > -1; i--)
+    {
+      codes.Add(string.Concat("AF1800", i));
+    }
 
-			codes.Add("bogus");
+    codes.Add("bogus");
 
-			Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(null).Count);
-			Assert.AreEqual(0, DAL.DALPart.GetPartsFromCodes(new List<string>()).Count);
+    Assert.That(DAL.DALPart.GetPartsFromCodes(null).Count, Is.EqualTo(0));
+    Assert.That(DAL.DALPart.GetPartsFromCodes(new List<string>()).Count, Is.EqualTo(0));
 
-			List<Part> parts = DAL.DALPart.GetPartsFromCodes(codes);
+    List<Part> parts = DAL.DALPart.GetPartsFromCodes(codes);
 
-			Assert.AreEqual(5, parts.Count);
+    Assert.That(parts.Count, Is.EqualTo(5));
 
-			Part part = parts.Find(p => p.Code == "AF18004");
+    Part part = parts.Find(p => p.Code == "AF18004");
 
-			Assert.IsNotNull(part);
-			Assert.AreEqual("AF18004", part.Code);
-			Assert.AreEqual("1\" QUAD. MANIFOLD", part.Description);
-			Assert.AreEqual("AF-18004", part.ExternalPart.Code);
-			Assert.AreEqual("QUAD. MANIFOLD", part.ExternalPart.Description);
-		}
+    Assert.That(part, Is.Not.Null);
+    Assert.That(part.Code, Is.EqualTo("AF18004"));
+    Assert.That(part.Description, Is.EqualTo("1\" QUAD. MANIFOLD"));
+    Assert.That(part.ExternalPart.Code, Is.EqualTo("AF-18004"));
+    Assert.That(part.ExternalPart.Description, Is.EqualTo("QUAD. MANIFOLD"));
+  }
 
-		[TestMethod]
-		public void GetPartsTests()
-		{
-			int currentRecordCount = GetPartsCount();
-			Dictionary<string, Part> parts = DAL.DALPart.GetParts();
+  [Test]
+  public void GetPartsTests()
+  {
+    int currentRecordCount = GetPartsCount();
+    Dictionary<string, Part> parts = DAL.DALPart.GetParts();
 
-			Assert.AreEqual(currentRecordCount, parts.Count);
+    Assert.That(parts.Count, Is.EqualTo(currentRecordCount));
 
-			foreach (string key in parts.Keys)
-			{
-				Assert.AreEqual(key, parts[key].Code);
-			}
-		}
+    foreach (string key in parts.Keys)
+    {
+      Assert.That(parts[key].Code, Is.EqualTo(key));
+    }
+  }
 
-		[TestMethod]
-		public void GetDescriptionsTest()
-		{
-			string[] codes = { "NI050X12;HUPROS00", "NI050X24;HUPROS00", "RA1804" };
+  [Test]
+  public void GetDescriptionsTest()
+  {
+    string[] codes = { "NI050X12;HUPROS00", "NI050X24;HUPROS00", "RA1804" };
 
-			List<string> descriptions = DAL.DALPart.GetDescriptions(new List<string>(codes));
+    List<string> descriptions = DAL.DALPart.GetDescriptions(new List<string>(codes));
 
-			Assert.AreEqual("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[0]);
-			Assert.AreEqual("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER", descriptions[1]);
-			Assert.AreEqual("4\" RAINBIRD 1800 POP-UP", descriptions[2]);
-		}
+    Assert.That(descriptions[0], Is.EqualTo("1/2\" X 12\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER"));
+    Assert.That(descriptions[1], Is.EqualTo("1/2\" X 24\" SCHEDULE 80 NIPPLE;HUNTER PRO-SPRAY SHRUB ADAPTER"));
+    Assert.That(descriptions[2], Is.EqualTo("4\" RAINBIRD 1800 POP-UP"));
+  }
 
-		#region Private
+  #region Private
 
-		private int GetPartsCount()
-		{
-			using (SQLiteConnection conn = new SQLiteConnection(ConfigurationManager.ConnectionStrings["SQLite"].ConnectionString))
-			using (SQLiteCommand cmd = conn.CreateCommand())
-			{
-				conn.Open();
-				cmd.CommandText = "select count(*) from InternalInventory";
+  private int GetPartsCount()
+  {
+    var connectionString = DAL.DALBase.ConnectionString;
+    if (connectionString == null) return -1;
 
-				int count = Convert.ToInt32(cmd.ExecuteScalar());
+    using (SqliteConnection conn = new SqliteConnection(DAL.DALBase.ConnectionString))
+    using (SqliteCommand cmd = conn.CreateCommand())
+    {
+      conn.Open();
+      cmd.CommandText = "select count(*) from InternalInventory";
 
-				return count;
-			}
-		}
-		#endregion
-	}
+      int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+      return count;
+    }
+  }
+  #endregion
 }

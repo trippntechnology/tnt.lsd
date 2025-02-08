@@ -1,74 +1,74 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace TNT.LSD.Inventory
 {
-	/// <summary>
-	/// Represents a part in the inventory
-	/// </summary>
-	public class Part
-	{
-		#region Properties
+  /// <summary>
+  /// Represents a part in the inventory
+  /// </summary>
+  public class Part
+  {
+    #region Properties
 
-		/// <summary>
-		/// Part's Code
-		/// </summary>
-		public string Code { get; set; }
+    /// <summary>
+    /// Part's Code
+    /// </summary>
+    public string? Code { get; set; }
 
-		/// <summary>
-		/// Part's Description
-		/// </summary>
-		public string Description { get; set; }
+    /// <summary>
+    /// Part's Description
+    /// </summary>
+    public string? Description { get; set; }
 
-		/// <summary>
-		/// Indicates if the part requires cement
-		/// </summary>
-		public bool Glueable { get; set; }
+    /// <summary>
+    /// Indicates if the part requires cement
+    /// </summary>
+    public bool Glueable { get; set; }
 
-		/// <summary>
-		/// Part's Quantity
-		/// </summary>
-		public double Quantity { get; set; }
+    /// <summary>
+    /// Part's Quantity
+    /// </summary>
+    public double Quantity { get; set; }
 
-		/// <summary>
-		/// External part that is equivolent to this part
-		/// </summary>
-		[XmlIgnore()]
-		public Part ExternalPart { get; set; }
+    /// <summary>
+    /// External part that is equivolent to this part
+    /// </summary>
+    [JsonIgnore]
+    public Part? ExternalPart { get; set; }
 
-		#endregion
+    #endregion
 
-		#region Constructors
+    #region Constructors
 
-		/// <summary>
-		/// Default destructor
-		/// </summary>
-		public Part()
-		{
-		}
+    /// <summary>
+    /// Default destructor
+    /// </summary>
+    public Part()
+    {
+    }
 
-		/// <summary>
-		/// Copy constructor
-		/// </summary>
-		/// <param name="obj">Part object to copy</param>
-		public Part(Part obj)
-		{
-			Code = obj.Code;
-			Description = obj.Description;
-			Glueable = obj.Glueable;
-			Quantity = obj.Quantity;
+    /// <summary>
+    /// Copy constructor
+    /// </summary>
+    /// <param name="obj">Part object to copy</param>
+    public Part(Part obj)
+    {
+      Code = obj.Code;
+      Description = obj.Description;
+      Glueable = obj.Glueable;
+      Quantity = obj.Quantity;
 
-			if (obj.ExternalPart != null)
-			{
-				ExternalPart = new Part(obj.ExternalPart);
-			}
-		}
+      if (obj.ExternalPart != null)
+      {
+        ExternalPart = new Part(obj.ExternalPart);
+      }
+    }
 
-		#endregion
+    #endregion
 
-		/// <summary>
-		/// Returns the code and description
-		/// </summary>
-		/// <returns>Code and description</returns>
-		public override string ToString() => $"({Quantity}) {Code}: {Description}";
-	}
+    /// <summary>
+    /// Returns the code and description
+    /// </summary>
+    /// <returns>Code and description</returns>
+    public override string ToString() => $"({Quantity}) {Code}: {Description}";
+  }
 }

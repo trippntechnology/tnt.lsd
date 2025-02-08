@@ -1,222 +1,259 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using TNT.LSD.PDFGenerator.Properties;
+﻿using iText.IO.Image;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Event;
+using iText.Layout;
+using iText.Layout.Borders;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using System.Drawing.Imaging;
 using TNT.Utilities;
-using iText = iTextSharp.text;
+using iTextColors = iText.Kernel.Colors;
+using iTextImage = iText.Layout.Element.Image;
 
-namespace TNT.LSD.PDFGenerator
+namespace TNT.LSD.PDFGenerator;
+
+/// <summary>
+/// Generates a PDF for Sprinkler Supply Co
+/// </summary>
+public class SSCPDFGenerator : PDFGenerator
 {
-	/// <summary>
-	/// Generates a PDF for Sprinkler Supply Co
-	/// </summary>
-	public class SSCPDFGenerator : PDFGenerator
-	{
-		/// <summary>
-		/// Creates a PDF file for Sprinkle Supply Co using the content
-		/// </summary>
-		/// <param name="fileName">Location of file</param>
-		/// <param name="content">Content to place in the PDF</param>
-		public override void Generate(string fileName, Content content)
-		{
-			PageEventHelper peh = new PageEventHelper((headerTbl, footerTbl) =>
-				{
-					// Create a table with two columns
-					headerTbl.ResetColumnCount(2);
+  class StartEventHandler(Document document, Content content) : BaseEventHandler(document)
+  {
+    protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage? pdfPage, PdfDocument pdfDocument)
+    {
+      if (pdfPage == null) return;
 
-					// Write the design number in two columns
-					PdfPCell cell = new PdfPCell(new Phrase(content.DesignNumber));
-					cell.Phrase.Font.Size = HEADER_FONT_SIZE;
-					cell.MinimumHeight = 18;
-					cell.Border = PdfPCell.BOTTOM_BORDER;
-					cell.BorderWidth = 2f;
-					cell.BorderColor = BaseColor.RED;
-					cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
-					headerTbl.AddCell(cell);
+      // Create a table with two columns
+      Table headerTbl = new Table(2);
+      var bottomBorder = new SolidBorder(iTextColors.ColorConstants.RED, 2f);
 
-					// Write the owner's name in the second column
-					cell.Phrase = new Phrase(string.Format("{0}{1}", content.OwnerName, string.Concat(" (", DateTime.Now.ToShortDateString(), ")")));
-					cell.Phrase.Font.Size = HEADER_FONT_SIZE;
-					cell.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
-					headerTbl.AddCell(cell);
+      // Write the design number in two columns
+      Cell designNumberCell = new Cell().Add(new Paragraph(content.DesignNumber))
+        .SetBorder(Border.NO_BORDER)
+        .SetBorderBottom(bottomBorder)
+        .SetTextAlignment(TextAlignment.LEFT);
+      headerTbl.AddCell(designNumberCell);
 
-					// Create a table with three columns
-					footerTbl.ResetColumnCount(3);
-					footerTbl.SetTotalWidth(new float[] { 6f, 1, 6f });
+      // Write the owner's name in the second column
+      Cell ownersNameCell = new Cell().Add(new Paragraph(string.Format("{0}{1}", content.OwnerName, string.Concat(" (", DateTime.Now.ToShortDateString(), ")"))))
+         .SetBorder(Border.NO_BORDER)
+         .SetBorderBottom(bottomBorder)
+         .SetTextAlignment(TextAlignment.RIGHT);
+      headerTbl.AddCell(ownersNameCell);
 
-					// Put the application name in the first column
-					cell = new PdfPCell(new Phrase(GetApplicationName()));
-					cell.Phrase.Font.Size = FOOTER_FONT_SIZE;
-					cell.Border = PdfPCell.TOP_BORDER;
-					cell.BorderWidth = 2f;
-					cell.BorderColor = BaseColor.BLUE;
-					footerTbl.AddCell(cell);
+      // Add the table to the page
+      var rect = getHeaderRect();
 
-					// Add a cell for the page number
-					cell.Phrase = new Phrase("");
-					cell.Phrase.Font.Size = FOOTER_FONT_SIZE;
-					cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-					cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
-					footerTbl.AddCell(cell);
+      System.Diagnostics.Debug.WriteLine(rect.ToString());
+      headerTbl.SetFixedPosition(rect.GetLeft(), rect.GetBottom(), rect.GetWidth());
 
-					// Add copyright info
-					cell.Phrase = new Phrase(GetCopyright());
-					cell.Phrase.Font.Size = FOOTER_FONT_SIZE;
-					cell.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
-					footerTbl.AddCell(cell);
-				});
+      getCanvas(pdfPage, rect).Add(headerTbl);
+    }
 
-			peh.OnBeforeWriteFooter = BeforeWriteFooter;
+    protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event)
+    {
+    }
+  }
 
-			Document document = CreateDocument(fileName, peh);
+  class EndEventHandler(Document document, string appName, string copyright) : BaseEventHandler(document)
+  {
+    protected override void HandleEvent(PdfDocumentEvent pdfDocumentEvent, PdfPage? pdfPage, PdfDocument pdfDocument)
+    {
+      if (pdfPage == null) return;
 
-			CreateCoverPage(document, content);
+      // Create a table with three columns
+      PageSize pageSize = pdfDocument.GetDefaultPageSize();
+      Table footerTbl = new Table(new float[] { 6f, 1, 6f });
+      var topBorder = new SolidBorder(iTextColors.ColorConstants.BLUE, 2f);
+      int pageNumber = pdfDocument.GetPageNumber(pdfPage);
 
-			document.NewPage();
+      // Put the application name in the first column
+      Cell appNameCell = new Cell().Add(new Paragraph(appName).SetFontSize(FOOTER_FONT_SIZE))
+        .SetBorder(Border.NO_BORDER)
+        .SetBorderTop(topBorder)
+        .SetTextAlignment(TextAlignment.LEFT);
+      footerTbl.AddCell(appNameCell);
 
-			CreatePartsListing(document, content.Parts);
+      // Add a cell for the page number
+      Cell pageNumberCell = new Cell().Add(new Paragraph(pageNumber.ToString()).SetFontSize(FOOTER_FONT_SIZE))
+         .SetBorder(Border.NO_BORDER)
+         .SetBorderTop(topBorder)
+         .SetTextAlignment(TextAlignment.CENTER);
+      footerTbl.AddCell(pageNumberCell);
 
-			System.Drawing.Font font = new System.Drawing.Font("Arial", 8);
-			Graphics graphics = Graphics.FromImage(content.Design);
+      // Add copyright info
+      Cell copyrightCell = new Cell().Add(new Paragraph(copyright).SetFontSize(FOOTER_FONT_SIZE))
+        .SetBorder(Border.NO_BORDER)
+         .SetBorderTop(topBorder)
+         .SetTextAlignment(TextAlignment.RIGHT);
+      footerTbl.AddCell(copyrightCell);
 
-			string disclaimer = Resources.Disclaimer;
-			SizeF size = graphics.MeasureString(disclaimer, font, content.Design.Width);
+      // Add the table to the page
+      var rect = getFooterRect();
+      footerTbl.SetFixedPosition(rect.GetLeft(), rect.GetTop() - getTableHeight(footerTbl, pageSize), rect.GetWidth());
+      getCanvas(pdfPage, rect).Add(footerTbl);
+    }
 
-			System.Drawing.Image image = new Bitmap(content.Design.Width, content.Design.Height + (int)size.Height);
+    protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event)
+    {
+    }
+  }
 
-			graphics = Graphics.FromImage(image);
-			graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, image.Width, image.Height);
-			graphics.DrawImage(content.Design, new Point(0, 0));
+  /// <summary>
+  /// Creates a PDF file for Sprinkle Supply Co using the content
+  /// </summary>
+  /// <param name="fileName">Location of file</param>
+  /// <param name="content">Content to place in the PDF</param>
+  public override void Generate(string fileName, Content content)
+  {
+    Generate(fileName, (pdfDocument, document) =>
+    {
+      pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new StartEventHandler(document, content));
+      pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, new EndEventHandler(document, GetApplicationName(), GetCopyright()));
 
-			graphics.DrawString(disclaimer, font, new SolidBrush(Color.Black), new RectangleF(new PointF(0, content.Design.Height), size));
+      CreateCoverPage(document, content);
 
-			CreateImagePage(document, image);
+      document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-			if (content.Coverage != null)
-			{
-				image = new Bitmap(content.Coverage.Width, content.Coverage.Height + (int)size.Height);
+      CreatePartsListing(document, content.Parts);
 
-				graphics = Graphics.FromImage(image);
-				graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, image.Width, image.Height);
-				graphics.DrawImage(content.Coverage, new Point(0, 0));
+      document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-				graphics.DrawString(disclaimer, font, new SolidBrush(Color.Black), new RectangleF(new PointF(0, content.Coverage.Height), size));
+      if (content.Design == null) return;
 
-				CreateImagePage(document, image);
-			}
+      Font font = new System.Drawing.Font("Arial", 8);
+      Graphics graphics = Graphics.FromImage(content.Design);
 
-			document.Close();
-		}
+      string disclaimer = Resources.Disclaimer;
+      SizeF size = graphics.MeasureString(disclaimer, font, content.Design.Width);
 
-		/// <summary>
-		/// Creates the cover page
-		/// </summary>
-		/// <param name="document">Document</param>
-		/// <param name="content">Content that should be used</param>
-		protected void CreateCoverPage(Document document, Content content)
-		{
-			Reflector<object> reflector = new Reflector<object>(content.DynamicProperties);
-			var categories = (from p in reflector.Properties orderby p.Category select p.Category).Distinct();
-			List<PropertyReflector> propReflectors = (from p in reflector.Properties orderby p.Category, p.DisplayName select p).ToList();
+      System.Drawing.Image image = new Bitmap(content.Design.Width, content.Design.Height + (int)size.Height);
 
-			document.Add(new Paragraph(" "));
-			iText.Image image = iText.Image.GetInstance(Resources.ssc, System.Drawing.Imaging.ImageFormat.Jpeg);
-			image.Alignment = iText.Image.ALIGN_MIDDLE;
-			document.Add(image);
+      graphics = Graphics.FromImage(image);
+      graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, image.Width, image.Height);
+      graphics.DrawImage(content.Design, new System.Drawing.Point(0, 0));
 
-			document.Add(new Paragraph(" "));
+      graphics.DrawString(disclaimer, font, new SolidBrush(Color.Black), new RectangleF(new PointF(0, content.Design.Height), size));
 
-			PdfPTable table = new PdfPTable(2);
-			table.WidthPercentage = 100;
-			table.DefaultCell.Border = PdfPCell.NO_BORDER;
+      CreateImagePage(document, image);
 
-			var cats = reflector.GetCategoriesByPriority();
+      document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-			foreach(var category in cats)
-			{
-				List<PropertyReflector> props = (from p in reflector.Properties where p.Category == category orderby p.Priority select p).ToList();
-				AddTableSection(table, category, props);
-			}
+      if (content.Coverage != null)
+      {
+        image = new Bitmap(content.Coverage.Width, content.Coverage.Height + (int)size.Height);
 
-			AddTableRow(table, new string[] { string.Empty, string.Empty }, RowFont, BaseColor.WHITE);
+        graphics = Graphics.FromImage(image);
+        graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, image.Width, image.Height);
+        graphics.DrawImage(content.Coverage, new System.Drawing.Point(0, 0));
 
-			AddTableRow(table, new string[] { string.Empty, string.Empty }, RowFont, BaseColor.WHITE);
-			AddTableSection(table, "Comments");
-			AddTableRow(table, new string[] { string.Empty, string.Empty }, RowFont, BaseColor.WHITE);
+        graphics.DrawString(disclaimer, font, new SolidBrush(Color.Black), new RectangleF(new PointF(0, content.Coverage.Height), size));
 
-			PdfPCell cell = new PdfPCell(new Phrase(content.Comments, RowFont));
-			cell.Border = PdfPCell.NO_BORDER;
-			cell.Colspan = 2;
-			table.AddCell(cell);
+        CreateImagePage(document, image);
+      }
+    });
+  }
 
-			document.Add(table);
-		}
+  /// <summary>
+  /// Creates the cover page
+  /// </summary>
+  /// <param name="document">Document</param>
+  /// <param name="content">Content that should be used</param>
+  protected void CreateCoverPage(Document document, Content content)
+  {
+    if (content.DynamicProperties == null) return;
 
-		private void AddTableSection(PdfPTable table, string category, List<PropertyReflector> props)
-		{
-			AddTableRow(table, new string[] { string.Empty, string.Empty }, RowFont, BaseColor.WHITE);
+    Reflector<object> reflector = new Reflector<object>(content.DynamicProperties);
+    var categories = (from p in reflector.Properties orderby p.Category select p.Category).Distinct();
+    List<PropertyReflector> propReflectors = (from p in reflector.Properties orderby p.Category, p.DisplayName select p).ToList();
 
-			if (!string.IsNullOrEmpty(category))
-			{
-				AddTableSection(table, category);
-			}
+    document.Add(new Paragraph(" "));
 
-			AddTableRow(table, new string[] { string.Empty, string.Empty }, RowFont, BaseColor.WHITE);
+    // Convert the System.Drawing.Bitmap to a byte array
+    byte[] imageBytes;
+    using (MemoryStream ms = new MemoryStream())
+    {
+      Resources.ssc.Save(ms, ImageFormat.Png); // Use the appropriate format
+      imageBytes = ms.ToArray();
+    }
 
-			List<string[]> rows = new List<string[]>();
+    // Create an iText ImageData object from the byte array
+    ImageData imageData = ImageDataFactory.Create(imageBytes);
 
-			foreach (PropertyReflector pr in props)
-			{
-				rows.Add(new string[] { pr.DisplayName, pr.Value == null ? string.Empty: pr.Value.ToString() });
-			}
+    // Create an iText Image element
+    iTextImage pdfImage = new iTextImage(imageData).Scale(.3f, .3f).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+    document.Add(pdfImage);
 
-			WriteTableData(table, rows.ToArray());
-		}
+    document.Add(new Paragraph(" "));
 
-		/// <summary>
-		/// Adds row that spans both columns with the section label
-		/// </summary>
-		/// <param name="table"></param>
-		/// <param name="value"></param>
-		protected void AddTableSection(PdfPTable table, string value)
-		{
-			PdfPCell cell = new PdfPCell(new Phrase(value, SectionFont));
-			cell.Border = PdfPCell.TOP_BORDER;
-			cell.BorderWidth = 2f;
-			cell.BorderColor = BaseColor.BLUE;
-			cell.Colspan = 2;
-			table.AddCell(cell);
-		}
+    Table table = new Table(2).UseAllAvailableWidth();
 
-		/// <summary>
-		/// Writes data to the table
-		/// </summary>
-		/// <param name="table">Table where data should be written</param>
-		/// <param name="data">Data</param>
-		protected void WriteTableData(PdfPTable table, string[][] data)
-		{
-			BaseColor shadedRowColor = new BaseColor(Color.LightGray);
+    var cats = reflector.GetCategoriesByPriority();
 
-			for (int index = 0; index < data.Length; index++)
-			{
-				AddRowCell(table, data[index][0], BoldRowFont, index % 2 == 0 ? shadedRowColor : BaseColor.WHITE);
-				AddRowCell(table, data[index][1], RowFont, index % 2 == 0 ? shadedRowColor : BaseColor.WHITE);
-			}
-		}
+    foreach (var category in cats)
+    {
+      List<PropertyReflector> props = (from p in reflector.Properties where p.Category == category orderby p.Priority select p).ToList();
+      AddTableSection(table, category, props);
+    }
 
-		/// <summary>
-		/// Event to set the page number in the second column of the footer
-		/// </summary>
-		/// <param name="footer">Footer</param>
-		/// <param name="document">Document</param>
-		protected void BeforeWriteFooter(PdfPTable footer, Document document)
-		{
-			Phrase phrase = new Phrase(document.PageNumber.ToString());
-			phrase.Font.Size = FOOTER_FONT_SIZE;
-			footer.Rows[0].GetCells()[1].Phrase = phrase;
-		}
-	}
+    AddTableRow(table, [string.Empty, string.Empty]);
+
+    AddTableRow(table, [string.Empty, string.Empty]);
+    AddTableSection(table, "Comments");
+    AddTableRow(table, [string.Empty, string.Empty]);
+
+    Cell cell = new Cell(1, 2).Add(new Paragraph(content.Comments).SetFontSize(ROW_FONT_SIZE))
+      .SetBorder(Border.NO_BORDER);
+    table.AddCell(cell);
+
+    document.Add(table);
+  }
+
+  private void AddTableSection(Table table, string category, List<PropertyReflector> props)
+  {
+    AddTableRow(table, [string.Empty, string.Empty]);
+
+    if (!string.IsNullOrEmpty(category))
+    {
+      AddTableSection(table, category);
+    }
+
+    AddTableRow(table, [string.Empty, string.Empty]);
+
+    List<List<string>> rows = [];
+
+    foreach (PropertyReflector pr in props)
+    {
+      rows.Add(new List<string> { pr.DisplayName, pr.Value?.ToString() ?? string.Empty });
+    }
+
+    WriteTableData(table, rows);
+  }
+
+  /// <summary>
+  /// Adds row that spans both columns with the section label
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="value"></param>
+  protected void AddTableSection(Table table, string value)
+  {
+    Cell cell = new Cell(1, 2).Add(new Paragraph(value).SetFont(BoldFont).SetFontSize(SECTION_FONT_SIZE))
+      .SetBorder(Border.NO_BORDER)
+      .SetBorderTop(new SolidBorder(iTextColors.ColorConstants.BLUE, 2));
+    table.AddCell(cell);
+  }
+
+  /// <summary>
+  /// Writes data to the table
+  /// </summary>
+  /// <param name="table">Table where data should be written</param>
+  /// <param name="data">Data</param>
+  protected void WriteTableData(Table table, List<List<string>> data)
+  {
+    for (int row = 0; row < data.Count; row++)
+    {
+      AddTableRow(table, data[row], row % 2 == 0 ? iTextColors.ColorConstants.LIGHT_GRAY : iTextColors.ColorConstants.WHITE);
+    }
+  }
 }

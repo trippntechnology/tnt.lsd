@@ -1,10 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace TNT.LSD.Background
+namespace TNT.LSD.Background;
+
+class MyEventArgs : EventArgs
 {
-	class MyEventArgs: EventArgs
-	{
-		public DialogResult DialogResult{ get; set; }
-	}
+  public DialogResult DialogResult { get; set; }
 }

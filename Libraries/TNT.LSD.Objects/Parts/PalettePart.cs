@@ -1,365 +1,362 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Windows.Forms;
-using System.Xml.Serialization;
 using TNT.LSD.Objects.ControlPoints;
 using TNT.Math;
 
 namespace TNT.LSD.Objects
 {
-	public abstract class PalettePart : TNTPart
-	{
-		protected const int PART_COLOR_CIRCLE_SIZE = 14;
-		protected const double ROTATION_POINT_RATIO = 1.0;
-		protected Image m_Image;
-		private float m_RotationAngle = 0;
+  public abstract class PalettePart : TNTPart
+  {
+    protected const int PART_COLOR_CIRCLE_SIZE = 14;
+    protected const double ROTATION_POINT_RATIO = 1.0;
+    protected Image m_Image;
+    private float m_RotationAngle = 0;
 
-		#region OnMove Delgates
+    #region OnMove Delgates
 
-		virtual protected void RotationPointMoved(TNTControlPoint Sender)
-		{
-			Vector thisVector = new Vector(ControlPoints[0].Position, Sender.Position);
-			Angle angle = thisVector.Angle(new Vector(0, -1));
+    virtual protected void RotationPointMoved(TNTControlPoint Sender)
+    {
+      Vector thisVector = new Vector(ControlPoints[0].Position, Sender.Position);
+      Angle angle = thisVector.Angle(new Vector(0, -1));
 
-			if (System.Math.Sign(thisVector.X) < 0)
-			{
-				angle = new Angle(360 - angle.InDegrees, true);
-			}
+      if (System.Math.Sign(thisVector.X) < 0)
+      {
+        angle = new Angle(360 - angle.InDegrees, true);
+      }
 
-			// Get angle between points
-			RotationAngle = (float)angle.InDegrees;
-		}
+      // Get angle between points
+      RotationAngle = (float)angle.InDegrees;
+    }
 
-		virtual protected void CenterPointMoved(TNTControlPoint Sender)
-		{
-			Vector unitVector = new Vector(new Angle(RotationAngle, true), 1);
-			ControlPoints[1].MoveTo((int)(Sender.XPos + unitVector.X * m_Image.Width * ROTATION_POINT_RATIO), (int)(Sender.YPos + unitVector.Y * m_Image.Height * ROTATION_POINT_RATIO));
-		}
+    virtual protected void CenterPointMoved(TNTControlPoint Sender)
+    {
+      Vector unitVector = new Vector(new Angle(RotationAngle, true), 1);
+      ControlPoints[1].MoveTo((int)(Sender.XPos + unitVector.X * m_Image.Width * ROTATION_POINT_RATIO), (int)(Sender.YPos + unitVector.Y * m_Image.Height * ROTATION_POINT_RATIO));
+    }
 
-		#endregion
+    #endregion
 
-		#region Properties
+    #region Properties
 
-		[Description("The Image's rotation angle.")]
-		[DisplayName("Rotation Angle")]
-		[DefaultValue(0)]
-		virtual public float RotationAngle
-		{
-			get
-			{
-				return m_RotationAngle;
-			}
+    [Description("The Image's rotation angle.")]
+    [DisplayName("Rotation Angle")]
+    [DefaultValue(0)]
+    virtual public float RotationAngle
+    {
+      get
+      {
+        return m_RotationAngle;
+      }
 
-			set
-			{
-				if (value < 0)
-				{
-					m_RotationAngle = 360 + (value % 360);
-				}
-				else
-				{
-					m_RotationAngle = value % 360;
-				}
+      set
+      {
+        if (value < 0)
+        {
+          m_RotationAngle = 360 + (value % 360);
+        }
+        else
+        {
+          m_RotationAngle = value % 360;
+        }
 
-				if (ControlPoints != null && ControlPoints.Count > 1)
-				{
-					// Move the position of the rotation point.
-					Vector unitVector = new Vector(new Angle(m_RotationAngle, true), 1);
-					double rotationOffsetX = m_Image != null ? unitVector.X * m_Image.Width * ROTATION_POINT_RATIO : 0;
-					double rotationOffsetY = m_Image != null ? unitVector.Y * m_Image.Height * ROTATION_POINT_RATIO : 0;
-					ControlPoints[1].MoveTo((int)(ControlPoints[0].XPos + rotationOffsetX), (int)(ControlPoints[0].YPos + rotationOffsetY));
-				}
-			}
-		}
+        if (ControlPoints != null && ControlPoints.Count > 1)
+        {
+          // Move the position of the rotation point.
+          Vector unitVector = new Vector(new Angle(m_RotationAngle, true), 1);
+          double rotationOffsetX = m_Image != null ? unitVector.X * m_Image.Width * ROTATION_POINT_RATIO : 0;
+          double rotationOffsetY = m_Image != null ? unitVector.Y * m_Image.Height * ROTATION_POINT_RATIO : 0;
+          ControlPoints[1].MoveTo((int)(ControlPoints[0].XPos + rotationOffsetX), (int)(ControlPoints[0].YPos + rotationOffsetY));
+        }
+      }
+    }
 
-		[XmlIgnore()]
+    [JsonIgnore]
 #if !PALETTE_PROPERTIES
 		[Browsable(false)]
 #endif
-		public Image Image { get { return m_Image; } set { m_Image = value; } }
+    public Image Image { get { return m_Image; } set { m_Image = value; } }
 
-		[Browsable(false)]
-		public string ImageContent
-		{
-			get
-			{
-				return ImageToBase64(m_Image);
-			}
-			set
-			{
-				m_Image = Base64ToImage(value);
+    [Browsable(false)]
+    public string ImageContent
+    {
+      get
+      {
+        return ImageToBase64(m_Image);
+      }
+      set
+      {
+        m_Image = Base64ToImage(value);
 
-				// When image is being loaded the location of the rotation point needs to be adjusted. Resetting the rotation angle
-				// will fix the location
-				RotationAngle = RotationAngle;
-			}
-		}
+        // When image is being loaded the location of the rotation point needs to be adjusted. Resetting the rotation angle
+        // will fix the location
+        RotationAngle = RotationAngle;
+      }
+    }
 
-		public override bool OverControlPoint
-		{
-			get
-			{
-				return ControlPoints[1] == m_SelectedControlPoint;
-			}
-		}
-
-#if !PALETTE_PROPERTIES
-		[Browsable(false)]
-#endif
-		public string LegendText { get; set; }
-
-		[XmlIgnore()]
-#if !PALETTE_PROPERTIES
-		[Browsable(false)]
-#endif
-		public Image LegendImage { get; set; }
-
-		[Browsable(false)]
-		public string LegendImageContent
-		{
-			get
-			{
-				if (LegendImage != null)
-				{
-					return ImageToBase64(LegendImage);
-				}
-				else
-				{
-					return null;
-				}
-			}
-			set
-			{
-				LegendImage = Base64ToImage(value);
-			}
-		}
+    [JsonIgnore]
+    public override bool OverControlPoint
+    {
+      get
+      {
+        return ControlPoints[1] == m_SelectedControlPoint;
+      }
+    }
 
 #if !PALETTE_PROPERTIES
 		[Browsable(false)]
 #endif
-		[DefaultValue(false)]
-		public bool ExcludeFromLegend { get; set; }
+    public string LegendText { get; set; }
 
-		#endregion
+    [JsonIgnore]
+#if !PALETTE_PROPERTIES
+		[Browsable(false)]
+#endif
+    public Image LegendImage { get; set; }
 
-		#region Constructors
+    [Browsable(false)]
+    public string LegendImageContent
+    {
+      get
+      {
+        if (LegendImage != null)
+        {
+          return ImageToBase64(LegendImage);
+        }
+        else
+        {
+          return null;
+        }
+      }
+      set
+      {
+        LegendImage = Base64ToImage(value);
+      }
+    }
 
-		// Copy constructor
-		public PalettePart(PalettePart obj)
-			: base(obj)
-		{
-			m_Image = obj.m_Image;
-			RotationAngle = obj.RotationAngle;
-			LegendText = obj.LegendText;
-			LegendImage = obj.LegendImage;
-			ExcludeFromLegend = obj.ExcludeFromLegend;
+#if !PALETTE_PROPERTIES
+		[Browsable(false)]
+#endif
+    [DefaultValue(false)]
+    public bool ExcludeFromLegend { get; set; }
 
-			if (ControlPoints != null && ControlPoints.Count > 1)
-			{
-				ControlPoints[0].OnMoved = CenterPointMoved;
-				ControlPoints[1].OnMoved = RotationPointMoved;
-			}
-		}
+    #endregion
 
-		public PalettePart()
-			: base()
-		{
-		}
+    #region Constructors
 
-		#endregion
+    // Copy constructor
+    public PalettePart(PalettePart obj)
+      : base(obj)
+    {
+      m_Image = obj.m_Image;
+      RotationAngle = obj.RotationAngle;
+      LegendText = obj.LegendText;
+      LegendImage = obj.LegendImage;
+      ExcludeFromLegend = obj.ExcludeFromLegend;
 
-		public override void Draw(Graphics graphics, DrawingOptions drawingOptions)
-		{
-			// Draw a colored circle on the part if connected to a pipe with a color other than black
-			DrawBackground(graphics);
-			Draw(graphics, drawingOptions, new ImageAttributes());
-			base.Draw(graphics, drawingOptions);
-		}
+      if (ControlPoints != null && ControlPoints.Count > 1)
+      {
+        ControlPoints[0].OnMoved = CenterPointMoved;
+        ControlPoints[1].OnMoved = RotationPointMoved;
+      }
+    }
 
-		virtual protected void DrawBackground(Graphics graphics)
-		{
-			Color? backgroundColor = this is Valve ? this.Color : Pipes.Count>0 ? (Color?)Pipes[0].PipeColor : null;
-			
-			if (backgroundColor != null && backgroundColor?.ToArgb() != Color.Black.ToArgb())
-			{
-				using (SolidBrush sb = new SolidBrush((Color)backgroundColor))
-				{
-					graphics.FillEllipse(sb, new Rectangle(base.Position.X - (PART_COLOR_CIRCLE_SIZE / 2), base.Position.Y - (PART_COLOR_CIRCLE_SIZE / 2), PART_COLOR_CIRCLE_SIZE, PART_COLOR_CIRCLE_SIZE));
-				}
-			}
-		}
+    public PalettePart()
+      : base()
+    {
+    }
 
-		virtual public void Draw(Graphics graphics, DrawingOptions options, ImageAttributes attrs)
-		{
-			// For some reason, a RotationAngle of exactly 90 causes an out of memory error. By adding 0.1 to the value
-			// the issue is resolved.
-			float rotationAngle = RotationAngle == (float)90.0 ? RotationAngle + (float)0.1 : RotationAngle;
+    #endregion
 
-			try
-			{
-				Rectangle drawingRect = new Rectangle(-m_Image.Width / 2, -m_Image.Height / 2, m_Image.Width, m_Image.Height);
+    public override void Draw(Graphics graphics, DrawingOptions drawingOptions)
+    {
+      // Draw a colored circle on the part if connected to a pipe with a color other than black
+      DrawBackground(graphics);
+      Draw(graphics, drawingOptions, new ImageAttributes());
+      base.Draw(graphics, drawingOptions);
+    }
 
-				if (Selected)
-				{
-					// This creates a shadow of the image.
-					int shadowOffset = 2;
+    virtual protected void DrawBackground(Graphics graphics)
+    {
+      Color? backgroundColor = this is Valve ? this.Color : Pipes.Count > 0 ? (Color?)Pipes[0].PipeColor : null;
 
-					//create the grayscale ColorMatrix
-					ColorMatrix colorMatrix = new ColorMatrix(
-						new float[][]
-						{
-							 new float[] {.3f, .3f, .3f, 0, 0},
-							 new float[] {.59f, .59f, .59f, 0, 0},
-							 new float[] {.11f, .11f, .11f, 0, 0},
-							 new float[] {0, 0, 0, .5f, 0},
-							 new float[] {0, 0, 0, 0, 1}
-						});
+      if (backgroundColor != null && backgroundColor?.ToArgb() != Color.Black.ToArgb())
+      {
+        using (SolidBrush sb = new SolidBrush((Color)backgroundColor))
+        {
+          graphics.FillEllipse(sb, new Rectangle(base.Position.X - (PART_COLOR_CIRCLE_SIZE / 2), base.Position.Y - (PART_COLOR_CIRCLE_SIZE / 2), PART_COLOR_CIRCLE_SIZE, PART_COLOR_CIRCLE_SIZE));
+        }
+      }
+    }
 
-					ImageAttributes attributes = new ImageAttributes();
-					attributes.SetColorMatrix(colorMatrix);//, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+    virtual public void Draw(Graphics graphics, DrawingOptions options, ImageAttributes attrs)
+    {
+      // For some reason, a RotationAngle of exactly 90 causes an out of memory error. By adding 0.1 to the value
+      // the issue is resolved.
+      float rotationAngle = RotationAngle == (float)90.0 ? RotationAngle + (float)0.1 : RotationAngle;
 
-					try
-					{
-						graphics.TranslateTransform(ControlPoints[0].XPos + shadowOffset, ControlPoints[0].YPos + shadowOffset);
-						graphics.RotateTransform(rotationAngle);
-						graphics.DrawImage(m_Image, drawingRect, 0, 0, m_Image.Width, m_Image.Height, GraphicsUnit.Pixel, attributes);
-					}
-					catch
-					{
-					}
-					finally
-					{
-						graphics.RotateTransform(-rotationAngle);
-						graphics.TranslateTransform(-ControlPoints[0].XPos - shadowOffset, -ControlPoints[0].YPos - shadowOffset);
-					}
-				}
+      try
+      {
+        Rectangle drawingRect = new Rectangle(-m_Image.Width / 2, -m_Image.Height / 2, m_Image.Width, m_Image.Height);
 
-				graphics.TranslateTransform(ControlPoints[0].XPos, ControlPoints[0].YPos);
-				graphics.RotateTransform(rotationAngle);
-				graphics.DrawImage(m_Image, drawingRect, 0, 0, m_Image.Width, m_Image.Height, GraphicsUnit.Pixel, attrs);
-			}
-			catch
-			{
-			}
-			finally
-			{
-				graphics.RotateTransform(-rotationAngle);
-				graphics.TranslateTransform(-ControlPoints[0].XPos, -ControlPoints[0].YPos);
-			}
-		}
+        if (Selected)
+        {
+          // This creates a shadow of the image.
+          int shadowOffset = 2;
 
-		public override TNTObject MouseOver(Point mousePosition, Keys modifierKeys)
-		{
-			TNTObject isOver = null;
+          //create the grayscale ColorMatrix
+          ColorMatrix colorMatrix = new ColorMatrix(
+            new float[][]
+            {
+               new float[] {.3f, .3f, .3f, 0, 0},
+               new float[] {.59f, .59f, .59f, 0, 0},
+               new float[] {.11f, .11f, .11f, 0, 0},
+               new float[] {0, 0, 0, .5f, 0},
+               new float[] {0, 0, 0, 0, 1}
+            });
 
-			GraphicsPath path = new GraphicsPath();
-			Rectangle rect = new Rectangle(ControlPoints[0].XPos - m_Image.Width / 2, ControlPoints[0].YPos - m_Image.Height / 2, m_Image.Width, m_Image.Height);
+          ImageAttributes attributes = new ImageAttributes();
+          attributes.SetColorMatrix(colorMatrix);//, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-			path.AddRectangle(rect);
+          try
+          {
+            graphics.TranslateTransform(ControlPoints[0].XPos + shadowOffset, ControlPoints[0].YPos + shadowOffset);
+            graphics.RotateTransform(rotationAngle);
+            graphics.DrawImage(m_Image, drawingRect, 0, 0, m_Image.Width, m_Image.Height, GraphicsUnit.Pixel, attributes);
+          }
+          catch
+          {
+          }
+          finally
+          {
+            graphics.RotateTransform(-rotationAngle);
+            graphics.TranslateTransform(-ControlPoints[0].XPos - shadowOffset, -ControlPoints[0].YPos - shadowOffset);
+          }
+        }
 
-			Region region = new Region(path);
-			isOver = region.IsVisible(mousePosition) ? this : null;
+        graphics.TranslateTransform(ControlPoints[0].XPos, ControlPoints[0].YPos);
+        graphics.RotateTransform(rotationAngle);
+        graphics.DrawImage(m_Image, drawingRect, 0, 0, m_Image.Width, m_Image.Height, GraphicsUnit.Pixel, attrs);
+      }
+      catch
+      {
+      }
+      finally
+      {
+        graphics.RotateTransform(-rotationAngle);
+        graphics.TranslateTransform(-ControlPoints[0].XPos, -ControlPoints[0].YPos);
+      }
+    }
 
-			if (isOver == null && Selected)
-			{
-				isOver = GetControlPoint(mousePosition, modifierKeys);
-			}
+    public override TNTObject? MouseOver(Point mousePosition, Keys modifierKeys)
+    {
+      TNTObject? isOver = null;
 
-			return isOver;
-		}
+      GraphicsPath path = new GraphicsPath();
+      Rectangle rect = new Rectangle(ControlPoints[0].XPos - m_Image.Width / 2, ControlPoints[0].YPos - m_Image.Height / 2, m_Image.Width, m_Image.Height);
 
-		protected override void CreateControlPoints(Point position)
-		{
-			PointF unitVector = new PointF(0, -1);
-			double rotationOffsetX = unitVector.X * (m_Image != null ? m_Image.Width : 0);
-			double rotationOffsetY = unitVector.Y * (m_Image != null ? m_Image.Height * ROTATION_POINT_RATIO : 0);
+      path.AddRectangle(rect);
 
-			ControlPoints.Add(new TNTControlPoint(this, position, true));
-			ControlPoints.Add(new RotationControlPoint(this, (int)(position.X + rotationOffsetX), (int)(position.Y + rotationOffsetY)));
+      Region region = new Region(path);
+      isOver = region.IsVisible(mousePosition) ? this : null;
 
-			ControlPoints[0].OnMoved = CenterPointMoved;
-			ControlPoints[1].OnMoved = RotationPointMoved;
-		}
+      if (isOver == null && Selected)
+      {
+        isOver = GetControlPoint(mousePosition, modifierKeys);
+      }
 
-		/// <summary>
-		/// Creates undo object
-		/// </summary>
-		/// <returns>Undo object</returns>
-		public override TNTObject CreateUndoCopy()
-		{
-			PalettePart newObj = base.CreateUndoCopy() as PalettePart;
+      return isOver;
+    }
 
-			newObj.Image = Image;
-			newObj.RotationAngle = RotationAngle;
+    protected override void CreateControlPoints(Point position)
+    {
+      PointF unitVector = new PointF(0, -1);
+      double rotationOffsetX = unitVector.X * (m_Image != null ? m_Image.Width : 0);
+      double rotationOffsetY = unitVector.Y * (m_Image != null ? m_Image.Height * ROTATION_POINT_RATIO : 0);
 
-			return newObj;
-		}
+      ControlPoints.Add(new TNTControlPoint(this, position, true));
+      ControlPoints.Add(new RotationControlPoint(this, (int)(position.X + rotationOffsetX), (int)(position.Y + rotationOffsetY)));
 
-		/// <summary>
-		/// Assigns obj properties to this object
-		/// </summary>
-		/// <param name="obj">Source object</param>
-		public override void Assign(TNTObject obj)
-		{
-			base.Assign(obj);
+      ControlPoints[0].OnMoved = CenterPointMoved;
+      ControlPoints[1].OnMoved = RotationPointMoved;
+    }
 
-			PalettePart i = obj as PalettePart;
+    /// <summary>
+    /// Creates undo object
+    /// </summary>
+    /// <returns>Undo object</returns>
+    public override TNTObject CreateUndoCopy()
+    {
+      PalettePart newObj = base.CreateUndoCopy() as PalettePart;
 
-			if (i != null)
-			{
-				m_Image = i.m_Image;
-				RotationAngle = i.RotationAngle;
+      newObj.Image = Image;
+      newObj.RotationAngle = RotationAngle;
 
-				ControlPoints[0].OnMoved = CenterPointMoved;
-				ControlPoints[1].OnMoved = RotationPointMoved;
-			}
-		}
+      return newObj;
+    }
 
-		public override void ResolveReferences(System.Collections.Generic.List<TNTObject> objects)
-		{
-			base.ResolveReferences(objects);
+    /// <summary>
+    /// Assigns obj properties to this object
+    /// </summary>
+    /// <param name="obj">Source object</param>
+    public override void Assign(TNTObject obj)
+    {
+      base.Assign(obj);
 
-			ControlPoints[0].OnMoved = CenterPointMoved;
-			ControlPoints[1].OnMoved = RotationPointMoved;
-		}
+      PalettePart i = obj as PalettePart;
 
-		#region Image Conversion Methods
+      if (i != null)
+      {
+        m_Image = i.m_Image;
+        RotationAngle = i.RotationAngle;
 
-		protected string ImageToBase64(Image image)
-		{
-			if (image == null)
-			{
-				return string.Empty;
-			}
+        ControlPoints[0].OnMoved = CenterPointMoved;
+        ControlPoints[1].OnMoved = RotationPointMoved;
+      }
+    }
 
-			using (MemoryStream ms = new MemoryStream())
-			{
-				image.Save(ms, ImageFormat.Png);
-				return Convert.ToBase64String(ms.ToArray());
-			}
-		}
+    public override void ResolveReferences(System.Collections.Generic.List<TNTObject> objects)
+    {
+      base.ResolveReferences(objects);
 
-		protected Image Base64ToImage(string base64)
-		{
-			Image image = null;
+      ControlPoints[0].OnMoved = CenterPointMoved;
+      ControlPoints[1].OnMoved = RotationPointMoved;
+    }
 
-			if (!string.IsNullOrEmpty(base64))
-			{
-				byte[] imageBytes = Convert.FromBase64String(base64);
-				using (MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
-				{
-					ms.Write(imageBytes, 0, imageBytes.Length);
-					image = Image.FromStream(ms, true);
-				}
-			}
+    #region Image Conversion Methods
 
-			return image;
-		}
+    protected string ImageToBase64(Image image)
+    {
+      if (image == null)
+      {
+        return string.Empty;
+      }
 
-		#endregion
-	}
+      using (MemoryStream ms = new MemoryStream())
+      {
+        image.Save(ms, ImageFormat.Png);
+        return Convert.ToBase64String(ms.ToArray());
+      }
+    }
+
+    protected Image Base64ToImage(string base64)
+    {
+      Image image = null;
+
+      if (!string.IsNullOrEmpty(base64))
+      {
+        byte[] imageBytes = Convert.FromBase64String(base64);
+        using (MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+        {
+          ms.Write(imageBytes, 0, imageBytes.Length);
+          image = Image.FromStream(ms, true);
+        }
+      }
+
+      return image;
+    }
+
+    #endregion
+  }
 }

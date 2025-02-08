@@ -1,16 +1,13 @@
-﻿using LandscapeSprinklerDesigner.Properties;
+﻿namespace LandscapeSprinklerDesigner.MenuEvents;
 
-namespace LandscapeSprinklerDesigner.MenuEvents
+class LayoutSettingsEvent : DockMenuEvent
 {
-	class LayoutSettingsEvent : DockMenuEvent
-	{
 
-		public override string Text => Resources.menu_layout_settings;
+  public override string Text => Resource.menu_layout_settings;
 
-		public override string ToolTipText => Resources.menu_layout_settings_tooltip;
+  public override string ToolTipText => Resource.menu_layout_settings_tooltip;
 
-		public LayoutSettingsEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.layout_settings.png"))
-		{
-		}
-	}
+  public LayoutSettingsEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.layout_settings.png"))
+  {
+  }
 }

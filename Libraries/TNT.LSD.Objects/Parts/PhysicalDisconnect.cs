@@ -93,7 +93,7 @@ namespace TNT.LSD.Objects
 				// Outlet
 				parts.Add("PF100BTFA", 1);
 			}
-			else
+			else if (pipeSize == PartSize.SIZE_075)
 			{
 				// Transition ball valves to 3/4" FT
 				parts.Add("FI100X075TTRB", 2);
@@ -106,7 +106,10 @@ namespace TNT.LSD.Objects
 				parts.Add("PF075BTMA", 3);
 			}
 
-			parts.AddHoseClamp(pipeSize.Code, 3);
+			if (pipeSize != null)
+			{
+				parts.AddHoseClamp(pipeSize.Code, 3);
+			}
 		}
 
 		/// <summary>

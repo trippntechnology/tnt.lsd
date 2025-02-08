@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Application" xml:space="preserve">
+    <value>LandscapeSprinklerDesigner</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Tripp'n Technology</value>
+  </data>
+  <data name="menu_clone" xml:space="preserve">
+    <value>&amp;Clone</value>
+  </data>
+  <data name="menu_clone_tooltip" xml:space="preserve">
+    <value>Create a clone of the selected object(s)</value>
+  </data>
+  <data name="menu_delete" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="menu_delete_tooltip" xml:space="preserve">
+    <value>Delete selected object(s)</value>
+  </data>
+  <data name="menu_exit" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="menu_exit_tooltip" xml:space="preserve">
+    <value>Exit the application</value>
+  </data>
+  <data name="menu_label_heads" xml:space="preserve">
+    <value>&amp;Label Heads</value>
+  </data>
+  <data name="menu_label_heads_tooltip" xml:space="preserve">
+    <value>Labels the heads with their coverage</value>
+  </data>
+  <data name="menu_layout_settings" xml:space="preserve">
+    <value>Layout Settings</value>
+  </data>
+  <data name="menu_layout_settings_tooltip" xml:space="preserve">
+    <value>Hide/Show layout settings</value>
+  </data>
+  <data name="menu_new" xml:space="preserve">
+    <value>&amp;New</value>
+  </data>
+  <data name="menu_new_tooltip" xml:space="preserve">
+    <value>Create new layout</value>
+  </data>
+  <data name="menu_open" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="menu_open_tooltip" xml:space="preserve">
+    <value>Open layout</value>
+  </data>
+  <data name="menu_parts_listing" xml:space="preserve">
+    <value>Parts Listing</value>
+  </data>
+  <data name="menu_parts_listing_tooltip" xml:space="preserve">
+    <value>Hide/Show parts listing</value>
+  </data>
+  <data name="menu_parts_palette" xml:space="preserve">
+    <value>Parts Palette</value>
+  </data>
+  <data name="menu_parts_palette_tooltip" xml:space="preserve">
+    <value>Hide/Show parts palette</value>
+  </data>
+  <data name="menu_properties" xml:space="preserve">
+    <value>Properties Editor</value>
+  </data>
+  <data name="menu_properties_tooltip" xml:space="preserve">
+    <value>Hide/Show properties editor</value>
+  </data>
+  <data name="menu_save" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="menu_save_as" xml:space="preserve">
+    <value>Save &amp;As</value>
+  </data>
+  <data name="menu_save_as_tooltip" xml:space="preserve">
+    <value>Save layout with new name</value>
+  </data>
+  <data name="menu_save_tooltip" xml:space="preserve">
+    <value>Save layout</value>
+  </data>
+  <data name="menu_select_all" xml:space="preserve">
+    <value>Select &amp;All</value>
+  </data>
+  <data name="menu_select_all_tooltip" xml:space="preserve">
+    <value>Select all objects</value>
+  </data>
+  <data name="menu_show_coverage" xml:space="preserve">
+    <value>&amp;Coverage</value>
+  </data>
+  <data name="menu_show_coverage_tooltip" xml:space="preserve">
+    <value>Shows the sprinkler coverage</value>
+  </data>
+  <data name="menu_show_distances" xml:space="preserve">
+    <value>Always Show &amp;Distances</value>
+  </data>
+  <data name="menu_show_distance_tooltip" xml:space="preserve">
+    <value>Shows measurements even when the object isn't selected</value>
+  </data>
+  <data name="menu_show_grid" xml:space="preserve">
+    <value>Show Grid</value>
+  </data>
+  <data name="menu_show_grip_tooltip" xml:space="preserve">
+    <value>Toggle grid visibility</value>
+  </data>
+  <data name="menu_show_parts" xml:space="preserve">
+    <value>Part &amp;Tooltip</value>
+  </data>
+  <data name="menu_show_parts_tooltip" xml:space="preserve">
+    <value>Show the parts that represent the image</value>
+  </data>
+  <data name="menu_snap_to_grid" xml:space="preserve">
+    <value>Snap To Grid</value>
+  </data>
+  <data name="menu_snap_to_grid_tooltip" xml:space="preserve">
+    <value>Enable/Disable snap-to-grid</value>
+  </data>
+  <data name="menu_undo" xml:space="preserve">
+    <value>&amp;Undo</value>
+  </data>
+  <data name="menu_undo_tooltip" xml:space="preserve">
+    <value>Undo previous action</value>
+  </data>
+  <data name="menu_align_to_grid" xml:space="preserve">
+    <value>Align To Grid</value>
+  </data>
+  <data name="menu_align_to_grid_tooltip" xml:space="preserve">
+    <value>Aligns selected objects to nearest grid intersection</value>
+  </data>
+  <data name="menu_auto_size" xml:space="preserve">
+    <value>Auto Size Pipe</value>
+  </data>
+  <data name="menu_auto_size_tooltip" xml:space="preserve">
+    <value>Size the pipe allow for required flow rates</value>
+  </data>
+  <data name="menu_move_to_back" xml:space="preserve">
+    <value>Move To Back</value>
+  </data>
+  <data name="menu_move_to_back_tooltip" xml:space="preserve">
+    <value>Bring selected object(s) to the back</value>
+  </data>
+  <data name="menu_move_to_front" xml:space="preserve">
+    <value>Bring To Front</value>
+  </data>
+  <data name="menu_move_to_front_tooltip" xml:space="preserve">
+    <value>Bring selected object(s) to the front</value>
+  </data>
+  <data name="menu_space_equally" xml:space="preserve">
+    <value>Space Equally</value>
+  </data>
+  <data name="menu_space_equally_tooltip" xml:space="preserve">
+    <value>Spaces selected object equally</value>
+  </data>
+  <data name="menu_calculate_area" xml:space="preserve">
+    <value>Calculate Area</value>
+  </data>
+  <data name="menu_calculate_area_tooltip" xml:space="preserve">
+    <value>Gets the area of the selected enclosed object(s)</value>
+  </data>
+  <data name="menu_calculate_length" xml:space="preserve">
+    <value>Calculate Length</value>
+  </data>
+  <data name="menu_calculate_length_tooltip" xml:space="preserve">
+    <value>Gets the length of the selected object(s)</value>
+  </data>
+  <data name="menu_rotate_180" xml:space="preserve">
+    <value>Rotate 180</value>
+  </data>
+  <data name="menu_rotate_180_tooltip" xml:space="preserve">
+    <value>Rotates the selected image(s) 180 degrees</value>
+  </data>
+  <data name="menu_rotate_left" xml:space="preserve">
+    <value>Rotate 90 Counterclockwise</value>
+  </data>
+  <data name="menu_rotate_left_tooltip" xml:space="preserve">
+    <value>Rotates the selected image(s) 90 degrees counterclockwise</value>
+  </data>
+  <data name="menu_rotate_right" xml:space="preserve">
+    <value>Rotate 90 Clockwise</value>
+  </data>
+  <data name="menu_rotate_right_tooltip" xml:space="preserve">
+    <value>Rotates the selected image(s) 90 degrees clockwise</value>
+  </data>
+  <data name="menu_sum_gpm" xml:space="preserve">
+    <value>Sum GPM</value>
+  </data>
+  <data name="menu_sum_gpm_tooltip" xml:space="preserve">
+    <value>Sum GPM of selected lateral parts</value>
+  </data>
+  <data name="menu_show_landscape_image" xml:space="preserve">
+    <value>Landscape Image</value>
+  </data>
+  <data name="menu_show_landscape_image_tooltip" xml:space="preserve">
+    <value>Hide/Show Landscape Image</value>
+  </data>
+  <data name="menu_check_for_update" xml:space="preserve">
+    <value>Check For Update</value>
+  </data>
+  <data name="menu_check_for_update_tooltip" xml:space="preserve">
+    <value>Checks if there is an update availble</value>
+  </data>
+  <data name="menu_register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="menu_register_tooltip" xml:space="preserve">
+    <value>Register the application</value>
+  </data>
+  <data name="key" xml:space="preserve">
+    <value>soHZhf9TKM5LtL9Qoew08y0JiQRMKrLp5M3L/kkd7iU=</value>
+  </data>
+  <data name="registry_license" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\splash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cipher_attributes" xml:space="preserve">
+    <value>{"Key":{"EncodedValue":"Jzk9veqSO9ZhYte\u002B2C8erHTrSJNg0Wh0BqRtcJBxRtQ="},"IV":{"Value":"DD7J27KHMiEDUnJD"}}</value>
+  </data>
+</root>

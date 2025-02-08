@@ -1,77 +1,50 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A52C153E-05ED-4353-9762-83303134BA2F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TNT.LSD.Components.Tests</RootNamespace>
-    <AssemblyName>TNT.LSD.Components.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TNTCADTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
-      <Project>{268d5252-8bcd-450f-a365-626c39dc07f8}</Project>
-      <Name>TNT.LSD.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
-      <Project>{b263ec43-e5c1-45a3-80f0-ad5d07074ca2}</Project>
-      <Name>TNT.LSD.Inventory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
-      <Project>{D4B61895-B09B-4419-8E7E-BAFFE837BCF3}</Project>
-      <Name>TNT.LSD.Objects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
-      <Project>{71F545A4-CFBA-4307-8371-3D3DE3B71750}</Project>
-      <Name>TNT.LSD.Settings</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-  </Target>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+		<Nullable>enable</Nullable>
+		<TargetFramework>net9.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="coverlet.collector" Version="6.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+		<PackageReference Include="NUnit" Version="4.3.2" />
+		<PackageReference Include="NUnit.Analyzers" Version="4.6.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+		<PackageReference Include="TNT.Plugin.Manager" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Inventory\TNT.LSD.Inventory.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Settings\TNT.LSD.Settings.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="NUnit.Framework" />
+	</ItemGroup>
+
 </Project>

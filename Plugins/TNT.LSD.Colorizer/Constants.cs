@@ -1,17 +1,16 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Globalization;
 
-namespace TNT.LSD.Colorizer
+namespace TNT.LSD.Colorizer;
+
+public static class Constants
 {
-	public static class Constants
-	{
-		/// <summary>
-		/// Unique colors (see https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/)
-		/// </summary>
-		public static Color[] DEFAULT_COLORS =
-		{
-			Color.FromArgb(Int32.Parse("ffe6194B", NumberStyles.AllowHexSpecifier)), // Red
+  /// <summary>
+  /// Unique colors (see https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/)
+  /// </summary>
+  public static Color[] DEFAULT_COLORS =
+  {
+      Color.FromArgb(Int32.Parse("ffe6194B", NumberStyles.AllowHexSpecifier)), // Red
 			Color.FromArgb(Int32.Parse("ff3cb44b", NumberStyles.AllowHexSpecifier)), // Green
 			Color.FromArgb(Int32.Parse("ffffe119", NumberStyles.AllowHexSpecifier)), // Yellow
 			Color.FromArgb(Int32.Parse("ff4363d8", NumberStyles.AllowHexSpecifier)), // Blue
@@ -28,5 +27,4 @@ namespace TNT.LSD.Colorizer
 			Color.FromArgb(Int32.Parse("ff000075", NumberStyles.AllowHexSpecifier)), // Navy
 			Color.FromArgb(Int32.Parse("ffa9a9a9", NumberStyles.AllowHexSpecifier))  // Grey
 		};
-	}
 }
