@@ -1,5 +1,14 @@
-#define MY_PROGRAM "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe"
-#define MY_VERSION GetFileVersion(MY_PROGRAM)
+; Uncomment to increase log level
+;#pragma verboselevel 10
+
+; Uncomment to include external file
+;#include "defines.iss"
+
+#define RELEASE_PATH "..\LandscapeSprinklerDesigner\bin\Release\net9.0-windows"
+#define EXE_NAME "LandscapeSprinklerDesigner.exe"
+#define PROGRAM_PATH AddBackslash(RELEASE_PATH) + EXE_NAME
+#define MY_PROGRAM "..\LandscapeSprinklerDesigner\bin\Release\net9.0-windows\LandscapeSprinklerDesigner.exe"
+#define MY_VERSION GetVersionNumbersString(PROGRAM_PATH)
 #define MY_COMPANY GetStringFileInfo(MY_PROGRAM, COMPANY_NAME)
 #define MY_COPYRIGHT GetStringFileInfo(MY_PROGRAM, LEGAL_COPYRIGHT)
 #define MY_PRODUCT_NAME GetStringFileInfo(MY_PROGRAM, PRODUCT_NAME)
@@ -13,11 +22,12 @@ VersionInfoTextVersion={#MY_VERSION}
 VersionInfoCopyright={#MY_COPYRIGHT}
 VersionInfoProductName={#MY_PRODUCT_NAME}
 VersionInfoProductVersion={#MY_VERSION}
-MinVersion=6.1.7600
-AppCopyright=2011
-AppName={#MY_PRODUCT_NAME}
+; 6.1sp1 represents Windows 7 Service Pack 1
+MinVersion=6.1sp1 
+AppCopyright=2025
+AppName=AppName
 ChangesAssociations=true
-DefaultDirName={pf}\Trippn Technology\LandscapeSprinklerDesigner
+DefaultDirName={commonpf}\Trippn Technology\LandscapeSprinklerDesigner
 UninstallDisplayIcon={app}\LandscapeSprinklerDesigner.exe
 DefaultGroupName={#MY_PRODUCT_NAME}
 WizardImageFile=banner.bmp
@@ -27,21 +37,21 @@ OutputBaseFilename=lsdsetup_{#MY_VERSION}
 WizardImageStretch=false
 AppVerName={#MY_PRODUCT_NAME} {#MY_VERSION}
 LicenseFile=EULA.txt
-AppPublisher=Tripp'n Technology, LLC.
+AppPublisher={#MY_COMPANY}
 AppVersion={#MY_VERSION}
 UninstallDisplayName={#MY_PRODUCT_NAME}
 
 [Files]
 ;Source: "dotNetFx45_Full_setup.exe"; DestDir: "{tmp}"; Flags: ignoreversion; Check: NeedsDotNETFramework
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\LandscapeSprinklerDesigner.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\Inventory.sqlite"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\lsd.palette"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\Transforms\*.xsl"; DestDir: "{app}\Transforms"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\plugins\*.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion
-Source: "..\LandscapeSprinklerDesigner\bin\Debug\updater\*.*"; DestDir: "{app}\updater"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\LandscapeSprinklerDesigner.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#RELEASE_PATH}\LandscapeSprinklerDesigner.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\Inventory.sqlite"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\palette.json"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#RELEASE_PATH}\Transforms\*.xsl"; DestDir: "{app}\Transforms"; Flags: ignoreversion
+;Source: "{#RELEASE_PATH}\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"
+Source: "{#RELEASE_PATH}\plugins\*.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\updater\*.*"; DestDir: "{app}\updater"; Flags: ignoreversion
 
 [Dirs]
 Name: {app}\; Permissions: everyone-modify
@@ -62,6 +72,12 @@ Root: HKCR; SubKey: .lsd; ValueType: string; ValueData: LandscapeSprinklerDesign
 Root: HKCR; SubKey: .lsdx; ValueType: string; ValueData: LandscapeSprinklerDesigner; Flags: uninsdeletekey
 Root: HKCR; SubKey: LandscapeSprinklerDesigner; ValueType: string; ValueData: Landscape Sprinkler Designer File; Flags: uninsdeletekey
 Root: HKCR; SubKey: LandscapeSprinklerDesigner\Shell\Open\Command; ValueType: string; ValueData: """{app}\LandscapeSprinklerDesigner.exe"" ""%1"""; Flags: uninsdeletevalue
+
+[ThirdParty]
+CompileLogFile=D:\src\tnt.lsd\INNOInstaller\inno.log
+
+[PreCompile]
+Name: "D:\src\tnt.lsd\INNOInstaller\GetSetupInfo\bin\Debug\net9.0\GetSetupInfo.exe"; Parameters: "/e ..\LandscapeSprinklerDesigner\bin\Release\net9.0-windows\LandscapeSprinklerDesigner.exe /o defines.iss"
 
 [Code]
 // Checks for .NET
