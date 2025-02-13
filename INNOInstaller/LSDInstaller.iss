@@ -42,16 +42,13 @@ AppVersion={#MY_VERSION}
 UninstallDisplayName={#MY_PRODUCT_NAME}
 
 [Files]
-;Source: "dotNetFx45_Full_setup.exe"; DestDir: "{tmp}"; Flags: ignoreversion; Check: NeedsDotNETFramework
 Source: "{#RELEASE_PATH}\LandscapeSprinklerDesigner.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RELEASE_PATH}\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#RELEASE_PATH}\LandscapeSprinklerDesigner.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\*.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RELEASE_PATH}\Inventory.sqlite"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#RELEASE_PATH}\palette.json"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#RELEASE_PATH}\Transforms\*.xsl"; DestDir: "{app}\Transforms"; Flags: ignoreversion
-;Source: "{#RELEASE_PATH}\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"
 Source: "{#RELEASE_PATH}\plugins\*.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion
 Source: "{#RELEASE_PATH}\updater\*.*"; DestDir: "{app}\updater"; Flags: ignoreversion
+Source: "{#RELEASE_PATH}\runtimes\*"; DestDir: "{app}\runtimes"; Flags: ignoreversion createallsubdirs recursesubdirs
 
 [Dirs]
 Name: {app}\; Permissions: everyone-modify
@@ -72,20 +69,3 @@ Root: HKCR; SubKey: .lsd; ValueType: string; ValueData: LandscapeSprinklerDesign
 Root: HKCR; SubKey: .lsdx; ValueType: string; ValueData: LandscapeSprinklerDesigner; Flags: uninsdeletekey
 Root: HKCR; SubKey: LandscapeSprinklerDesigner; ValueType: string; ValueData: Landscape Sprinkler Designer File; Flags: uninsdeletekey
 Root: HKCR; SubKey: LandscapeSprinklerDesigner\Shell\Open\Command; ValueType: string; ValueData: """{app}\LandscapeSprinklerDesigner.exe"" ""%1"""; Flags: uninsdeletevalue
-
-[ThirdParty]
-CompileLogFile=D:\src\tnt.lsd\INNOInstaller\inno.log
-
-[PreCompile]
-Name: "D:\src\tnt.lsd\INNOInstaller\GetSetupInfo\bin\Debug\net9.0\GetSetupInfo.exe"; Parameters: "/e ..\LandscapeSprinklerDesigner\bin\Release\net9.0-windows\LandscapeSprinklerDesigner.exe /o defines.iss"
-
-[Code]
-// Checks for .NET
-function NeedsDotNETFramework() : Boolean;
-var
-	success: boolean;
-	release: cardinal;
-begin
-    success := RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', release);
-    Result := (success = False) or not (release >= {#DOT_NET_4_5_VERSION});
-end;
