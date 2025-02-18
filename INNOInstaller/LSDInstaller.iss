@@ -12,7 +12,6 @@
 #define MY_COMPANY GetStringFileInfo(MY_PROGRAM, COMPANY_NAME)
 #define MY_COPYRIGHT GetStringFileInfo(MY_PROGRAM, LEGAL_COPYRIGHT)
 #define MY_PRODUCT_NAME GetStringFileInfo(MY_PROGRAM, PRODUCT_NAME)
-#define DOT_NET_4_5_VERSION 378389
 
 [Setup]
 VersionInfoVersion={#MY_VERSION}
@@ -59,7 +58,6 @@ Name: {group}\Remove Landscape Sprinkler Designer; Filename: {uninstallexe}; Wor
 Name: {userdesktop}\Landscape Sprinkler Designer; Filename: {app}\LandscapeSprinklerDesigner.exe; WorkingDir: {app}
 
 [Run]
-Filename: {tmp}\dotNetFx45_Full_setup.exe; WorkingDir: {tmp}; Flags: skipifdoesntexist; StatusMsg: Installing Microsoft .NET Framework 4.5
 Filename: {app}\LandscapeSprinklerDesigner.exe; WorkingDir: {app}; Description: Run Landscape Sprinkler Designer; Flags: postinstall nowait
 
 [Registry]
