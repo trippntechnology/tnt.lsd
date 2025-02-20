@@ -20,57 +20,56 @@
 			base.Dispose(disposing);
 		}
 
-		#region Windows Form Designer generated code
+    #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.components = new System.ComponentModel.Container();
-			this.timer = new System.Windows.Forms.Timer(this.components);
-			this.versionPlaceholder = new System.Windows.Forms.Panel();
-			this.SuspendLayout();
-			// 
-			// timer
-			// 
-			this.timer.Interval = 3000;
-			this.timer.Tick += new System.EventHandler(this.timer_Tick);
-			// 
-			// versionPlaceholder
-			// 
-			this.versionPlaceholder.BackColor = System.Drawing.Color.Transparent;
-			this.versionPlaceholder.Location = new System.Drawing.Point(414, 161);
-			this.versionPlaceholder.Name = "versionPlaceholder";
-			this.versionPlaceholder.Size = new System.Drawing.Size(200, 100);
-			this.versionPlaceholder.TabIndex = 0;
-			// 
-			// Splash
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 32F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackgroundImage = global::LandscapeSprinklerDesigner.Resource.splash;
-			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.ClientSize = new System.Drawing.Size(709, 558);
-			this.Controls.Add(this.versionPlaceholder);
-			this.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Margin = new System.Windows.Forms.Padding(9, 7, 9, 7);
-			this.Name = "Splash";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Splash";
-			this.Load += new System.EventHandler(this.Splash_Load);
-			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Splash_Paint);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Splash_MouseDown);
-			this.ResumeLayout(false);
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+      components = new System.ComponentModel.Container();
+      timer = new System.Windows.Forms.Timer(components);
+      versionPlaceholder = new Panel();
+      SuspendLayout();
+      // 
+      // timer
+      // 
+      timer.Interval = 1000;
+      timer.Tick += timer_Tick;
+      // 
+      // versionPlaceholder
+      // 
+      versionPlaceholder.BackColor = Color.Transparent;
+      versionPlaceholder.Location = new Point(414, 161);
+      versionPlaceholder.Name = "versionPlaceholder";
+      versionPlaceholder.Size = new Size(200, 100);
+      versionPlaceholder.TabIndex = 0;
+      // 
+      // Splash
+      // 
+      AutoScaleDimensions = new SizeF(17F, 32F);
+      AutoScaleMode = AutoScaleMode.Font;
+      BackgroundImage = Resource.splash;
+      BackgroundImageLayout = ImageLayout.None;
+      ClientSize = new Size(709, 558);
+      Controls.Add(versionPlaceholder);
+      Font = new Font("Arial", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+      ForeColor = Color.FromArgb(242, 246, 255);
+      FormBorderStyle = FormBorderStyle.None;
+      Margin = new Padding(9, 7, 9, 7);
+      Name = "Splash";
+      StartPosition = FormStartPosition.CenterScreen;
+      Text = "Splash";
+      Load += Splash_Load;
+      Paint += Splash_Paint;
+      MouseDown += Splash_MouseDown;
+      ResumeLayout(false);
+    }
 
-		}
+    #endregion
 
-		#endregion
-
-		private System.Windows.Forms.Timer timer;
+    private System.Windows.Forms.Timer timer;
 		private System.Windows.Forms.Panel versionPlaceholder;
 	}
 }
