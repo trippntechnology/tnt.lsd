@@ -100,7 +100,7 @@ public abstract class PDFGenerator
   /// </summary>
   /// <param name="inches">Inches to convert</param>
   /// <returns>Points that represent the inches</returns>
-  static public float InchesToPoints(double inches) => (float)(inches * POINTS_PER_INCH);
+  public static float InchesToPoints(double inches) => (float)(inches * POINTS_PER_INCH);
 
   /// <summary>
   /// Creates the parts listing
@@ -129,10 +129,11 @@ public abstract class PDFGenerator
 
     if (parts != null)
     {
-      for (int row = 0; row < parts.Count; row++)
+      List<Part> orderedParts = parts.OrderBy(p => p.Code).ToList();
+      for (int row = 0; row < orderedParts.Count; row++)
       {
-        Part part = parts[row];
-        AddTableRow(table, new List<string>() { part.Code, part.Description, part.Quantity.ToString() }, row % 2 == 0 ? iTextColors.ColorConstants.LIGHT_GRAY : iTextColors.ColorConstants.WHITE);
+        Part part = orderedParts[row];
+        AddTableRow(table, new List<string>() { part.Code ?? string.Empty, part.Description ?? string.Empty, part.Quantity.ToString() }, row % 2 == 0 ? iTextColors.ColorConstants.LIGHT_GRAY : iTextColors.ColorConstants.WHITE);
       }
     }
 
