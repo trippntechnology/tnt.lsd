@@ -22,7 +22,7 @@ class OpenMenuEvent : MenuEvent
     openFileDialog.DefaultExt = "lsd";
     openFileDialog.Filter = "Landscape Sprinkler Design files|*.lsd;*.lsdx";
     openFileDialog.RestoreDirectory = true;
-    openFileDialog.Title = Resource.menu_open;
+    openFileDialog.Title = Resource.menu_open_tooltip;
   }
 
   public override void OnMouseClick(object sender, EventArgs e)

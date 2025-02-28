@@ -549,6 +549,7 @@
       // 
       // landscapeSprinklerDesignOnTheWebToolStripMenuItem
       // 
+      landscapeSprinklerDesignOnTheWebToolStripMenuItem.Enabled = false;
       landscapeSprinklerDesignOnTheWebToolStripMenuItem.Image = (Image)resources.GetObject("landscapeSprinklerDesignOnTheWebToolStripMenuItem.Image");
       landscapeSprinklerDesignOnTheWebToolStripMenuItem.Name = "landscapeSprinklerDesignOnTheWebToolStripMenuItem";
       landscapeSprinklerDesignOnTheWebToolStripMenuItem.Size = new Size(168, 22);

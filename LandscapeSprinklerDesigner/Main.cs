@@ -350,5 +350,19 @@ public partial class Main : Form
     (sender as ToolStripStatusLabel)?.ToolTipText?.also(toolTipText => Process.Start(toolTipText));
   }
 
-  private void OnTheWebToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start("https://www.LandscapeSprinklerDesigner.com");
+  private void OnTheWebToolStripMenuItem_Click(object sender, EventArgs e)
+  {
+    try
+    {
+      var psi = new ProcessStartInfo
+      {
+        FileName = "https://www.LandscapeSprinklerDesigner.com",
+        UseShellExecute = true
+      };
+      Process.Start(psi);
+    }
+    catch
+    {
+    }
+  }
 }
