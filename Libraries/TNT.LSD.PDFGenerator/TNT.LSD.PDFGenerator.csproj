@@ -21,8 +21,8 @@
 	<ItemGroup>
 		<PackageReference Include="itext" Version="9.1.0" />
 		<PackageReference Include="itext.bouncy-castle-adapter" Version="9.1.0" />
-		<PackageReference Include="TNT.Commons" Version="1.2.0" />
-		<PackageReference Include="TNT.Utilities" Version="2.1.1" />
+		<PackageReference Include="TNT.Commons" Version="1.4.0" />
+		<PackageReference Include="TNT.Utilities" Version="3.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
