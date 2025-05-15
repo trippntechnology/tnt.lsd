@@ -19,167 +19,171 @@
 			base.Dispose(disposing);
 		}
 
-		#region Windows Form Designer generated code
+    #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
-			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-			this.logoPictureBox = new System.Windows.Forms.PictureBox();
-			this.VersionLabel = new System.Windows.Forms.Label();
-			this.listView1 = new System.Windows.Forms.ListView();
-			this.File = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.Version = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.Owner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.button1 = new System.Windows.Forms.Button();
-			this.CopyrightLabel = new System.Windows.Forms.Label();
-			this.tableLayoutPanel.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-			this.tableLayoutPanel1.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// tableLayoutPanel
-			// 
-			this.tableLayoutPanel.ColumnCount = 2;
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 547F));
-			this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
-			this.tableLayoutPanel.Controls.Add(this.VersionLabel, 1, 0);
-			this.tableLayoutPanel.Controls.Add(this.listView1, 1, 1);
-			this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 1, 2);
-			this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
-			this.tableLayoutPanel.Name = "tableLayoutPanel";
-			this.tableLayoutPanel.RowCount = 3;
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.Size = new System.Drawing.Size(717, 320);
-			this.tableLayoutPanel.TabIndex = 0;
-			// 
-			// logoPictureBox
-			// 
-			this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
-			this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
-			this.logoPictureBox.Name = "logoPictureBox";
-			this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 3);
-			this.logoPictureBox.Size = new System.Drawing.Size(164, 314);
-			this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.logoPictureBox.TabIndex = 13;
-			this.logoPictureBox.TabStop = false;
-			// 
-			// VersionLabel
-			// 
-			this.VersionLabel.AutoSize = true;
-			this.VersionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VersionLabel.Location = new System.Drawing.Point(173, 0);
-			this.VersionLabel.Name = "VersionLabel";
-			this.VersionLabel.Size = new System.Drawing.Size(541, 16);
-			this.VersionLabel.TabIndex = 14;
-			this.VersionLabel.Text = "VersionLabel";
-			// 
-			// listView1
-			// 
-			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.File,
-            this.Version,
-            this.Owner});
-			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listView1.HideSelection = false;
-			this.listView1.Location = new System.Drawing.Point(173, 19);
-			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(541, 266);
-			this.listView1.TabIndex = 27;
-			this.listView1.UseCompatibleStateImageBehavior = false;
-			this.listView1.View = System.Windows.Forms.View.Details;
-			// 
-			// File
-			// 
-			this.File.Text = "File";
-			this.File.Width = 150;
-			// 
-			// Version
-			// 
-			this.Version.Text = "Version";
-			this.Version.Width = 100;
-			// 
-			// Owner
-			// 
-			this.Owner.Text = "Owner";
-			this.Owner.Width = 287;
-			// 
-			// tableLayoutPanel1
-			// 
-			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel1.Controls.Add(this.button1, 1, 0);
-			this.tableLayoutPanel1.Controls.Add(this.CopyrightLabel, 0, 0);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(173, 291);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 1;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(541, 26);
-			this.tableLayoutPanel1.TabIndex = 28;
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.button1.Location = new System.Drawing.Point(475, 3);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(63, 20);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "OK";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
-			// CopyrightLabel
-			// 
-			this.CopyrightLabel.AutoSize = true;
-			this.CopyrightLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CopyrightLabel.Location = new System.Drawing.Point(3, 0);
-			this.CopyrightLabel.Name = "CopyrightLabel";
-			this.CopyrightLabel.Size = new System.Drawing.Size(426, 26);
-			this.CopyrightLabel.TabIndex = 1;
-			this.CopyrightLabel.Text = "label1";
-			this.CopyrightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// AboutBox
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(735, 338);
-			this.Controls.Add(this.tableLayoutPanel);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "AboutBox";
-			this.Padding = new System.Windows.Forms.Padding(9);
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "About";
-			this.Load += new System.EventHandler(this.AboutBox_Load);
-			this.tableLayoutPanel.ResumeLayout(false);
-			this.tableLayoutPanel.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
-			this.ResumeLayout(false);
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
+      tableLayoutPanel = new TableLayoutPanel();
+      logoPictureBox = new PictureBox();
+      VersionLabel = new Label();
+      listView1 = new ListView();
+      File = new ColumnHeader();
+      Version = new ColumnHeader();
+      Owner = new ColumnHeader();
+      tableLayoutPanel1 = new TableLayoutPanel();
+      button1 = new Button();
+      CopyrightLabel = new Label();
+      tableLayoutPanel.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+      tableLayoutPanel1.SuspendLayout();
+      SuspendLayout();
+      // 
+      // tableLayoutPanel
+      // 
+      tableLayoutPanel.ColumnCount = 2;
+      tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 198F));
+      tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 638F));
+      tableLayoutPanel.Controls.Add(logoPictureBox, 0, 0);
+      tableLayoutPanel.Controls.Add(VersionLabel, 1, 0);
+      tableLayoutPanel.Controls.Add(listView1, 1, 1);
+      tableLayoutPanel.Controls.Add(tableLayoutPanel1, 1, 2);
+      tableLayoutPanel.Dock = DockStyle.Fill;
+      tableLayoutPanel.Location = new Point(10, 10);
+      tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
+      tableLayoutPanel.Name = "tableLayoutPanel";
+      tableLayoutPanel.RowCount = 3;
+      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 5F));
+      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85F));
+      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+      tableLayoutPanel.Size = new Size(838, 370);
+      tableLayoutPanel.TabIndex = 0;
+      // 
+      // logoPictureBox
+      // 
+      logoPictureBox.Dock = DockStyle.Fill;
+      logoPictureBox.Image = (Image)resources.GetObject("logoPictureBox.Image");
+      logoPictureBox.Location = new Point(4, 3);
+      logoPictureBox.Margin = new Padding(4, 3, 4, 3);
+      logoPictureBox.Name = "logoPictureBox";
+      tableLayoutPanel.SetRowSpan(logoPictureBox, 3);
+      logoPictureBox.Size = new Size(190, 364);
+      logoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+      logoPictureBox.TabIndex = 13;
+      logoPictureBox.TabStop = false;
+      // 
+      // VersionLabel
+      // 
+      VersionLabel.AutoSize = true;
+      VersionLabel.Dock = DockStyle.Fill;
+      VersionLabel.Location = new Point(202, 0);
+      VersionLabel.Margin = new Padding(4, 0, 4, 0);
+      VersionLabel.Name = "VersionLabel";
+      VersionLabel.Size = new Size(632, 18);
+      VersionLabel.TabIndex = 14;
+      VersionLabel.Text = "VersionLabel";
+      // 
+      // listView1
+      // 
+      listView1.Columns.AddRange(new ColumnHeader[] { File, Version, Owner });
+      listView1.Dock = DockStyle.Fill;
+      listView1.Location = new Point(202, 21);
+      listView1.Margin = new Padding(4, 3, 4, 3);
+      listView1.Name = "listView1";
+      listView1.Size = new Size(632, 308);
+      listView1.TabIndex = 27;
+      listView1.UseCompatibleStateImageBehavior = false;
+      listView1.View = View.Details;
+      listView1.ColumnClick += listView1_ColumnClick;
+      // 
+      // File
+      // 
+      File.Text = "File";
+      File.Width = 150;
+      // 
+      // Version
+      // 
+      Version.Text = "Version";
+      Version.Width = 100;
+      // 
+      // Owner
+      // 
+      Owner.Text = "Owner";
+      Owner.Width = 287;
+      // 
+      // tableLayoutPanel1
+      // 
+      tableLayoutPanel1.ColumnCount = 2;
+      tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+      tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+      tableLayoutPanel1.Controls.Add(button1, 1, 0);
+      tableLayoutPanel1.Controls.Add(CopyrightLabel, 0, 0);
+      tableLayoutPanel1.Dock = DockStyle.Fill;
+      tableLayoutPanel1.Location = new Point(202, 335);
+      tableLayoutPanel1.Margin = new Padding(4, 3, 4, 3);
+      tableLayoutPanel1.Name = "tableLayoutPanel1";
+      tableLayoutPanel1.RowCount = 1;
+      tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+      tableLayoutPanel1.Size = new Size(632, 32);
+      tableLayoutPanel1.TabIndex = 28;
+      // 
+      // button1
+      // 
+      button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+      button1.DialogResult = DialogResult.OK;
+      button1.Location = new Point(554, 3);
+      button1.Margin = new Padding(4, 3, 4, 3);
+      button1.Name = "button1";
+      button1.Size = new Size(74, 26);
+      button1.TabIndex = 0;
+      button1.Text = "OK";
+      button1.UseVisualStyleBackColor = true;
+      // 
+      // CopyrightLabel
+      // 
+      CopyrightLabel.AutoSize = true;
+      CopyrightLabel.Dock = DockStyle.Fill;
+      CopyrightLabel.Location = new Point(4, 0);
+      CopyrightLabel.Margin = new Padding(4, 0, 4, 0);
+      CopyrightLabel.Name = "CopyrightLabel";
+      CopyrightLabel.Size = new Size(497, 32);
+      CopyrightLabel.TabIndex = 1;
+      CopyrightLabel.Text = "label1";
+      CopyrightLabel.TextAlign = ContentAlignment.MiddleCenter;
+      // 
+      // AboutBox
+      // 
+      AutoScaleDimensions = new SizeF(7F, 15F);
+      AutoScaleMode = AutoScaleMode.Font;
+      ClientSize = new Size(858, 390);
+      Controls.Add(tableLayoutPanel);
+      FormBorderStyle = FormBorderStyle.FixedDialog;
+      Margin = new Padding(4, 3, 4, 3);
+      MaximizeBox = false;
+      MinimizeBox = false;
+      Name = "AboutBox";
+      Padding = new Padding(10);
+      ShowIcon = false;
+      ShowInTaskbar = false;
+      StartPosition = FormStartPosition.CenterParent;
+      Text = "About";
+      Load += AboutBox_Load;
+      tableLayoutPanel.ResumeLayout(false);
+      tableLayoutPanel.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+      tableLayoutPanel1.ResumeLayout(false);
+      tableLayoutPanel1.PerformLayout();
+      ResumeLayout(false);
 
-		}
+    }
 
-		#endregion
+    #endregion
 
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
 		private System.Windows.Forms.PictureBox logoPictureBox;
 		private System.Windows.Forms.Label VersionLabel;
 		private System.Windows.Forms.ListView listView1;

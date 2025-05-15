@@ -998,12 +998,12 @@ public partial class TNTCAD : Control
   public string Serialize()
   {
     Repaint();
-    return JsonUtilities.serializeObject(m_State);
+    return Json.serializeObject(m_State);
   }
 
   public void Deserialize(string content)
   {
-    TNTCADState? cadState = JsonUtilities.deserializeJson<TNTCADState>(content);
+    TNTCADState? cadState = Json.deserializeJson<TNTCADState>(content);
     if (cadState == null) return;
     cadState.CAD = this;
 

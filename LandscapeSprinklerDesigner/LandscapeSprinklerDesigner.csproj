@@ -6,7 +6,7 @@
 		<AssemblyTitle>Landscape Sprinkler Designer</AssemblyTitle>
 		<Authors>Tripp'n Technology, LLC.</Authors>
 		<Company>$(Authors)</Company>
-		<Copyright>Copyright 2019 $(Authors)</Copyright>
+		<Copyright>Copyright 2025 $(Authors)</Copyright>
 		<Description>$(AssemblyTitle)</Description>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -16,7 +16,7 @@
 		<TargetFramework>net9.0-windows</TargetFramework>
 		<Title>$(AssemblyTitle)</Title>
     <UseWindowsForms>true</UseWindowsForms>
-		<Version>4.0.1</Version>
+		<Version>4.0.2</Version>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
@@ -66,10 +66,10 @@
     <PackageReference Include="DockPanelSuite" Version="3.1.1" />
     <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
     <PackageReference Include="TNT.Cryptography" Version="3.0.4" />
-    <PackageReference Include="TNT.Reactive" Version="1.0.1" />
+    <PackageReference Include="TNT.Reactive" Version="1.1.0" />
     <PackageReference Include="TNT.Services.Client" Version="1.0.2" />
     <PackageReference Include="TNT.ToolStripItemManager" Version="2.0.2" />
-    <PackageReference Include="TNT.Utilities" Version="2.1.1" />
+    <PackageReference Include="TNT.Utilities" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
