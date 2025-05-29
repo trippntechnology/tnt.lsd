@@ -206,7 +206,7 @@ public abstract class PDFGenerator
 
   private string getVersion()
   {
-    return Assembly.GetEntryAssembly()?.GetName().Version?.let(version =>
+    return Assembly.GetEntryAssembly()?.GetName().Version?.Let(version =>
     {
       var values = version.ToString().Split('.').Take(3);
       return String.Join(".", values);

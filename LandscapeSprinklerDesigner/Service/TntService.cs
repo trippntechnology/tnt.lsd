@@ -26,7 +26,7 @@ public static class TntService
         var jwtResponse = client.Authorize(RegistrationKey.ApplicationID, RegistrationKey.Secret);
         if (jwtResponse.IsSuccess)
         {
-          _AuthClient = jwtResponse.Data?.let(data => new AuthenticatedClient(baseUri, jwtResponse.Data));
+          _AuthClient = jwtResponse.Data?.Let(data => new AuthenticatedClient(baseUri, jwtResponse.Data));
         }
       }
 

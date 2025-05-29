@@ -53,7 +53,7 @@ public static class Global
 
   public static string getVersion()
   {
-    return Assembly.GetExecutingAssembly().GetName().Version?.let(version =>
+    return Assembly.GetExecutingAssembly().GetName().Version?.Let(version =>
     {
       var values = version.ToString().Split('.').Take(3);
       return String.Join(".", values);

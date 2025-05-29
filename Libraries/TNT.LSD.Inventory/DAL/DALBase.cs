@@ -48,7 +48,7 @@ public class DALBase
       SqliteConnection conn = new SqliteConnection(ConnectionString);
       conn.Open();
 
-      return ConnectionString?.let(it =>
+      return ConnectionString?.Let(it =>
       {
         SqliteConnection conn = new SqliteConnection(ConnectionString);
         conn.Open();

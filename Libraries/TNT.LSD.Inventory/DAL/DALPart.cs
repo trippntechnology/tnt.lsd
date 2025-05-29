@@ -190,13 +190,13 @@ public class DALPart : DALBase
 
     return new Part()
     {
-      Code = dr["Code"]?.let(it => it.ToString()) ?? string.Empty,
-      Description = dr["Description"]?.let(it => it.ToString()) ?? string.Empty,
+      Code = dr["Code"]?.Let(it => it.ToString()) ?? string.Empty,
+      Description = dr["Description"]?.Let(it => it.ToString()) ?? string.Empty,
       Glueable = dr.GetBoolean(2),
       ExternalPart = new Part()
       {
-        Code = dr["ExternalCode"]?.let(it => it.ToString()) ?? string.Empty,
-        Description = dr["ExternalDescription"]?.let(it => it.ToString()) ?? string.Empty,
+        Code = dr["ExternalCode"]?.Let(it => it.ToString()) ?? string.Empty,
+        Description = dr["ExternalDescription"]?.Let(it => it.ToString()) ?? string.Empty,
       }
     };
   }

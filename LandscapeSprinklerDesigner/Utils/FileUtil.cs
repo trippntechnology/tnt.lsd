@@ -11,7 +11,7 @@ internal static class FileUtil
   private const string REGISTRATION_KEY_FILE = "Registration.key";
   private const string LICENSE_FILE = "License.txt";
 
-  private static SymmetricCipher? Cipher = JsonSerializer.Deserialize<CipherAttributes>(Resource.cipher_attributes)?.let(attrs => new SymmetricCipher(attrs));
+  private static SymmetricCipher? Cipher = JsonSerializer.Deserialize<CipherAttributes>(Resource.cipher_attributes)?.Let(attrs => new SymmetricCipher(attrs));
 
   public static RegistrationKey? GetRegistrationKey()
   {
