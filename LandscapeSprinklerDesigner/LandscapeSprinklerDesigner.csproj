@@ -16,7 +16,7 @@
 		<TargetFramework>net9.0-windows</TargetFramework>
 		<Title>$(AssemblyTitle)</Title>
     <UseWindowsForms>true</UseWindowsForms>
-		<Version>4.0.2</Version>
+		<Version>4.0.3</Version>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
