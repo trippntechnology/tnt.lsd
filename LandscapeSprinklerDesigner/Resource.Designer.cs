@@ -241,6 +241,24 @@ namespace LandscapeSprinklerDesigner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        internal static string menu_info {
+            get {
+                return ResourceManager.GetString("menu_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info for selected parts.
+        /// </summary>
+        internal static string menu_info_tooltip {
+            get {
+                return ResourceManager.GetString("menu_info_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Label Heads.
         /// </summary>
         internal static string menu_label_heads {
@@ -651,24 +669,6 @@ namespace LandscapeSprinklerDesigner {
         internal static string menu_space_equally_tooltip {
             get {
                 return ResourceManager.GetString("menu_space_equally_tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sum GPM.
-        /// </summary>
-        internal static string menu_sum_gpm {
-            get {
-                return ResourceManager.GetString("menu_sum_gpm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sum GPM of selected lateral parts.
-        /// </summary>
-        internal static string menu_sum_gpm_tooltip {
-            get {
-                return ResourceManager.GetString("menu_sum_gpm_tooltip", resourceCulture);
             }
         }
         

@@ -297,12 +297,6 @@
   <data name="menu_rotate_right_tooltip" xml:space="preserve">
     <value>Rotates the selected image(s) 90 degrees clockwise</value>
   </data>
-  <data name="menu_sum_gpm" xml:space="preserve">
-    <value>Sum GPM</value>
-  </data>
-  <data name="menu_sum_gpm_tooltip" xml:space="preserve">
-    <value>Sum GPM of selected lateral parts</value>
-  </data>
   <data name="menu_show_landscape_image" xml:space="preserve">
     <value>Landscape Image</value>
   </data>
@@ -333,5 +327,11 @@
   </data>
   <data name="cipher_attributes" xml:space="preserve">
     <value>{"Key":{"EncodedValue":"Jzk9veqSO9ZhYte\u002B2C8erHTrSJNg0Wh0BqRtcJBxRtQ="},"IV":{"Value":"DD7J27KHMiEDUnJD"}}</value>
+  </data>
+  <data name="menu_info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="menu_info_tooltip" xml:space="preserve">
+    <value>Info for selected parts</value>
   </data>
 </root>

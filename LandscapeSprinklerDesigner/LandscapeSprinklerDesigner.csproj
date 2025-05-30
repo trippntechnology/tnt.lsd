@@ -32,6 +32,7 @@
     <None Remove="Images\curve.png" />
     <None Remove="Images\delete.png" />
     <None Remove="Images\hand.png" />
+    <None Remove="Images\info.png" />
     <None Remove="Images\label_heads.png" />
     <None Remove="Images\layout_settings.png" />
     <None Remove="Images\legend.png" />
@@ -89,6 +90,7 @@
 		<EmbeddedResource Include="Images\curve.png" />
 		<EmbeddedResource Include="Images\delete.png" />
 		<EmbeddedResource Include="Images\hand.png" />
+		<EmbeddedResource Include="Images\info.png" />
 		<EmbeddedResource Include="Images\label_heads.png" />
 		<EmbeddedResource Include="Images\layout_settings.png" />
 		<EmbeddedResource Include="Images\legend.png" />
