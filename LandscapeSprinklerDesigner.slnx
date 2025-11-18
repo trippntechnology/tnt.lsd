@@ -1,0 +1,32 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Debug (PALETTE_PROPERTIES)" />
+    <BuildType Name="Release" />
+  </Configurations>
+  <Folder Name="/Libraries/">
+    <Project Path="Libraries/TNT.LSD.Components/TNT.LSD.Components.csproj" />
+    <Project Path="Libraries/TNT.LSD.Inventory/TNT.LSD.Inventory.csproj" />
+    <Project Path="Libraries/TNT.LSD.Objects/TNT.LSD.Objects.csproj" />
+    <Project Path="Libraries/TNT.LSD.PDFGenerator/TNT.LSD.PDFGenerator.csproj" />
+    <Project Path="Libraries/TNT.LSD.Settings/TNT.LSD.Settings.csproj" />
+  </Folder>
+  <Folder Name="/Libraries/Tests/">
+    <Project Path="Tests/TNT.LSD.Components.Tests/TNT.LSD.Components.Tests.csproj" />
+    <Project Path="Tests/TNT.LSD.Inventory.Tests/TNT.LSD.Inventory.Tests.csproj" />
+    <Project Path="Tests/TNT.LSD.Objects.Tests/TNT.LSD.Objects.Tests.csproj" />
+    <Project Path="Tests/TNT.LSD.PDFGenerator.Tests/TNT.LSD.PDFGenerator.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Plugins/">
+    <Project Path="Plugins/TNT.LSD.Background/TNT.LSD.Background.csproj" />
+    <Project Path="Plugins/TNT.LSD.Checker/TNT.LSD.Checker.csproj" />
+    <Project Path="Plugins/TNT.LSD.Colorizer/TNT.LSD.Colorizer.csproj" />
+    <Project Path="Plugins/TNT.LSD.Export/TNT.LSD.Export.csproj" />
+    <Project Path="Plugins/TNT.LSD.PartsEditor/TNT.LSD.PartsEditor.csproj" />
+    <Project Path="Plugins/TNT.LSD.SSC/TNT.LSD.SSC.csproj" />
+  </Folder>
+  <Project Path="LandscapeSprinklerDesigner/LandscapeSprinklerDesigner.csproj">
+    <BuildType Solution="Debug (PALETTE_PROPERTIES)|*" Project="Debug" />
+  </Project>
+  <Project Path="PaletteDesigner/PaletteDesigner.csproj" />
+</Solution>
