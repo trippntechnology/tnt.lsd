@@ -1,35 +1,26 @@
-﻿using TNT.Utilities;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
+using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class SnapToGridMenuEvent : PersistedMenuEvent
+class SnapToGridMenuEvent() : PersistedMenuEvent(Resource.menu_snap_to_grid, Resource.menu_snap_to_grid_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.snap_to_grid.png".ToImage())
 {
-  private const string REGISTRY_KEY = "SnapToGrid";
+    private const string REGISTRY_KEY = "SnapToGrid";
 
-  public override bool CheckOnClick => true;
+    public override void RestoreState(ApplicationRegistry applicationRegistry, TNTCAD cad)
+    {
+        this.Checked = applicationRegistry.ReadBoolean(REGISTRY_KEY, true);
+        cad.SnapToGrid = Checked;
+    }
 
-  public override string Text => Resource.menu_snap_to_grid;
+    public override void SaveState(ApplicationRegistry applicationRegistry)
+    {
+        applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
+    }
 
-  public override string ToolTipText => Resource.menu_snap_to_grid_tooltip;
-
-  public SnapToGridMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.snap_to_grid.png"))
-  {
-
-  }
-
-  public override void RestoreState(ApplicationRegistry applicationRegistry)
-  {
-    this.Checked = applicationRegistry.ReadBoolean(REGISTRY_KEY, true);
-    OnMouseClick(null, null);
-  }
-
-  public override void SaveState(ApplicationRegistry applicationRegistry)
-  {
-    applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    CAD.SnapToGrid = this.Checked;
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.SnapToGrid = Checked;
+    }
 }

@@ -1,23 +1,16 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
 
-class SelectAllMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class SelectAllMenuEvent() : MenuEvent(Resource.menu_select_all, Resource.menu_select_all_tooltip)
 {
-  public override string Text => Resource.menu_select_all;
-
-  public override string ToolTipText => Resource.menu_select_all_tooltip;
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = CAD.DrawingMode.GetType() == typeof(TNT.LSD.Components.DrawingModes.SelectMode);
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    if (CAD.DrawingMode.GetType() == typeof(TNT.LSD.Components.DrawingModes.SelectMode))
+    public override void OnApplicationIdle(TNTCAD cad)
     {
-      CAD.SelectAll();
+        Enabled = cad.DrawingMode.GetType() == typeof(TNT.LSD.Components.DrawingModes.SelectMode);
     }
-  }
+
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        if (cad.DrawingMode.GetType() == typeof(TNT.LSD.Components.DrawingModes.SelectMode)) cad.SelectAll();
+    }
 }

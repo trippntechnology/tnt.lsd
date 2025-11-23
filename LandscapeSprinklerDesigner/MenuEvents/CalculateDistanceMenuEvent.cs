@@ -1,23 +1,18 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class CalculateDistanceMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class CalculateDistanceMenuEvent() : MenuEvent(Resource.menu_calculate_length, Resource.menu_calculate_length_tooltip, image: "LandscapeSprinklerDesigner.Images.calculate_distance.png".ToImage())
 {
-  public override string Text => Resource.menu_calculate_length;
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        double length = Math.Round(cad.GetLength(), 2);
+        MessageBox.Show(string.Format("{0} feet.", length), "Selected Length");
+    }
 
-  public override string ToolTipText => Resource.menu_calculate_length_tooltip;
-
-  public CalculateDistanceMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.calculate_distance.png"))
-  {
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    double length = Math.Round(CAD.GetLength(), 2);
-    MessageBox.Show(string.Format("{0} feet.", length), "Selected Length");
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    this.Enabled = CAD.LengthAvailable;
-  }
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.LengthAvailable;
+    }
 }

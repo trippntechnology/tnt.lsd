@@ -1,25 +1,17 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class DeleteMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class DeleteMenuEvent() : MenuEvent(Resource.menu_delete, Resource.menu_delete_tooltip, image: "LandscapeSprinklerDesigner.Images.delete.png".ToImage())
 {
-  public override string Text => Resource.menu_delete;
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.Delete();
+    }
 
-  public override string ToolTipText => Resource.menu_delete_tooltip;
-
-  public DeleteMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.delete.png"))
-  {
-
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    CAD.Delete();
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = base.HasSelectedObjects;
-  }
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.SelectedObjects.Count > 0;
+    }
 }

@@ -1,22 +1,17 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class AlignToGridMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class AlignToGridMenuEvent() : MenuEvent(Resource.menu_align_to_grid, Resource.menu_align_to_grid_tooltip, image: "LandscapeSprinklerDesigner.Images.align_to_grid.png".ToImage())
 {
-  public override string Text => Resource.menu_align_to_grid;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        this.Enabled = cad.SelectedObjects.Count > 0;
+    }
 
-  public override string ToolTipText => Resource.menu_align_to_grid_tooltip;
-
-  public AlignToGridMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.align_to_grid.png"))
-  {
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    this.Enabled = CAD.SelectedObjects.Count > 0;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    CAD.AlignToGrid();
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.AlignToGrid();
+    }
 }

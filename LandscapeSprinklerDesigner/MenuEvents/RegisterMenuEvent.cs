@@ -1,20 +1,13 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class RegisterMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class RegisterMenuEvent() : MenuEvent(Resource.menu_register, Resource.menu_register_tooltip, image: "LandscapeSprinklerDesigner.Images.application_key.png".ToImage())
 {
-  public override string Text => Resource.menu_register;
-
-  public override string ToolTipText => Resource.menu_register_tooltip;
-
-  public RegisterMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.application_key.png"))
-  {
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    using (RegistrationForm form = new RegistrationForm())
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
     {
-      form.ShowDialog(this.Owner);
+        using RegistrationForm form = new RegistrationForm();
+        form.ShowDialog(owner);
     }
-  }
 }

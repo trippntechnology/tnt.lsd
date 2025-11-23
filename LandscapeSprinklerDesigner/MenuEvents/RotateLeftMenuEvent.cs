@@ -1,14 +1,8 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.ToolStripItemManager.Extension;
 
-class RotateLeftMenuEvent : RotateMenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class RotateLeftMenuEvent() : RotateMenuEvent(Resource.menu_rotate_left, Resource.menu_rotate_left_tooltip, "LandscapeSprinklerDesigner.Images.rotate_left.png".ToImage())
 {
-  public override string Text => Resource.menu_rotate_left;
-
-  public override string ToolTipText => Resource.menu_rotate_left_tooltip;
-
-  public override int Angle => -90;
-
-  public RotateLeftMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.rotate_left.png"))
-  {
-  }
+    public override int Angle => -90;
 }

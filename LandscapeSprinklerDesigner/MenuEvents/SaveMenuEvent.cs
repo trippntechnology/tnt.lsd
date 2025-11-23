@@ -1,18 +1,12 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class SaveMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class SaveMenuEvent() : MenuEvent(Resource.menu_save, Resource.menu_save_tooltip, image: "LandscapeSprinklerDesigner.Images.save.png".ToImage())
 {
-  public override string Text => Resource.menu_save;
-
-  public override string ToolTipText => Resource.menu_save_tooltip;
-
-  public SaveMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.save.png"))
-  {
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    CAD.Save(false);
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.Save(false);
+    }
 }

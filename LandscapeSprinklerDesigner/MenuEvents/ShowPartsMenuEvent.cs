@@ -1,19 +1,12 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class ShowPartsMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class ShowPartsMenuEvent() : MenuEvent(Resource.menu_show_parts, Resource.menu_show_parts_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.show_parts.png".ToImage())
 {
-  public override bool CheckOnClick => true;
-
-  public override string Text => Resource.menu_show_parts;
-
-  public override string ToolTipText => Resource.menu_show_parts_tooltip;
-
-  public ShowPartsMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.show_parts.png"))
-  {
-  }
-
-  public override void OnMouseClick(object? sender, EventArgs e)
-  {
-    CAD.ShowPartsToolTip = this.Checked;
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.ShowPartsToolTip = Checked;
+    }
 }

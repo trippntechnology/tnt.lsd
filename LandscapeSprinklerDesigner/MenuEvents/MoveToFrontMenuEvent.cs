@@ -1,22 +1,17 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class MoveToFrontMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class MoveToFrontMenuEvent() : MenuEvent(Resource.menu_move_to_front, Resource.menu_move_to_front_tooltip, image: "LandscapeSprinklerDesigner.Images.move_to_front.png".ToImage())
 {
-  public override string Text => Resource.menu_move_to_front;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.SelectedObjects.Count > 0;
+    }
 
-  public override string ToolTipText => Resource.menu_move_to_front_tooltip;
-
-  public MoveToFrontMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.move_to_front.png"))
-  {
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    this.Enabled = CAD.SelectedObjects.Count > 0;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    CAD.BringToFront();
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.BringToFront();
+    }
 }

@@ -1,22 +1,12 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class ShowGridMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class ShowGridMenuEvent() : MenuEvent(Resource.menu_show_grid, Resource.menu_show_grip_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.show_grid.png".ToImage())
 {
-  public override bool CheckOnClick => true;
-
-  public override string Text => Resource.menu_show_grid;
-
-  public override string ToolTipText => Resource.menu_show_grip_tooltip;
-
-  public ShowGridMenuEvent()
-    : base(ResourceToImage("LandscapeSprinklerDesigner.Images.show_grid.png"))
-  {
-
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    CAD.Settings.DrawGrid = this.Checked;
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.Settings.DrawGrid = Checked;
+    }
 }

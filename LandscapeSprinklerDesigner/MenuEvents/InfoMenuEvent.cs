@@ -1,27 +1,20 @@
-﻿using TNT.LSD.Objects.Interfaces;
+﻿using TNT.LSD.Components;
+using TNT.LSD.Objects.Interfaces;
+using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class InfoMenuEvent : MenuEvent
+class InfoMenuEvent() : MenuEvent(Resource.menu_info, Resource.menu_info_tooltip, image: "LandscapeSprinklerDesigner.Images.info.png".ToImage())
 {
-  public override string Text => Resource.menu_info;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.SelectedObjects.OfType<ISummable>().Any();
+    }
 
-  public override string ToolTipText => Resource.menu_info_tooltip;
-
-  public InfoMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.info.png"))
-  {
-
-  }
-
-  public override void OnApplicationIdle(object? sender, EventArgs e)
-  {
-    Enabled = (from o in CAD.SelectedObjects where o is ISummable select o as ISummable).ToList().Count > 0;
-  }
-
-  public override void OnMouseClick(object? sender, EventArgs e)
-  {
-    var summableParts = (from o in CAD.SelectedObjects where o is ISummable select o as ISummable).ToList();
-    double gpm = summableParts.Sum(p => p.GPM);
-    MessageBox.Show(this.Owner, $"Part Count: {summableParts.Count}\nGPM: {gpm}", "Selected GPM");
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        var summableParts = cad.SelectedObjects.OfType<ISummable>().ToList();
+        double gpm = summableParts.Sum(p => p.GPM);
+        MessageBox.Show(owner, $"Part Count: {summableParts.Count}\nGPM: {gpm}", "Selected GPM");
+    }
 }

@@ -1,20 +1,10 @@
 ﻿using TNT.LSD.Components.DrawingModes;
+using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.Events;
 
-class DrawLegendEvent : DrawEvent
+class DrawLegendEvent() : DrawEvent(text: "Draw legend", toolTipText: "Draw a legend", image: "LandscapeSprinklerDesigner.Images.legend.png".ToImage())
 {
-  private LegendMode legendMode = new LegendMode() { Layer = 1 };
-
-  public override DrawingMode DrawingMode => legendMode;
-
-  public override string Text => "Draw legend";
-
-  public override string ToolTipText => "Draw a legend";
-
-  public DrawLegendEvent()
-    : base(ResourceToImage("LandscapeSprinklerDesigner.Images.legend.png"))
-  {
-
-  }
+    private LegendMode legendMode = new LegendMode() { Layer = 1 };
+    public override DrawingMode DrawingMode => legendMode;
 }

@@ -1,34 +1,26 @@
-﻿using TNT.Utilities;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
+using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class AutoSizeMenuEvent : PersistedMenuEvent
+class AutoSizeMenuEvent() : PersistedMenuEvent(Resource.menu_auto_size, Resource.menu_auto_size_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.auto_size.png".ToImage())
 {
-  private const string REGISTRY_KEY = "AutoPipeSize";
+    private const string REGISTRY_KEY = "AutoPipeSize";
 
-  public override bool CheckOnClick => true;
+    public override void RestoreState(ApplicationRegistry applicationRegistry, TNTCAD cad)
+    {
+        Checked = applicationRegistry.ReadBoolean(REGISTRY_KEY, true);
+        cad.DrawingOptions.AutoSizePipes = Checked;
+    }
 
-  public override string Text => Resource.menu_auto_size;
+    public override void SaveState(ApplicationRegistry applicationRegistry)
+    {
+        applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
+    }
 
-  public override string ToolTipText => Resource.menu_auto_size_tooltip;
-
-  public AutoSizeMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.auto_size.png"))
-  {
-  }
-
-  public override void RestoreState(ApplicationRegistry applicationRegistry)
-  {
-    this.Checked = applicationRegistry.ReadBoolean(REGISTRY_KEY, true);
-    OnMouseClick(null, null);
-  }
-
-  public override void SaveState(ApplicationRegistry applicationRegistry)
-  {
-    applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    CAD.DrawingOptions.AutoSizePipes = this.Checked;
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.DrawingOptions.AutoSizePipes = Checked;
+    }
 }

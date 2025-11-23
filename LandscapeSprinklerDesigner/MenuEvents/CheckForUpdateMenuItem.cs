@@ -1,21 +1,17 @@
-﻿
-using LandscapeSprinklerDesigner.Utils;
+﻿using LandscapeSprinklerDesigner.Utils;
+using TNT.LSD.Components;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class CheckForUpdateMenuItem : MenuEvent
+class CheckForUpdateMenuItem() : MenuEvent(Resource.menu_check_for_update, Resource.menu_check_for_update_tooltip)
 {
-  public override string Text => Resource.menu_check_for_update;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = FileUtil.HasValidLicense();
+    }
 
-  public override string ToolTipText => Resource.menu_check_for_update_tooltip;
-
-  public override void OnApplicationIdle(object? sender, EventArgs e)
-  {
-    this.Enabled = FileUtil.HasValidLicense();
-  }
-
-  public override void OnMouseClick(object? sender, EventArgs e)
-  {
-    Global.CheckForUpdate(base.Owner, false);
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        Global.CheckForUpdate(owner, false);
+    }
 }

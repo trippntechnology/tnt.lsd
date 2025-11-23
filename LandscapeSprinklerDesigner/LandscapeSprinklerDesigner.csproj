@@ -69,7 +69,7 @@
     <PackageReference Include="TNT.Cryptography" Version="3.0.4" />
     <PackageReference Include="TNT.Reactive" Version="1.1.0" />
     <PackageReference Include="TNT.Services.Client" Version="1.0.2" />
-    <PackageReference Include="TNT.ToolStripItemManager" Version="2.0.2" />
+    <PackageReference Include="TNT.ToolStripItemManager" Version="4.0.2" />
     <PackageReference Include="TNT.Utilities" Version="3.0.0" />
   </ItemGroup>
 

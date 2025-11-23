@@ -28,7 +28,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
-		<PackageReference Include="TNT.Commons" Version="1.4.0" />
+		<PackageReference Include="TNT.Commons" Version="2.0.0" />
 		<PackageReference Include="TNT.Math" Version="2.0.0" />
 		<PackageReference Include="TNT.Plugin.Manager" Version="2.0.2" />
 		<PackageReference Include="TNT.Utilities" Version="3.0.0" />

@@ -1,14 +1,12 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class ExitMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class ExitMenuEvent() : MenuEvent(Resource.menu_exit, Resource.menu_exit, image: "LandscapeSprinklerDesigner.Images.exit.png".ToImage())
 {
-  public override string Text => Resource.menu_exit;
-
-  public override string ToolTipText => Resource.menu_exit;
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    Owner.Close();
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        owner.Close();
+    }
 }

@@ -1,39 +1,38 @@
 ﻿using Microsoft.Win32;
+using TNT.Commons;
+using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
 public delegate void LoadLayoutDelegate(string fileName);
 
-class OpenMenuEvent : MenuEvent
+class OpenMenuEvent() : MenuEvent(Resource.menu_open, Resource.menu_open_tooltip, image: "LandscapeSprinklerDesigner.Images.open.png".ToImage())
 {
-  private OpenFileDialog openFileDialog;
-  private ApplicationRegistry applicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
+    private readonly OpenFileDialog openFileDialog = InitializeOpenFileDialog();
+    private readonly ApplicationRegistry applicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 
-  public override string Text => Resource.menu_open;
+    public LoadLayoutDelegate LoadLayout { get; set; }
 
-  public override string ToolTipText => Resource.menu_open_tooltip;
-
-  public LoadLayoutDelegate LoadLayout { get; set; }
-
-  public OpenMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.open.png"))
-  {
-    openFileDialog = new OpenFileDialog();
-    openFileDialog.DefaultExt = "lsd";
-    openFileDialog.Filter = "Landscape Sprinkler Design files|*.lsd;*.lsdx";
-    openFileDialog.RestoreDirectory = true;
-    openFileDialog.Title = Resource.menu_open_tooltip;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    openFileDialog.InitialDirectory = applicationRegistry.ReadString("InitialDirectory", string.Empty);
-
-    if (HandleUnsavedChanges() && openFileDialog.ShowDialog() == DialogResult.OK)
+    private static OpenFileDialog InitializeOpenFileDialog()
     {
-      LoadLayout?.Invoke(openFileDialog.FileName);
-      applicationRegistry.WriteString("InitialDirectory", Path.GetDirectoryName(openFileDialog.FileName));
+        var dialog = new OpenFileDialog();
+        dialog.DefaultExt = "lsd";
+        dialog.Filter = "Landscape Sprinkler Design files|*.lsd;*.lsdx";
+        dialog.RestoreDirectory = true;
+        dialog.Title = Resource.menu_open_tooltip;
+        return dialog;
     }
-  }
+
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        openFileDialog.InitialDirectory = applicationRegistry.ReadString("InitialDirectory", string.Empty);
+
+        if (HandleUnsavedChanges(cad) && openFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            LoadLayout?.Invoke(openFileDialog.FileName);
+            Path.GetDirectoryName(openFileDialog.FileName)?.Also(directory => applicationRegistry.WriteString("InitialDirectory", directory));
+        }
+    }
 }

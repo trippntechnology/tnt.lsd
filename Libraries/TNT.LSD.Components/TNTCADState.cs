@@ -75,7 +75,7 @@ public class TNTCADState
     set
     {
       _Settings = value;
-      _Settings?.also(s =>
+      _Settings?.Also(s =>
       {
         s.OnDrawLayers = DrawLayers;
         s.OnSetHeightInFeet = SetHeightInFeet;

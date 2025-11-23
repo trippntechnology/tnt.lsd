@@ -1,15 +1,10 @@
-﻿using System.Drawing;
+﻿using TNT.LSD.Components;
 using TNT.Utilities;
 
-namespace LandscapeSprinklerDesigner.MenuEvents
-{
-	abstract class PersistedMenuEvent : MenuEvent
-	{
-		public PersistedMenuEvent(Image image = null) : base(image)
-		{
-		}
+namespace LandscapeSprinklerDesigner.MenuEvents;
 
-		virtual public void RestoreState(ApplicationRegistry applicationRegistry) { }
-		virtual public void SaveState(ApplicationRegistry applicationRegistry) { }
-	}
+abstract class PersistedMenuEvent(string text, string? toolTipText = null, bool checkOnClick = false, Image? image = null) : MenuEvent(text, toolTipText, checkOnClick, image)
+{
+    virtual public void RestoreState(ApplicationRegistry applicationRegistry, TNTCAD cad) { }
+    virtual public void SaveState(ApplicationRegistry applicationRegistry) { }
 }

@@ -1,12 +1,5 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.ToolStripItemManager.Extension;
 
-class PropertiesMenuEvent : DockMenuEvent
-{
-  public override string Text => Resource.menu_properties;
+namespace LandscapeSprinklerDesigner.MenuEvents;
 
-  public override string ToolTipText => Resource.menu_parts_palette_tooltip;
-
-  public PropertiesMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.properties.png"))
-  {
-  }
-}
+class PropertiesMenuEvent() : DockMenuEvent(Resource.menu_properties, Resource.menu_parts_palette_tooltip, "LandscapeSprinklerDesigner.Images.properties.png".ToImage()) { }

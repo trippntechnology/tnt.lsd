@@ -1,26 +1,17 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class UndoMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class UndoMenuEvent() : MenuEvent(Resource.menu_undo, Resource.menu_undo_tooltip, image: "LandscapeSprinklerDesigner.Images.undo.png".ToImage())
 {
-  public override string Text => Resource.menu_undo;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.HasUnsavedChanges && cad.DrawingMode.UndoEnabled;
+    }
 
-  public override string ToolTipText => Resource.menu_undo_tooltip;
-
-  public UndoMenuEvent()
-    : base(ResourceToImage("LandscapeSprinklerDesigner.Images.undo.png"))
-  {
-
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = CAD.HasUnsavedChanges && CAD.DrawingMode.UndoEnabled;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    CAD.Undo();
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.Undo();
+    }
 }

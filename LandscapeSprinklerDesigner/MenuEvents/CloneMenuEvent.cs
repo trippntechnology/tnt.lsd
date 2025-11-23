@@ -1,25 +1,17 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class CloneMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class CloneMenuEvent() : MenuEvent(Resource.menu_clone, Resource.menu_clone_tooltip, image: "LandscapeSprinklerDesigner.Images.clone.png".ToImage())
 {
-  public override string Text => Resource.menu_clone;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = (from o in cad.SelectedObjects where o.CanClone select o).ToList().Count > 0;
+    }
 
-  public override string ToolTipText => Resource.menu_clone_tooltip;
-
-  public CloneMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.clone.png"))
-  {
-
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = (from o in CAD.SelectedObjects where o.CanClone select o).ToList().Count > 0;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    CAD.Copy();
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.Copy();
+    }
 }

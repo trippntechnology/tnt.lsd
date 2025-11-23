@@ -1,30 +1,38 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class CalculateAreaMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class CalculateAreaMenuEvent() : MenuEvent(Resource.menu_calculate_area, Resource.menu_calculate_area_tooltip, image: "LandscapeSprinklerDesigner.Images.calculate_area.png".ToImage())
 {
-  private const double ACRE_FEET = 43560.1742405;
+    private const double ACRE_FEET = 43560.1742405;
 
-  public override string Text => Resource.menu_calculate_area;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.AreaAvailable;
+    }
 
-  public override string ToolTipText => Resource.menu_calculate_area_tooltip;
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        var name = Path.GetFileNameWithoutExtension(cad.CurrentFileName);
+        double area = cad.GetArea();
+        double sqrFt = Math.Round(area, 2);
+        double acre = Math.Round(area / 43560.1742405, 2);
 
-  public CalculateAreaMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.calculate_area.png"))
-  {
-  }
+        // Marshal clipboard operation to UI thread to ensure proper STA context
+        owner?.Invoke((Action)(() =>
+        {
+            try
+            {
+                Clipboard.SetText($"{name}\t{DateTime.Now.ToShortDateString()}\t{acre}");
+            }
+            catch (System.Runtime.InteropServices.ExternalException ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Clipboard operation failed: {ex.Message}");
+                // Continue to show the message even if clipboard copy fails
+            }
+        }));
 
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    this.Enabled = Enabled = CAD.AreaAvailable;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    var name = Path.GetFileNameWithoutExtension(CAD.CurrentFileName);
-    double area = CAD.GetArea();
-    double sqrFt = Math.Round(area, 2);
-    double acre = Math.Round(area / 43560.1742405, 2);
-    Clipboard.SetText($"{name}\t{DateTime.Now.ToShortDateString()}\t{acre}");
-    MessageBox.Show(string.Format("{0} square feet. {1} acres", sqrFt, acre), "Selected Area");
-  }
+        MessageBox.Show(string.Format("{0} square feet. {1} acres", sqrFt, acre), "Selected Area");
+    }
 }

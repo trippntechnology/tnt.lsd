@@ -36,9 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="TNT.Commons" Version="1.4.0" />
+    <PackageReference Include="TNT.Commons" Version="2.0.0" />
     <PackageReference Include="TNT.Reflection" Version="2.0.0" />
-    <PackageReference Include="TNT.ToolStripItemManager" Version="2.0.2" />
+    <PackageReference Include="TNT.ToolStripItemManager" Version="4.0.1" />
     <PackageReference Include="TNT.Utilities" Version="3.0.0" />
   </ItemGroup>
 

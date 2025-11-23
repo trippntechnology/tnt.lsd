@@ -1,24 +1,18 @@
-﻿using TNT.LSD.Objects;
+﻿using TNT.LSD.Components;
+using TNT.LSD.Objects;
+using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class SpaceEquallyMenuEvent : MenuEvent
+class SpaceEquallyMenuEvent() : MenuEvent(Resource.menu_space_equally, Resource.menu_space_equally_tooltip, image: "LandscapeSprinklerDesigner.Images.space_equally.png".ToImage())
 {
-  public override string Text => Resource.menu_space_equally;
+    public override void OnApplicationIdle(TNTCAD cad)
+    {
+        Enabled = cad.SelectedObjects.OfType<TNTPart>().ToList().Count > 2;
+    }
 
-  public override string ToolTipText => Resource.menu_space_equally_tooltip;
-
-  public SpaceEquallyMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.space_equally.png"))
-  {
-  }
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    this.Enabled = (from o in CAD.SelectedObjects where o is TNTPart select o).ToList().Count > 2;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    CAD.SpaceSelectedEqually();
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.SpaceSelectedEqually();
+    }
 }

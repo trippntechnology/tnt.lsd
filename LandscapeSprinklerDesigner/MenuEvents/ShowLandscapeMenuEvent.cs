@@ -1,20 +1,12 @@
-﻿namespace LandscapeSprinklerDesigner.MenuEvents;
+﻿using TNT.LSD.Components;
+using TNT.ToolStripItemManager.Extension;
 
-class ShowLandscapeMenuEvent : MenuEvent
+namespace LandscapeSprinklerDesigner.MenuEvents;
+
+class ShowLandscapeMenuEvent() : MenuEvent(Resource.menu_show_landscape_image, Resource.menu_show_landscape_image_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.show_landscape.png".ToImage())
 {
-  public override bool CheckOnClick => true;
-
-  public override string Text => Resource.menu_show_landscape_image;
-
-  public override string ToolTipText => Resource.menu_show_landscape_image_tooltip;
-
-  public ShowLandscapeMenuEvent() : base(ResourceToImage("LandscapeSprinklerDesigner.Images.show_landscape.png"))
-  {
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    CAD.DrawBackground = this.Checked;
-  }
+    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    {
+        cad.DrawBackground = Checked;
+    }
 }
