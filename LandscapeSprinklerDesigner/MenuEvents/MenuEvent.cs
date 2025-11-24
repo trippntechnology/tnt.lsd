@@ -5,53 +5,45 @@ using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-abstract class MenuEvent : ToolStripItemGroup
+abstract class MenuEvent(string text, string? toolTipText = null, bool checkOnClick = false, Image? image = null) : ToolStripItemGroup(text, toolTipText, checkOnClick, image)
 {
-  public Tuple<Form, TNTCAD, LayoutSettingsForm> _Tuple => ExternalObject as Tuple<Form, TNTCAD, LayoutSettingsForm>;
-
-  public Form Owner => _Tuple.Item1;
-  public TNTCAD CAD => _Tuple.Item2;
-  public LayoutSettingsForm LayoutSettings => _Tuple.Item3;
-
-  public bool HasSelectedObjects => CAD.SelectedObjects.Count > 0;
-
-  public MenuEvent(Image? image = null) : base(image)
-  {
-  }
-
-  virtual protected string AssemblyTitle
-  {
-    get
+    virtual protected string AssemblyTitle
     {
-      AssemblyTitleAttribute? ata = Utilities.GetAssemblyAttribute<AssemblyTitleAttribute>(Assembly.GetExecutingAssembly());
-      return ata != null ? ata.Title : string.Empty;
-    }
-  }
-
-  virtual protected bool HandleUnsavedChanges()
-  {
-    bool handled = true;
-
-    CAD.Repaint();
-
-    if (CAD.HasUnsavedChanges)
-    {
-      string msg = string.Format("The layout \"{0}\" has been modified.\nDo you want to save your changes?", string.IsNullOrEmpty(CAD.CurrentFileName) ? "Untitled" : Path.GetFileName(CAD.CurrentFileName));
-      DialogResult dr = MessageBox.Show(msg, AssemblyTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-      switch (dr)
-      {
-        case DialogResult.Yes:
-          handled = CAD.Save(false);
-          break;
-        case DialogResult.No:
-          break;
-        default:
-          handled = false;
-          break;
-      }
+        get
+        {
+            AssemblyTitleAttribute? ata = Utilities.GetAssemblyAttribute<AssemblyTitleAttribute>(Assembly.GetExecutingAssembly());
+            return ata != null ? ata.Title : string.Empty;
+        }
     }
 
-    return handled;
-  }
+    virtual protected bool HandleUnsavedChanges(TNTCAD cad)
+    {
+        bool handled = true;
+
+        cad.Repaint();
+
+        if (cad.HasUnsavedChanges)
+        {
+            string msg = string.Format("The layout \"{0}\" has been modified.\nDo you want to save your changes?", string.IsNullOrEmpty(cad.CurrentFileName) ? "Untitled" : Path.GetFileName(cad.CurrentFileName));
+            DialogResult dr = MessageBox.Show(msg, AssemblyTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    handled = cad.Save(false);
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    handled = false;
+                    break;
+            }
+        }
+
+        return handled;
+    }
+
+    public virtual void OnApplicationIdle(TNTCAD cad) { }
+
+    public virtual void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings) { }
 }

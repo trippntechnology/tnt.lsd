@@ -20,7 +20,7 @@ class ShowDistanceMenuEvent() : PersistedMenuEvent(Resource.menu_show_distances,
         applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.DrawingOptions.AlwaysShowDistances = Checked;
         cad.Repaint();

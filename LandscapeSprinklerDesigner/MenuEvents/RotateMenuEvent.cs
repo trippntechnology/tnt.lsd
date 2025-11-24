@@ -13,7 +13,7 @@ abstract class RotateMenuEvent(string text, string? toolTipText, Image? image) :
         Enabled = cad.SelectedObjects.Count != 0 && cad.SelectedObjects.Count == paletteParts.Count;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.SelectedObjects.OfType<PalettePart>().ToList().ForEach(palettePart => palettePart.RotationAngle += Angle);
         cad.ShowPropertyChanges();

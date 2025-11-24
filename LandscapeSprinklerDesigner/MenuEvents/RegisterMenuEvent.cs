@@ -5,7 +5,7 @@ namespace LandscapeSprinklerDesigner.MenuEvents;
 
 class RegisterMenuEvent() : MenuEvent(Resource.menu_register, Resource.menu_register_tooltip, image: "LandscapeSprinklerDesigner.Images.application_key.png".ToImage())
 {
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         using RegistrationForm form = new RegistrationForm();
         form.ShowDialog(owner);

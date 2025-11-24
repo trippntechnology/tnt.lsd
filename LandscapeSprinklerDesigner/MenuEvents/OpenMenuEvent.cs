@@ -13,7 +13,7 @@ class OpenMenuEvent() : MenuEvent(Resource.menu_open, Resource.menu_open_tooltip
     private readonly OpenFileDialog openFileDialog = InitializeOpenFileDialog();
     private readonly ApplicationRegistry applicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");
 
-    public LoadLayoutDelegate LoadLayout { get; set; }
+    public LoadLayoutDelegate? LoadLayout { get; set; }
 
     private static OpenFileDialog InitializeOpenFileDialog()
     {
@@ -25,7 +25,7 @@ class OpenMenuEvent() : MenuEvent(Resource.menu_open, Resource.menu_open_tooltip
         return dialog;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         openFileDialog.InitialDirectory = applicationRegistry.ReadString("InitialDirectory", string.Empty);
 

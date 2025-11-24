@@ -10,7 +10,7 @@ class CheckForUpdateMenuItem() : MenuEvent(Resource.menu_check_for_update, Resou
         Enabled = FileUtil.HasValidLicense();
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         Global.CheckForUpdate(owner, false);
     }

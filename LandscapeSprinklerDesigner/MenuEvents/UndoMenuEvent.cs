@@ -10,7 +10,7 @@ class UndoMenuEvent() : MenuEvent(Resource.menu_undo, Resource.menu_undo_tooltip
         Enabled = cad.HasUnsavedChanges && cad.DrawingMode.UndoEnabled;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.Undo();
     }

@@ -1,42 +1,32 @@
 ﻿using TNT.LSD.Components;
 using TNT.LSD.Objects;
+using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class NewMenuEvent : MenuEvent
+class NewMenuEvent() : MenuEvent(Resource.menu_new, Resource.menu_new_tooltip, image: "LandscapeSprinklerDesigner.Images.new.png".ToImage())
 {
-  public override string Text => Resource.menu_new;
-
-  public override string ToolTipText => Resource.menu_new_tooltip;
-
-  public NewMenuEvent()
-    : base(ResourceToImage("LandscapeSprinklerDesigner.Images.new.png"))
-  {
-
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    if (HandleUnsavedChanges())
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
-      NewLayoutDialog nld = new NewLayoutDialog();
-      TNTCADState state = new TNTCADState(CAD);
+        if (HandleUnsavedChanges(cad))
+        {
+            NewLayoutDialog nld = new NewLayoutDialog();
+            TNTCADState state = new TNTCADState(cad);
 
-      for (int index = 0; index < CAD.State.ObjectLayers.Count; index++)
-      {
-        state.ObjectLayers.Add(new List<TNTObject>());
-      }
+            for (int index = 0; index < cad.State.ObjectLayers.Count; index++)
+            {
+                state.ObjectLayers.Add(new List<TNTObject>());
+            }
 
-      if (nld.ShowDialog(Owner, state.Settings) == System.Windows.Forms.DialogResult.OK)
-      {
-        CAD.State = state;
-        CAD.CurrentFileName = string.Empty;
-      }
+            if (state.Settings != null && nld.ShowDialog(owner, state.Settings) == DialogResult.OK)
+            {
+                cad.State = state;
+                cad.CurrentFileName = string.Empty;
+            }
 
-      CAD.Settings.DrawGrid = this.ToolStripItemGroupManager["Show Grid"]?.Checked ?? false;
-      LayoutSettings.Settings = CAD.Settings;
-      CAD.Refresh();
+            cad.Settings.DrawGrid = Manager?.Find(m => m is ShowGridMenuEvent)?.Checked ?? false;
+            layoutSettings.Settings = cad.Settings;
+            cad.Refresh();
+        }
     }
-  }
 }

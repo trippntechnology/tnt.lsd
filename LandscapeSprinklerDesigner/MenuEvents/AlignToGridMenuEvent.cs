@@ -10,7 +10,7 @@ class AlignToGridMenuEvent() : MenuEvent(Resource.menu_align_to_grid, Resource.m
         this.Enabled = cad.SelectedObjects.Count > 0;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.AlignToGrid();
     }

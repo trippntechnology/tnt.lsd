@@ -9,7 +9,7 @@ class SelectAllMenuEvent() : MenuEvent(Resource.menu_select_all, Resource.menu_s
         Enabled = cad.DrawingMode.GetType() == typeof(TNT.LSD.Components.DrawingModes.SelectMode);
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         if (cad.DrawingMode.GetType() == typeof(TNT.LSD.Components.DrawingModes.SelectMode)) cad.SelectAll();
     }

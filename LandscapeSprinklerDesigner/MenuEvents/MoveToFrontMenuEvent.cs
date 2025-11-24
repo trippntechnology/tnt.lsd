@@ -10,7 +10,7 @@ class MoveToFrontMenuEvent() : MenuEvent(Resource.menu_move_to_front, Resource.m
         Enabled = cad.SelectedObjects.Count > 0;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.BringToFront();
     }

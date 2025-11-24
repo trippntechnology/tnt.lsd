@@ -11,7 +11,7 @@ class SpaceEquallyMenuEvent() : MenuEvent(Resource.menu_space_equally, Resource.
         Enabled = cad.SelectedObjects.OfType<TNTPart>().ToList().Count > 2;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.SpaceSelectedEqually();
     }

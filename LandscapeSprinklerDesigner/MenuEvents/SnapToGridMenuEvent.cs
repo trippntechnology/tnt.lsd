@@ -19,7 +19,7 @@ class SnapToGridMenuEvent() : PersistedMenuEvent(Resource.menu_snap_to_grid, Res
         applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.SnapToGrid = Checked;
     }

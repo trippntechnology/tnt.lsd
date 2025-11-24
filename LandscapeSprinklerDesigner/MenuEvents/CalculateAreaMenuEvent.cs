@@ -12,7 +12,7 @@ class CalculateAreaMenuEvent() : MenuEvent(Resource.menu_calculate_area, Resourc
         Enabled = cad.AreaAvailable;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         var name = Path.GetFileNameWithoutExtension(cad.CurrentFileName);
         double area = cad.GetArea();

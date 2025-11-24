@@ -20,7 +20,7 @@ class LabelHeadsMenuEvent() : PersistedMenuEvent(Resource.menu_label_heads, Reso
         applicationRegistry.WriteBoolean(REGISTRY_KEY, this.Checked);
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.DrawingOptions.LabelHeads = Checked;
         cad.Repaint();

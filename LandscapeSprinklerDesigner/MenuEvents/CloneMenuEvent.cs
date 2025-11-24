@@ -10,7 +10,7 @@ class CloneMenuEvent() : MenuEvent(Resource.menu_clone, Resource.menu_clone_tool
         Enabled = (from o in cad.SelectedObjects where o.CanClone select o).ToList().Count > 0;
     }
 
-    public override void OnMouseClicked(Form owner, TNTCAD cad)
+    public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {
         cad.Copy();
     }
