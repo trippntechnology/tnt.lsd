@@ -4,15 +4,16 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-abstract class DockMenuEvent : ToolStripItemGroup
+abstract class DockMenuEvent(string text, string? toolTipText = null, Image? image = null) : ToolStripItemGroup(text, toolTipText, true, image)
 {
-  public override bool CheckOnClick => true;
+    public DockContent? DockContent { get; set; }
   protected Tuple<DockContent, DockPanel>? tuple => base.ExternalObject as Tuple<DockContent, DockPanel>;
   protected DockContent? dockContent => tuple?.Item1 as DockContent;
   protected DockPanel? dockPanel => tuple?.Item2 as DockPanel;
 
-  public DockMenuEvent(Image? image = null) : base(image)
+    virtual public void OnApplicationIdle()
   {
+        base.Checked = DockContent?.IsHidden == false;
   }
 
   public override void OnApplicationIdle(object? sender, EventArgs e)
@@ -43,17 +44,17 @@ abstract class DockMenuEvent : ToolStripItemGroup
     }
   }
 
-  public override void OnMouseClick(object? sender, EventArgs e)
+    virtual public void OnMouseClicked(DockPanel dockPanel)
   {
     base.OnMouseClick(sender, e);
 
     if (base.Checked)
     {
-      dockContent?.Show(dockPanel);
+            DockContent?.Show(dockPanel);
     }
     else
     {
-      dockContent?.Hide();
+            DockContent?.Hide();
     }
   }
 }

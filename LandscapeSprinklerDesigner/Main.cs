@@ -18,9 +18,11 @@ public partial class Main : Form
 {
   #region Members
 
-  private ToolStripItemCheckboxGroupManager DrawingGroupManager = new ToolStripItemCheckboxGroupManager(new ToolStripStatusLabel());
-  private ToolStripItemGroupManager MenuGroupManager = new ToolStripItemGroupManager(new ToolStripStatusLabel());
-  private ToolStripItemGroupManager LicensedMenuGroupManager = new ToolStripItemGroupManager(new ToolStripStatusLabel());
+    private DrawEvent? _previousDrawEvent;
+    private DrawEvent? _currentDrawEvent;
+
+    private ToolStripItemRadioGroupManager _drawingGroupManager = new ToolStripItemRadioGroupManager();
+    private ToolStripItemGroupManager MenuGroupManager = new ToolStripItemGroupManager();
 
   private PropertyForm m_PropertyForm = new PropertyForm();
   private LayoutForm m_LayoutForm = new LayoutForm();
@@ -64,7 +66,6 @@ public partial class Main : Form
 
     SetupDrawingGroupManager();
     SetupMenuGroupManager();
-    SetupLicenseGroupManager();
 
     m_LayoutForm.PropertyForm = m_PropertyForm;
     m_LayoutForm.LayoutSettingsForm = m_LayoutSettingsForm;
@@ -79,7 +80,14 @@ public partial class Main : Form
         }
         else
         {
-          DrawingGroupManager?.Toggle();
+                    var drawEvent = _currentDrawEvent;
+                    _currentDrawEvent = _previousDrawEvent;
+                    _previousDrawEvent = drawEvent;
+                    _currentDrawEvent?.Also(de =>
+                    {
+                        CAD.SetDrawingMode(de.DrawingMode);
+                        de.Checked = true;
+                    });
         }
       }
     };
@@ -97,48 +105,71 @@ public partial class Main : Form
     manager.Register(Path.Combine(assemblyDirectory, "plugins"));
   }
 
-  private void SetupLicenseGroupManager()
+    private void SetupMenuGroupManager()
   {
-    LicensedMenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1) { IsLicensed = IsLicensed };
-    var exObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
-    LicensedMenuGroupManager.Create<PartsListMenuEvent>(ToToolStripItemArray(PartsListButton, PartsListMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PartsListForm, DockPanel));
-    LicensedMenuGroupManager.Create<ShowPartsMenuEvent>(ToToolStripItemArray(PartsToolTipButton, PartsToolTipMenu), externalObject: exObj);
-    LicensedMenuGroupManager.Create<CalculateAreaMenuEvent>(ToToolStripItemArray(AreaMenu, AreaButton, m_LayoutForm.area), externalObject: exObj);
-    LicensedMenuGroupManager.Create<CalculateDistanceMenuEvent>(ToToolStripItemArray(LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance), externalObject: exObj);
+        MenuGroupManager = new ToolStripItemGroupManager()
+        {
+            OnClick = toolStripItemGroup =>
+            {
+                if (toolStripItemGroup is MenuEvent menuEvent)
+                {
+                    menuEvent.OnMouseClicked(m_PropertyForm, CAD, m_LayoutSettingsForm);
   }
-
-  private void SetupMenuGroupManager()
+                else if (toolStripItemGroup is DockMenuEvent dockMenuEvent)
   {
-    MenuGroupManager = new ToolStripItemGroupManager(toolStripStatusLabel1);
-    var exObj = Tuple.Create<Form, TNTCAD, LayoutSettingsForm>(this, CAD, m_LayoutSettingsForm);
-    MenuGroupManager.Create<NewMenuEvent>(ToToolStripItemArray(NewButton, NewMenu), externalObject: exObj);
-    MenuGroupManager.Create<ShowGridMenuEvent>(ToToolStripItemArray(ShowGridButton, ShowGridMenu), externalObject: exObj);
-    MenuGroupManager.Create<OpenMenuEvent>(ToToolStripItemArray(OpenMenu, OpenButton), externalObject: exObj).LoadLayout = LoadLayout;
-    MenuGroupManager.Create<SaveMenuEvent>(ToToolStripItemArray(SaveMenu, SaveButton), externalObject: exObj);
-    MenuGroupManager.Create<SaveAsMenuEvent>(ToToolStripItemArray(SaveAsMenu), externalObject: exObj);
-    MenuGroupManager.Create<ExitMenuEvent>(ToToolStripItemArray(ExitMenu), externalObject: exObj);
-    MenuGroupManager.Create<UndoMenuEvent>(ToToolStripItemArray(UndoMenu, UndoButton), externalObject: exObj);
-    MenuGroupManager.Create<DeleteMenuEvent>(ToToolStripItemArray(DeleteMenu, DeleteButton), externalObject: exObj);
-    MenuGroupManager.Create<CloneMenuEvent>(ToToolStripItemArray(CloneMenu, CloneButton), externalObject: exObj);
-    MenuGroupManager.Create<SelectAllMenuEvent>(ToToolStripItemArray(SelectAllMenu), externalObject: exObj);
-    MenuGroupManager.Create<PropertiesMenuEvent>(ToToolStripItemArray(PropertiesButton, PropertiesMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PropertyForm, DockPanel));
-    MenuGroupManager.Create<PartsPaletteEvent>(ToToolStripItemArray(PaletteTreeButton, PaletteTreeMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_PalletForm, DockPanel));
-    MenuGroupManager.Create<LayoutSettingsEvent>(ToToolStripItemArray(LayoutSettingsButton, LayoutSettingsMenu), externalObject: Tuple.Create<DockContent, DockPanel>(m_LayoutSettingsForm, DockPanel));
-    MenuGroupManager.Create<LabelHeadsMenuEvent>(ToToolStripItemArray(LabelHeadsMenu, LabelHeadsButton), externalObject: exObj).RestoreState(Global.userRegistry!);
-    MenuGroupManager.Create<ShowDistanceMenuEvent>(ToToolStripItemArray(ShowDistancesMenu, ShowDistancesButton), externalObject: exObj).RestoreState(Global.userRegistry!);
-    MenuGroupManager.Create<ShowCoverageMenuEvent>(ToToolStripItemArray(CoverageButton, CoverageMenu), externalObject: exObj);
-    MenuGroupManager.Create<SnapToGridMenuEvent>(ToToolStripItemArray(SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid), externalObject: exObj).RestoreState(Global.userRegistry!);
-    MenuGroupManager.Create<MoveToBackMenuEvent>(ToToolStripItemArray(SendToBackButton, SendToBackMenu), externalObject: exObj);
-    MenuGroupManager.Create<MoveToFrontMenuEvent>(ToToolStripItemArray(BringToFrontMenu, BringToFrontButton), externalObject: exObj);
-    MenuGroupManager.Create<AlignToGridMenuEvent>(ToToolStripItemArray(AlignToGridMenu, AlignToGridButton, m_LayoutForm.space), externalObject: exObj);
-    MenuGroupManager.Create<AutoSizeMenuEvent>(ToToolStripItemArray(AutoSizeMenu, AutoSizeButton), externalObject: exObj).RestoreState(Global.userRegistry!);
-    MenuGroupManager.Create<SpaceEquallyMenuEvent>(ToToolStripItemArray(SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.aligntogrid), externalObject: exObj);
-    MenuGroupManager.Create<RotateLeftMenuEvent>(ToToolStripItemArray(Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter), externalObject: exObj);
-    MenuGroupManager.Create<RotateRightMenuEvent>(ToToolStripItemArray(Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock), externalObject: exObj);
-    MenuGroupManager.Create<Rotate180MenuEvent>(ToToolStripItemArray(Rotate180Menu, Rotate180Button, m_LayoutForm.rotate180), externalObject: exObj);
-    MenuGroupManager.Create<InfoMenuEvent>(ToToolStripItemArray(ButtonSumGPM, m_LayoutForm.sumGpm, SumGPM), externalObject: exObj);
-    MenuGroupManager.Create<CheckForUpdateMenuItem>(ToToolStripItemArray(CheckForUpdateMenu), externalObject: exObj);
-    MenuGroupManager.Create<RegisterMenuEvent>(ToToolStripItemArray(RegisterMenu), externalObject: exObj);
+                    dockMenuEvent.OnMouseClicked(DockPanel);
+                }
+            },
+            OnIdle = (toolStripItemGroup, args) =>
+            {
+                if (toolStripItemGroup is MenuEvent menuEvent)
+                {
+                    menuEvent.OnApplicationIdle(CAD);
+                }
+                else if (toolStripItemGroup is DockMenuEvent dockMenuEvent)
+                {
+                    dockMenuEvent.OnApplicationIdle();
+                }
+            },
+            OnToolTipChange = toolTipText => toolStripStatusLabel1.Text = toolTipText,
+        };
+
+        MenuGroupManager.Create<LayoutSettingsEvent>([LayoutSettingsButton, LayoutSettingsMenu]).DockContent = m_LayoutSettingsForm;
+        MenuGroupManager.Create<PartsListMenuEvent>([PartsListButton, PartsListMenu]).DockContent = m_PartsListForm;
+        MenuGroupManager.Create<PropertiesMenuEvent>([PropertiesButton, PropertiesMenu]).DockContent = m_PropertyForm;
+        MenuGroupManager.Create<PartsPaletteEvent>([PaletteTreeButton, PaletteTreeMenu]).DockContent = m_PalletForm;
+
+
+        MenuGroupManager.Create<CalculateAreaMenuEvent>([AreaMenu, AreaButton, m_LayoutForm.area]);
+        MenuGroupManager.Create<CalculateDistanceMenuEvent>([LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance]);
+        MenuGroupManager.Create<ShowPartsMenuEvent>([PartsToolTipButton, PartsToolTipMenu]);
+
+
+        MenuGroupManager.Create<AlignToGridMenuEvent>([AlignToGridMenu, AlignToGridButton, m_LayoutForm.space]);
+        MenuGroupManager.Create<AutoSizeMenuEvent>([AutoSizeMenu, AutoSizeButton]).RestoreState(Global.userRegistry!, CAD);
+        MenuGroupManager.Create<CheckForUpdateMenuItem>([CheckForUpdateMenu]);
+        MenuGroupManager.Create<CloneMenuEvent>([CloneMenu, CloneButton]);
+        MenuGroupManager.Create<DeleteMenuEvent>([DeleteMenu, DeleteButton]);
+        MenuGroupManager.Create<ExitMenuEvent>([ExitMenu]);
+        MenuGroupManager.Create<InfoMenuEvent>([ButtonSumGPM, m_LayoutForm.sumGpm, SumGPM]);
+        MenuGroupManager.Create<LabelHeadsMenuEvent>([LabelHeadsMenu, LabelHeadsButton]).RestoreState(Global.userRegistry!, CAD);
+        MenuGroupManager.Create<MoveToBackMenuEvent>([SendToBackButton, SendToBackMenu]);
+        MenuGroupManager.Create<MoveToFrontMenuEvent>([BringToFrontMenu, BringToFrontButton]);
+        MenuGroupManager.Create<NewMenuEvent>([NewButton, NewMenu]);
+        MenuGroupManager.Create<OpenMenuEvent>([OpenMenu, OpenButton]).LoadLayout = LoadLayout;
+        MenuGroupManager.Create<RegisterMenuEvent>([RegisterMenu]);
+        MenuGroupManager.Create<Rotate180MenuEvent>([Rotate180Menu, Rotate180Button, m_LayoutForm.rotate180]);
+        MenuGroupManager.Create<RotateLeftMenuEvent>([Rotate90CounterclockwiseButton, Rotate90CounterclockwiseMenu, m_LayoutForm.rotatecounter]);
+        MenuGroupManager.Create<RotateRightMenuEvent>([Rotate90ClockwiseButton, Rotate90ClockwiseMenu, m_LayoutForm.rotateclock]);
+        MenuGroupManager.Create<SaveAsMenuEvent>([SaveAsMenu]);
+        MenuGroupManager.Create<SaveMenuEvent>([SaveMenu, SaveButton]);
+        MenuGroupManager.Create<SelectAllMenuEvent>([SelectAllMenu]);
+        MenuGroupManager.Create<ShowCoverageMenuEvent>([CoverageButton, CoverageMenu]);
+        MenuGroupManager.Create<ShowDistanceMenuEvent>([ShowDistancesMenu, ShowDistancesButton]).RestoreState(Global.userRegistry!, CAD);
+        MenuGroupManager.Create<ShowGridMenuEvent>([ShowGridButton, ShowGridMenu]);
+        MenuGroupManager.Create<SnapToGridMenuEvent>([SnapToGridButton, SnapToGridMenu, m_LayoutForm.snaptogrid]).RestoreState(Global.userRegistry!, CAD);
+        MenuGroupManager.Create<SpaceEquallyMenuEvent>([SpaceEquallyMenu, SpaceEquallyButton, m_LayoutForm.aligntogrid]);
+        MenuGroupManager.Create<UndoMenuEvent>([UndoMenu, UndoButton]);
   }
 
   private bool IsLicensed(bool allowMessageBox, ToolStripItemGroup itemGroup)
@@ -165,16 +196,35 @@ public partial class Main : Form
 
   private void SetupDrawingGroupManager()
   {
-    DrawingGroupManager = new ToolStripItemCheckboxGroupManager(toolStripStatusLabel1);
-    var externalObj = Tuple.Create(CAD, m_PropertyForm, m_PalletForm);
-    DrawingGroupManager.CreateHome<DrawSelectEvent>(new ToolStripItem[] { selectButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawRectangleEvent>(new ToolStripItem[] { rectangleButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawLineEvent>(new ToolStripItem[] { lineButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawCircleEvent>(new ToolStripItem[] { circleButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawCurveEvent>(new ToolStripItem[] { curveButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawPolyEvent>(new ToolStripItem[] { polyButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawTextEvent>(new ToolStripItem[] { textButton }, null, externalObj);
-    DrawingGroupManager.Create<DrawLegendEvent>(new ToolStripItem[] { legendButton }, null, externalObj);
+        _drawingGroupManager = new ToolStripItemRadioGroupManager()
+        {
+            OnClick = toolStripItemGroup =>
+            {
+                var drawEvent = toolStripItemGroup as DrawEvent;
+
+                if (drawEvent?.Checked != true) return;
+
+                _previousDrawEvent = _currentDrawEvent;
+                _currentDrawEvent = drawEvent;
+
+                this.CAD.SetDrawingMode(drawEvent.DrawingMode);
+                this.m_PropertyForm.SelectedObject = drawEvent.DrawingMode.DefaultObject;
+                this.m_PalletForm.UnselectAll();
+            },
+            OnToolTipChange = toolTipText => toolStripStatusLabel1.Text = toolTipText,
+        };
+        _drawingGroupManager.Create<DrawCircleEvent>([circleButton]);
+        _drawingGroupManager.Create<DrawCurveEvent>([curveButton]);
+        _drawingGroupManager.Create<DrawLegendEvent>([legendButton]);
+        _drawingGroupManager.Create<DrawLineEvent>([lineButton]);
+        _drawingGroupManager.Create<DrawPolyEvent>([polyButton]);
+        _drawingGroupManager.Create<DrawRectangleEvent>([rectangleButton]);
+        _drawingGroupManager.Create<DrawSelectEvent>([selectButton]).Also(de =>
+        {
+            de.Checked = true;
+            _currentDrawEvent = de;
+        });
+        _drawingGroupManager.Create<DrawTextEvent>([textButton]);
   }
 
   private void pluginOnClickHandler(object? sender, EventArgs e)
@@ -195,7 +245,7 @@ public partial class Main : Form
   {
     #region Restore state from Registry
 
-    Global.userRegistry?.also(userRegistry =>
+        Global.userRegistry?.Also(userRegistry =>
     {
       userRegistry?.ReadToolStripItems("MRU", OpenButton.DropDownItems);
       tbScale.Value = userRegistry?.ReadInteger("Scale", tbScale.Value) ?? 100;
@@ -264,8 +314,8 @@ public partial class Main : Form
 
     #region Save state to Registry
 
-    var persistedMenuEvent = (from p in MenuGroupManager.Values where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
-    Global.userRegistry?.also(userRegistry =>
+        var persistedMenuEvent = (from p in MenuGroupManager where p is PersistedMenuEvent select p as PersistedMenuEvent).ToList();
+        Global.userRegistry?.Also(userRegistry =>
     {
       persistedMenuEvent.ForEach(p => p.SaveState(userRegistry));
       userRegistry.WriteInteger("Scale", tbScale.Value);
@@ -279,7 +329,7 @@ public partial class Main : Form
 
   private void tbScale_ValueChanged(object sender, EventArgs e)
   {
-    (sender as TrackBar)?.Value.also(value =>
+        (sender as TrackBar)?.Value.Also(value =>
        {
          ScaleButton.Text = string.Format("{0}%", value);
          CAD.DisplayScale = value;
@@ -290,7 +340,7 @@ public partial class Main : Form
   {
     if (HandleUnsavedChanges())
     {
-      e.ClickedItem?.Text?.also(layout => LoadLayout(layout));
+            e.ClickedItem?.Text?.Also(layout => LoadLayout(layout));
     }
   }
 
@@ -304,7 +354,7 @@ public partial class Main : Form
 
     CAD.Open(fileName);
     m_LayoutSettingsForm.Settings = CAD.Settings;
-    MenuGroupManager["Show Grid"].IfNotNull(it => { it.Checked = CAD.Settings.DrawGrid; });
+        MenuGroupManager.Find(m => m is ShowGridMenuEvent)?.Also(it => { it.Checked = CAD.Settings.DrawGrid; });
   }
 
   private void About_Click(object sender, EventArgs e)
@@ -317,7 +367,7 @@ public partial class Main : Form
 
   private void Scale_Click(object sender, EventArgs e)
   {
-    (sender as ToolStripMenuItem)?.also(mi =>
+        (sender as ToolStripMenuItem)?.Also(mi =>
     {
       int scale = Convert.ToInt32(mi.Tag);
       tbScale.Value = scale;
@@ -327,7 +377,7 @@ public partial class Main : Form
   private void PalletNodeTagSelected(PaletteProperties paletteProperties)
   {
     // Uncheck the landscape drawing tool if there's one selected.
-    var checkedItem = DrawingGroupManager.FirstOrDefault(i => i.Value.Checked).Value;
+        var checkedItem = _drawingGroupManager.FirstOrDefault(i => i.Checked);
     if (checkedItem != null) { checkedItem.Checked = false; }
     CAD.SetPalletNodeTag(paletteProperties);
     m_PropertyForm.SelectedObject = paletteProperties.DrawingMode.DefaultObject ?? new object();
@@ -347,7 +397,7 @@ public partial class Main : Form
 
   private void UpgradeAvailableStatusLink_Click(object sender, EventArgs e)
   {
-    (sender as ToolStripStatusLabel)?.ToolTipText?.also(toolTipText => Process.Start(toolTipText));
+        (sender as ToolStripStatusLabel)?.ToolTipText?.Also(toolTipText => Process.Start(toolTipText));
   }
 
   private void OnTheWebToolStripMenuItem_Click(object sender, EventArgs e)
