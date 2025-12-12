@@ -1,9 +1,8 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class CloneMenuEvent() : MenuEvent(Resource.menu_clone, Resource.menu_clone_tooltip, image: "LandscapeSprinklerDesigner.Images.clone.png".ToImage())
+class CloneMenuEvent() : MenuEvent(Resource.menu_clone, Resource.menu_clone_tooltip)
 {
     public override void OnApplicationIdle(TNTCAD cad)
     {

@@ -3,7 +3,7 @@ using TNT.LSD.Objects;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-abstract class RotateMenuEvent(string text, string? toolTipText, Image? image) : MenuEvent(text, toolTipText, image: image)
+abstract class RotateMenuEvent(string text, string? toolTipText) : MenuEvent(text, toolTipText)
 {
     public abstract int Angle { get; }
 

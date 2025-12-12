@@ -1,10 +1,10 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
+
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class ShowDistanceMenuEvent() : PersistedMenuEvent(Resource.menu_show_distances, Resource.menu_show_distance_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.show_distance.png".ToImage())
+class ShowDistanceMenuEvent() : PersistedMenuEvent(Resource.menu_show_distances, Resource.menu_show_distance_tooltip, checkOnClick: true)
 {
     private const string REGISTRY_KEY = "AlwaysShowDistances";
 

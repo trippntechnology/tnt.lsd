@@ -1,9 +1,8 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class AlignToGridMenuEvent() : MenuEvent(Resource.menu_align_to_grid, Resource.menu_align_to_grid_tooltip, image: "LandscapeSprinklerDesigner.Images.align_to_grid.png".ToImage())
+class AlignToGridMenuEvent() : MenuEvent(Resource.menu_align_to_grid, Resource.menu_align_to_grid_tooltip)
 {
     public override void OnApplicationIdle(TNTCAD cad)
     {

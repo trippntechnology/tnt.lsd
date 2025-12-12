@@ -1,9 +1,9 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
+
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class ShowCoverageMenuEvent() : MenuEvent(Resource.menu_show_coverage, Resource.menu_show_coverage_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.show_coverage.png".ToImage())
+class ShowCoverageMenuEvent() : MenuEvent(Resource.menu_show_coverage, Resource.menu_show_coverage_tooltip, checkOnClick: true)
 {
     public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {

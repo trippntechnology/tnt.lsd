@@ -1,10 +1,10 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
+
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class SnapToGridMenuEvent() : PersistedMenuEvent(Resource.menu_snap_to_grid, Resource.menu_snap_to_grid_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.snap_to_grid.png".ToImage())
+class SnapToGridMenuEvent() : PersistedMenuEvent(Resource.menu_snap_to_grid, Resource.menu_snap_to_grid_tooltip, checkOnClick: true)
 {
     private const string REGISTRY_KEY = "SnapToGrid";
 

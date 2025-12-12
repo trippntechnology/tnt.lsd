@@ -3,7 +3,7 @@ using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-abstract class PersistedMenuEvent(string text, string? toolTipText = null, bool checkOnClick = false, Image? image = null) : MenuEvent(text, toolTipText, checkOnClick, image)
+abstract class PersistedMenuEvent(string text, string? toolTipText = null, bool checkOnClick = false) : MenuEvent(text, toolTipText, checkOnClick)
 {
     virtual public void RestoreState(ApplicationRegistry applicationRegistry, TNTCAD cad) { }
     virtual public void SaveState(ApplicationRegistry applicationRegistry) { }

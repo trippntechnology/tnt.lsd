@@ -1,10 +1,10 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
+
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class LabelHeadsMenuEvent() : PersistedMenuEvent(Resource.menu_label_heads, Resource.menu_label_heads_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.label_heads.png".ToImage())
+class LabelHeadsMenuEvent() : PersistedMenuEvent(Resource.menu_label_heads, Resource.menu_label_heads_tooltip, checkOnClick: true)
 {
     private const string REGISTRY_KEY = "LabelHeads";
 

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+	<PropertyGroup>
 		<!-- File Description -->
 		<ApplicationIcon>LandscapeSprinklerDesigner.ico</ApplicationIcon>
 		<AssemblyTitle>Landscape Sprinkler Designer</AssemblyTitle>
@@ -8,144 +8,62 @@
 		<Company>$(Authors)</Company>
 		<Copyright>Copyright 2025 $(Authors)</Copyright>
 		<Description>$(AssemblyTitle)</Description>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>WinExe</OutputType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>WinExe</OutputType>
 		<!-- Product Name -->
 		<Product>$(AssemblyTitle)</Product>
 		<TargetFramework>net9.0-windows</TargetFramework>
 		<Title>$(AssemblyTitle)</Title>
-    <UseWindowsForms>true</UseWindowsForms>
+		<UseWindowsForms>true</UseWindowsForms>
 		<Version>4.0.3</Version>
 	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
-
-  <ItemGroup>
-    <None Remove="Images\align_to_grid.png" />
-    <None Remove="Images\application_key.png" />
-    <None Remove="Images\auto_size.png" />
-    <None Remove="Images\calculate_area.png" />
-    <None Remove="Images\calculate_distance.png" />
-    <None Remove="Images\circle.png" />
-    <None Remove="Images\clone.png" />
-    <None Remove="Images\curve.png" />
-    <None Remove="Images\delete.png" />
-    <None Remove="Images\hand.png" />
-    <None Remove="Images\info.png" />
-    <None Remove="Images\label_heads.png" />
-    <None Remove="Images\layout_settings.png" />
-    <None Remove="Images\legend.png" />
-    <None Remove="Images\line.png" />
-    <None Remove="Images\move_to_back.png" />
-    <None Remove="Images\move_to_front.png" />
-    <None Remove="Images\new.png" />
-    <None Remove="Images\open.png" />
-    <None Remove="Images\parts_list.png" />
-    <None Remove="Images\parts_palette.png" />
-    <None Remove="Images\polyline.png" />
-    <None Remove="Images\properties.png" />
-    <None Remove="Images\rectangle.png" />
-    <None Remove="Images\rotate_180.png" />
-    <None Remove="Images\rotate_left.png" />
-    <None Remove="Images\rotate_right.png" />
-    <None Remove="Images\save.png" />
-    <None Remove="Images\show_coverage.png" />
-    <None Remove="Images\show_distance.png" />
-    <None Remove="Images\show_grid.png" />
-    <None Remove="Images\show_landscape.png" />
-    <None Remove="Images\show_parts.png" />
-    <None Remove="Images\snap_to_grid.png" />
-    <None Remove="Images\space_equally.png" />
-    <None Remove="Images\sum_gpm.png" />
-    <None Remove="Images\text.png" />
-    <None Remove="Images\undo.png" />
-    <None Remove="splash.png" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
 	<ItemGroup>
-    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
-    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
-    <PackageReference Include="TNT.Cryptography" Version="3.0.4" />
-    <PackageReference Include="TNT.Reactive" Version="1.1.0" />
-    <PackageReference Include="TNT.Services.Client" Version="1.0.2" />
-    <PackageReference Include="TNT.ToolStripItemManager" Version="4.0.2" />
-    <PackageReference Include="TNT.Utilities" Version="3.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
-    <ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
-    <ProjectReference Include="..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-		<EmbeddedResource Include="Images\align_to_grid.png" />
-		<EmbeddedResource Include="Images\application_key.png" />
-		<EmbeddedResource Include="Images\auto_size.png" />
-		<EmbeddedResource Include="Images\calculate_area.png" />
-		<EmbeddedResource Include="Images\calculate_distance.png" />
-		<EmbeddedResource Include="Images\circle.png" />
-		<EmbeddedResource Include="Images\clone.png" />
-		<EmbeddedResource Include="Images\curve.png" />
-		<EmbeddedResource Include="Images\delete.png" />
-		<EmbeddedResource Include="Images\hand.png" />
-		<EmbeddedResource Include="Images\info.png" />
-		<EmbeddedResource Include="Images\label_heads.png" />
-		<EmbeddedResource Include="Images\layout_settings.png" />
-		<EmbeddedResource Include="Images\legend.png" />
-		<EmbeddedResource Include="Images\line.png" />
-		<EmbeddedResource Include="Images\move_to_back.png" />
-		<EmbeddedResource Include="Images\move_to_front.png" />
-		<EmbeddedResource Include="Images\new.png" />
-		<EmbeddedResource Include="Images\open.png" />
-		<EmbeddedResource Include="Images\parts_list.png" />
-		<EmbeddedResource Include="Images\parts_palette.png" />
-		<EmbeddedResource Include="Images\polyline.png" />
-		<EmbeddedResource Include="Images\properties.png" />
-		<EmbeddedResource Include="Images\rectangle.png" />
-		<EmbeddedResource Include="Images\rotate_180.png" />
-		<EmbeddedResource Include="Images\rotate_left.png" />
-		<EmbeddedResource Include="Images\rotate_right.png" />
-		<EmbeddedResource Include="Images\save.png" />
-		<EmbeddedResource Include="Images\show_coverage.png" />
-		<EmbeddedResource Include="Images\show_distance.png" />
-		<EmbeddedResource Include="Images\show_grid.png" />
-		<EmbeddedResource Include="Images\show_landscape.png" />
-		<EmbeddedResource Include="Images\show_parts.png" />
-		<EmbeddedResource Include="Images\snap_to_grid.png" />
-		<EmbeddedResource Include="Images\space_equally.png" />
-		<EmbeddedResource Include="Images\sum_gpm.png" />
-		<EmbeddedResource Include="Images\text.png" />
-		<EmbeddedResource Include="Images\undo.png" />
+		<PackageReference Include="DockPanelSuite" Version="3.1.1" />
+		<PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
+		<PackageReference Include="TNT.Commons" Version="2.0.1" />
+		<PackageReference Include="TNT.Cryptography" Version="3.0.4" />
+		<PackageReference Include="TNT.Reactive" Version="1.1.0" />
+		<PackageReference Include="TNT.Services.Client" Version="1.0.3" />
+		<PackageReference Include="TNT.ToolStripItemManager" Version="4.0.5" />
+		<PackageReference Include="TNT.Utilities" Version="3.0.0" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+		<ProjectReference Include="..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+		<ProjectReference Include="..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="palette.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(SolutionDir)Database\Inventory.sqlite&quot; &quot;$(TargetDir)&quot;" />
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="palette.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy &quot;$(SolutionDir)Database\Inventory.sqlite&quot; &quot;$(TargetDir)&quot;" />
 		<!--<Exec Command="mkdir &quot;$(TargetDir)plugins&quot;" />-->
 		<!--<Exec Command="xcopy &quot;$(SolutionDir)Plugins\TNT.LSD.Background\bin\Debug\net9.0-windows\TNT.LSD.Background.dll&quot; &quot;$(TargetDir)plugins\TNT.LSD.Background.dll&quot;" />
 		<Exec Command="xcopy &quot;$(SolutionDir)Plugins\TNT.LSD.Colorizer\bin\Debug\net9.0-windows\TNT.LSD.Colorizer.dll&quot; &quot;$(TargetDir)plugins\TNT.LSD.Colorizer.dll&quot;" />-->

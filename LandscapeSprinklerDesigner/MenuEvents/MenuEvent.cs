@@ -5,7 +5,7 @@ using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-abstract class MenuEvent(string text, string? toolTipText = null, bool checkOnClick = false, Image? image = null) : ToolStripItemGroup(text, toolTipText, checkOnClick, image)
+abstract class MenuEvent(string text, string? toolTipText = null, bool checkOnClick = false) : ToolStripItemGroup(text, toolTipText, checkOnClick)
 {
     virtual protected string AssemblyTitle
     {

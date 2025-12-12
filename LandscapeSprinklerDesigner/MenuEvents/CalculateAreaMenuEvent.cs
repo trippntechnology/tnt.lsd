@@ -1,15 +1,19 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class CalculateAreaMenuEvent() : MenuEvent(Resource.menu_calculate_area, Resource.menu_calculate_area_tooltip, image: "LandscapeSprinklerDesigner.Images.calculate_area.png".ToImage())
+class CalculateAreaMenuEvent() : MenuEvent(Resource.menu_calculate_area, Resource.menu_calculate_area_tooltip), ILicensed
 {
     private const double ACRE_FEET = 43560.1742405;
 
     public override void OnApplicationIdle(TNTCAD cad)
     {
         Enabled = cad.AreaAvailable;
+    }
+
+    public void OnLicensedChanged(bool isLicensed)
+    {
+        Checked = !isLicensed ? false : Checked;
     }
 
     public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)

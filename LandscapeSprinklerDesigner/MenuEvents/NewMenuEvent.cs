@@ -1,10 +1,10 @@
 ﻿using TNT.LSD.Components;
 using TNT.LSD.Objects;
-using TNT.ToolStripItemManager.Extension;
+
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class NewMenuEvent() : MenuEvent(Resource.menu_new, Resource.menu_new_tooltip, image: "LandscapeSprinklerDesigner.Images.new.png".ToImage())
+class NewMenuEvent() : MenuEvent(Resource.menu_new, Resource.menu_new_tooltip)
 {
     public override void OnMouseClicked(Form owner, TNTCAD cad, LayoutSettingsForm layoutSettings)
     {

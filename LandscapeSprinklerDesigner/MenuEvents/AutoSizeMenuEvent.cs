@@ -1,10 +1,9 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class AutoSizeMenuEvent() : PersistedMenuEvent(Resource.menu_auto_size, Resource.menu_auto_size_tooltip, checkOnClick: true, image: "LandscapeSprinklerDesigner.Images.auto_size.png".ToImage())
+class AutoSizeMenuEvent() : PersistedMenuEvent(Resource.menu_auto_size, Resource.menu_auto_size_tooltip, checkOnClick: true)
 {
     private const string REGISTRY_KEY = "AutoPipeSize";
 

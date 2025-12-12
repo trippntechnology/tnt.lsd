@@ -1,9 +1,9 @@
 ﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
+
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class MoveToBackMenuEvent() : MenuEvent(Resource.menu_move_to_back, Resource.menu_move_to_back_tooltip, image: "LandscapeSprinklerDesigner.Images.move_to_back.png".ToImage())
+class MoveToBackMenuEvent() : MenuEvent(Resource.menu_move_to_back, Resource.menu_move_to_back_tooltip)
 {
     public override void OnApplicationIdle(TNTCAD cad)
     {

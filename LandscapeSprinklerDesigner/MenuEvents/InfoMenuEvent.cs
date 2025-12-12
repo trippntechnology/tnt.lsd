@@ -1,10 +1,10 @@
 ﻿using TNT.LSD.Components;
 using TNT.LSD.Objects.Interfaces;
-using TNT.ToolStripItemManager.Extension;
+
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class InfoMenuEvent() : MenuEvent(Resource.menu_info, Resource.menu_info_tooltip, image: "LandscapeSprinklerDesigner.Images.info.png".ToImage())
+class InfoMenuEvent() : MenuEvent(Resource.menu_info, Resource.menu_info_tooltip)
 {
     public override void OnApplicationIdle(TNTCAD cad)
     {

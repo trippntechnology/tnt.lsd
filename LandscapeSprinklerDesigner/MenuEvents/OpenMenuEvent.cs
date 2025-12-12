@@ -1,14 +1,14 @@
 ﻿using Microsoft.Win32;
 using TNT.Commons;
 using TNT.LSD.Components;
-using TNT.ToolStripItemManager.Extension;
+
 using TNT.Utilities;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
 public delegate void LoadLayoutDelegate(string fileName);
 
-class OpenMenuEvent() : MenuEvent(Resource.menu_open, Resource.menu_open_tooltip, image: "LandscapeSprinklerDesigner.Images.open.png".ToImage())
+class OpenMenuEvent() : MenuEvent(Resource.menu_open, Resource.menu_open_tooltip)
 {
     private readonly OpenFileDialog openFileDialog = InitializeOpenFileDialog();
     private readonly ApplicationRegistry applicationRegistry = new ApplicationRegistry(Registry.CurrentUser, "Tripp'n Technology", "LandscapeSprinklerDesigner");

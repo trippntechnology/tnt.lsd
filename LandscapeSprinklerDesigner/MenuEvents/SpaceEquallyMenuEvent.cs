@@ -1,10 +1,10 @@
 ﻿using TNT.LSD.Components;
 using TNT.LSD.Objects;
-using TNT.ToolStripItemManager.Extension;
+
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-class SpaceEquallyMenuEvent() : MenuEvent(Resource.menu_space_equally, Resource.menu_space_equally_tooltip, image: "LandscapeSprinklerDesigner.Images.space_equally.png".ToImage())
+class SpaceEquallyMenuEvent() : MenuEvent(Resource.menu_space_equally, Resource.menu_space_equally_tooltip)
 {
     public override void OnApplicationIdle(TNTCAD cad)
     {
