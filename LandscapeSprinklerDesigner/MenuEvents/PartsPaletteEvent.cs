@@ -5,5 +5,9 @@ class PartsPaletteEvent() : DockMenuEvent(Resource.menu_parts_palette, Resource.
     public void OnLicensedChanged(bool isLicensed)
     {
         Checked = !isLicensed ? false : Checked;
+        if (!Checked && DockContent != null)
+        {
+            DockContent.BeginInvoke(delegate { DockContent.Hide(); });
+        }
     }
 }

@@ -113,7 +113,26 @@
             tbScale = new TrackBar();
             toolStripContainer1 = new ToolStripContainer();
             DockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            pluginToolStrip = new ToolStrip();
+            toolStrip4 = new ToolStrip();
+            selectButton = new ToolStripButton();
+            rectangleButton = new ToolStripButton();
+            lineButton = new ToolStripButton();
+            polyButton = new ToolStripButton();
+            circleButton = new ToolStripButton();
+            curveButton = new ToolStripButton();
+            textButton = new ToolStripButton();
+            legendButton = new ToolStripButton();
+            ToolStrip3 = new ToolStrip();
+            PropertiesButton = new ToolStripButton();
+            PartsListButton = new ToolStripButton();
+            PaletteTreeButton = new ToolStripButton();
+            LayoutSettingsButton = new ToolStripButton();
+            toolStripSeparator13 = new ToolStripSeparator();
+            ShowDistancesButton = new ToolStripButton();
+            LabelHeadsButton = new ToolStripButton();
+            CoverageButton = new ToolStripButton();
+            PartsToolTipButton = new ToolStripButton();
+            ShowGridButton = new ToolStripButton();
             ToolStrip2 = new ToolStrip();
             AutoSizeButton = new ToolStripButton();
             toolStripSeparator12 = new ToolStripSeparator();
@@ -127,26 +146,7 @@
             AreaButton = new ToolStripButton();
             LengthButton = new ToolStripButton();
             ButtonSumGPM = new ToolStripButton();
-            ToolStrip3 = new ToolStrip();
-            PropertiesButton = new ToolStripButton();
-            PartsListButton = new ToolStripButton();
-            PaletteTreeButton = new ToolStripButton();
-            LayoutSettingsButton = new ToolStripButton();
-            toolStripSeparator13 = new ToolStripSeparator();
-            ShowDistancesButton = new ToolStripButton();
-            LabelHeadsButton = new ToolStripButton();
-            CoverageButton = new ToolStripButton();
-            PartsToolTipButton = new ToolStripButton();
-            ShowGridButton = new ToolStripButton();
-            toolStrip4 = new ToolStrip();
-            selectButton = new ToolStripButton();
-            rectangleButton = new ToolStripButton();
-            lineButton = new ToolStripButton();
-            polyButton = new ToolStripButton();
-            circleButton = new ToolStripButton();
-            curveButton = new ToolStripButton();
-            textButton = new ToolStripButton();
-            legendButton = new ToolStripButton();
+            pluginToolStrip = new ToolStrip();
             MenuStrip1.SuspendLayout();
             ToolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -154,9 +154,9 @@
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
-            ToolStrip2.SuspendLayout();
-            ToolStrip3.SuspendLayout();
             toolStrip4.SuspendLayout();
+            ToolStrip3.SuspendLayout();
+            ToolStrip2.SuspendLayout();
             SuspendLayout();
             // 
             // MenuStrip1
@@ -243,14 +243,14 @@
             UndoMenu.Image = (Image)resources.GetObject("UndoMenu.Image");
             UndoMenu.Name = "UndoMenu";
             UndoMenu.ShortcutKeys = Keys.Control | Keys.Z;
-            UndoMenu.Size = new Size(164, 22);
+            UndoMenu.Size = new Size(180, 22);
             UndoMenu.Text = "&Undo";
             UndoMenu.ToolTipText = "Undo previous action";
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(161, 6);
+            toolStripSeparator6.Size = new Size(177, 6);
             // 
             // DeleteMenu
             // 
@@ -258,7 +258,7 @@
             DeleteMenu.ImageTransparentColor = Color.Magenta;
             DeleteMenu.Name = "DeleteMenu";
             DeleteMenu.ShortcutKeys = Keys.Control | Keys.X;
-            DeleteMenu.Size = new Size(164, 22);
+            DeleteMenu.Size = new Size(180, 22);
             DeleteMenu.Text = "&Delete";
             DeleteMenu.ToolTipText = "Delete selected object(s)";
             // 
@@ -268,21 +268,21 @@
             CloneMenu.ImageTransparentColor = Color.Magenta;
             CloneMenu.Name = "CloneMenu";
             CloneMenu.ShortcutKeys = Keys.Control | Keys.C;
-            CloneMenu.Size = new Size(164, 22);
+            CloneMenu.Size = new Size(180, 22);
             CloneMenu.Text = "&Clone";
             CloneMenu.ToolTipText = "Create a clone of the selected object(s)";
             // 
             // EditPluginPlaceHolder
             // 
             EditPluginPlaceHolder.Name = "EditPluginPlaceHolder";
-            EditPluginPlaceHolder.Size = new Size(161, 6);
+            EditPluginPlaceHolder.Size = new Size(177, 6);
             EditPluginPlaceHolder.Visible = false;
             // 
             // toolStripMenuItem9
             // 
             toolStripMenuItem9.DropDownItems.AddRange(new ToolStripItem[] { Rotate90ClockwiseMenu, Rotate90CounterclockwiseMenu, Rotate180Menu });
             toolStripMenuItem9.Name = "toolStripMenuItem9";
-            toolStripMenuItem9.Size = new Size(164, 22);
+            toolStripMenuItem9.Size = new Size(180, 22);
             toolStripMenuItem9.Text = "&Rotate";
             // 
             // Rotate90ClockwiseMenu
@@ -306,13 +306,13 @@
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(161, 6);
+            toolStripSeparator7.Size = new Size(177, 6);
             // 
             // SelectAllMenu
             // 
             SelectAllMenu.Name = "SelectAllMenu";
             SelectAllMenu.ShortcutKeys = Keys.Control | Keys.A;
-            SelectAllMenu.Size = new Size(164, 22);
+            SelectAllMenu.Size = new Size(180, 22);
             SelectAllMenu.Text = "Select &All";
             SelectAllMenu.ToolTipText = "Select all objects";
             // 
@@ -833,14 +833,195 @@
             DockPanel.Size = new Size(1362, 711);
             DockPanel.TabIndex = 1;
             // 
-            // pluginToolStrip
+            // toolStrip4
             // 
-            pluginToolStrip.Dock = DockStyle.None;
-            pluginToolStrip.GripStyle = ToolStripGripStyle.Hidden;
-            pluginToolStrip.Location = new Point(119, 75);
-            pluginToolStrip.Name = "pluginToolStrip";
-            pluginToolStrip.Size = new Size(102, 25);
-            pluginToolStrip.TabIndex = 9;
+            toolStrip4.Dock = DockStyle.None;
+            toolStrip4.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip4.Items.AddRange(new ToolStripItem[] { selectButton, rectangleButton, lineButton, polyButton, circleButton, curveButton, textButton, legendButton });
+            toolStrip4.Location = new Point(3, 0);
+            toolStrip4.Name = "toolStrip4";
+            toolStrip4.Size = new Size(187, 25);
+            toolStrip4.TabIndex = 8;
+            // 
+            // selectButton
+            // 
+            selectButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            selectButton.Image = (Image)resources.GetObject("selectButton.Image");
+            selectButton.ImageTransparentColor = Color.Magenta;
+            selectButton.Name = "selectButton";
+            selectButton.Size = new Size(23, 22);
+            selectButton.Text = "toolStripButton3";
+            // 
+            // rectangleButton
+            // 
+            rectangleButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            rectangleButton.Image = (Image)resources.GetObject("rectangleButton.Image");
+            rectangleButton.ImageTransparentColor = Color.Magenta;
+            rectangleButton.Name = "rectangleButton";
+            rectangleButton.Size = new Size(23, 22);
+            rectangleButton.Text = "toolStripButton1";
+            // 
+            // lineButton
+            // 
+            lineButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            lineButton.Image = (Image)resources.GetObject("lineButton.Image");
+            lineButton.ImageTransparentColor = Color.Magenta;
+            lineButton.Name = "lineButton";
+            lineButton.Size = new Size(23, 22);
+            lineButton.Text = "toolStripButton2";
+            // 
+            // polyButton
+            // 
+            polyButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            polyButton.Image = (Image)resources.GetObject("polyButton.Image");
+            polyButton.ImageTransparentColor = Color.Magenta;
+            polyButton.Name = "polyButton";
+            polyButton.Size = new Size(23, 22);
+            polyButton.Text = "toolStripButton6";
+            // 
+            // circleButton
+            // 
+            circleButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            circleButton.Image = (Image)resources.GetObject("circleButton.Image");
+            circleButton.ImageTransparentColor = Color.Magenta;
+            circleButton.Name = "circleButton";
+            circleButton.Size = new Size(23, 22);
+            circleButton.Text = "toolStripButton4";
+            // 
+            // curveButton
+            // 
+            curveButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            curveButton.Image = (Image)resources.GetObject("curveButton.Image");
+            curveButton.ImageTransparentColor = Color.Magenta;
+            curveButton.Name = "curveButton";
+            curveButton.Size = new Size(23, 22);
+            curveButton.Text = "toolStripButton5";
+            // 
+            // textButton
+            // 
+            textButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            textButton.Image = (Image)resources.GetObject("textButton.Image");
+            textButton.ImageTransparentColor = Color.Magenta;
+            textButton.Name = "textButton";
+            textButton.Size = new Size(23, 22);
+            textButton.Text = "toolStripButton7";
+            // 
+            // legendButton
+            // 
+            legendButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            legendButton.Image = (Image)resources.GetObject("legendButton.Image");
+            legendButton.ImageTransparentColor = Color.Magenta;
+            legendButton.Name = "legendButton";
+            legendButton.Size = new Size(23, 22);
+            legendButton.Text = "toolStripButton1";
+            // 
+            // ToolStrip3
+            // 
+            ToolStrip3.Dock = DockStyle.None;
+            ToolStrip3.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStrip3.Items.AddRange(new ToolStripItem[] { PropertiesButton, PartsListButton, PaletteTreeButton, LayoutSettingsButton, toolStripSeparator13, ShowDistancesButton, LabelHeadsButton, CoverageButton, PartsToolTipButton, ShowGridButton });
+            ToolStrip3.Location = new Point(3, 25);
+            ToolStrip3.Name = "ToolStrip3";
+            ToolStrip3.Size = new Size(247, 25);
+            ToolStrip3.TabIndex = 7;
+            // 
+            // PropertiesButton
+            // 
+            PropertiesButton.CheckOnClick = true;
+            PropertiesButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            PropertiesButton.Image = (Image)resources.GetObject("PropertiesButton.Image");
+            PropertiesButton.ImageTransparentColor = Color.Magenta;
+            PropertiesButton.Name = "PropertiesButton";
+            PropertiesButton.Size = new Size(23, 22);
+            PropertiesButton.Text = "toolStripButton1";
+            // 
+            // PartsListButton
+            // 
+            PartsListButton.CheckOnClick = true;
+            PartsListButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            PartsListButton.Image = (Image)resources.GetObject("PartsListButton.Image");
+            PartsListButton.ImageTransparentColor = Color.Magenta;
+            PartsListButton.Name = "PartsListButton";
+            PartsListButton.Size = new Size(23, 22);
+            PartsListButton.Text = "toolStripButton1";
+            // 
+            // PaletteTreeButton
+            // 
+            PaletteTreeButton.CheckOnClick = true;
+            PaletteTreeButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            PaletteTreeButton.Image = (Image)resources.GetObject("PaletteTreeButton.Image");
+            PaletteTreeButton.ImageTransparentColor = Color.Magenta;
+            PaletteTreeButton.Name = "PaletteTreeButton";
+            PaletteTreeButton.Size = new Size(23, 22);
+            PaletteTreeButton.Text = "toolStripButton1";
+            // 
+            // LayoutSettingsButton
+            // 
+            LayoutSettingsButton.CheckOnClick = true;
+            LayoutSettingsButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            LayoutSettingsButton.Image = (Image)resources.GetObject("LayoutSettingsButton.Image");
+            LayoutSettingsButton.ImageTransparentColor = Color.Magenta;
+            LayoutSettingsButton.Name = "LayoutSettingsButton";
+            LayoutSettingsButton.Size = new Size(23, 22);
+            LayoutSettingsButton.Text = "toolStripButton1";
+            // 
+            // toolStripSeparator13
+            // 
+            toolStripSeparator13.Name = "toolStripSeparator13";
+            toolStripSeparator13.Size = new Size(6, 25);
+            // 
+            // ShowDistancesButton
+            // 
+            ShowDistancesButton.CheckOnClick = true;
+            ShowDistancesButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            ShowDistancesButton.Image = (Image)resources.GetObject("ShowDistancesButton.Image");
+            ShowDistancesButton.ImageTransparentColor = Color.Magenta;
+            ShowDistancesButton.Name = "ShowDistancesButton";
+            ShowDistancesButton.Size = new Size(23, 22);
+            ShowDistancesButton.Text = "Always Show &Distances";
+            ShowDistancesButton.ToolTipText = "Shows measurements even when the object isn't selected";
+            // 
+            // LabelHeadsButton
+            // 
+            LabelHeadsButton.CheckOnClick = true;
+            LabelHeadsButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            LabelHeadsButton.Image = (Image)resources.GetObject("LabelHeadsButton.Image");
+            LabelHeadsButton.ImageTransparentColor = Color.Magenta;
+            LabelHeadsButton.Name = "LabelHeadsButton";
+            LabelHeadsButton.Size = new Size(23, 22);
+            LabelHeadsButton.Text = "&Label Heads";
+            LabelHeadsButton.ToolTipText = "Labels the heads with their coverage";
+            // 
+            // CoverageButton
+            // 
+            CoverageButton.CheckOnClick = true;
+            CoverageButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            CoverageButton.Image = (Image)resources.GetObject("CoverageButton.Image");
+            CoverageButton.ImageTransparentColor = Color.Magenta;
+            CoverageButton.Name = "CoverageButton";
+            CoverageButton.Size = new Size(23, 22);
+            CoverageButton.Text = "&Coverage";
+            CoverageButton.ToolTipText = "Shows the sprinkler coverage";
+            // 
+            // PartsToolTipButton
+            // 
+            PartsToolTipButton.CheckOnClick = true;
+            PartsToolTipButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            PartsToolTipButton.Image = (Image)resources.GetObject("PartsToolTipButton.Image");
+            PartsToolTipButton.ImageTransparentColor = Color.Magenta;
+            PartsToolTipButton.Name = "PartsToolTipButton";
+            PartsToolTipButton.Size = new Size(23, 22);
+            PartsToolTipButton.Text = "Part &Tooltip";
+            PartsToolTipButton.ToolTipText = "Show the parts that represent the image";
+            // 
+            // ShowGridButton
+            // 
+            ShowGridButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            ShowGridButton.Image = (Image)resources.GetObject("ShowGridButton.Image");
+            ShowGridButton.ImageTransparentColor = Color.Magenta;
+            ShowGridButton.Name = "ShowGridButton";
+            ShowGridButton.Size = new Size(23, 22);
+            ShowGridButton.Text = "toolStripButton1";
             // 
             // ToolStrip2
             // 
@@ -957,195 +1138,14 @@
             ButtonSumGPM.Size = new Size(23, 22);
             ButtonSumGPM.Text = "Sum the GPM of selected lateral parts";
             // 
-            // ToolStrip3
+            // pluginToolStrip
             // 
-            ToolStrip3.Dock = DockStyle.None;
-            ToolStrip3.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStrip3.Items.AddRange(new ToolStripItem[] { PropertiesButton, PartsListButton, PaletteTreeButton, LayoutSettingsButton, toolStripSeparator13, ShowDistancesButton, LabelHeadsButton, CoverageButton, PartsToolTipButton, ShowGridButton });
-            ToolStrip3.Location = new Point(3, 25);
-            ToolStrip3.Name = "ToolStrip3";
-            ToolStrip3.Size = new Size(247, 25);
-            ToolStrip3.TabIndex = 7;
-            // 
-            // PropertiesButton
-            // 
-            PropertiesButton.CheckOnClick = true;
-            PropertiesButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            PropertiesButton.Image = (Image)resources.GetObject("PropertiesButton.Image");
-            PropertiesButton.ImageTransparentColor = Color.Magenta;
-            PropertiesButton.Name = "PropertiesButton";
-            PropertiesButton.Size = new Size(23, 22);
-            PropertiesButton.Text = "toolStripButton1";
-            // 
-            // PartsListButton
-            // 
-            PartsListButton.CheckOnClick = true;
-            PartsListButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            PartsListButton.Image = (Image)resources.GetObject("PartsListButton.Image");
-            PartsListButton.ImageTransparentColor = Color.Magenta;
-            PartsListButton.Name = "PartsListButton";
-            PartsListButton.Size = new Size(23, 22);
-            PartsListButton.Text = "toolStripButton1";
-            // 
-            // PaletteTreeButton
-            // 
-            PaletteTreeButton.CheckOnClick = true;
-            PaletteTreeButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            PaletteTreeButton.Image = (Image)resources.GetObject("PaletteTreeButton.Image");
-            PaletteTreeButton.ImageTransparentColor = Color.Magenta;
-            PaletteTreeButton.Name = "PaletteTreeButton";
-            PaletteTreeButton.Size = new Size(23, 22);
-            PaletteTreeButton.Text = "toolStripButton1";
-            // 
-            // LayoutSettingsButton
-            // 
-            LayoutSettingsButton.CheckOnClick = true;
-            LayoutSettingsButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            LayoutSettingsButton.Image = (Image)resources.GetObject("LayoutSettingsButton.Image");
-            LayoutSettingsButton.ImageTransparentColor = Color.Magenta;
-            LayoutSettingsButton.Name = "LayoutSettingsButton";
-            LayoutSettingsButton.Size = new Size(23, 22);
-            LayoutSettingsButton.Text = "toolStripButton1";
-            // 
-            // toolStripSeparator13
-            // 
-            toolStripSeparator13.Name = "toolStripSeparator13";
-            toolStripSeparator13.Size = new Size(6, 25);
-            // 
-            // ShowDistancesButton
-            // 
-            ShowDistancesButton.CheckOnClick = true;
-            ShowDistancesButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            ShowDistancesButton.Image = (Image)resources.GetObject("ShowDistancesButton.Image");
-            ShowDistancesButton.ImageTransparentColor = Color.Magenta;
-            ShowDistancesButton.Name = "ShowDistancesButton";
-            ShowDistancesButton.Size = new Size(23, 22);
-            ShowDistancesButton.Text = "Always Show &Distances";
-            ShowDistancesButton.ToolTipText = "Shows measurements even when the object isn't selected";
-            // 
-            // LabelHeadsButton
-            // 
-            LabelHeadsButton.CheckOnClick = true;
-            LabelHeadsButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            LabelHeadsButton.Image = (Image)resources.GetObject("LabelHeadsButton.Image");
-            LabelHeadsButton.ImageTransparentColor = Color.Magenta;
-            LabelHeadsButton.Name = "LabelHeadsButton";
-            LabelHeadsButton.Size = new Size(23, 22);
-            LabelHeadsButton.Text = "&Label Heads";
-            LabelHeadsButton.ToolTipText = "Labels the heads with their coverage";
-            // 
-            // CoverageButton
-            // 
-            CoverageButton.CheckOnClick = true;
-            CoverageButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            CoverageButton.Image = (Image)resources.GetObject("CoverageButton.Image");
-            CoverageButton.ImageTransparentColor = Color.Magenta;
-            CoverageButton.Name = "CoverageButton";
-            CoverageButton.Size = new Size(23, 22);
-            CoverageButton.Text = "&Coverage";
-            CoverageButton.ToolTipText = "Shows the sprinkler coverage";
-            // 
-            // PartsToolTipButton
-            // 
-            PartsToolTipButton.CheckOnClick = true;
-            PartsToolTipButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            PartsToolTipButton.Image = (Image)resources.GetObject("PartsToolTipButton.Image");
-            PartsToolTipButton.ImageTransparentColor = Color.Magenta;
-            PartsToolTipButton.Name = "PartsToolTipButton";
-            PartsToolTipButton.Size = new Size(23, 22);
-            PartsToolTipButton.Text = "Part &Tooltip";
-            PartsToolTipButton.ToolTipText = "Show the parts that represent the image";
-            // 
-            // ShowGridButton
-            // 
-            ShowGridButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            ShowGridButton.Image = (Image)resources.GetObject("ShowGridButton.Image");
-            ShowGridButton.ImageTransparentColor = Color.Magenta;
-            ShowGridButton.Name = "ShowGridButton";
-            ShowGridButton.Size = new Size(23, 22);
-            ShowGridButton.Text = "toolStripButton1";
-            // 
-            // toolStrip4
-            // 
-            toolStrip4.Dock = DockStyle.None;
-            toolStrip4.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip4.Items.AddRange(new ToolStripItem[] { selectButton, rectangleButton, lineButton, polyButton, circleButton, curveButton, textButton, legendButton });
-            toolStrip4.Location = new Point(3, 0);
-            toolStrip4.Name = "toolStrip4";
-            toolStrip4.Size = new Size(187, 25);
-            toolStrip4.TabIndex = 8;
-            // 
-            // selectButton
-            // 
-            selectButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            selectButton.Image = (Image)resources.GetObject("selectButton.Image");
-            selectButton.ImageTransparentColor = Color.Magenta;
-            selectButton.Name = "selectButton";
-            selectButton.Size = new Size(23, 22);
-            selectButton.Text = "toolStripButton3";
-            // 
-            // rectangleButton
-            // 
-            rectangleButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            rectangleButton.Image = (Image)resources.GetObject("rectangleButton.Image");
-            rectangleButton.ImageTransparentColor = Color.Magenta;
-            rectangleButton.Name = "rectangleButton";
-            rectangleButton.Size = new Size(23, 22);
-            rectangleButton.Text = "toolStripButton1";
-            // 
-            // lineButton
-            // 
-            lineButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            lineButton.Image = (Image)resources.GetObject("lineButton.Image");
-            lineButton.ImageTransparentColor = Color.Magenta;
-            lineButton.Name = "lineButton";
-            lineButton.Size = new Size(23, 22);
-            lineButton.Text = "toolStripButton2";
-            // 
-            // polyButton
-            // 
-            polyButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            polyButton.Image = (Image)resources.GetObject("polyButton.Image");
-            polyButton.ImageTransparentColor = Color.Magenta;
-            polyButton.Name = "polyButton";
-            polyButton.Size = new Size(23, 22);
-            polyButton.Text = "toolStripButton6";
-            // 
-            // circleButton
-            // 
-            circleButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            circleButton.Image = (Image)resources.GetObject("circleButton.Image");
-            circleButton.ImageTransparentColor = Color.Magenta;
-            circleButton.Name = "circleButton";
-            circleButton.Size = new Size(23, 22);
-            circleButton.Text = "toolStripButton4";
-            // 
-            // curveButton
-            // 
-            curveButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            curveButton.Image = (Image)resources.GetObject("curveButton.Image");
-            curveButton.ImageTransparentColor = Color.Magenta;
-            curveButton.Name = "curveButton";
-            curveButton.Size = new Size(23, 22);
-            curveButton.Text = "toolStripButton5";
-            // 
-            // textButton
-            // 
-            textButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            textButton.Image = (Image)resources.GetObject("textButton.Image");
-            textButton.ImageTransparentColor = Color.Magenta;
-            textButton.Name = "textButton";
-            textButton.Size = new Size(23, 22);
-            textButton.Text = "toolStripButton7";
-            // 
-            // legendButton
-            // 
-            legendButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            legendButton.Image = (Image)resources.GetObject("legendButton.Image");
-            legendButton.ImageTransparentColor = Color.Magenta;
-            legendButton.Name = "legendButton";
-            legendButton.Size = new Size(23, 22);
-            legendButton.Text = "toolStripButton1";
+            pluginToolStrip.Dock = DockStyle.None;
+            pluginToolStrip.GripStyle = ToolStripGripStyle.Hidden;
+            pluginToolStrip.Location = new Point(119, 75);
+            pluginToolStrip.Name = "pluginToolStrip";
+            pluginToolStrip.Size = new Size(102, 25);
+            pluginToolStrip.TabIndex = 9;
             // 
             // Main
             // 
@@ -1175,12 +1175,12 @@
             toolStripContainer1.TopToolStripPanel.PerformLayout();
             toolStripContainer1.ResumeLayout(false);
             toolStripContainer1.PerformLayout();
-            ToolStrip2.ResumeLayout(false);
-            ToolStrip2.PerformLayout();
-            ToolStrip3.ResumeLayout(false);
-            ToolStrip3.PerformLayout();
             toolStrip4.ResumeLayout(false);
             toolStrip4.PerformLayout();
+            ToolStrip3.ResumeLayout(false);
+            ToolStrip3.PerformLayout();
+            ToolStrip2.ResumeLayout(false);
+            ToolStrip2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

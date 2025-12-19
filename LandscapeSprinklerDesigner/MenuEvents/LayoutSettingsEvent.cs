@@ -5,5 +5,9 @@ class LayoutSettingsEvent() : DockMenuEvent(Resource.menu_layout_settings, Resou
     public void OnLicensedChanged(bool isLicensed)
     {
         Checked = !isLicensed ? false : Checked;
+        if (!Checked && DockContent != null)
+        {
+            DockContent.BeginInvoke(delegate { DockContent.Hide(); });
+        }
     }
 }

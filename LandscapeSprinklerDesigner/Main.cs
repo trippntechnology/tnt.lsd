@@ -126,40 +126,34 @@ public partial class Main : Form
         {
             OnClick = toolStripItemGroup =>
             {
-                //if (toolStripItemGroup is ILicensed licensedEvent && !IsLicensed()) return;
                 Logger.Info($"Menu item group clicked: {toolStripItemGroup.GetType().Name}");
+
+                if (toolStripItemGroup is ILicensed && !IsLicensed()) return;
 
                 if (toolStripItemGroup is MenuEvent menuEvent)
                 {
                     menuEvent.OnMouseClicked(m_PropertyForm, CAD, m_LayoutSettingsForm);
                 }
-                //else if (toolStripItemGroup is DockMenuEvent dockMenuEvent)
-                //{
-                //    dockMenuEvent.OnMouseClicked(DockPanel);
-                //}
-
             },
             OnCheckChanged = (toolStripItemGroup, isChecked) =>
             {
                 Logger.Info($"Menu item group check changed: {toolStripItemGroup.GetType().Name}, Checked={isChecked}");
                 if (toolStripItemGroup is DockMenuEvent dockMenuEvent)
                 {
-                    DockContent? dockContent = dockMenuEvent switch
-                    {
-                        LayoutSettingsEvent => m_LayoutSettingsForm,
-                        PartsListMenuEvent => m_PartsListForm,
-                        PropertiesMenuEvent => m_PropertyForm,
-                        PartsPaletteEvent => m_PalletForm,
-                        _ => null
-                    };
+                    var isLicensed = IsLicensed(false);
 
-                    if (isChecked)
+                    if (isLicensed && isChecked)
                     {
-                        dockContent?.Show(DockPanel);
+                        dockMenuEvent.DockContent?.Show(DockPanel);
                     }
                     else
                     {
-                        dockContent?.Hide();
+                        dockMenuEvent.DockContent?.Hide();
+                    }
+
+                    if (!isLicensed)
+                    {
+                        dockMenuEvent.Checked = false;
                     }
                 }
             },
@@ -178,14 +172,13 @@ public partial class Main : Form
             OnToolTipChange = toolTipText => toolStripStatusLabel1.Text = toolTipText,
         };
 
-        _menuGroupManager.Create<LayoutSettingsEvent>([LayoutSettingsButton, LayoutSettingsMenu]).DockContent = m_LayoutSettingsForm;
-        _menuGroupManager.Create<PartsListMenuEvent>([PartsListButton, PartsListMenu]).DockContent = m_PartsListForm;
-        _menuGroupManager.Create<PropertiesMenuEvent>([PropertiesButton, PropertiesMenu]).DockContent = m_PropertyForm;
-        _menuGroupManager.Create<PartsPaletteEvent>([PaletteTreeButton, PaletteTreeMenu]).DockContent = m_PalletForm;
-
-
+        // ILicensed menu items
         _menuGroupManager.Create<CalculateAreaMenuEvent>([AreaMenu, AreaButton, m_LayoutForm.area]);
         _menuGroupManager.Create<CalculateDistanceMenuEvent>([LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance]);
+        _menuGroupManager.Create<LayoutSettingsEvent>([LayoutSettingsButton, LayoutSettingsMenu]).DockContent = m_LayoutSettingsForm;
+        _menuGroupManager.Create<PartsListMenuEvent>([PartsListButton, PartsListMenu]).DockContent = m_PartsListForm;
+        _menuGroupManager.Create<PartsPaletteEvent>([PaletteTreeButton, PaletteTreeMenu]).DockContent = m_PalletForm;
+        _menuGroupManager.Create<PropertiesMenuEvent>([PropertiesButton, PropertiesMenu]).DockContent = m_PropertyForm;
         _menuGroupManager.Create<ShowPartsMenuEvent>([PartsToolTipButton, PartsToolTipMenu]);
 
 
@@ -219,7 +212,7 @@ public partial class Main : Form
     private bool IsLicensed(bool allowMessageBox = true)
     {
         var licenseeInfo = FileUtil.GetLicenseeInfo();
-        bool? isLicensed = DateTime.Now < licenseeInfo?.ValidUntil.DateTime;
+        bool? isLicensed = licenseeInfo != null ? DateTime.Now < licenseeInfo.ValidUntil.DateTime : null;
 
         if (allowMessageBox)
         {
