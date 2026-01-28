@@ -1,18 +1,13 @@
-﻿using TNT.LSD.Components;
+﻿using PalletDesigner;
+using TNT.LSD.Components;
 
 namespace PaletteDesigner.Events;
 
-class AddChildNode : NodeEvents
+class AddChildNode() : NodeToolStripItemGroup("Add Child Node", "Add a sibling node")
 {
-  public override string Text => "Add Child Node";
-
-  public override string ToolTipText => "Add a sibling node";
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-
-    PaletteNode newNode = PalletNodeTreeView.AddChildNode();
-    PropertyGrid.SelectedObject = newNode.Properties;
-  }
+    public override void OnMouseClick(Main main)
+    {
+        PaletteNode newNode = main.Pallet.AddChildNode();
+        main.PropertyEditor.SelectedObject = newNode.Properties;
+    }
 }

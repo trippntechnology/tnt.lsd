@@ -1,19 +1,18 @@
-﻿namespace PaletteDesigner.Events;
+﻿using PalletDesigner;
 
-class ShiftNodeUp : NodeEvents
+namespace PaletteDesigner.Events;
+
+class ShiftNodeUp() : NodeToolStripItemGroup("Shift Node Up", "Shift the node up")
 {
-  public override string Text => "Shift Node Up";
+    public override void OnApplicationIdle(Main main)
+    {
+        base.OnApplicationIdle(main);
+        Enabled = main.Pallet.SelectedNode?.PrevNode != null;
+    }
 
-  public override string ToolTipText => "Shift the node up";
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = PalletNodeTreeView.SelectedNode?.PrevNode != null;
-  }
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    PalletNodeTreeView.ShiftSelectedNodeUp();
-  }
+    public override void OnMouseClick(Main main)
+    {
+        base.OnMouseClick(main);
+        main.Pallet.ShiftSelectedNodeUp();
+    }
 }

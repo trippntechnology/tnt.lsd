@@ -1,22 +1,17 @@
-﻿namespace PaletteDesigner.Events
+﻿using PalletDesigner;
 
+namespace PaletteDesigner.Events;
+
+class ExportImage() : AppToolStripItemGroup("Export Image", "Export image associated with node")
 {
-  class ExportImage : NodeEvents
-  {
-    public override string Text => "Export Image";
-
-    public override string ToolTipText => "Export image associated with node";
-
-    public override void OnMouseClick(object sender, EventArgs e)
+    public override void OnMouseClick(Main main)
     {
-      base.OnMouseClick(sender, e);
-      using (var sfd = new SaveFileDialog())
-      {
-        if (sfd.ShowDialog() == DialogResult.OK)
+        using (var sfd = new SaveFileDialog())
         {
-          PalletNodeTreeView.ExportImage(sfd.FileName);
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                main.Pallet.ExportImage(sfd.FileName);
+            }
         }
-      }
     }
-  }
 }

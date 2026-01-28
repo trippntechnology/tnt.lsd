@@ -1,24 +1,17 @@
-﻿using TNT.LSD.Components;
+﻿using PalletDesigner;
 
 namespace PaletteDesigner.Events;
 
-class AddImage : NodeEvents
+class AddImage() : AppToolStripItemGroup("Add Image", "Add image to node")
 {
-  public OpenFileDialog OpenFileDialog { get { return (ExternalObject as Tuple<object, object>).Item2 as OpenFileDialog; } }
-
-  public override string Text => "Add Image";
-
-  public override string ToolTipText => "Add image to node";
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    using (OpenFileDialog ofd = new OpenFileDialog())
+    public void OnMouseClick(Main main)
     {
-      if (OpenFileDialog.ShowDialog() == DialogResult.OK)
-      {
-        PalletNodeTreeView.AddImage(OpenFileDialog.FileName);
-      }
+        using (OpenFileDialog ofd = new OpenFileDialog())
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                main.Pallet.AddImage(ofd.FileName);
+            }
+        }
     }
-  }
 }

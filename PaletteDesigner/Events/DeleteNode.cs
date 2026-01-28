@@ -1,16 +1,12 @@
-﻿namespace PaletteDesigner.Events;
+﻿using PalletDesigner;
 
-class DeleteNode : NodeEvents
+namespace PaletteDesigner.Events;
+
+class DeleteNode() : AppToolStripItemGroup("Delete Node", "Delete a node")
 {
-  public override string Text => "Delete Node";
-
-  public override string ToolTipText => "Delete a node";
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-
-    PalletNodeTreeView.DeleteSelectedNode();
-    PropertyGrid.SelectedObject = null;
-  }
+    public override void OnMouseClick(Main main)
+    {
+        main.Pallet.DeleteSelectedNode();
+        main.PropertyEditor.SelectedObject = null;
+    }
 }

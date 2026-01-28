@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="PaletteDesigner.Events.AddImage">
+    <Position X="18.25" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\AddImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.AddSiblingNode">
+    <Position X="23.25" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\AddSiblingNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.Copy">
+    <Position X="28.25" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\Copy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.DeleteNode">
+    <Position X="13.25" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\DeleteNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.DemoteNode">
+    <Position X="35.75" Y="9.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\DemoteNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.Exit">
+    <Position X="8.25" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\Exit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.ExportImage">
+    <Position X="25.75" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\ExportImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.Open">
+    <Position X="10.75" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\Open.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.Paste">
+    <Position X="30.75" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\Paste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.Save">
+    <Position X="15.75" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\Save.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.SaveAs">
+    <Position X="20.75" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\SaveAs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.ShiftNodeDown">
+    <Position X="33.25" Y="9.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\ShiftNodeDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.ShiftNodeUp">
+    <Position X="38.25" Y="9.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\ShiftNodeUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.AppToolStripItemGroup">
+    <Position X="24.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\AppToolStripItemGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.NodeToolStripItemGroup">
+    <Position X="37" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\NodeToolStripItemGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaletteDesigner.Events.AddChildNode">
+    <Position X="40.75" Y="9.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Events\AddChildNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

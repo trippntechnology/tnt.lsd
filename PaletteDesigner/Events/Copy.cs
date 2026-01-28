@@ -1,25 +1,11 @@
-﻿using TNT.LSD.Components;
-using TNT.ToolStripItemManager;
+﻿using PalletDesigner;
 
 namespace PaletteDesigner.Events;
 
-class Copy : ToolStripItemGroup
+class Copy() : AppToolStripItemGroup("Copy", "Copy Node")
 {
-  private PalletNodeTreeView PalletNodeTreeView => ExternalObject as PalletNodeTreeView;
-
-  public override string Text => "Copy";
-
-  public override string ToolTipText => "Copy Node";
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = PalletNodeTreeView.SelectedNode != null;
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    PalletNodeTreeView.Copy();
-  }
+    public override void OnMouseClick(Main main)
+    {
+        main.Pallet.Copy();
+    }
 }

@@ -1,21 +1,11 @@
-﻿using TNT.ToolStripItemManager;
+﻿using PalletDesigner;
 
 namespace PaletteDesigner.Events;
 
-class Exit : ToolStripItemGroup
+class Exit() : AppToolStripItemGroup("Exit", "Exit")
 {
-  public override string Text => "Exit";
-
-  public override string ToolTipText => "Exit";
-
-  public Exit()
-    : base()
-  {
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    Application.Exit();
-  }
+    public override void OnMouseClick(Main main)
+    {
+        Application.Exit();
+    }
 }

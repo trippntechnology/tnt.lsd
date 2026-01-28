@@ -1,31 +1,16 @@
 ﻿using PalletDesigner;
-using TNT.ToolStripItemManager;
 
 namespace PaletteDesigner.Events;
 
-class SaveAs : ToolStripItemGroup
+class SaveAs() : AppToolStripItemGroup("Save &As", "Save palette as")
 {
-  public override string Text => "Save &As";
-
-  public override string ToolTipText => "Save palette as";
-
-  public SaveAs()
-    : base()
-  {
-  }
-
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-
-    if (ExternalObject is Main main)
+    public override void OnMouseClick(Main main)
     {
-      SaveFileDialog SaveDialog = main.SaveDialog;
-      if (SaveDialog.ShowDialog() == DialogResult.OK)
-      {
-        main.Pallet.Save(SaveDialog.FileName);
-        main.CurrentFileName = SaveDialog.FileName;
-      }
+        SaveFileDialog SaveDialog = main.SaveDialog;
+        if (SaveDialog.ShowDialog() == DialogResult.OK)
+        {
+            main.Pallet.Save(SaveDialog.FileName);
+            main.CurrentFileName = SaveDialog.FileName;
+        }
     }
-  }
 }

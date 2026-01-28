@@ -1,19 +1,17 @@
-﻿namespace PaletteDesigner.Events;
+﻿using PalletDesigner;
 
-class DemoteNode : NodeEvents
+namespace PaletteDesigner.Events;
+
+class DemoteNode() : NodeToolStripItemGroup("Demote Node", "Demote the node")
 {
-  public override string Text => "Demote Node";
-
-  public override string ToolTipText => "Demote the node";
-
-  public override void OnApplicationIdle(object sender, EventArgs e)
-  {
-    base.OnApplicationIdle(sender, e);
-    Enabled = PalletNodeTreeView?.SelectedNode?.Parent != null;
-  }
-  public override void OnMouseClick(object sender, EventArgs e)
-  {
-    base.OnMouseClick(sender, e);
-    PalletNodeTreeView.DemoteSelectedNode();
-  }
+    public override void OnApplicationIdle(Main main)
+    {
+        base.OnApplicationIdle(main);
+        Enabled = main.Pallet.SelectedNode?.Parent != null;
+    }
+    public override void OnMouseClick(Main main)
+    {
+        base.OnMouseClick(main);
+        main.Pallet.DemoteSelectedNode();
+    }
 }
