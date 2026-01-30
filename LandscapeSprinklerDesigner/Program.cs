@@ -1,3 +1,5 @@
+using TNT.Commons;
+
 namespace LandscapeSprinklerDesigner;
 
 internal static class Program
@@ -15,7 +17,7 @@ internal static class Program
     // This is added to make sure the current path is the same as the application's 
     // executable path. The case where it might be different is when the application
     // is executed by double clicking on an lsd file.
-    Directory.SetCurrentDirectory(Path.GetDirectoryName(Application.ExecutablePath));
+        Path.GetDirectoryName(Application.ExecutablePath)?.Also(exePath => Directory.SetCurrentDirectory(exePath));
 
     Main frmMain = new Main();
 

@@ -1,36 +1,40 @@
-﻿using System.Diagnostics;
+﻿using TNT.Commons;
 using TNT.ToolStripItemManager;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace LandscapeSprinklerDesigner.MenuEvents;
 
-abstract class DockMenuEvent(string text, string? toolTipText = null) : ToolStripItemGroup(text, toolTipText, true)
+abstract class DockMenuEvent(string text, string? toolTipText = null) : ToolStripItemGroup(text, toolTipText, true), ILicensed
 {
-    public DockContent? DockContent { get; set; }
+    private DockContent? _dockContent;
+    public DockContent? DockContent
+    {
+        get { return _dockContent; }
+        set
+        {
+            _dockContent = value;
+            base.Checked = _dockContent?.IsHidden == false;
+        }
+    }
 
     virtual public void OnApplicationIdle()
     {
-        //base.Checked = DockContent?.IsHidden == false;
     }
 
-    virtual public void OnLicenseChanged(bool isLicensed)
+    public void OnLicensedChanged(bool isLicensed)
     {
-        Debug.WriteLine($"DockMenuEvent::OnLicensedChanged({isLicensed})");
-        if (!isLicensed)
+        Checked = !isLicensed ? false : Checked;
+
+        if (!Checked && DockContent != null)
         {
             try
             {
-                base.Checked = false;
-                if (DockContent != null)
-                {
-                    DockContent.BeginInvoke(delegate
-                    {
-                        DockContent.IsHidden = true;
-                        DockContent.Hide();
-                    });
-                }
+                DockContent.BeginInvoke(delegate { DockContent.Hide(); });
             }
-            catch { }
+            catch (Exception)
+            {
+                Logger.Info("Failed to hide parts list dock content.");
+            }
         }
     }
 

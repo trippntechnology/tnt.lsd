@@ -16,8 +16,6 @@ namespace LandscapeSprinklerDesigner;
 
 public partial class Main : Form
 {
-    #region Members
-
     private DrawEvent? _previousDrawEvent;
     private DrawEvent? _currentDrawEvent;
 
@@ -32,10 +30,6 @@ public partial class Main : Form
     private PDFForm? m_PDFForm = null;
     private List<DockContent>? dockables = null;
 
-    #endregion
-
-    #region Properties
-
     private string AssemblyTitle
     {
         get
@@ -46,8 +40,6 @@ public partial class Main : Form
     }
 
     protected TNTCAD CAD { get { return m_LayoutForm.CAD; } }
-
-    #endregion
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Splash? SplashForm { get; set; }
@@ -63,9 +55,6 @@ public partial class Main : Form
         dockables = new List<DockContent> { m_LayoutForm, m_LayoutSettingsForm, m_PartsListForm, m_PalletForm, m_PropertyForm };
 
         m_PalletForm.PalletNodeTagSelected = PalletNodeTagSelected;
-
-        SetupDrawingGroupManager();
-        SetupMenuGroupManager();
 
         m_LayoutForm.PropertyForm = m_PropertyForm;
         m_LayoutForm.LayoutSettingsForm = m_LayoutSettingsForm;
@@ -104,7 +93,6 @@ public partial class Main : Form
         var assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         manager.Register(Path.Combine(assemblyDirectory, "plugins"));
 
-
         // Clear and re-add ToolStrips to ensure correct order
         toolStripContainer1.TopToolStripPanel.Controls.Clear();
 
@@ -120,8 +108,6 @@ public partial class Main : Form
 
     private void SetupMenuGroupManager()
     {
-        Logger.Info("Setting up menu group manager.");
-
         _menuGroupManager = new ToolStripItemGroupManager()
         {
             OnClick = toolStripItemGroup =>
@@ -137,7 +123,6 @@ public partial class Main : Form
             },
             OnCheckChanged = (toolStripItemGroup, isChecked) =>
             {
-                Logger.Info($"Menu item group check changed: {toolStripItemGroup.GetType().Name}, Checked={isChecked}");
                 if (toolStripItemGroup is DockMenuEvent dockMenuEvent)
                 {
                     var isLicensed = IsLicensed(false);
@@ -175,12 +160,13 @@ public partial class Main : Form
         // ILicensed menu items
         _menuGroupManager.Create<CalculateAreaMenuEvent>([AreaMenu, AreaButton, m_LayoutForm.area]);
         _menuGroupManager.Create<CalculateDistanceMenuEvent>([LengthMenuItem, LengthButton, m_LayoutForm.calculateDistance]);
+
         _menuGroupManager.Create<LayoutSettingsEvent>([LayoutSettingsButton, LayoutSettingsMenu]).DockContent = m_LayoutSettingsForm;
         _menuGroupManager.Create<PartsListMenuEvent>([PartsListButton, PartsListMenu]).DockContent = m_PartsListForm;
         _menuGroupManager.Create<PartsPaletteEvent>([PaletteTreeButton, PaletteTreeMenu]).DockContent = m_PalletForm;
         _menuGroupManager.Create<PropertiesMenuEvent>([PropertiesButton, PropertiesMenu]).DockContent = m_PropertyForm;
-        _menuGroupManager.Create<ShowPartsMenuEvent>([PartsToolTipButton, PartsToolTipMenu]);
 
+        _menuGroupManager.Create<ShowPartsMenuEvent>([PartsToolTipButton, PartsToolTipMenu]);
 
         _menuGroupManager.Create<AlignToGridMenuEvent>([AlignToGridMenu, AlignToGridButton, m_LayoutForm.space]);
         _menuGroupManager.Create<AutoSizeMenuEvent>([AutoSizeMenu, AutoSizeButton]).RestoreState(Global.userRegistry!, CAD);
@@ -280,15 +266,11 @@ public partial class Main : Form
 
     private void Main_Load(object sender, EventArgs e)
     {
-        #region Restore state from Registry
-
         Global.userRegistry?.Also(userRegistry =>
         {
             userRegistry?.ReadToolStripItems("MRU", OpenButton.DropDownItems);
             tbScale.Value = userRegistry?.ReadInteger("Scale", tbScale.Value) ?? 100;
         });
-
-        #endregion
 
         string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty, "DockPanel.config");
 
@@ -300,6 +282,9 @@ public partial class Main : Form
         m_LayoutForm.Show(DockPanel);
 
         statusStrip1.Items.Add(new ToolStripControlHost(tbScale));
+
+        SetupDrawingGroupManager();
+        SetupMenuGroupManager();
 
         TntService.GetLicenseeInfoFlow().collect(licenseeInfo =>
         {

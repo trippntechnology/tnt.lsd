@@ -38,8 +38,12 @@ internal static class FileUtil
   {
     if (!File.Exists(LICENSE_FILE) || Cipher == null) return null;
 
-    var licenseJson = File.ReadAllText(LICENSE_FILE);
-    return Cipher.Decrypt<LicenseeInfoDto>(licenseJson);
+    using (var stream = new FileStream(LICENSE_FILE, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    using (var reader = new StreamReader(stream))
+    {
+        var licenseJson = reader.ReadToEnd();
+        return Cipher.Decrypt<LicenseeInfoDto>(licenseJson);
+    }
   }
 
   public static void SaveLicenseInfo(LicenseeInfoDto licenseInfo)
