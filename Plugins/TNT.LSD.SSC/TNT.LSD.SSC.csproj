@@ -21,21 +21,25 @@
 	</Target>
 
 	<ItemGroup>
-	  <None Remove="Images\email_attach.png" />
-	  <None Remove="Images\package.png" />
-	  <None Remove="Images\pdf-ssc-icon.png" />
+		<None Remove="Images\email_attach.png" />
+		<None Remove="Images\package.png" />
+		<None Remove="Images\pdf-ssc-icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Images\email_attach.png" />
-	  <EmbeddedResource Include="Images\package.png" />
-	  <EmbeddedResource Include="Images\pdf-ssc-icon.png" />
+		<EmbeddedResource Include="Images\email_attach.png" />
+		<EmbeddedResource Include="Images\package.png" />
+		<EmbeddedResource Include="Images\pdf-ssc-icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3719.77" />
 	</ItemGroup>
-	
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.PDFGenerator\TNT.LSD.PDFGenerator.csproj" />
+	</ItemGroup>
+
 </Project>

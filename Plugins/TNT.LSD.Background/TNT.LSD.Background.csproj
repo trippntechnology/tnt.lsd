@@ -18,21 +18,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Images\import_background_image.png" />
-	  <None Remove="Images\show_landscape.png" />
+		<None Remove="Images\import_background_image.png" />
+		<None Remove="Images\show_landscape.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Images\import_background_image.png" />
-	  <EmbeddedResource Include="Images\show_landscape.png" />
+		<EmbeddedResource Include="Images\import_background_image.png" />
+		<EmbeddedResource Include="Images\show_landscape.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="TNT.Plugin.Manager" Version="2.0.2" />
+		<PackageReference Include="TNT.Plugin.Manager" Version="2.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
