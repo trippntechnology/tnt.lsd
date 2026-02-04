@@ -4164,8 +4164,8 @@
                 "DefaultObjectType": "",
                 "DefaultObject": {
                   "$type": "TNT.LSD.Objects.TNTSource, TNT.LSD.Objects",
-                  "SourceSize": "3/4\"",
-                  "SourceType": "Copper",
+                  "SourceSize": "1\"",
+                  "SourceType": "PVC",
                   "SWKey": "",
                   "SWKeyCode": "",
                   "SWKeyCodes": {
@@ -4209,8 +4209,8 @@
                 "DefaultObjectType": "",
                 "DefaultObject": {
                   "$type": "TNT.LSD.Objects.TNTSource, TNT.LSD.Objects",
-                  "SourceSize": "3/4\"",
-                  "SourceType": "Copper",
+                  "SourceSize": "1\"",
+                  "SourceType": "PVC",
                   "SWKey": "",
                   "SWKeyCode": "",
                   "SWKeyCodes": {
