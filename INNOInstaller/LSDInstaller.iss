@@ -67,3 +67,19 @@ Root: HKCR; SubKey: .lsd; ValueType: string; ValueData: LandscapeSprinklerDesign
 Root: HKCR; SubKey: .lsdx; ValueType: string; ValueData: LandscapeSprinklerDesigner; Flags: uninsdeletekey
 Root: HKCR; SubKey: LandscapeSprinklerDesigner; ValueType: string; ValueData: Landscape Sprinkler Designer File; Flags: uninsdeletekey
 Root: HKCR; SubKey: LandscapeSprinklerDesigner\Shell\Open\Command; ValueType: string; ValueData: """{app}\LandscapeSprinklerDesigner.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 0; ValueType: dword; ValueData: 4280483584
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 1; ValueType: dword; ValueData: 4288486322
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 2; ValueType: dword; ValueData: 4294928384
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 3; ValueType: dword; ValueData: 4290838560
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 4; ValueType: dword; ValueData: 4286672998
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 5; ValueType: dword; ValueData: 4294342286
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 6; ValueType: dword; ValueData: 4294933084
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 7; ValueType: dword; ValueData: 4294938112
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 8; ValueType: dword; ValueData: 4294947584
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 9; ValueType: dword; ValueData: 4286594677
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 10; ValueType: dword; ValueData: 4289117655
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 11; ValueType: dword; ValueData: 4291732066
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 12; ValueType: dword; ValueData: 4278222132
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 13; ValueType: dword; ValueData: 4278211466
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 14; ValueType: dword; ValueData: 4283643770
+Root: HKCU; Subkey: Software\Tripp'n Technology\ValveColorizerPlugin\Colors; ValueName: 15; ValueType: dword; ValueData: 4289931345
