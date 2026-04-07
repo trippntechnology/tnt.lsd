@@ -1,64 +1,63 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyTitle>Palette Designer</AssemblyTitle>
+		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Images\disk.png" />
-    <None Remove="Images\folder.png" />
-    <None Remove="Images\page_copy.png" />
-    <None Remove="Images\page_paste.png" />
-    <None Remove="Resources\child_node_add.png" />
-    <None Remove="Resources\delete.png" />
-    <None Remove="Resources\node_demote.png" />
-    <None Remove="Resources\node_move_down.png" />
-    <None Remove="Resources\node_move_up.png" />
-    <None Remove="Resources\picture_add.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Images\disk.png" />
+		<None Remove="Images\folder.png" />
+		<None Remove="Images\page_copy.png" />
+		<None Remove="Images\page_paste.png" />
+		<None Remove="Resources\child_node_add.png" />
+		<None Remove="Resources\delete.png" />
+		<None Remove="Resources\node_demote.png" />
+		<None Remove="Resources\node_move_down.png" />
+		<None Remove="Resources\node_move_up.png" />
+		<None Remove="Resources\picture_add.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Images\disk.png" />
-    <EmbeddedResource Include="Images\folder.png" />
-    <EmbeddedResource Include="Images\page_copy.png" />
-    <EmbeddedResource Include="Images\page_paste.png" />
-    <EmbeddedResource Include="Resources\child_node_add.png" />
-    <EmbeddedResource Include="Resources\delete.png" />
-    <EmbeddedResource Include="Resources\node_demote.png" />
-    <EmbeddedResource Include="Resources\node_move_down.png" />
-    <EmbeddedResource Include="Resources\node_move_up.png" />
-    <EmbeddedResource Include="Resources\picture_add.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Images\disk.png" />
+		<EmbeddedResource Include="Images\folder.png" />
+		<EmbeddedResource Include="Images\page_copy.png" />
+		<EmbeddedResource Include="Images\page_paste.png" />
+		<EmbeddedResource Include="Resources\child_node_add.png" />
+		<EmbeddedResource Include="Resources\delete.png" />
+		<EmbeddedResource Include="Resources\node_demote.png" />
+		<EmbeddedResource Include="Resources\node_move_down.png" />
+		<EmbeddedResource Include="Resources\node_move_up.png" />
+		<EmbeddedResource Include="Resources\picture_add.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="TNT.Commons" Version="2.0.2" />
-    <PackageReference Include="TNT.Reflection" Version="2.0.0" />
-    <PackageReference Include="TNT.ToolStripItemManager" Version="4.0.5" />
-    <PackageReference Include="TNT.Utilities" Version="3.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="TNT.Commons" Version="2.0.2" />
+		<PackageReference Include="TNT.Reflection" Version="2.0.0" />
+		<PackageReference Include="TNT.ToolStripItemManager" Version="4.0.5" />
+		<PackageReference Include="TNT.Utilities" Version="3.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>

@@ -1,32 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- File Description -->
 		<AssemblyTitle>Landscape Sprinkler Designer Checker Plugin</AssemblyTitle>
-		<Authors>Tripp'n Technology, LLC.</Authors>
-		<Company>$(Authors)</Company>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-		<Copyright>Copyright 2024 $(Authors)</Copyright>
-		<FileVersion>$(PackageVersion)</FileVersion>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<!-- Product Name -->
-		<Product>$(AssemblyTitle)</Product>
 		<TargetFramework>net9.0-windows</TargetFramework>
 		<Version>0.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Images\eye.png" />
+		<None Remove="Images\eye.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Images\eye.png" />
+		<EmbeddedResource Include="Images\eye.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
 	</ItemGroup>
 
 </Project>

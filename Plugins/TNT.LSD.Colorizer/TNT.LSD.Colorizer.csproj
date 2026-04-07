@@ -1,20 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- File Description -->
 		<AssemblyTitle>Landscape Sprinkler Designer Colorizer Plugin</AssemblyTitle>
-		<Authors>Tripp'n Technology, LLC.</Authors>
-		<Company>$(Authors)</Company>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-		<Copyright>Copyright 2024 $(Authors)</Copyright>
-		<FileVersion>$(PackageVersion)</FileVersion>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<!-- Product Name -->
-		<Product>$(AssemblyTitle)</Product>
 		<TargetFramework>net9.0-windows</TargetFramework>
-		<Version>2.0.0</Version>
 	</PropertyGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -22,16 +11,16 @@
 	</Target>
 
 	<ItemGroup>
-	  <None Remove="Images\paintbrush.png" />
+		<None Remove="Images\paintbrush.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Images\paintbrush.png" />
+		<EmbeddedResource Include="Images\paintbrush.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
-	  <ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Components\TNT.LSD.Components.csproj" />
+		<ProjectReference Include="..\..\Libraries\TNT.LSD.Objects\TNT.LSD.Objects.csproj" />
 	</ItemGroup>
 
 </Project>

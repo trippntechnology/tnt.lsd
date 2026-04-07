@@ -1,21 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- File Description -->
 		<AssemblyTitle>Landscape Sprinkler Designer Objects</AssemblyTitle>
-		<Authors>Tripp'n Technology, LLC.</Authors>
-		<Company>$(Authors)</Company>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-		<Copyright>Copyright 2024 $(Authors)</Copyright>
-		<FileVersion>$(PackageVersion)</FileVersion>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<!-- Product Name -->
-		<Product>$(AssemblyTitle)</Product>
 		<TargetFramework>net9.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
-		<Version>2.0.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug (PALETTE_PROPERTIES)|AnyCPU'">
@@ -23,26 +12,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Cursors\AddCurve.cur" />
-	  <EmbeddedResource Include="Cursors\AddPoint.cur" />
-	  <EmbeddedResource Include="Cursors\Circle.cur" />
-	  <EmbeddedResource Include="Cursors\Cursors.icl" />
-	  <EmbeddedResource Include="Cursors\Curve.cur" />
-	  <EmbeddedResource Include="Cursors\LatPipe.cur" />
-	  <EmbeddedResource Include="Cursors\Line.cur" />
-	  <EmbeddedResource Include="Cursors\MainPipe.cur" />
-	  <EmbeddedResource Include="Cursors\MovePoint.cur" />
-	  <EmbeddedResource Include="Cursors\No_LatPipe.cur" />
-	  <EmbeddedResource Include="Cursors\No_MainPipe.cur" />
-	  <EmbeddedResource Include="Cursors\PolyLine.cur" />
-	  <EmbeddedResource Include="Cursors\Rectangle.cur" />
-	  <EmbeddedResource Include="Cursors\RemovePoint.cur" />
-	  <EmbeddedResource Include="Cursors\Rotate.cur" />
-	  <EmbeddedResource Include="Cursors\Select.cur" />
-	  <EmbeddedResource Include="Cursors\Text.cur" />
-	  <EmbeddedResource Include="Images\BezierControlPoint.png" />
-	  <EmbeddedResource Include="Images\CornerControlPoint.png" />
-	  <EmbeddedResource Include="Images\SideControlPoint.png" />
+		<EmbeddedResource Include="Cursors\AddCurve.cur" />
+		<EmbeddedResource Include="Cursors\AddPoint.cur" />
+		<EmbeddedResource Include="Cursors\Circle.cur" />
+		<EmbeddedResource Include="Cursors\Cursors.icl" />
+		<EmbeddedResource Include="Cursors\Curve.cur" />
+		<EmbeddedResource Include="Cursors\LatPipe.cur" />
+		<EmbeddedResource Include="Cursors\Line.cur" />
+		<EmbeddedResource Include="Cursors\MainPipe.cur" />
+		<EmbeddedResource Include="Cursors\MovePoint.cur" />
+		<EmbeddedResource Include="Cursors\No_LatPipe.cur" />
+		<EmbeddedResource Include="Cursors\No_MainPipe.cur" />
+		<EmbeddedResource Include="Cursors\PolyLine.cur" />
+		<EmbeddedResource Include="Cursors\Rectangle.cur" />
+		<EmbeddedResource Include="Cursors\RemovePoint.cur" />
+		<EmbeddedResource Include="Cursors\Rotate.cur" />
+		<EmbeddedResource Include="Cursors\Select.cur" />
+		<EmbeddedResource Include="Cursors\Text.cur" />
+		<EmbeddedResource Include="Images\BezierControlPoint.png" />
+		<EmbeddedResource Include="Images\CornerControlPoint.png" />
+		<EmbeddedResource Include="Images\SideControlPoint.png" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -25,6 +25,9 @@
     <Project Path="Plugins/TNT.LSD.PartsEditor/TNT.LSD.PartsEditor.csproj" />
     <Project Path="Plugins/TNT.LSD.SSC/TNT.LSD.SSC.csproj" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+  </Folder>
   <Project Path="LandscapeSprinklerDesigner/LandscapeSprinklerDesigner.csproj">
     <BuildType Solution="Debug (PALETTE_PROPERTIES)|*" Project="Debug" />
   </Project>
