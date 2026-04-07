@@ -4,7 +4,7 @@
 		<AssemblyTitle>Palette Designer</AssemblyTitle>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net9.0-windows</TargetFramework>
+       <TargetFramework>net10.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 

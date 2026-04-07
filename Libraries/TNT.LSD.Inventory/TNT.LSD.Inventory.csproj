@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<AssemblyTitle>Landscape Sprinkler Designer Inventory</AssemblyTitle>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
+        <TargetFramework>net10.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>

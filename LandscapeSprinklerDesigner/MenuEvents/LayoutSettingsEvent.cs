@@ -7,7 +7,10 @@ class LayoutSettingsEvent() : DockMenuEvent(Resource.menu_layout_settings, Resou
         Checked = !isLicensed ? false : Checked;
         if (!Checked && DockContent != null)
         {
-            DockContent.BeginInvoke(delegate { DockContent.Hide(); });
+            if (DockContent.IsHandleCreated)
+                DockContent.BeginInvoke(delegate { DockContent.Hide(); });
+            else
+                DockContent.Hide();
         }
     }
 }

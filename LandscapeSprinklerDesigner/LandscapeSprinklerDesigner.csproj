@@ -5,7 +5,7 @@
 		<AssemblyTitle>Landscape Sprinkler Designer</AssemblyTitle>
 		<Description>$(AssemblyTitle)</Description>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net9.0-windows</TargetFramework>
+       <TargetFramework>net10.0-windows</TargetFramework>
 		<Title>$(AssemblyTitle)</Title>
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>

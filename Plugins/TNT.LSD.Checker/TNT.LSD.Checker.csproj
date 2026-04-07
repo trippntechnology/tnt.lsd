@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyTitle>Landscape Sprinkler Designer Checker Plugin</AssemblyTitle>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-		<TargetFramework>net9.0-windows</TargetFramework>
+       <TargetFramework>net10.0-windows</TargetFramework>
 		<Version>0.0.1</Version>
 	</PropertyGroup>
 

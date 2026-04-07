@@ -3,11 +3,11 @@
 	<PropertyGroup>
 		<AssemblyTitle>Landscape Sprinkler Designer Exporter Plugin</AssemblyTitle>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-		<TargetFramework>net9.0-windows</TargetFramework>
+       <TargetFramework>net10.0-windows</TargetFramework>
 	</PropertyGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="call $(SolutionDir)Plugins\CopyPlugin.bat TNT.LSD.Export.dll $(TargetDir) $(SolutionDir)LandscapeSprinklerDesigner\bin\$(ConfigurationName)\net9.0-windows\plugins" />
+ <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="call $(SolutionDir)Plugins\CopyPlugin.bat TNT.LSD.Export.dll $(TargetDir) $(SolutionDir)LandscapeSprinklerDesigner\bin\$(ConfigurationName)\net10.0-windows\plugins" />
 	</Target>
 
 	<ItemGroup>
