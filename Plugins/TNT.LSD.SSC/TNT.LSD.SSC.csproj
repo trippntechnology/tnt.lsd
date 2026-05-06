@@ -2,10 +2,10 @@
 	<PropertyGroup>
 		<AssemblyTitle>Landscape Sprinkler Designer SSC Plugin</AssemblyTitle>
 		<Configurations>Debug;Release;Debug (PALETTE_PROPERTIES)</Configurations>
-       <TargetFramework>net10.0-windows</TargetFramework>
+		<TargetFramework>net10.0-windows</TargetFramework>
 	</PropertyGroup>
 
- <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="call $(SolutionDir)Plugins\CopyPlugin.bat TNT.LSD.SSC.dll $(TargetDir) $(SolutionDir)LandscapeSprinklerDesigner\bin\$(ConfigurationName)\net10.0-windows\plugins" />
 	</Target>
 

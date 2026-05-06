@@ -2,18 +2,16 @@
 
 namespace TNT.LSD.Settings;
 
-public class RegistrationKey
+public class RegistrationKey(Guid applicationID, Guid licenseID, string secret, string serviceEndpoint)
 {
-  [DisplayName("Application ID")]
-  public Guid ApplicationID { get; set; } = Guid.Empty;
+    [DisplayName("Application ID")]
+    public Guid ApplicationID { get; set; } = applicationID;
 
-  [DisplayName("License ID")]
-  public Guid LicenseID { get; set; } = Guid.Empty;
+    [DisplayName("License ID")]
+    public Guid LicenseID { get; set; } = licenseID;
 
-  public string Secret { get; set; } = string.Empty;
+    public string Secret { get; set; } = secret;
 
-  [DisplayName("Service Endpoint")]
-  public string ServiceEndpoint { get; set; } = string.Empty;
-
-  public RegistrationKey() { }
+    [DisplayName("Service Endpoint")]
+    public string ServiceEndpoint { get; set; } = serviceEndpoint;
 }
