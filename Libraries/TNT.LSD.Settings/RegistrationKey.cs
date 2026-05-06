@@ -14,4 +14,8 @@ public class RegistrationKey(Guid applicationID, Guid licenseID, string secret, 
 
     [DisplayName("Service Endpoint")]
     public string ServiceEndpoint { get; set; } = serviceEndpoint;
+
+    public RegistrationKey() : this(Guid.Empty, Guid.Empty, string.Empty, string.Empty)
+    {
+    }
 }
