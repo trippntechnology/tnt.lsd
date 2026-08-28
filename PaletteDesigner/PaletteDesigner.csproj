@@ -22,6 +22,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<EmbeddedResource Include="Images\disk.png" />
 		<EmbeddedResource Include="Images\folder.png" />
 		<EmbeddedResource Include="Images\page_copy.png" />
@@ -35,6 +41,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.11" />
 		<PackageReference Include="TNT.Commons" Version="2.0.2" />
 		<PackageReference Include="TNT.Reflection" Version="2.0.0" />
 		<PackageReference Include="TNT.ToolStripItemManager" Version="4.0.5" />
